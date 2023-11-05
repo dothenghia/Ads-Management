@@ -1,0 +1,16 @@
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --primay-color : #0D6EFD;
+    --border-color : #DEE2E6;
+    
+    --title-color : #212529;
+    --subtitle-color : #878787;
+    --text-color : #444444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
