@@ -1,0 +1,14 @@
+.marker-qh {
+    background-color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: solid 4px var(--primary-color-subtle);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white-color);
+    font-size: 1.0rem;
+}
