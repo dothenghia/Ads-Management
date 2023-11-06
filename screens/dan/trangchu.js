@@ -8,6 +8,7 @@ const $i = document.getElementById.bind(document);
 import Button from '/components/chung/Button.js'; // PHẢI DÙNG ĐƯỜNG DẪN TỪ ROOT
 import List from '/components/chung/List.js'; // VÀ PHẢI IMPORT DẠNG MODULE
 import Header from '/components/chung/Header.js';
+import SideBar from '/components/chung/SideBar.js';
 
 // Import Functions
 import getReportList from '/functions/dan/getReportList.js';
@@ -41,6 +42,10 @@ const trangchu = {
         $i('root').innerHTML = `
             ${Header()}
 
+            <div class='py-2 container '>
+                ${SideBar('Quản lý', 'Xem báo cáo', 'HaiMen', 'Quản lý Cán bộ')}
+            </div>
+
             <div class='container'>
                 <h1>Trang chủ</h1>
 
@@ -54,6 +59,8 @@ const trangchu = {
                 </div>
 
             </div>
+
+            
         `
     },
 
