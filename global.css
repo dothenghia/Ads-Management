@@ -14,3 +14,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}

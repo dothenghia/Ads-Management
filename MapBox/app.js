@@ -24,20 +24,20 @@ var map = new mapboxgl.Map({
 });
 
 
-// Create div with class
-const el = document.createElement('div');
-    el.className = 'marker';
+// // Create div with class
+// const el = document.createElement('div');
+//     el.className = 'marker';
 
 
-// Adding Markers    
-var marker = new mapboxgl.Marker(el)
-    .setLngLat([mylongitude, mylatitude]) // Set the marker's coordinates
-    .addTo(map);
+// // Adding Markers    
+// var marker = new mapboxgl.Marker(el)
+//     .setLngLat([mylongitude, mylatitude]) // Set the marker's coordinates
+//     .addTo(map);
 
-// Popups
-var popup = new mapboxgl.Popup()
-    .setHTML('Your popup content goes here')
-    .addTo(map);
+// // Popups
+// var popup = new mapboxgl.Popup()
+//     .setHTML('Your popup content goes here')
+//     .addTo(map);
 
-marker.setPopup(popup);
+// marker.setPopup(popup);
 

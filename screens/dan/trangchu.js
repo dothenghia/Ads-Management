@@ -41,20 +41,9 @@ const trangchu = {
         $i('root').innerHTML = `
             ${Header()}
 
-            <div class='container'>
-                <h1>Trang chủ</h1>
-
-                <div class='py-2'>
-                    ${Button('Button 1')}
-                    ${Button('Button 2')}
-                </div>
-
-                <div class='py-2'>
-                    ${List(this.reportList)}
-                </div>
-
-            </div>
+            <div id="map"></div>
         `
+        
     },
 
 
