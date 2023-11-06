@@ -39,9 +39,11 @@ const trangchu = {
 
     render : function() {
         $i('root').innerHTML = `
+            
+            <section>
+                <div id="map"></div>
+            </section>
             ${Header()}
-
-            <div id="map"></div>
         `
         
     },

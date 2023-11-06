@@ -1,7 +1,7 @@
 
 export default function Header() {
     return `
-    <header class="container-fluid bg-dark">
+    <header class="container-fluid bg-dark z-2 position-absolute">
         <nav class="navbar navbar-expand-sm navbar-dark container">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center " href="#">

@@ -2,16 +2,8 @@ var mylongitude = 106.654497;
 var mylatitude = 10.774306;
 
 mapboxgl.accessToken =
-    'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ';
-// Set of citycoordinate
-const cityCoordinates = [
-    [100.507, 13.745],
-    [98.993, 18.793],
-    [99.838, 19.924],
-    [102.812, 17.408],
-    [100.458, 7.001],
-    [100.905, 12.935]
-    ];
+    'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
+
 //Map
 var map = new mapboxgl.Map({
     container: 'map', // container ID
