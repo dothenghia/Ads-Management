@@ -1,0 +1,27 @@
+#top-bar, #side-bar {
+    background-color: white;
+}
+
+main > div {
+    height: calc(100vh - 5.6rem);
+}
+
+#side-bar {
+    height: 100%;
+}
+
+#side-bar ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+#side-bar button {
+    background-color: white;
+    box-shadow: none;
+    border: 0;
+}
+
+#side-bar li {
+    margin: 1em 0;
+    text-align: center;
+}
