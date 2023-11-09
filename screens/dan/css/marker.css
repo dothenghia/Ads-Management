@@ -1,8 +1,8 @@
 
 .marker-qh {
     background-color: var(--primary-color);
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
     outline: solid 4px var(--primary-color-subtle);
@@ -16,8 +16,8 @@
 
 .marker-cqh {
     background-color: var(--chuaqh-color);
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
     outline: solid 4px var(--chuaqh-color-subtle);
