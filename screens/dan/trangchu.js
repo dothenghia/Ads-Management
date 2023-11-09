@@ -9,7 +9,7 @@ import Header from '/components/dan/Header.js';
 import DetailAdModal from '/components/dan/DetailAdModal.js';
 import SendReportModal from '/components/dan/SendReportModal.js';
 import DetailReportModal from '/components/dan/DetailReportModal.js';
-import MarkerQH from '/components/dan/MarkerQH.js';
+import MarkerQC from '/components/dan/MarkerQC.js';
 
 
 // MapBox Initialization
@@ -62,7 +62,8 @@ const trangchu = {
 
         `
 
-        MarkerQH(this.map, mylongitude, mylatitude);
+        MarkerQC(false, this.map, mylongitude, mylatitude);
+        // MarkerQH(true, this.map, mylongitude, mylatitude);
     },
 
 

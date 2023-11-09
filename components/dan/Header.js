@@ -1,12 +1,12 @@
 
 export default function Header() {
     return `
-    <header class="container-fluid bg-dark z-2 position-absolute">
+    <header class="container-fluid bg-light z-2 position-absolute header">
         <nav class="navbar navbar-expand-sm navbar-dark container">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center " href="#">
+                <h1 class="header-name">
                     AdsMap
-                </a>
+                </h1>
                 
                 <div>
                     <button class='btn btn-primary btn-modal-detail-ad'>Modal Chi tiết QC</button>
