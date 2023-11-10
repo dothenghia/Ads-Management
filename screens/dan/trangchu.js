@@ -10,6 +10,7 @@ import DetailAdModal from '/components/dan/DetailAdModal.js';
 import SendReportModal from '/components/dan/SendReportModal.js';
 import DetailReportModal from '/components/dan/DetailReportModal.js';
 import MarkerQH from '/components/dan/MarkerQH.js';
+import getDetailList from '../../functions/dan/getDetailInfo.js';
 
 
 // MapBox Initialization
@@ -33,12 +34,21 @@ const trangchu = {
 
     },
 
-    AdHandler: function () {
+    AdHandler: function () { //Thêm vị trí để xác định get data
         // Mở Modal Chi tiết QC
         $('.btn-modal-detail-ad').addEventListener('click', function () {
             console.log('click');
             
+            // Get info của địa điểm trong data
+            getDetailList(1).then((res) =>{
+                //console.log(res)
+                
+                // Truyền data đó lên modal
+                DetailAdModal(res[0]);
+            });
+            
         });
+        
     },
 
     ReportHander: function () {
@@ -59,7 +69,6 @@ const trangchu = {
             ${DetailAdModal()}
             ${SendReportModal()}
             ${DetailReportModal()}
-
         `
 
         MarkerQH(this.map, mylongitude, mylatitude);
@@ -74,5 +83,7 @@ const trangchu = {
         this.ReportHander();
     }
 }
+
+
 
 trangchu.start();
