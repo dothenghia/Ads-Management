@@ -1,5 +1,7 @@
 // Này thì là cú pháp rút gọn cho mấy cái query element
-const $ = document.querySelector.bind(document);
+if (typeof $ === 'undefined') {
+    const $ = document.querySelector.bind(document);
+}
 const $$ = document.querySelectorAll.bind(document);
 const $c = document.getElementsByClassName.bind(document);
 const $i = document.getElementById.bind(document);
@@ -9,9 +11,11 @@ import Header from '/components/dan/Header.js';
 import DetailAdModal from '/components/dan/DetailAdModal.js';
 import SendReportModal from '/components/dan/SendReportModal.js';
 import DetailReportModal from '/components/dan/DetailReportModal.js';
-import MarkerQH from '/components/dan/MarkerQH.js';
 import getDetailList from '../../functions/dan/getDetailInfo.js';
+import AdMarker from '/components/dan/AdMarker.js';
 
+// Import Functions
+import getAdLocationList from '/functions/dan/getAdLocationList.js';
 
 // MapBox Initialization
 var mylongitude = 106.682667;
@@ -26,15 +30,29 @@ const trangchu = {
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
-            zoom: 16,
+            zoom: 15,
+        });
+
+        this.adLocationList = [];
+    },
+
+    
+    // Fetch dữ liệu các điểm QC và Show lên Map
+    fetchAdMarkers: async function () {
+        const data = await getAdLocationList();
+        this.adLocationList = data;
+
+        this.renderAdMarkers();
+    },
+    renderAdMarkers: function () {
+        this.adLocationList.forEach(ad => {
+            AdMarker(ad.type, this.map, ad.lng, ad.lat);
         });
     },
 
-    fetchData: async function () {
 
-    },
-
-    AdHandler: function () { //Thêm vị trí để xác định get data
+    // Dành cho th Bảo test show Modal
+    TestModalHander: function () {
         // Mở Modal Chi tiết QC
         $('.btn-modal-detail-ad').addEventListener('click', function () {
             console.log('click');
@@ -48,10 +66,7 @@ const trangchu = {
             });
             
         });
-        
-    },
 
-    ReportHander: function () {
         // Mở Modal Phản hồi Báo cáo
         $('.btn-modal-send-rp').addEventListener('click', function () {
             console.log('click 1');
@@ -63,24 +78,23 @@ const trangchu = {
         });
     },
 
-    render: function () {
+
+    // Render những thành phần cố định của Trang chủ như Header, Nút DS Báo cáo,...
+    renderHomePage: function () {
         $i('main').innerHTML = `
             ${Header()}
             ${DetailAdModal()}
             ${SendReportModal()}
             ${DetailReportModal()}
         `
-
-        MarkerQH(this.map, mylongitude, mylatitude);
     },
 
 
     start: function () {
         this.init();
-        this.fetchData();
-        this.render();
-        this.AdHandler();
-        this.ReportHander();
+        this.fetchAdMarkers();
+        this.renderHomePage();
+        this.TestModalHander();
     }
 }
 
