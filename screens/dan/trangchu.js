@@ -68,7 +68,6 @@ const trangchu = {
     TestModalHander: async function () {
         // Mở Modal Chi tiết QC
         $('.btn-modal-detail-ad').addEventListener('click', function () {
-            console.log('click');
             
             // Get info của địa điểm trong data
             DetailAdModal(2);
@@ -90,9 +89,10 @@ const trangchu = {
     renderHomePage: function () {
         $i('main').innerHTML = `
             ${Header()}
-            ${DetailAdModal()}
-            ${SendReportModal()}
-            ${DetailReportModal()}
+
+            <div class="modal-container">
+            </div>
+
         `
     },
 
