@@ -27,10 +27,10 @@ const trangchu = {
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
                 <div class="row flex-grow-1">
-                    <div class="col-lg-1 col-sm-0 p-0 shadow-sm">
+                    <div class="col-md-1 col-0 p-0">
                         ${SideBar()}
                     </div>
-                    <div class="col-lg-11 col-sm-12 bg-light">
+                    <div class="col-md-11 col-12 bg-light">
                         
                     </div>
                 </div>

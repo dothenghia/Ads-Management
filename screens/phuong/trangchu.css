@@ -1,12 +1,35 @@
+.active {
+    background-image: linear-gradient(to right, rgba(168, 199, 246, 0.27), #FFFFFF);
+    border: solid #2074F4;
+    border-width: 1px;
+}
+
+header #profile {
+    font-size: 8px;
+}
+
 #top-bar, #side-bar {
     background-color: white;
 }
 
 main > div {
-    height: calc(100vh - 5.6rem);
+    height: 100vh;
+}
+
+#top-bar {
+    padding: 2vh;
+    position: absolute;
+}
+
+#collapsibleNavId button {
+    margin: 1vh 0;
+    background-color: white;
+    box-shadow: none;
+    border: 0;
 }
 
 #side-bar {
+    padding-top: 20vh;
     height: 100%;
 }
 
@@ -24,4 +47,37 @@ main > div {
 #side-bar li {
     margin: 1em 0;
     text-align: center;
+}
+
+@media screen and (max-width: 1250px) {
+    #side-bar {
+        font-size: 13px;
+    }
+    #top-bar {
+        padding: 1vh;
+    }
+}
+@media screen and (max-width: 1000px) {
+    #side-bar {
+        font-size: 7px;
+    }
+    #side-bar img {
+        width: 100%;
+        height: 100%;
+    }
+    #top-bar {
+        padding: 0.5vh;
+    }
+}
+@media screen and (max-width: 900px) {
+    #side-bar {
+        font-size: 8px;
+    }
+    #side-bar img {
+        width: 85%;
+        height: 85%;
+    }
+    #top-bar {
+        padding: 0.5vh;
+    }
 }
