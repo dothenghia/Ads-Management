@@ -65,11 +65,13 @@ const trangchu = {
 
 
     // Dành cho th Bảo test show Modal
-    TestModalHander: function () {
+    TestModalHander: async function () {
         // Mở Modal Chi tiết QC
         $('.btn-modal-detail-ad').addEventListener('click', function () {
             console.log('click');
             
+            // Get info của địa điểm trong data
+            DetailAdModal(2);
         });
 
         // Mở Modal Phản hồi Báo cáo
@@ -103,5 +105,6 @@ const trangchu = {
         this.TestModalHander();
     }
 }
+
 
 trangchu.start();
