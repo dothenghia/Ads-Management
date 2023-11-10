@@ -1,6 +1,42 @@
+import getDetailList from '../../functions/dan/getDetailInfo.js';
 
-export default async function DetailAdModal(AdInfo) {
+var dataDetail = await getDetailList();
+console.log(dataDetail)
+
+function parseDate(data){
+    var arr = data.split('-');
+    return arr;
+}
+
+function getDetailLocation(data, ID){
+    var res = data.filter(function(place) {
+        var cS = parseDate(place.contractStart);
+        var cE = parseDate(place.contractEnd);
+    
+        if (place.id == ID) 
+            return {
+                address: place.address,
+                name: place,
+                typeReport: place.typeReport,
+                typeAd: place.typeAd,
+                locationType: place.locationType,
+                contractStart: `Ngày ${cS[0]} Tháng ${cS[1]} Năm ${cS[2]}`,
+                contractEnd: `Ngày ${cE[0]} Tháng ${cE[1]} Năm ${cE[2]}`,
+                number: place.number,
+                url: place.url,
+            };
+        
+    });
+    
+    return res;
+}
+
+
+export default function DetailAdModal(ID) {
     // AdInfo ở đây bị undefined k thể lấy data nhét vô modal được
+    var returnData = getDetailLocation(dataDetail, ID);
+    var AdInfo = {...returnData[0]};
+    console.log(AdInfo.address) // Console.log ra thì có dữ liệu những khi nhét vào Return thì có
     return `
     <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="width: 70%;">
@@ -16,7 +52,7 @@ export default async function DetailAdModal(AdInfo) {
                                     <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                 </svg>
                                 <span class="text-primary">
-                                    Nguyễn Văn Cừ - An Dương Vương (Sở Văn hóa - Thể thao), Phường 4, Quận 5
+                                    ${AdInfo.address}                                    
                                 </span>
                             </div>
                             

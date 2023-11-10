@@ -1,7 +1,5 @@
 // Này thì là cú pháp rút gọn cho mấy cái query element
-if (typeof $ === 'undefined') {
-    const $ = document.querySelector.bind(document);
-}
+const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 const $c = document.getElementsByClassName.bind(document);
 const $i = document.getElementById.bind(document);
@@ -11,7 +9,6 @@ import Header from '/components/dan/Header.js';
 import DetailAdModal from '/components/dan/DetailAdModal.js';
 import SendReportModal from '/components/dan/SendReportModal.js';
 import DetailReportModal from '/components/dan/DetailReportModal.js';
-import getDetailList from '../../functions/dan/getDetailInfo.js';
 import AdMarker from '/components/dan/AdMarker.js';
 
 // Import Functions
@@ -52,19 +49,13 @@ const trangchu = {
 
 
     // Dành cho th Bảo test show Modal
-    TestModalHander: function () {
+    TestModalHander: async function () {
         // Mở Modal Chi tiết QC
         $('.btn-modal-detail-ad').addEventListener('click', function () {
             console.log('click');
             
             // Get info của địa điểm trong data
-            getDetailList(1).then((res) =>{
-                //console.log(res)
-                
-                // Truyền data đó lên modal
-                DetailAdModal(res[0]);
-            });
-            
+            DetailAdModal(2);
         });
 
         // Mở Modal Phản hồi Báo cáo
@@ -97,7 +88,6 @@ const trangchu = {
         this.TestModalHander();
     }
 }
-
 
 
 trangchu.start();
