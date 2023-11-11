@@ -1,36 +1,33 @@
 export default function Header() {
     return `
-    <header id="top-bar" class="container-fluid shadow-sm py-3 px-4">
-        <nav class="navbar navbar-expand-sm navbar-light">
+    <header id="top-bar" class="container-fluid px-4">
+        <nav class="navbar navbar-expand navbar-light py-0">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/screens/phuong/index.html"><img src="/assets/chung/logo_text.svg"></a>
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                <button class="d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#">Action 1</a>
-                                <a class="dropdown-item" href="#">Action 2</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <form class="d-flex my-2 my-lg-0">
-                        <input class="form-control me-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                <div id="profile">
+                    <div class="col-md-3">
+                        <img src="/assets/chung/img/generic_avt.svg">
+                    </div>
+                    <div class="col-md-9 text-center">
+                        <div>Nguyễn Văn A</div>
+                        <div>Cán bộ Quận Bình Thạnh</div>
+                    </div>
                 </div>
             </div>
+            
         </nav>
+        <div class="collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-none">
+                <li><button class="active" href="#home">Bản đồ</button></li>
+                <li><button href="#news">Quản lý</button></li>
+                <li><button href="#contact">Kiểm duyệt</button></li>
+                <li><button href="#about">Cài đặt</button></li>
+            </ul>
+        </div>
     </header>
     `
 }
