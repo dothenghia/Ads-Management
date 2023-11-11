@@ -1,14 +1,26 @@
 .active {
-    background-image: linear-gradient(to right, rgba(168, 199, 246, 0.27), #FFFFFF);
+    background-image: linear-gradient(to right, rgba(168, 199, 246, 0.47), #FFFFFF);
     border: solid #2074F4;
-    border-width: 1px;
+    border-width: 1px 1px 1px 4px;
 }
 
-header #profile {
+#profile {
     font-size: 8px;
+    margin: 1vh 0;
+}
+
+#profile #avatar {
+    width: 4em;
+    height: auto;
+}
+
+#profile #notification {
+    width: 2em;
+    height: auto;
 }
 
 #top-bar, #side-bar {
+    z-index: 999;
     background-color: white;
 }
 
@@ -23,9 +35,13 @@ main > div {
 
 #collapsibleNavId button {
     margin: 1vh 0;
-    background-color: white;
+    background: none;
     box-shadow: none;
     border: 0;
+}
+
+#collapsibleProfile {
+    background-image: linear-gradient(to right, rgba(177, 162, 162, 0.63), #FFFFFF);
 }
 
 #side-bar {
@@ -39,7 +55,7 @@ main > div {
 }
 
 #side-bar button {
-    background-color: white;
+    background: none;
     box-shadow: none;
     border: 0;
 }
@@ -47,6 +63,15 @@ main > div {
 #side-bar li {
     margin: 1em 0;
     text-align: center;
+}
+
+#content {
+    margin-top: 12vh;
+    z-index: 0;
+}
+
+.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+    background-color: #0D6EFD;
 }
 
 @media screen and (max-width: 1250px) {
@@ -62,8 +87,8 @@ main > div {
         font-size: 7px;
     }
     #side-bar img {
-        width: 100%;
-        height: 100%;
+        width: 4vw;
+        height: auto;
     }
     #top-bar {
         padding: 0.5vh;
@@ -71,13 +96,17 @@ main > div {
 }
 @media screen and (max-width: 900px) {
     #side-bar {
-        font-size: 8px;
+        font-size: 7px;
     }
     #side-bar img {
-        width: 85%;
-        height: 85%;
+        width: 3vw;
+        height: auto;
     }
     #top-bar {
         padding: 0.5vh;
+    }
+    #content {
+        margin-top: 6vh;
+        z-index: 0;
     }
 }
