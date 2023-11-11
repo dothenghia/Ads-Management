@@ -2,12 +2,33 @@ body{
     background-color:   #EBE8E8;
     height: 100vh;
 }
-#AppName{
+#AppName {
     color: #0D6EFD;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
 }
+/* #LoiDangNhap:not(.disabled) + #AppName {
+    padding-bottom: 0;
+} */
+
 #Email, #Password{
     background-color: #f1f1f1;
 }
 #LoiDangNhap{
     margin-left: 13%;
+}
+#otherLogin button{
+    background-color: #FFFFFF;
+    border: 0;
+    padding: 5px;
+    font-size: 2em;
+}
+.bi-google {
+    color: #4285f4; /* Google logo color */
+}
+.bi-facebook {
+    color: #1877f2; /* Facebook logo color */
+}
+.bi-twitter {
+    color: #1da1f2; /* Twitter logo color */
 }
