@@ -10,11 +10,16 @@ export default function SideBar(categoryIcons, categoryLabels, categoryHrefs, cu
                 categoryIcons.map(icon => {
                     let element;
                     if (i == currentLabelIndex) {
-                        element = `<li class="active"><button href="${categoryHrefs[i]}">${categoryLabels[i]}</button></li>`
+                        element = `<li class="sidebar-active"><div>${categoryLabels[i]}</div></li>`
                         i++;
                     }
                     else {
-                        element = `<li><button href="${categoryHrefs[i]}">${categoryLabels[i]}</button></li>`
+                        element = `
+                            <li>
+                                <button onclick='window.location.href="${categoryHrefs[i]}"'>
+                                    ${categoryLabels[i]}
+                                </button>
+                            </li>`
                         i++;
                     }
                     return element;
@@ -32,11 +37,17 @@ export default function SideBar(categoryIcons, categoryLabels, categoryHrefs, cu
                 categoryIcons.map(icon => {
                     let element;
                     if (i == currentLabelIndex) {
-                        element = `<li class="active"><button href="${categoryHrefs[i]}"><img src="${iconDir}${icon}"><br>${categoryLabels[i]}</button></li>`
+                        element = `<li class="sidebar-active"><div><img src="${iconDir}${icon}"><br>${categoryLabels[i]}</div></li>`
                         i++;
                     }
                     else {
-                        element = `<li><button href="${categoryHrefs[i]}"><img src="${iconDir}${icon}"><br>${categoryLabels[i]}</button></li>`
+                        element = `
+                            <li>
+                                <button onclick='window.location.href="${categoryHrefs[i]}"'>
+                                    <img src="${iconDir}${icon}"><br>${categoryLabels[i]}
+                                </button>
+                            </li>
+                        `
                         i++;
                     }
                     return element;
