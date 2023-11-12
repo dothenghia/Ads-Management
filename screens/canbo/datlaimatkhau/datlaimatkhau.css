@@ -13,7 +13,7 @@ body{
 h5{
     font-size: medium;
 }
-#noti{
+#noti1,#noti2{
     color: #04B400;
 }
 #password, #confirmPassword{

@@ -38,8 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             $('#masterdiv').empty();
             AppName = "<h1 class='bg-transparent text-center fw-bold' id='AppName'>AdsMap</h1>";
-            Noti1 = "<h5 class='bg-transparent text-center' id='noti'>Đặt lại mật khẩu thành công.</h5>"
-            Noti2 = "<h5 class='bg-transparent text-center mb-5' id='noti'>Tự động điều hướng sau 3 giây...</h5>"
+            Noti1 = "<h5 class='bg-transparent text-center' id='noti1'>Đặt lại mật khẩu thành công.</h5>"
+            Noti2 = "<h5 class='bg-transparent text-center mb-5' id='noti2'>Tự động điều hướng sau 3 giây...</h5>"
             $('#mainBody').append(AppName,Noti1,Noti2);
 
             updatePassword(email,password.value);
