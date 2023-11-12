@@ -20,7 +20,7 @@ import getReportLocationList from '/functions/dan/getReportLocationList.js';
 var mylongitude = 106.682667;
 var mylatitude = 10.762886;
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ';
 
 
 const trangchu = {
@@ -36,6 +36,7 @@ const trangchu = {
         this.reportLocationList = [];
     },
 
+    
     
     // Fetch dữ liệu các điểm QC và Show lên Map
     fetchAdMarkers: async function () {
@@ -67,11 +68,25 @@ const trangchu = {
     // Dành cho th Bảo test show Modal
     TestModalHander: async function () {
         // Mở Modal Chi tiết QC
-        $('.btn-modal-detail-ad').addEventListener('click', function () {
+        $('.btn-modal-detail-ad').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const fetchDetailADData = async () => {
+                await DetailAdModal(1);
+                // Show modal
+                var myModal = new bootstrap.Modal(document.getElementById('DetailAdModal'), {
+                    backdrop: 'static',
+                    keyboard: false,
+                
+                });
+                myModal.show();
+            }
             
-            // Get info của địa điểm trong data
-            DetailAdModal(2);
+            fetchDetailADData();
+
         });
+
+        
 
         // Mở Modal Phản hồi Báo cáo
         $('.btn-modal-send-rp').addEventListener('click', function () {
@@ -91,6 +106,7 @@ const trangchu = {
             ${Header()}
 
             <div class="modal-container">
+
             </div>
 
         `

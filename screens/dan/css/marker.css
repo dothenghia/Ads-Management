@@ -42,3 +42,7 @@
 .marker-gdtm {
     background-color: var(--gdtm-color);
 }
+
+.modal-backdrop.fade.show{
+    z-index: 5;
+}

@@ -1,22 +1,16 @@
 import getDetailList from '../../functions/dan/getDetailInfo.js';
 
 
-
-function parseDate(data) {
-    var arr = data.split('-');
-    return arr;
-}
-
 function getDetailLocation(data, ID) {
-    var res = data.filter(function (place) {
-        var cS = parseDate(place.contractStart);
-        var cE = parseDate(place.contractEnd);
+    for (let place of data){
+        let cS = place.contractStart.split('-');
+        let cE = place.contractEnd.split('-');
 
         if (place.id == ID)
             return {
                 address: place.address,
-                name: place,
-                typeReport: place.typeReport,
+                name: place.name,
+                adContent: place.adContent,
                 typeAd: place.typeAd,
                 locationType: place.locationType,
                 contractStart: `Ngày ${cS[0]} Tháng ${cS[1]} Năm ${cS[2]}`,
@@ -24,19 +18,16 @@ function getDetailLocation(data, ID) {
                 number: place.number,
                 url: place.url,
             };
-
-    });
-
-    return res;
+    };
 }
 
 export default function DetailAdModal(ID) {
 
     const fetchData = async () => {
         var dataDetail = await getDetailList();
-
+        
         var AdInfo = getDetailLocation(dataDetail, ID);
-        AdInfo = AdInfo[0];
+        AdInfo = AdInfo;
 
         document.querySelector('.modal-container').innerHTML = render(AdInfo);
     }
@@ -45,7 +36,7 @@ export default function DetailAdModal(ID) {
 
     function render (AdInfo) {
         return `
-        <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal fade" id="DetailAdModal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="width: 70%;">
                     <div class="modal-content">
                             <div class="modal-header d-flex flex-column">
@@ -67,23 +58,23 @@ export default function DetailAdModal(ID) {
                         <div class="modal-body">
                             <div class="container-fluid d-flex flex-column">
                                 <div class="container-fluid">
-                                    <p class="fs-5 fw-bold">Tên Công ty đặt quảng cáo</p>
+                                    <p class="fs-5 fw-bold">${AdInfo.name}</p>
                                 </div>
                                 <div class="container-fluid">
                                     <div class="d-flex flex-row justify-content-between " style="margin-bottom: 8px;">
                                         <div class="w-33 d-flex flex-column" style="min-width: 33%;">
                                             <p class="fs-6 fw-bold lh-base m-0">Hình thức quảng cáo</p>
-                                            <p class="fs-8 lh-base m-0">Cổ động chính trị</p>
+                                            <p class="fs-8 lh-base m-0">${AdInfo.adContent}</p>
                                         </div>
     
                                         <div class="w-33 d-flex flex-column" style="min-width: 33%;">
                                             <p class="fs-6 fw-bold lh-base m-0">Loại bảng quảng cáo</p>
-                                            <p class="fs-8 lh-base m-0">Trụ/Cụm pano</p>
+                                            <p class="fs-8 lh-base m-0">${AdInfo.typeAd}</p>
                                         </div>       
     
                                         <div class="w-33 d-flex flex-column" style="min-width: 33%;">
                                             <p class="fs-6 fw-bold lh-base m-0">Loại vị trí</p>
-                                            <p class="fs-8 lh-base m-0">Đất công/Công viên/Hành lang</p>
+                                            <p class="fs-8 lh-base m-0">${AdInfo.locationType}</p>
                                         </div>                           
                                     </div>
     
@@ -97,20 +88,20 @@ export default function DetailAdModal(ID) {
                                                     </svg>
                                                 </div>
                                                 <div class="d-flex flex-column">
-                                                    <span class="text-primary">Ngày 10 tháng 01 năm 2023</span>
-                                                    <span class="text-primary">Ngày 21 tháng 10 năm 2023</span>
+                                                    <span class="text-primary">${AdInfo.contractStart}</span>
+                                                    <span class="text-primary">${AdInfo.contractEnd}</span>
                                                 </div>
                                             </div>
                                         </div>
     
                                         <div class="w-33 d-flex flex-column" style="min-width: 33%;">
                                             <p class="fs-6 fw-bold lh-base m-0">Số lượng</p>
-                                            <p class="fs-8 lh-base m-0">2 trụ/bảng</p>
+                                            <p class="fs-8 lh-base m-0">${AdInfo.number} trụ/bảng</p>
                                         </div>       
     
                                         <div class="w-33 d-flex flex-column" style="min-width: 33%;">
                                             <p class="fs-6 fw-bold lh-base m-0">Phản hồi thông tin</p>
-                                            <button class="btn btn-outline-primary text-start d-"  autocomplete="off" style="border: 2px solid; max-width: 60%;"> 
+                                            <button class="btn btn-outline-primary text-start" data-bs-dismiss="modal" data-bs-target="" autocomplete="off" style="border: 2px solid; max-width: 60%;"> 
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                                                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
                                                 </svg>    
