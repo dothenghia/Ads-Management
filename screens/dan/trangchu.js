@@ -71,8 +71,9 @@ const trangchu = {
         $('.btn-modal-detail-ad').addEventListener('click', function (event) {
             event.preventDefault();
 
-            const fetchDetailADData = async () => {
-                await DetailAdModal(1);
+            // Add ID to Fetch Data
+            const fetchDetailADData = async (ID) => {
+                await DetailAdModal(ID);
                 // Show modal
                 var myModal = new bootstrap.Modal(document.getElementById('DetailAdModal'), {
                     backdrop: 'static',
@@ -82,7 +83,13 @@ const trangchu = {
                 myModal.show();
             }
             
-            fetchDetailADData();
+            var modal = document.getElementById('DetailAdModal');
+            if (modal == null) { fetchDetailADData(1); }
+            else {
+                // Remove Previous Modal, then fetch new data
+                modal.remove();
+                fetchDetailADData(2);
+            }
 
         });
 
