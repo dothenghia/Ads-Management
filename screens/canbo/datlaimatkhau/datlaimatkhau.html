@@ -10,27 +10,60 @@
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" type="text/css" href="datlaimatkhau.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="datlaimatkhau.js" defer></script>
 </head>
 
-<body>
-  <header>
-    <!-- place navbar here -->
-  </header>
-  <main>
+<body class="d-flex justify-content-center align-items-center">
+  <main class="container rounded-5 bg-white w-50" id="mainBody">
+    <div class="container " id="masterdiv">
+      <h1 class="bg-transparent text-center fw-bold" id="AppName">
+        AdsMap
+      </h1>
+      <h5 class="bg-transparent text-center">Vui lòng điền mật khẩu mới</h5>
+      <h5 class="bg-transparent text-center">Mật khẩu mới phải đúng quy định và
+        không được trùng với mật khẩu cũ</h5>
+      <div class="d-flex justify-content-center">
+        <form action="#" method="post" class="w-75 p-4" id="changePasswordForm">
+          <!-- !IMPORTANT: add method="post" later to fetch data from server, this code still use client side to login-->
+          <!-- Email input-->
+          <div class="form-outline mb-4">
+            <label class="form-label fw-bold" for="Password">Mật khẩu mới</label>
+            <input type="password" id="password" class="form-control rounded-5" required />
+          </div>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label fw-bold" for="ConfirmPassword">Xác nhận
+              mật khẩu mới</label>
+            <input type="password" id="confirmPassword" class="form-control rounded-5" onchange="validatePasswords()"
+              required />
+          </div>
+          <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input" type="checkbox" id="showPassword" value="true"
+              onclick="showPasswords(this.checked)">
+            <label class="form-check-label" for="showPassword">Hiện mật khẩu</label>
+          </div>
+          <!-- Submit button -->
+          <div class="d-flex justify-content-center p-3">
+            <button type="submit" class="btn btn-primary btn-block mb-4 rounded-5">Đổi mật
+              khẩu</button>
+          </div>
+        </form>
+      </div>
 
+    </div>
   </main>
-  <footer>
-    <!-- place footer here -->
-  </footer>
+
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-  </script>
+    </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-  </script>
+    </script>
 </body>
 
 </html>

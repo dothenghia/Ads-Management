@@ -16,24 +16,28 @@
 </head>
 
 <body class="d-flex justify-content-center align-items-center">
-    <main class="container rounded-5 bg-white w-50">
+    <main class="container rounded-5 bg-white">
         <div class="container">
             <button class="btn border-0 bg-transparent px-4 mt-5 text-primary" id="backButton"><i class="bi bi-arrow-left-square-fill"></i></button>
-            <h1 class="bg-white text-center fw-bold mb-5" id="AppName">
+            <h1 class="bg-transparent text-center fw-bold mb-5" id="AppName">
                 AdsMap
             </h1>
             <div class="d-flex justify-content-center flex-column px-5" id="text-block">
                 <h5 id="textblock-1">Một email OTP đã được gửi đến địa chỉ email của anh chị.</h5>
                 <h5 id="textblock-2">Anh/chị vui lòng kiểm tra hộp thư".</h5>
             </div>
-            <form action="#" class="p-4">
+            <form action="#" method="post" class="p-4" id="myForm">
                 <!--!!! Thêm method="post" vào, hiện tại chỉ là client side-->
-                <div class="form-outline mb-4">
-                    <input type="text" id="OTP" class="form-control border-0 border-bottom border-2 rounded-0 mb-4"
+                <div class="form-outline mb-4 d-flex align-items-center justify-content-around">
+                    <input type="text" id="OTP" class="form-control border-0 border-bottom mb-2 w-50"
                         placeholder="Mã OTP"/>
+                    <button type="button" class="btn btn-primary mb-3" onclick="guilaiOTP()">Gửi lại OTP</button>
                 </div>
+            <div class="d-flex px-5" id="text-block">
+                <h5 id="wrongOTP" class="text-danger"></h5>
+            </div>    
                 <div class="d-flex justify-content-center p-4">
-                    <button type="submit" class="btn btn-primary btn-block mb-4 rounded-5 mx-auto" onclick="guiOTP()">Xác thực OTP</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-3 rounded-5 mx-auto" >Xác thực OTP</button>
                 </div>
             </form>
         </div>

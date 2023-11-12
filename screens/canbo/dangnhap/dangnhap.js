@@ -4,10 +4,11 @@ const $c = document.getElementsByClassName.bind(document);
 const $i = document.getElementById.bind(document);
 
 
-async function validateLogin(){
+async function validateLogin(e){
+    e.preventDefault();
     try {
         // Fetch JSON file
-        const response = await fetch('taikhoan.json');
+        const response = await fetch('/screens/canbo/taikhoan.json');
         const data = await response.json();
 
         // Get user input

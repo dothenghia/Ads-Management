@@ -1,3 +1,7 @@
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+const $c = document.getElementsByClassName.bind(document);
+const $i = document.getElementById.bind(document);
 
 document.addEventListener("DOMContentLoaded", function () {
     // Get the email from the URL query parameters
@@ -8,53 +12,29 @@ document.addEventListener("DOMContentLoaded", function () {
     // Use the email as needed on this page
     console.log("Email from previous page:", email);
     // Add your logic to handle the email on this page
+    myForm = $i('myForm');
+    myForm.addEventListener("submit", function (event) {
+        event.preventDefault();
     
+        var enteredOTP = $i("OTP").value;
+
+        //! hiện tại chỉ là demo, sau này sẽ thêm AJAX hoặc fetchAPI
+        // Compare it with the expected value '111111'
+        if (enteredOTP === '111111') {
+            // Simulate a delay to mimic server response
+            setTimeout(function () {
+                // Redirect to the desired URL after the delay
+                window.location.href = '/screens/canbo/datlaimatkhau/datlaimatkhau.html?email=' + encodeURIComponent(email);
+            }, 1000); // Adjust the delay time as needed
+        } else {
+            // OTP is incorrect, handle the error as needed
+
+            $i('wrongOTP').innerHTML = 'OTP đã nhập sai, vui lòng thử lại.'
+            //Dòng này cần được sửa theo AJAX hoặc fetchAPI
+            window.history.replaceState = ({}, '', '?error=wrong_otp')
+        }
+    
+    
+        
+    });
 });
-
-//!Client-side for demo
-function guiOTP() {
-    // Get the OTP value from the input field
-    var enteredOTP = document.getElementById("OTP").value;
-
-    // Compare it with the expected value '111111'
-    if (enteredOTP === '111111') {
-        // Simulate a delay to mimic server response
-        setTimeout(function () {
-            // Redirect to the desired URL after the delay
-            window.location.href = '/screens/canbo/datlaimatkhau/datlaimatkhau.html';
-        }, 0); // Adjust the delay time as needed
-    } else {
-        // OTP is incorrect, handle the error as needed
-        console.log("Incorrect OTP. Please try again.");
-    }
-}
-
-//!Server side when implement server
-function guiOTP2() {
-    // Get the OTP value from the input field
-    var enteredOTP = document.getElementById("OTP").value;
-    console.log("OTP entered: ", enteredOTP)
-    // Compare it with the expected value '111111'
-    if (enteredOTP === '111111') {
-        // Simulate server response using jQuery Ajax
-        $.ajax({
-            type: "POST",
-            url: "/your_server_endpoint", // Replace with your actual server endpoint
-            data: { otp: enteredOTP },
-            success: function (response) {
-                // Server responded successfully
-                // Redirect to the desired URL
-                window.location.href = '/screens/canbo/datlaimatkhau/datlaimatkhau.html';
-            },
-            error: function (error) {
-                // Handle server error
-                console.error("Server error:", error);
-            }
-        });
-    } else {
-        // OTP is incorrect, handle the error as needed
-        console.log("Incorrect OTP. Please try again.");
-    }
-}
-//!Server-side above
-

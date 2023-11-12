@@ -1,6 +1,9 @@
 body{
-    background-color:   #EBE8E8;
+    background-color:#EBE8E8;
     height: 100vh;
+}
+main{
+    max-width: 40% !important; 
 }
 #AppName{
     color: #0D6EFD;
@@ -18,3 +21,4 @@ body{
 .form-control::placeholder {
     font-style: italic;
 }
+

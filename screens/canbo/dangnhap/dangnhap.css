@@ -7,12 +7,13 @@ body{
     padding-top: 3rem;
     padding-bottom: 2rem;
 }
-/* #LoiDangNhap:not(.disabled) + #AppName {
-    padding-bottom: 0;
-} */
+
 
 #Email, #Password{
     background-color: #f1f1f1;
+}
+small{
+    color: #0D6EFD;
 }
 #LoiDangNhap{
     margin-left: 13%;

@@ -1,0 +1,19 @@
+body{
+    background-color:   #EBE8E8;
+    height: 100vh;
+}
+main{
+    max-width: 40% !important; 
+}
+#AppName{
+    color: #0D6EFD;
+}
+#backButton{
+    font-size: 2em;
+}
+#LoiDangNhap{
+    margin-left: 13%;
+}
+.form-control::placeholder {
+    font-style: italic;
+}
