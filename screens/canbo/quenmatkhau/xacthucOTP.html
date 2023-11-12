@@ -11,9 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="quenmatkhau.css">
-    <script src="quenmatkhau.js" defer></script>
-
+    <link rel="stylesheet" type="text/css" href="xacthucOTP.css">
+    <script src="xacthucOTP.js" defer></script>
 </head>
 
 <body class="d-flex justify-content-center align-items-center">
@@ -24,17 +23,17 @@
                 AdsMap
             </h1>
             <div class="d-flex justify-content-center flex-column px-5" id="text-block">
-                <h5 id="textblock-1">Vui lòng Nhập địa chỉ Email của anh/chị vào ô bên dưới.</h5>
-                <h5 id="textblock-2">Một email OTP sẽ được gửi đến địa chỉ Email này.</h5>
+                <h5 id="textblock-1">Một email OTP đã được gửi đến địa chỉ email của anh chị.</h5>
+                <h5 id="textblock-2">Anh/chị vui lòng kiểm tra hộp thư".</h5>
             </div>
-            <form id="myForm" class="p-4">
-                <!--!!! thêm method='post' vào, hiện tại chỉ là client side -->
+            <form action="#" class="p-4">
+                <!--!!! Thêm method="post" vào, hiện tại chỉ là client side-->
                 <div class="form-outline mb-4">
-                    <input type="email" id="Email" class="form-control border-0 border-bottom border-2 rounded-0 mb-4"
-                        placeholder="Địa chỉ email..." />
+                    <input type="text" id="OTP" class="form-control border-0 border-bottom border-2 rounded-0 mb-4"
+                        placeholder="Mã OTP"/>
                 </div>
                 <div class="d-flex justify-content-center p-4">
-                    <button type="submit" class="btn btn-primary btn-block mb-4 rounded-5 mx-auto" id="guiEmailButton">Gửi Email</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-4 rounded-5 mx-auto" onclick="guiOTP()">Xác thực OTP</button>
                 </div>
             </form>
         </div>

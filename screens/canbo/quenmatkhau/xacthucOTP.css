@@ -11,6 +11,10 @@ body{
 #LoiDangNhap{
     margin-left: 13%;
 }
+
+#textblock-1,#textblock-2{
+    color: #04B400;
+}
 .form-control::placeholder {
     font-style: italic;
 }
