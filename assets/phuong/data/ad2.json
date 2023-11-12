@@ -1,0 +1,57 @@
+{
+    "type": "FeatureCollection",
+    "features": [ 
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [106.697758, 10.802540]
+            },
+            "properties": {
+                "quan": "binhthanh",
+                "phuong": "3",
+                "duong": "pxl",
+                "id": "AD00001"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [106.696658, 10.802656]
+            },
+            "properties": {
+                "quan": "binhthanh",
+                "phuong": "3",
+                "duong": "pxl",
+                "id": "AD00002"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [106.695854, 10.802756]
+            },
+            "properties": {
+                "quan": "binhthanh",
+                "phuong": "3",
+                "duong": "pxl",
+                "id": "AD00003"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [106.695580, 10.802846]
+            },
+            "properties": {
+                "quan": "binhthanh",
+                "phuong": "3",
+                "duong": "pxl",
+                "id": "AD00004"
+            }
+        }
+    ]   
+}

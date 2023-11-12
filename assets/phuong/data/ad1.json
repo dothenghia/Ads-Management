@@ -1,0 +1,72 @@
+{
+    "binhthanh": {
+        "id": "binhthanh",
+        "name": "Bình Thạnh",
+        "phuong": {
+            "3": {
+                "id": "3",
+                "name": "3",
+                "duong": {
+                    "pxl": {
+                        "id": "pxl",
+                        "name": "Phan Xích Long",
+                        "qc": {
+                            "AD00001": {
+                                "id": "AD00001",
+                                "name": "Màn hình điện tử ốp tường",
+                                "cnt": 1,
+                                "size": "2.5mx1.2m",
+                                "purpose": "Cổ Động Chính Trị",
+                                "co": "Công Ti TNHH MMT",
+                                "type": "Đất Công/Hành Lang ATGT",
+                                "addr": "123 Phan Xích Long",
+                                "phuong": "3",
+                                "quan": "Bình Thạnh",
+                                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng"
+                            },
+                            "AD00002": {
+                                "id": "AD00002",
+                                "name": "abcdefg",
+                                "cnt": 1,
+                                "size": "2.5mx1.2m",
+                                "purpose": "Cổ Động Chính Trị",
+                                "co": "Công Ti TNHH MMT",
+                                "type": "Đất Công/Hành Lang ATGT",
+                                "addr": "454 Phan Xích Long",
+                                "phuong": "3",
+                                "quan": "Bình Thạnh",
+                                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng"
+                            },
+                            "AD00003": {
+                                "id": "AD00003",
+                                "name": "hijkl",
+                                "cnt": 1,
+                                "size": "2.5mx1.2m",
+                                "purpose": "Cổ Động Chính Trị",
+                                "co": "Công Ti TNHH MMT",
+                                "type": "Đất Công/Hành Lang ATGT",
+                                "addr": "76876 Phan Xích Long",
+                                "phuong": "3",
+                                "quan": "Bình Thạnh",
+                                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng"
+                            },
+                            "AD00004": {
+                                "id": "AD00004",
+                                "name": "mnopqr",
+                                "cnt": 1,
+                                "size": "2.5mx1.2m",
+                                "purpose": "Cổ Động Chính Trị",
+                                "co": "Công Ti TNHH MMT",
+                                "type": "Đất Công/Hành Lang ATGT",
+                                "addr": "111111 Phan Xích Long",
+                                "phuong": "3",
+                                "quan": "Bình Thạnh",
+                                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
