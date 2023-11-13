@@ -1,7 +1,37 @@
 
 import ReportCard from "../card/ReportCard.js"
 
-export default function ReportSidebar() {
+function extractList(reportData) {
+    const qcReports = reportData.filter(report => report.type === 'qc');
+
+    const ddReports = reportData.filter(report => report.type === 'dd');
+
+    return {
+        qcReports,
+        ddReports
+    };
+}
+
+export default function ReportSidebar(reportData) {
+
+    let { qcReports, ddReports } = extractList(reportData);
+
+    function switchTab(tabType) {
+        const tabs = document.querySelectorAll('.report-sidebar__tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        const contentContainers = document.querySelectorAll('.report-sidebar__content');
+        contentContainers.forEach(container => container.style.display = 'none');
+
+        const activeTab = document.querySelector(`.report-sidebar__tab[data-type="${tabType}"]`);
+        const activeContent = document.querySelector(`.report-sidebar__content[data-type="${tabType}"]`);
+
+        activeTab.classList.add('active');
+        activeContent.style.display = 'block';
+    }
+
+    // Gọi hàm switchTab khi tạo HTML để đảm bảo nó thuộc phạm vi toàn cục
+    window.switchTab = switchTab;
 
     return (
         `<div class="report-sidebar-container">
@@ -16,13 +46,29 @@ export default function ReportSidebar() {
 
                 
                 <div class="report-sidebar__tabs">
-                    <button type="button" class="report-sidebar__tab active">Quảng cáo (0)</button>
-                    <button type="button" class="report-sidebar__tab">Địa điểm (0)</button>
+                    <button type="button" class="report-sidebar__tab active" onclick="switchTab('qc')" data-type="qc">
+                        Quảng cáo (${qcReports.length})
+                    </button>
+                    <button type="button" class="report-sidebar__tab" onclick="switchTab('dd')" data-type="dd">
+                        Địa điểm (${ddReports.length})
+                    </button>
                 </div>
-
-
-                ${ReportCard()}
-                ${ReportCard()}
+                
+                <div class="report-sidebar__content" data-type="qc">
+                    ${
+                        qcReports.map((rp) => {
+                            return ReportCard(rp)
+                        }).join('')
+                    }
+                </div>
+                
+                <div class="report-sidebar__content" data-type="dd" style="display: none;">
+                    ${
+                        ddReports.map((rp) => {
+                            return ReportCard(rp)
+                        }).join('')
+                    }
+                </div>
 
             </div>
         </div>`

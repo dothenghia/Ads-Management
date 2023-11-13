@@ -1,24 +1,24 @@
 
 
-export default function ReportCard() {
+export default function ReportCard(report) {
     return `
     <div class='report-card'>
         <div class='report-card__title'>
-            <h1>Bảng quảng cáo 1</h1>
+            <h1>${report.name}</h1>
         </div>
 
         <div class="report-card__info">
-            <h1>Nguyễn Văn Cừ - An Dương Vương</h1>
-            <h3>Phường 4, Quận 5</h3>
+            <h1>${report.address}</h1>
+            <h3>${report.region}</h3>
 
             <h2>Hình thức báo cáo</h2>
-            <p>Tố giác sai phạm</p>
+            <p>${report.form}</p>
 
             <h2>Tình trạng xử lý</h2>
-            <p>Đang xử lý</p>
+            <p>${report.status}</p>
 
             <h2>Thời gian gửi</h2>
-            <p>18/10/2023 - 9:49:25</p>
+            <p>${report.time}</p>
 
         </div>
 

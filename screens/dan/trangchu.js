@@ -114,12 +114,15 @@ const trangchu = {
     renderHomePage: function () {
         $i('main').innerHTML = `
             ${Header()}
-            ${ReportListButton()}
 
+            <div class="report-list-button-root"></div>
+            
             <div class="modal-root"></div>
-
+            
             <div class="sidebar-root"></div>
         `
+        
+        ReportListButton()
     },
 
 
