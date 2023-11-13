@@ -7,9 +7,9 @@ const fakeAdLocationInfo = [
         latitude: 10.761180,
 
         thumbnails: [
-            {url: "/assets/dan/thumbnail 1.jpeg"},
-            {url: "/assets/dan/thumbnail 2.jpg"},
-            {url: "/assets/dan/thumbnail 3.jpg"},
+            {url: "/assets/dan/thumbnail1.jpeg"},
+            {url: "/assets/dan/thumbnail2.jpg"},
+            {url: "/assets/dan/thumbnail3.jpg"},
         ],
         address: "Nguyễn Văn Cừ - An Dương Vương",
         region: "Phường 4, Quận 5",
@@ -26,9 +26,9 @@ const fakeAdLocationInfo = [
                 contractStartDate: 'Ngày 10 tháng 01 năm 2023',
                 contractEndDate: 'Ngày 18 tháng 10 năm 2023',
                 thumbnails: [
-                    {url: "/assets/dan/thumbnail 4.jpg"},
-                    {url: "/assets/dan/thumbnail 5.jpg"},
-                    {url: "/assets/dan/thumbnail 6.jpg"},
+                    {url: "/assets/dan/thumbnail4.jpg"},
+                    {url: "/assets/dan/thumbnail5.jpg"},
+                    {url: "/assets/dan/thumbnail6.jpg"},
                 ]
             },
             {
@@ -38,9 +38,9 @@ const fakeAdLocationInfo = [
                 contractStartDate: 'Ngày 10 tháng 01 năm 2023',
                 contractEndDate: 'Ngày 31 tháng 12 năm 2023',
                 thumbnails: [
-                    {url: "/assets/dan/thumbnail 4.jpg"},
-                    {url: "/assets/dan/thumbnail 5.jpg"},
-                    {url: "/assets/dan/thumbnail 6.jpg"},
+                    {url: "/assets/dan/thumbnail5.jpg"},
+                    {url: "/assets/dan/thumbnail4.jpg"},
+                    {url: "/assets/dan/thumbnail6.jpg"},
                 ]
             }
         ],
@@ -84,9 +84,9 @@ const fakeAdLocationInfo = [
         latitude: 10.762573,
 
         thumbnails: [
-            {url: "/assets/dan/thumbnail 1.jpeg"},
-            {url: "/assets/dan/thumbnail 2.jpg"},
-            {url: "/assets/dan/thumbnail 3.jpg"},
+            {url: "/assets/dan/thumbnail3.jpg"},
+            {url: "/assets/dan/thumbnail1.jpeg"},
+            {url: "/assets/dan/thumbnail2.jpg"},
         ],
         address: "Nguyễn Trãi - Nguyễn Cư Trinh",
         region: "Phường Nguyễn Cư Trinh, Quận 1",
@@ -103,9 +103,9 @@ const fakeAdLocationInfo = [
                 contractStartDate: 'Ngày 01 tháng 01 năm 2023',
                 contractEndDate: 'Ngày 01 tháng 01 năm 2024',
                 thumbnails: [
-                    {url: "/assets/dan/thumbnail 4.jpg"},
-                    {url: "/assets/dan/thumbnail 5.jpg"},
-                    {url: "/assets/dan/thumbnail 6.jpg"},
+                    {url: "/assets/dan/thumbnail6.jpg"},
+                    {url: "/assets/dan/thumbnail4.jpg"},
+                    {url: "/assets/dan/thumbnail5.jpg"},
                 ]
             }
         ],

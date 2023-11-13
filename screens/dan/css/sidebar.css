@@ -72,6 +72,14 @@
     object-fit: cover;
 }
 
+.ad-sidebar__thumbnail.chuaquyhoach {
+    border: solid 1px var(--border-color);
+    border-radius: 12px;
+}
+.ad-sidebar__thumbnail.chuaquyhoach img {
+    object-fit: contain;
+}
+
 
 /* ------ Info chung ------ */
 .ad-sidebar__info {

@@ -1,24 +1,26 @@
 
-function AdCard_Thumbnail() {
+function AdCard_Thumbnail(ad) {
     return `
     <div class="ad-card__thumbnail">
-        <div id="ad-card__carousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="ad-card__carousel-${ad.id}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active rounded-3">
-                    <img src="/assets/dan/thumbnail 4.jpg" class="rounded-3" alt="First slide">
-                </div>
-                <div class="carousel-item rounded-3">
-                    <img src="/assets/dan/thumbnail 5.jpg" class="rounded-3" alt="Second slide">
-                </div>
-                <div class="carousel-item rounded-3">
-                    <img src="/assets/dan/thumbnail 6.jpg" class="rounded-3" alt="Third slide">
-                </div>
+
+                ${
+                    ad.thumbnails.map((thumbnail, index) => {
+                        return `
+                        <div class="carousel-item rounded-3 ${index==0 && 'active'}">
+                            <img src=${thumbnail.url} class="rounded-3" alt=${thumbnail.url}>
+                        </div>
+                        `
+                    }).join('')
+                }
+
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#ad-card__carousel" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#ad-card__carousel-${ad.id}" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#ad-card__carousel" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#ad-card__carousel-${ad.id}" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -28,16 +30,16 @@ function AdCard_Thumbnail() {
 }
 
 
-export default function AdCard() {
+export default function AdCard(ad) {
     return `
     <div class='ad-card'>
         <div class='ad-card__title'>
-            <h1>Tên bảng quảng cáo</h1>
+            <h1>${ad.name}</h1>
         </div>
 
         <div class="ad-card__info">
             <h2>Kích thước</h2>
-            <p>1 trụ/bảng</p>
+            <p>${ad.size}</p>
 
             
             <div class="w-33 d-flex flex-column"  style="min-width: 33%;">
@@ -49,8 +51,8 @@ export default function AdCard() {
                         </svg>
                     </div>
                     <div class="d-flex flex-column">
-                        <span>Ngày 10 tháng 01 năm 2023</span>
-                        <span>Ngày 18 tháng 10 năm 2023</span>
+                        <span>${ad.contractStartDate}</span>
+                        <span>${ad.contractEndDate}</span>
                     </div>
                 </div>
             </div>
@@ -59,7 +61,7 @@ export default function AdCard() {
         </div>
 
 
-        ${AdCard_Thumbnail()}
+        ${AdCard_Thumbnail(ad)}
 
 
         <div class="ad-card__button">

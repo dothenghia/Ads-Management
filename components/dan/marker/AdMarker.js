@@ -1,6 +1,7 @@
 const $ = document.querySelector.bind(document);
 
 import AdSidebar from '../sidebar/AdSidebar.js';
+import getAdLocationInfo from '/functions/dan/getAdLocationInfo.js';
 
 export default function AdMarker(map, adInfo) {
     const mk = document.createElement('div');
@@ -21,14 +22,18 @@ export default function AdMarker(map, adInfo) {
 
     // Add Event Handler
     $(`.ad-marker-${adInfo.id}`).onclick = function () {
-        console.log('Ad', adInfo.id)
 
         // Fetch Data theo ID
+        // Thay vì truyền ID vào Component ròi mới Fetch
+        // Thì mình nên Fetch data theo ID trước
+        // ròi mới truyền cục data đó vào Component để render thoi 👌
         const fetchData = async () => {
             var data = await getAdLocationInfo(adInfo.id);
+            console.log(data);
+
+            $('.sidebar-root').innerHTML = AdSidebar(data)
         }
 
-        $('.sidebar-root').innerHTML = AdSidebar(adInfo.id)
-
+        fetchData();
     }
 }
