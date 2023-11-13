@@ -14,7 +14,7 @@
     background-color: #fefefe;
     margin-left: 20px;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 20px 20px 8px;
     width: fit-content;
     height: calc(100% - 20px - 74px - 20px);
     border-radius: 12px;

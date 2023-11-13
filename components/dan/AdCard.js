@@ -36,7 +36,7 @@ export default function AdCard() {
         </div>
 
         <div class="ad-card__info">
-            <h2>Số lượng</h2>
+            <h2>Kích thước</h2>
             <p>1 trụ/bảng</p>
 
             

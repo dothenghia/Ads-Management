@@ -10,8 +10,7 @@ import DetailAdModal from '/components/dan/DetailAdModal.js';
 import SendReportModal from '/components/dan/SendReportModal.js';
 import DetailReportModal from '/components/dan/DetailReportModal.js';
 import AdMarker from '/components/dan/AdMarker.js';
-import ArbitraryMarker from '/components/dan/ArbitraryMarker.js';
-import AdSidebar from '/components/dan/AdSidebar.js';
+import ReportMarker from '/components/dan/ReportMarker.js';
 
 // Import Functions
 import getAdLocationList from '/functions/dan/getAdLocationList.js';
@@ -38,7 +37,6 @@ const trangchu = {
     },
 
     
-    
     // Fetch dữ liệu các điểm QC và Show lên Map
     fetchAdMarkers: async function () {
         const data = await getAdLocationList();
@@ -47,10 +45,11 @@ const trangchu = {
         this.renderAdMarkers();
     },
     renderAdMarkers: function () {
-        this.adLocationList.forEach(ad => {
-            AdMarker(ad.type, this.map, ad.lng, ad.lat);
+        this.adLocationList.forEach(adInfo => {
+            AdMarker(this.map, adInfo);
         });
     },
+
 
     // Fetch dữ liệu các điểm Bị báo cáo và Show lên Map
     fetchReportMarkers: async function () {
@@ -60,8 +59,8 @@ const trangchu = {
         this.renderReportMarkers();
     },
     renderReportMarkers: function () {
-        this.reportLocationList.forEach(ad => {
-            ArbitraryMarker(ad.type, this.map, ad.lng, ad.lat);
+        this.reportLocationList.forEach(reportInfo => {
+            ReportMarker(this.map, reportInfo);
         });
     },
 
@@ -115,9 +114,7 @@ const trangchu = {
 
             <div class="modal-root"></div>
 
-            <div class="ad-sidebar-root">
-                ${AdSidebar()}
-            </div>
+            <div class="sidebar-root"></div>
         `
     },
 

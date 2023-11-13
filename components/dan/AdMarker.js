@@ -1,14 +1,34 @@
+const $ = document.querySelector.bind(document);
 
-export default function AdMarker(type, map, longitude, latitude) {
+import AdSidebar from './AdSidebar.js';
+
+export default function AdMarker(map, adInfo) {
     const mk = document.createElement('div');
-    mk.className = type ? 'marker marker-qh' : 'marker marker-cqh';
+    mk.className = adInfo.quyhoach ? 
+        `marker marker-qh ad-marker-${adInfo.id}` : 
+        `marker marker-cqh ad-marker-${adInfo.id}`;
+        // Đại loại là cái ad-marker-${adInfo.id} sẽ đánh dấu 1 cái marker thoi
+        // để xử lý sự kiến khi click vào marker đó thì sẽ hiện ra sidebar
 
-    if (type) {
+    if (adInfo.quyhoach) {
         mk.innerHTML = 'QC';
     }
 
-    // make a marker for each feature and add to the map
     var marker = new mapboxgl.Marker(mk)
-        .setLngLat([longitude, latitude])
+        .setLngLat([adInfo.longitude, adInfo.latitude])
         .addTo(map);
+
+
+    // Add Event Handler
+    $(`.ad-marker-${adInfo.id}`).onclick = function () {
+        console.log('Ad', adInfo.id)
+
+        // Fetch Data theo ID
+        const fetchData = async () => {
+            var data = await getAdLocationInfo(adInfo.id);
+        }
+
+        $('.sidebar-root').innerHTML = AdSidebar(adInfo.id)
+
+    }
 }
