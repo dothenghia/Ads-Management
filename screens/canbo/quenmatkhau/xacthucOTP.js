@@ -38,3 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
     });
 });
+
+function guilaiOTP(){
+    alert('OTP đã được gửi lại, vui lòng kiểm tra Email.');
+}
