@@ -1,0 +1,70 @@
+.ad-card {
+    padding: 12px 20px 16px;
+    border-radius: 12px;
+    border: solid 1px var(--border-color);
+    margin-bottom: 12px;
+}
+
+
+/* ------ Title ------ */
+.ad-card__title {
+    border-bottom: solid 1px var(--border-color);
+    margin-bottom: 12px;
+}
+.ad-card__title h1 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--title-color);
+    text-align: center;
+}
+
+
+/* ------ Info chung ------ */
+.ad-card__info div.w-33 {
+    margin-bottom: 14px;
+}
+.ad-card__info h2 {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 0px;
+}
+.ad-card__info p {
+    color: var(--text-color);
+    font-size: 15px;
+}
+.ad-card__info span {
+    color: var(--primary-color);
+    font-size: 15px;
+}
+
+
+/* ------ Thumbnail ------ */
+.ad-card__thumbnail {
+    width: 300px;
+    height: 180px;
+    margin-bottom: 10px;
+    margin-top: 8px;
+}
+
+.ad-card__thumbnail .carousel,
+.ad-card__thumbnail .carousel-inner,
+.ad-card__thumbnail .carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+.ad-card__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ------ Thumbnail ------ */
+.ad-card__button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}

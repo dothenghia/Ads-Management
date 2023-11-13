@@ -2,9 +2,12 @@
 
 .custom-btn {
     font-weight: 500;
-    width: 100%;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
 }
 .custom-btn svg {
     width: 16px;
     height: 16px;
+    margin-right: 4px;
 }
