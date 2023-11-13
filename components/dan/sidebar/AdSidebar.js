@@ -1,4 +1,4 @@
-import AdCard from "./AdCard.js"
+import AdCard from "../card/AdCard.js"
 
 function AdSidebar_Thumbnail() {
     return `

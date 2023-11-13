@@ -6,11 +6,13 @@ const $i = document.getElementById.bind(document);
 
 // Import Components
 import Header from '/components/dan/Header.js';
-import DetailAdModal from '/components/dan/DetailAdModal.js';
-import SendReportModal from '/components/dan/SendReportModal.js';
-import DetailReportModal from '/components/dan/DetailReportModal.js';
-import AdMarker from '/components/dan/AdMarker.js';
-import ReportMarker from '/components/dan/ReportMarker.js';
+
+import DetailAdModal from '/components/dan/modal/DetailAdModal.js';
+import SendReportModal from '/components/dan/modal/SendReportModal.js';
+import DetailReportModal from '/components/dan/modal/DetailReportModal.js';
+
+import AdMarker from '/components/dan/marker/AdMarker.js';
+import ReportMarker from '/components/dan/marker/ReportMarker.js';
 
 // Import Functions
 import getAdLocationList from '/functions/dan/getAdLocationList.js';

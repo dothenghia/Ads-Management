@@ -1,6 +1,6 @@
 const $ = document.querySelector.bind(document);
 
-import AdSidebar from './AdSidebar.js';
+import AdSidebar from '../sidebar/AdSidebar.js';
 
 export default function AdMarker(map, adInfo) {
     const mk = document.createElement('div');

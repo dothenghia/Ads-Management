@@ -1,4 +1,4 @@
-import getDetailList from '../../functions/dan/getDetailInfo.js';
+import getDetailList from '../../../functions/dan/getDetailInfo.js';
 
 
 function getDetailLocation(data, ID) {
