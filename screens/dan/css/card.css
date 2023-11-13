@@ -1,19 +1,25 @@
-.ad-card {
+.ad-card,
+.report-card {
     padding: 12px 20px 16px;
     border-radius: 12px;
     border: solid 1px var(--border-color);
     margin-bottom: 12px;
 }
 
+.report-card {
+    width: 360px;
+}
 
 /* ------ Title ------ */
-.ad-card__title {
+.ad-card__title ,
+.report-card__title {
     border-bottom: solid 1px var(--border-color);
     margin-bottom: 12px;
 }
-.ad-card__title h1 {
+.ad-card__title h1 ,
+.report-card__title h1 {
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--title-color);
     text-align: center;
 }
@@ -23,19 +29,32 @@
 .ad-card__info div.w-33 {
     margin-bottom: 14px;
 }
-.ad-card__info h2 {
+.ad-card__info h2,
+.report-card__info h2 {
     color: var(--text-color);
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 0px;
 }
-.ad-card__info p {
+.ad-card__info p,
+.report-card__info p {
     color: var(--text-color);
     font-size: 15px;
 }
 .ad-card__info span {
     color: var(--primary-color);
     font-size: 15px;
+}
+
+.report-card__info h1 {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 600;
+}
+.report-card__info h3 {
+    color: var(--primary-color);
+    font-size: 15px;
+    font-weight: 500;
 }
 
 
@@ -62,7 +81,8 @@
 
 
 /* ------ Thumbnail ------ */
-.ad-card__button {
+.ad-card__button,
+.report-card__button {
     display: flex;
     justify-content: space-between;
     align-items: center;

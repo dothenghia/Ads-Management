@@ -1,4 +1,3 @@
-const $ = document.querySelector.bind(document);
 
 import AdCard from "../card/AdCard.js"
 

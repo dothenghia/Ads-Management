@@ -1,4 +1,6 @@
-.ad-sidebar-container {
+.ad-sidebar-container,
+.report-sidebar-container {
+    z-index: 10;
     position: fixed;
     left: 0;
     top: 0;
@@ -10,7 +12,8 @@
     align-items: flex-end;
 }
 
-.ad-sidebar {
+.ad-sidebar,
+.report-sidebar {
     background-color: #fefefe;
     margin-left: 20px;
     margin-bottom: 20px;
@@ -23,28 +26,32 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-.ad-sidebar::-webkit-scrollbar {
+.ad-sidebar::-webkit-scrollbar,
+.report-sidebar::-webkit-scrollbar {
     display: none;
 }
 
 
 
 /* ------ Title ------ */
-.ad-sidebar__header {
+.ad-sidebar__header,
+.report-sidebar__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.ad-sidebar__header h1 {
+.ad-sidebar__header h1,
+.report-sidebar__header h1 {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 0;
     color: var(--title-color);
 }
 
-.ad-sidebar__header button {
+.ad-sidebar__header button,
+.report-sidebar__header button {
     background-color: transparent;
     border: none;
     padding: 0;
@@ -128,4 +135,33 @@
 .ad-sidebar__info-location p {
     color: var(--text-color);
     font-size: 15px;
+}
+
+
+
+/* ==================================================== */
+/* ================== REPORT SIDEBAR ================== */
+/* ==================================================== */
+.report-sidebar__tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.report-sidebar__tabs button {
+    width: 50%;
+    padding: 8px 0;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 3px;
+    
+    color: var(--text-color);
+    border-bottom-color: transparent
+}
+
+.report-sidebar__tabs button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+
 }

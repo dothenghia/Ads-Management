@@ -6,6 +6,7 @@ const $i = document.getElementById.bind(document);
 
 // Import Components
 import Header from '/components/dan/Header.js';
+import ReportListButton from '/components/dan/ReportListButton.js';
 
 import DetailAdModal from '/components/dan/modal/DetailAdModal.js';
 import SendReportModal from '/components/dan/modal/SendReportModal.js';
@@ -113,6 +114,7 @@ const trangchu = {
     renderHomePage: function () {
         $i('main').innerHTML = `
             ${Header()}
+            ${ReportListButton()}
 
             <div class="modal-root"></div>
 
