@@ -1,0 +1,121 @@
+.ad-sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.ad-sidebar {
+    background-color: #fefefe;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: fit-content;
+    height: calc(100% - 20px - 74px - 20px);
+    border-radius: 12px;
+    
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.ad-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/* ------ Thumbnail ------ */
+.ad-sidebar__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ad-sidebar__header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.ad-sidebar__header button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+}
+
+
+/* ------ Thumbnail ------ */
+.ad-sidebar__thumbnail {
+    width: 340px;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+.ad-sidebar__thumbnail .carousel,
+.ad-sidebar__thumbnail .carousel-inner,
+.ad-sidebar__thumbnail .carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+.ad-sidebar__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ------ Info chung ------ */
+.ad-sidebar__info {
+    padding-bottom: 12px;
+    border-bottom: solid 1px var(--border-color);
+}
+
+.ad-sidebar__info-address {
+    color: var(--primary-color);
+    display: flex;
+    align-items: flex-start;
+    border-bottom: solid 1px var(--border-color);
+    margin-bottom: 10px;
+}
+
+.ad-sidebar__info-address svg {
+    margin-top: 2px;
+}
+
+.ad-sidebar__info-address h1 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.ad-sidebar__info-address h2 {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+.ad-sidebar__info-location h1 {
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.ad-sidebar__info-location h2 {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 0px;
+}
+
+.ad-sidebar__info-location p {
+    color: var(--text-color);
+    font-size: 15px;
+}

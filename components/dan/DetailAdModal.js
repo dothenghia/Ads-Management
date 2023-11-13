@@ -29,7 +29,7 @@ export default function DetailAdModal(ID) {
         var AdInfo = getDetailLocation(dataDetail, ID);
         AdInfo = AdInfo;
 
-        document.querySelector('.modal-container').innerHTML = render(AdInfo);
+        document.querySelector('.modal-root').innerHTML = render(AdInfo);
     }
 
     fetchData();

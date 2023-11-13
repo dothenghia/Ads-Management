@@ -11,6 +11,7 @@ import SendReportModal from '/components/dan/SendReportModal.js';
 import DetailReportModal from '/components/dan/DetailReportModal.js';
 import AdMarker from '/components/dan/AdMarker.js';
 import ArbitraryMarker from '/components/dan/ArbitraryMarker.js';
+import AdSidebar from '/components/dan/AdSidebar.js';
 
 // Import Functions
 import getAdLocationList from '/functions/dan/getAdLocationList.js';
@@ -112,10 +113,11 @@ const trangchu = {
         $i('main').innerHTML = `
             ${Header()}
 
-            <div class="modal-container">
+            <div class="modal-root"></div>
 
+            <div class="ad-sidebar-root">
+                ${AdSidebar()}
             </div>
-
         `
     },
 

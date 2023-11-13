@@ -1,0 +1,10 @@
+
+
+.custom-btn {
+    font-weight: 500;
+    width: 100%;
+}
+.custom-btn svg {
+    width: 16px;
+    height: 16px;
+}

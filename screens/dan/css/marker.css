@@ -20,9 +20,6 @@
     color: var(--white-color);
     font-size: 1.0rem;
 }
-.modal-backdrop.fade.show{
-    z-index: 0;
-}
 
 .marker-cqh {
     background-color: var(--chuaqh-color);
@@ -43,6 +40,3 @@
     background-color: var(--gdtm-color);
 }
 
-.modal-backdrop.fade.show{
-    z-index: 5;
-}
