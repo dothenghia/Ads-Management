@@ -9,10 +9,12 @@ export default function Header() {
                 </h1>
                 
                 <div>
-                    <button class="btn btn-primary btn-modal-detail-ad" style="margin: 10px;">
+                    <button class="btn btn-primary btn-modal-detail-ad" >
                         Modal Chi tiết QC
                     </button>
-                    <button class='btn btn-success btn-modal-send-rp'>Modal Phản hồi Báo cáo</button>
+                    <button class='btn btn-success btn-modal-send-rp' style="margin: 10px;">
+                        Modal Phản hồi Báo cáo
+                    </button>
                     <button class='btn btn-danger btn-modal-detail-rp'>Modal Chi tiết Báo cáo</button>
                 </div>
             </div>
