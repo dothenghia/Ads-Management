@@ -99,8 +99,28 @@ const trangchu = {
         
 
         // Mở Modal Phản hồi Báo cáo
-        $('.btn-modal-send-rp').addEventListener('click', function () {
-            console.log('click 1');
+        $('.btn-modal-send-rp').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Add ID to Fetch Data
+            const fetchDetailADData = async () => {
+                await SendReportModal();
+                // Show modal
+                var myModal = new bootstrap.Modal(document.getElementById('SendReportModal'), {
+                    backdrop: 'static',
+                    keyboard: false,
+                
+                });
+                myModal.show();
+            }
+            
+            var modal = document.getElementById('SendReportModal');
+            if (modal == null) { fetchDetailADData(); }
+            else {
+                // Remove Previous Modal, then fetch new data
+                modal.remove();
+                fetchDetailADData();
+            }
         });
 
         // Mở Modal Chi tiết Báo cáo
