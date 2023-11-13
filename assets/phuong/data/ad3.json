@@ -1,0 +1,130 @@
+{
+    "AD00001": {
+        "id": "AD00001",
+        "name": "Màn hình điện tử ốp tường",
+        "qc": {
+            "00001": {
+                "id": "00001",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "123",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": true
+            },
+            "00002": {
+                "id": "00002",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "454",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": false
+            }
+        }
+    },
+    "AD00002": {
+        "id": "AD00002",
+        "name": "Trụ treo băng rôn ngang",
+        "qc": {
+            "00001": {
+                "id": "00001",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "690",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": false
+            },
+            "00002": {
+                "id": "00002",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "420",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": true
+            },
+            "00003": {
+                "id": "00003",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "11111",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": true
+            }
+        }
+    },
+    "AD00003": {
+        "id": "AD00003",
+        "name": "Trụ màn hình điện tử LED",
+        "qc": {}
+    },
+    "AD00004": {
+        "id": "AD00004",
+        "name": "Cổng chào",
+        "qc": {
+            "00001": {
+                "id": "00001",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "9999",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": false
+            }
+        }
+    },
+    "AD00005": {
+        "id": "AD00005",
+        "name": "Trụ treo băng rôn dọc",
+        "qc": {
+            "00001": {
+                "id": "00001",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "690",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": false
+            },
+            "00002": {
+                "id": "00002",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "420",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": true
+            },
+            "00003": {
+                "id": "00003",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "11111",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": true
+            }
+        }
+    }
+}

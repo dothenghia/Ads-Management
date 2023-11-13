@@ -1,57 +1,32 @@
 {
-    "type": "FeatureCollection",
-    "features": [ 
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [106.697758, 10.802540]
-            },
-            "properties": {
-                "quan": "binhthanh",
-                "phuong": "3",
-                "duong": "pxl",
-                "id": "AD00001"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [106.696658, 10.802656]
-            },
-            "properties": {
-                "quan": "binhthanh",
-                "phuong": "3",
-                "duong": "pxl",
-                "id": "AD00002"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [106.695854, 10.802756]
-            },
-            "properties": {
-                "quan": "binhthanh",
-                "phuong": "3",
-                "duong": "pxl",
-                "id": "AD00003"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [106.695580, 10.802846]
-            },
-            "properties": {
-                "quan": "binhthanh",
-                "phuong": "3",
-                "duong": "pxl",
-                "id": "AD00004"
+    "binhthanh": {
+        "id": "binhthanh",
+        "name": "Bình Thạnh",
+        "phuong": {
+            "3": {
+                "id": "3",
+                "name": "3",
+                "duong": {
+                    "vht": {
+                        "id": "vht",
+                        "name": "Vũ Huy Tấn",
+                        "diemqc": {
+                            "SPT00001": {"AD00001": ["00001"]},
+                            "SPT00002": {"AD00002": ["00002", "00003"]},
+                            "SPT00003": {"AD00001": ["00002"], "AD00002": ["00001"]},
+                            "SPT00004": {"AD00004": ["00001"]}
+                        }
+                    },
+                    "vk": {
+                        "id": "vk",
+                        "name": "Vạn Kiếp",
+                        "diemqc": {
+                            "SPT00005": {"AD00005": ["00001"]},
+                            "SPT00006": {"AD00005": ["00002", "00003"]}
+                        }
+                    }
+                }
             }
         }
-    ]   
+    }
 }

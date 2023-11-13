@@ -9,15 +9,16 @@ import Header from '/components/canbo/Header.js';
 import SideBar from '/components/canbo/SideBar.js';
 
 // Import Functions
-import getAdsInfo from '/functions/canbo/getAdsInfo.js'
+import getAdsInfo from '/functions/canbo/getAdsInfo.js';
+import setAdInfoBar from '/functions/canbo/setAdInfoBar.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "subsystem": "Phường", "subsystem_area": "3"}
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
         this.sidebarHrefs = ["#", "../quanly/quanly.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
-        this.ads = {}
+        this.ads = []
     },
 
     fetchData : async function() {
@@ -43,7 +44,15 @@ const trangchu = {
                         }
                     </div>
                     <div id="content" class="col-md-11 col-12">
-                        
+                            <div class="offcanvas offcanvas-start" tabindex="51" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
+                            <div class="offcanvas-header">
+                                <h5 id="offcanvasLeftLabel">Offcanvas right</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvasLeft" aria-label="Close"></button>
+                            </div>
+                            <div id="adInfo" class="offcanvas-body">
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,8 +60,8 @@ const trangchu = {
         root.appendChild(main);
         
         const bounds = [
-            [106.67515433595786, 10.78114502381695],     // Southwest coords
-            [106.7597736135235, 10.845061592802505]    // Northest coords
+            [106.691989, 10.793368],     // Southwest coords
+            [106.697761, 10.803528]    // Northeast coords
         ]
         let map = new mapboxgl.Map({
             container: 'content',
@@ -75,10 +84,10 @@ const trangchu = {
                 type: 'geojson',
                 // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
                 // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-                data: '/assets/phuong/data/ad2.json',
+                data: '/assets/phuong/data/ad1.json',
                 cluster: true,
                 clusterMaxZoom: 17, // Max zoom to cluster points on
-                clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+                clusterRadius: 150 // Radius of each cluster when clustering points (defaults to 50)
             });
              
             map.addLayer({
@@ -104,11 +113,11 @@ const trangchu = {
                     'circle-radius': [
                         'step',
                         ['get', 'point_count'],
-                        20,
+                        15,
                         2,
-                        25,
+                        20,
                         4,
-                        30
+                        25
                     ]
                 }
             });
@@ -132,7 +141,7 @@ const trangchu = {
                 filter: ['!', ['has', 'point_count']],
                 paint: {
                     'circle-color': '#11b4da',
-                    'circle-radius': 15,
+                    'circle-radius': 10,
                     'circle-stroke-width': 1,
                     'circle-stroke-color': '#fff'
                 }
@@ -152,7 +161,7 @@ const trangchu = {
                         map.easeTo({
                             center: features[0].geometry.coordinates,
                             zoom: zoom
-                            });
+                        });
                     }
                 );
             });
@@ -166,8 +175,11 @@ const trangchu = {
                 const quan = e.features[0].properties.quan;
                 const phuong = e.features[0].properties.phuong;
                 const duong = e.features[0].properties.duong;
-                const id = e.features[0].properties.id;
-                const adInfo = this.ads[quan].phuong[phuong].duong[duong].qc[id];
+                const spotId = e.features[0].properties.id;
+                const adId = this.ads[0][quan].phuong[phuong].duong[duong].diemqc[spotId];
+                const quanName = this.ads[0][quan].name
+                const phuongName = this.ads[0][quan].phuong[phuong].name
+                const duongName = this.ads[0][quan].phuong[phuong].duong[duong].name
                 
                 // Ensure that if the map is zoomed out such that
                 // multiple copies of the feature are visible, the
@@ -176,12 +188,19 @@ const trangchu = {
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
                 
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML(
-                        `Tên quảng cáo: ${adInfo.name}<br>Địa chỉ: ${adInfo.addr}, P.${adInfo.phuong}, Quận ${adInfo.quan}`
-                    )
-                    .addTo(map);
+                // new mapboxgl.Popup()
+                //     .setLngLat(coordinates)
+                //     .setHTML(
+                //         `Tên quảng cáo: ${adInfo.name}<br>Địa chỉ: ${adInfo.addr}, P.${adInfo.phuong}, Quận ${adInfo.quan}`
+                //     )
+                //     .addTo(map);
+                const spotInfo = {"quan": quanName, "phuong": phuongName, "duong": duongName, "adId": adId}
+                setAdInfoBar(spotInfo, this.ads[1]);
+                let offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
+                offcanvasElementList.map(function (offcanvasEl) {
+                    let offcanvas = new bootstrap.Offcanvas(offcanvasEl)
+                    offcanvas.show();
+                })
             });
              
             map.on('mouseenter', 'clusters', () => {

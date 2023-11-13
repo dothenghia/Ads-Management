@@ -1,3 +1,37 @@
 .mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
     background-color: #0D6EFD;
 }
+
+#adInfo {
+    margin-top: 4vh;
+}
+
+#adInfo h3 {
+    text-align: right;
+}
+
+#adInfo div {
+    margin: 0.75em;
+    padding: 1em;
+    border: 2px solid rgb(247, 244, 244);
+    box-shadow: 2px 2px 2px rgb(203, 203, 203);
+    border-radius: 10px;
+}
+
+#adInfo h5 {
+    color: #0D6EFD;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+}
+
+#adInfo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#adInfo p {
+    margin: 1em 0;
+    font-weight: bold;
+}

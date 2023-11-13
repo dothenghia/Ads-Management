@@ -17,7 +17,9 @@ export default function Header(profileInfo) {
                     </div>
                     <div class="col-md-10 text-center">
                         <div style="font-size: 17px; margin-bottom: 3px">${profileInfo["name"]}</div>
-                        <div style="font-size: 10px">Cán bộ ${profileInfo["subsystem"]} ${profileInfo["subsystem_area"]}</div>
+                        <div style="font-size: 10px">Cán bộ 
+                        ${((profileInfo["role"] == "phuong") ? "Phường" : ((profileInfo["role"] == "quan") ? "Quận" : "Sở VH-TT"))} 
+                        ${profileInfo["role_area"]}</div>
                     </div>
                 </div>
             </div>

@@ -8,16 +8,46 @@ const $i = document.getElementById.bind(document);
 import Header from '/components/canbo/Header.js';
 import SideBar from '/components/canbo/SideBar.js';
 
+// Import Functions
+import getAdsInfo from '/functions/canbo/getAdsInfo.js';
+
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "subsystem": "Phường", "subsystem_area": "3"}
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
         this.sidebarHrefs = ["../bando/bando.html", "#", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
+        this.adInfo = {}
+        this.adDetail = {}
     },
 
-    fetchData : function() {
+    fetchData : async function() {
+        const ads = await getAdsInfo();
+        let streets = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
 
+        // Re-organize data from database to fit for table display
+        let adInfo = {}
+        Object.values(streets).map(function (streetInfo) {
+            adInfo[streetInfo.id] = {}
+            adInfo[streetInfo.id]["id"] = streetInfo.id;
+            adInfo[streetInfo.id]["name"] = streetInfo.name;
+            let diemqc = {};
+            Object.values(streetInfo.diemqc).map(function (adSpots) {
+                Object.keys(adSpots).map(function (adSpot) {
+                    if (diemqc[adSpot] == undefined) {
+                        diemqc[adSpot] = [];
+                    }
+                    diemqc[adSpot] = diemqc[adSpot].concat(adSpots[adSpot]);
+                    diemqc[adSpot] = [...new Set(diemqc[adSpot])];
+                })
+            })
+            adInfo[streetInfo.id]["diemqc"] = diemqc;
+        })
+        this.adInfo = adInfo;
+
+        this.adDetail = ads[1];
+
+        this.render();
     },
 
     render : function() {
@@ -27,6 +57,8 @@ const trangchu = {
         `
 
         let main = document.createElement("main");
+        const adDetail = this.adDetail;
+        let i = 1;
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
                 <div class="row flex-grow-1">
@@ -44,31 +76,44 @@ const trangchu = {
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Địa điểm</th>
+                                    <th scope="col">Loại</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col"> </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                ${
+                                    Object.values(this.adInfo).map(function (streetInfo) {
+                                        return Object.keys(streetInfo.diemqc).map(function (adTypeId) {
+                                            let adSpotDetail = adDetail[adTypeId];
+                                            let row = `
+                                                <tr class="dropdown">
+                                                    <td>${i}</td>
+                                                    <td>${streetInfo.name}</td>
+                                                    <td>${adSpotDetail.name}</td>
+                                                    <td>${Object.keys(adSpotDetail.qc).length}</td>
+                                                    <td>
+                                                        <button class="btn btn-secondary dropdown-toggle" 
+                                                        data-boundary="window" type="button" id="ad${i}Dropdown" 
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Dropdown button
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="ad${i}Dropdown">
+                                                            <a class="dropdown-item" href="#">Action</a>
+                                                            <a class="dropdown-item" href="#">Another action</a>
+                                                            <a class="dropdown-item" href="#">Something else here</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                            console.log(row)
+                                            i++;
+                                            return row;
+                                        }).join('')
+                                    }).join('')
+                                }
                             </tbody>
                         </table>
                     </div>
