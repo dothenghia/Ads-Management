@@ -13,9 +13,11 @@ export default function Header() {
                         Modal Chi tiết QC
                     </button>
                     <button class='btn btn-success btn-modal-send-rp' style="margin: 10px;">
-                        Modal Phản hồi Báo cáo
+                        Modal Gửi Phản hồi Báo cáo
                     </button>
-                    <button class='btn btn-danger btn-modal-detail-rp'>Modal Chi tiết Báo cáo</button>
+                    <button class='btn btn-danger btn-modal-detail-rp'>
+                        Modal Chi tiết Báo cáo
+                    </button>
                 </div>
             </div>
         </nav>

@@ -124,8 +124,41 @@ const trangchu = {
         });
 
         // Mở Modal Chi tiết Báo cáo
-        $('.btn-modal-detail-rp').addEventListener('click', function () {
-            console.log('click 2');
+        $('.btn-modal-detail-rp').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Add ID to Fetch Data: Type: LC-Location Report, QC-Ad Report, State: 1-In Progress, 2-Processed, 3-Declined
+            const fetchDetailADData = async (Type, State) => {
+                await DetailReportModal(Type, State);
+                // Show modal
+                if (Type == 'LC')
+                {
+                    var myModal = new bootstrap.Modal(document.getElementById('DetailLCReport'), {
+                    backdrop: 'static',
+                    keyboard: false,
+                    });
+                    myModal.show();
+                }
+                else {
+                    var myModal = new bootstrap.Modal(document.getElementById('DetailQCReport'), {
+                    backdrop: 'static',
+                    keyboard: false,
+                    });
+                    myModal.show();
+                }
+            }
+            
+            var modalLC = document.getElementById('DetailLCReport');
+            var modalQC = document.getElementById('DetailQCReport');
+            if (modalLC == null) { 
+                if (modalQC != null) modalQC.remove();
+                fetchDetailADData('LC', 2); 
+            }
+            else {
+                // Remove Previous Modal, then fetch new data
+                if (modalLC != null) modalLC.remove();
+                fetchDetailADData('QC', 2);
+            }
         });
     },
 
