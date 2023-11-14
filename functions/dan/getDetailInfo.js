@@ -10,7 +10,7 @@ const fakeDetailList = [
         contractStart: '10-01-2023',
         contractEnd: '21-10-2023',
         number: '2',
-        url: ['./images/banner1.jpg', './images/banner2.jpg', './images/banner3.jpg'],
+        url: ['/assets/dan/images/banner1.jpg', '/assets/dan/images/banner2.jpg', '/assets/dan/images/banner3.jpg'],
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const fakeDetailList = [
         contractStart: '10-02-2023',
         contractEnd: '21-10-2024',
         number: '3',
-        url: ['./images/banner1.jpg', './images/banner2.jpg', './images/banner3.jpg'],
+        url: ['/assets/dan/images/banner1.jpg', '/assets/dan/images/banner2.jpg', '/assets/dan/images/banner3.jpg'],
     },
 ]
 

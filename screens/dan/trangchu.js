@@ -42,29 +42,21 @@ const trangchu = {
     
     // Fetch dữ liệu các điểm QC và Show lên Map
     fetchAdMarkers: async function () {
-        const data = await getAdLocationList();
-        this.adLocationList = data;
-
+        this.adLocationList = await getAdLocationList();
         this.renderAdMarkers();
     },
     renderAdMarkers: function () {
-        this.adLocationList.forEach(adInfo => {
-            AdMarker(this.map, adInfo);
-        });
+        this.adLocationList.forEach(adInfo => AdMarker(this.map, adInfo));
     },
 
 
     // Fetch dữ liệu các điểm Bị báo cáo và Show lên Map
     fetchReportMarkers: async function () {
-        const data = await getReportLocationList();
-        this.reportLocationList = data;
-
+        this.reportLocationList = await getReportLocationList();
         this.renderReportMarkers();
     },
     renderReportMarkers: function () {
-        this.reportLocationList.forEach(reportInfo => {
-            ReportMarker(this.map, reportInfo);
-        });
+        this.reportLocationList.forEach(reportInfo => ReportMarker(this.map, reportInfo));
     },
 
 

@@ -92,11 +92,7 @@ export default function AdSidebar(adLocationData) {
                 ${AdSidebar_Info(adLocationData)}
                 
 
-                ${
-                    adLocationData.adList.map((ad, index) => {
-                        return AdCard(ad)
-                    }).join('')
-                }
+                ${ adLocationData.adList.map(ad => AdCard(ad)).join('') }
 
             </div>
 

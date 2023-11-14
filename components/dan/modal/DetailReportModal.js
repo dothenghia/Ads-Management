@@ -156,13 +156,13 @@ export default function DetailReportModal(Type, State) {
             
                                             <div class="carousel-inner" role="listbox">
                                                 <div class="carousel-item active rounded-5 px-1">
-                                                    <img src="./images/banner1.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="First slide">
+                                                    <img src="/assets/dan/images/banner1.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="First slide">
                                                 </div>
                                                 <div class="carousel-item rounded-5 px-1">
-                                                    <img src="./images/banner2.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Second slide">
+                                                    <img src="/assets/dan/images/banner2.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Second slide">
                                                 </div>
                                                 <div class="carousel-item rounded-5 px-1">
-                                                    <img src="./images/banner3.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Third slide">
+                                                    <img src="/assets/dan/images/banner3.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Third slide">
                                                 </div>
                                             </div>
                             
@@ -272,13 +272,13 @@ export default function DetailReportModal(Type, State) {
         
                                         <div class="carousel-inner" role="listbox">
                                             <div class="carousel-item active rounded-5 px-1">
-                                                <img src="./images/banner1.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="First slide">
+                                                <img src="/assets/dan/images/banner1.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="First slide">
                                             </div>
                                             <div class="carousel-item rounded-5 px-1">
-                                                <img src="./images/banner2.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Second slide">
+                                                <img src="/assets/dan/images/banner2.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Second slide">
                                             </div>
                                             <div class="carousel-item rounded-5 px-1">
-                                                <img src="./images/banner3.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Third slide">
+                                                <img src="/assets/dan/images/banner3.jpg" class="w-100 d-block object-fit-cover rounded-5" alt="Third slide">
                                             </div>
                                         </div>
                         

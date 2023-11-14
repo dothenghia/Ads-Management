@@ -1,20 +1,34 @@
 API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
 
+AdMarker
+    --> AdSidebar :
+        + AdSidebar_Thumbnail
+        + AdSidebar_Info --> Report Form Modal
+        + AdCard --> Detail Ad Modal & Report Form Modal
+
+ReportMarker
+    --> Detail Report Modal
+
+ReportListButton
+    --> ReportSidebar :
+        + ReportCard --> (Detail Ad Modal || AdSidebar) & Detail Report Modal
+
+
+
 <details>
     <summary>Phân công</summary>
     
     Người dân :
     (Nghĩa)
     - Thanh tìm kiếm
-    - Nút Danh sách
+    - Nút Danh sách /
     - Nút thu phóng
     - Các nút ẩn hiện
-    - 9 cái điểm đánh dấu
-        + Hover
+    - 9 cái điểm đánh dấu (8/9)
         + Click
-    - SideBar Thông tin địa điểm đặt QC + Thông tin chung của các QC đặt tại đó
-    - Sidebar Danh sách báo cáo
+    - SideBar Thông tin địa điểm đặt QC + Thông tin chung của các QC đặt tại đó /
+    - Sidebar Danh sách báo cáo /
 
     (Bảo)
     - Popup Thông tin địa điểm bất kì

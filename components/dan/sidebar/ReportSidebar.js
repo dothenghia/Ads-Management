@@ -1,20 +1,10 @@
 
 import ReportCard from "../card/ReportCard.js"
 
-function extractList(reportData) {
-    const qcReports = reportData.filter(report => report.type === 'qc');
-
-    const ddReports = reportData.filter(report => report.type === 'dd');
-
-    return {
-        qcReports,
-        ddReports
-    };
-}
-
 export default function ReportSidebar(reportData) {
 
-    let { qcReports, ddReports } = extractList(reportData);
+    const qcReports = reportData.filter(report => report.type === 'qc');
+    const ddReports = reportData.filter(report => report.type === 'dd');
 
     function switchTab(tabType) {
         const tabs = document.querySelectorAll('.report-sidebar__tab');
@@ -55,19 +45,11 @@ export default function ReportSidebar(reportData) {
                 </div>
                 
                 <div class="report-sidebar__content" data-type="qc">
-                    ${
-                        qcReports.map((rp) => {
-                            return ReportCard(rp)
-                        }).join('')
-                    }
+                    ${qcReports.map(rp => ReportCard(rp)).join('')}
                 </div>
                 
                 <div class="report-sidebar__content" data-type="dd" style="display: none;">
-                    ${
-                        ddReports.map((rp) => {
-                            return ReportCard(rp)
-                        }).join('')
-                    }
+                    ${ddReports.map(rp => ReportCard(rp)).join('')}
                 </div>
 
             </div>

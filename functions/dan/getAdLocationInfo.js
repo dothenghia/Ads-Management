@@ -113,5 +113,5 @@ const fakeAdLocationInfo = [
 ]
 
 export default async function getAdLocationInfo(id) {
-    return fakeAdLocationInfo[id-1];
+    return fakeAdLocationInfo.find(info => info.id === id);
 }

@@ -1,19 +1,12 @@
-const $ = document.querySelector.bind(document);
 
 import AdSidebar from '../sidebar/AdSidebar.js';
 import getAdLocationInfo from '/functions/dan/getAdLocationInfo.js';
 
 export default function AdMarker(map, adInfo) {
     const mk = document.createElement('div');
-    mk.className = adInfo.quyhoach ? 
-        `marker marker-qh ad-marker-${adInfo.id}` : 
-        `marker marker-cqh ad-marker-${adInfo.id}`;
-        // Đại loại là cái ad-marker-${adInfo.id} sẽ đánh dấu 1 cái marker thoi
-        // để xử lý sự kiến khi click vào marker đó thì sẽ hiện ra sidebar
+    mk.className = `marker marker-${adInfo.quyhoach ? 'qh' : 'cqh'} ad-marker-${adInfo.id}`;
 
-    if (adInfo.quyhoach) {
-        mk.innerHTML = 'QC';
-    }
+    mk.innerHTML = adInfo.quyhoach ? 'QC' : '';
 
     var marker = new mapboxgl.Marker(mk)
         .setLngLat([adInfo.longitude, adInfo.latitude])
@@ -21,7 +14,7 @@ export default function AdMarker(map, adInfo) {
 
 
     // Add Event Handler
-    $(`.ad-marker-${adInfo.id}`).onclick = function () {
+    document.querySelector(`.ad-marker-${adInfo.id}`).onclick = function () {
 
         // Fetch Data theo ID
         // Thay vì truyền ID vào Component ròi mới Fetch
@@ -31,7 +24,7 @@ export default function AdMarker(map, adInfo) {
             var data = await getAdLocationInfo(adInfo.id);
             console.log(data);
 
-            $('.sidebar-root').innerHTML = AdSidebar(data)
+            document.querySelector('.sidebar-root').innerHTML = AdSidebar(data)
         }
 
         fetchData();
