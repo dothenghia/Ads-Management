@@ -7,6 +7,7 @@ const $i = document.getElementById.bind(document);
 // Import Components
 import Header from '/components/canbo/Header.js';
 import SideBar from '/components/canbo/SideBar.js';
+import {AdInfoDropdownButton, AdInfoPageOpenButton, AdInfoPageCloseButton} from '/components/phuong/AdInfoButtons.js';
 
 // Import Functions
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
@@ -59,6 +60,7 @@ const trangchu = {
         let main = document.createElement("main");
         const adDetail = this.adDetail;
         let i = 1;
+        let j = 1;
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
                 <div class="row flex-grow-1">
@@ -68,6 +70,7 @@ const trangchu = {
                         }
                     </div>
                     <div id="content" class="tb col-md-11 col-12">
+                        <div id="contentOverlay" style="display: none"></div>
                         <ul id="category">
                             <li class="tb-active">Thông tin quảng cáo</li>
                             <li>Yêu cầu chỉnh sửa</li>
@@ -75,7 +78,7 @@ const trangchu = {
                         </ul>
                         <table class="table table-sm">
                             <thead>
-                                <tr>
+                                <tr class="ad-general-header">
                                     <th scope="col">STT</th>
                                     <th scope="col">Địa điểm</th>
                                     <th scope="col">Loại</th>
@@ -89,27 +92,56 @@ const trangchu = {
                                         return Object.keys(streetInfo.diemqc).map(function (adTypeId) {
                                             let adSpotDetail = adDetail[adTypeId];
                                             let row = `
-                                                <tr class="dropdown">
+                                                <tr class="ad-general">
                                                     <td>${i}</td>
                                                     <td>${streetInfo.name}</td>
                                                     <td>${adSpotDetail.name}</td>
                                                     <td>${Object.keys(adSpotDetail.qc).length}</td>
                                                     <td>
-                                                        <button class="btn btn-secondary dropdown-toggle" 
-                                                        data-boundary="window" type="button" id="ad${i}Dropdown" 
-                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Dropdown button
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="ad${i}Dropdown">
-                                                            <a class="dropdown-item" href="#">Action</a>
-                                                            <a class="dropdown-item" href="#">Another action</a>
-                                                            <a class="dropdown-item" href="#">Something else here</a>
-                                                        </div>
+                                                        ${AdInfoDropdownButton("ad" + i + "Specific")}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <tr class="ad-specific-header" id="ad${i}Specific" style="display: none">
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Địa chỉ</th>
+                                                                <th scope="col">Kích thước</th>
+                                                                <th scope="col">SL trụ</th>
+                                                                <th scope="col">Hình thức</th>
+                                                                <th scope="col">Phân loại</th>
+                                                                <th scope="col"> </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            ${
+                                                                Object.values(adSpotDetail.qc).map(function (adDetail) {
+                                                                    let rowSpecific = `
+                                                                    <tr class="ad-specific" id="ad${i}Specific" style="display: none">
+                                                                    <td>${j}</td>
+                                                                    <td>${adDetail.sonha} ${streetInfo.name}</td>
+                                                                    <td>${adDetail.size}</td>
+                                                                    <td>${adDetail.cnt}</td>
+                                                                    <td>${adDetail.purpose}</td>
+                                                                    <td>${adDetail.type}</td>
+                                                                    <td>
+                                                                        ${AdInfoPageOpenButton()}
+                                                                    </td>
+                                                                    </tr>
+                                                                    `;
+                                                                    j++;
+                                                                    return rowSpecific;
+                                                                }).join('')
+                                                            }
+                                                        </tbody>
+                                                    </table>
                                                     </td>
                                                 </tr>
                                             `;
-                                            console.log(row)
                                             i++;
+                                            j = 1;
                                             return row;
                                         }).join('')
                                     }).join('')
