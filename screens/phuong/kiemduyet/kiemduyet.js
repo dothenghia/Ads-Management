@@ -11,7 +11,7 @@ import SideBar from '/components/canbo/SideBar.js';
 const trangchu = {
     init : function() {
         this.profileInfo = {"name": "Nguyễn Văn A", "subsystem": "Phường", "subsystem_area": "3"}
-        this.sidebarHrefs = ["../bando/bando.html", "../quanly/quanly.html", "#"];
+        this.sidebarHrefs = ["/screens/phuong/bando/bando.html", "/screens/phuong/quanly/quanly.html", "#"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
     },

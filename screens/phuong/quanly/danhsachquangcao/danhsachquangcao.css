@@ -1,0 +1,41 @@
+.tb table tr.ad-specific-header th {
+    text-align: center;
+    color: #999;
+    font-weight: normal;
+    border-style: dashed;
+    border-top-width: 2px !important;
+    border-bottom-width: 0 !important;
+    border-color: #999;
+}
+
+.tb table tr.ad-specific {
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 15px;
+}
+
+.tb table tr.ad-specific td {
+    text-align: center;
+    padding: 0.75em 0;
+}
+
+/* .tb table {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 2em;
+}
+
+.tb table th {
+    text-align: center;
+    color: #999;
+    font-weight: lighter;
+    padding: 1em 0;
+}
+
+.tb table td {
+    text-align: center;
+    word-wrap: break-word;
+    padding: 1em 3em;
+    border: solid #999;
+    border-width: 2px 0;
+} */

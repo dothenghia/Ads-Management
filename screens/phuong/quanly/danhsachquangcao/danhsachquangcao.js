@@ -7,7 +7,7 @@ const $i = document.getElementById.bind(document);
 // Import Components
 import Header from '/components/canbo/Header.js';
 import SideBar from '/components/canbo/SideBar.js';
-import {AdInfoDropdownButton, AdInfoPageOpenButton, AdInfoPageCloseButton} from '/components/phuong/AdInfoButtons.js';
+import AdInfoDropdownButton from '/components/phuong/AdInfoDropdownButton.js';
 
 // Import Functions
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
@@ -15,15 +15,19 @@ import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 const trangchu = {
     init : function() {
         this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
-        this.sidebarHrefs = ["../bando/bando.html", "#", "../kiemduyet/kiemduyet.html"];
+        this.sidebarHrefs = ["/screens/phuong/bando/bando.html", "#", "/screens/phuong/kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
-        this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
-        this.adInfo = {}
-        this.adDetail = {}
+        this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"];
+        this.areaInfo = {};
+        this.adInfo = {};
+        this.adDetail = {};
     },
 
     fetchData : async function() {
         const ads = await getAdsInfo();
+        this.areaInfo["quan"] = ads[0][this.profileInfo.quan].name;
+        this.areaInfo["phuong"] = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong];
+
         let streets = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
 
         // Re-organize data from database to fit for table display
@@ -59,6 +63,7 @@ const trangchu = {
 
         let main = document.createElement("main");
         const adDetail = this.adDetail;
+        const areaInfo = this.areaInfo;
         let i = 1;
         let j = 1;
         main.innerHTML = `
@@ -70,10 +75,9 @@ const trangchu = {
                         }
                     </div>
                     <div id="content" class="tb col-md-11 col-12">
-                        <div id="contentOverlay" style="display: none"></div>
                         <ul id="category">
                             <li class="tb-active">Thông tin quảng cáo</li>
-                            <li>Yêu cầu chỉnh sửa</li>
+                            <li><a href="../yeucauchinhsua/yeucauchinhsua.html">Yêu cầu chỉnh sửa</a></li>
                             <li>Báo cáo vi phạm</li>
                         </ul>
                         <table class="table table-sm">
@@ -118,6 +122,12 @@ const trangchu = {
                                                         <tbody>
                                                             ${
                                                                 Object.values(adSpotDetail.qc).map(function (adDetail) {
+                                                                    let adAddr = JSON.stringify({
+                                                                        "duong": streetInfo.name,
+                                                                        "quan": areaInfo.quan,
+                                                                        "phuong": areaInfo.phuong.name
+                                                                    });
+                                                                    let adDetailJson = JSON.stringify(adDetail);
                                                                     let rowSpecific = `
                                                                     <tr class="ad-specific" id="ad${i}Specific" style="display: none">
                                                                     <td>${j}</td>
@@ -127,7 +137,9 @@ const trangchu = {
                                                                     <td>${adDetail.purpose}</td>
                                                                     <td>${adDetail.type}</td>
                                                                     <td>
-                                                                        ${AdInfoPageOpenButton()}
+                                                                    <button onclick='redirectToAdInfoPage("${adSpotDetail.id}","${adSpotDetail.name}",${adAddr}, ${adDetailJson})'>
+                                                                        ...
+                                                                    </button>
                                                                     </td>
                                                                     </tr>
                                                                     `;

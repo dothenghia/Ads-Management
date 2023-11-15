@@ -1,0 +1,23 @@
+.tb .req-status-0 {
+    background-color: #F2F5FF;
+    color: #6A6E83;
+    border-radius: 10px;
+}
+
+.tb .req-status-1 {
+    background-color: #31CAFB;
+    color: white;
+    border-radius: 10px;
+}
+
+.tb .req-status-2 {
+    background-color: #34A853;
+    color: white;
+    border-radius: 10px;
+}
+
+.tb .req-status-3 {
+    background-color: #FF2424;
+    color: white;
+    border-radius: 10px;
+}

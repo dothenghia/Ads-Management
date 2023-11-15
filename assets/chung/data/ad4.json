@@ -1,0 +1,34 @@
+{
+    "binhthanh": {
+        "id": "binhthanh",
+        "name": "Bình Thạnh",
+        "phuong": {
+            "3": {
+                "id": "3",
+                "name": "3",
+                "duong": {
+                    "vht": {
+                        "id": "vht",
+                        "name": "Vũ Huy Tấn",
+                        "yeucau": {
+                            "YCCS00001": {
+                                "id": "YCCS00001",
+                                "loc": "AD00001_00001",
+                                "new": {
+                                    "sonha": "471483",
+                                    "size": "2.5mx1.2m",
+                                    "cnt": 1,
+                                    "purpose": "Đất công",
+                                    "type": "Thương mại"
+                                },
+                                "date": "24/10/2023",
+                                "reason": "Không phù hợp",
+                                "status": 0
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

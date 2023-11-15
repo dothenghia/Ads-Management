@@ -15,7 +15,7 @@ import setAdInfoBar from '/functions/canbo/setAdInfoBar.js';
 const trangchu = {
     init : function() {
         this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
-        this.sidebarHrefs = ["#", "../quanly/quanly.html", "../kiemduyet/kiemduyet.html"];
+        this.sidebarHrefs = ["#", "/screens/phuong/quanly/quanly.html", "/screens/phuong/kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
         this.ads = []
@@ -84,7 +84,7 @@ const trangchu = {
                 type: 'geojson',
                 // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
                 // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-                data: '/assets/phuong/data/ad1.json',
+                data: '/assets/chung/data/ad1.json',
                 cluster: true,
                 clusterMaxZoom: 17, // Max zoom to cluster points on
                 clusterRadius: 150 // Radius of each cluster when clustering points (defaults to 50)
@@ -188,12 +188,6 @@ const trangchu = {
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
                 
-                // new mapboxgl.Popup()
-                //     .setLngLat(coordinates)
-                //     .setHTML(
-                //         `Tên quảng cáo: ${adInfo.name}<br>Địa chỉ: ${adInfo.addr}, P.${adInfo.phuong}, Quận ${adInfo.quan}`
-                //     )
-                //     .addTo(map);
                 const spotInfo = {"quan": quanName, "phuong": phuongName, "duong": duongName, "adId": adId}
                 setAdInfoBar(spotInfo, this.ads[1]);
                 let offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
