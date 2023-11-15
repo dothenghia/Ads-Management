@@ -1,6 +1,6 @@
 .marker {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -15,15 +15,15 @@
 
 .marker-qh {
     background-color: var(--primary-color);
-    outline: solid 4px var(--primary-color-subtle);
+    border: solid 4px var(--primary-color-subtle);
 
     color: var(--white-color);
-    font-size: 1.0rem;
+    font-size: 0.8rem;
 }
 
 .marker-cqh {
     background-color: var(--chuaqh-color);
-    outline: solid 4px var(--chuaqh-color-subtle);
+    border: solid 4px var(--chuaqh-color-subtle);
 }
 
 

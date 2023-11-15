@@ -1,4 +1,5 @@
 
+import StatusTag from "../tag/StatusTag.js"
 
 export default function ReportCard(report) {
     return `
@@ -15,7 +16,7 @@ export default function ReportCard(report) {
             <p>${report.form}</p>
 
             <h2>Tình trạng xử lý</h2>
-            <p>${report.status}</p>
+            ${StatusTag(report.status)}
 
             <h2>Thời gian gửi</h2>
             <p>${report.time}</p>
