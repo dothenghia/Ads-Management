@@ -1,12 +1,15 @@
 
-function AdCard_Thumbnail(ad) {
+import DetailAdModal from "../modal/DetailAdModal.js";
+
+
+function AdCard_Thumbnail(adInfo) {
     return `
     <div class="ad-card__thumbnail">
-        <div id="ad-card__carousel-${ad.id}" class="carousel slide" data-bs-ride="carousel">
+        <div id="ad-card__carousel-${adInfo.id}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
 
                 ${
-                    ad.thumbnails.map((thumbnail, index) => {
+                    adInfo.thumbnails.map((thumbnail, index) => {
                         return `
                         <div class="carousel-item rounded-3 ${index==0 && 'active'}">
                             <img src=${thumbnail.url} class="rounded-3" alt=${thumbnail.url}>
@@ -16,11 +19,11 @@ function AdCard_Thumbnail(ad) {
                 }
 
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#ad-card__carousel-${ad.id}" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#ad-card__carousel-${adInfo.id}" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#ad-card__carousel-${ad.id}" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#ad-card__carousel-${adInfo.id}" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -30,16 +33,47 @@ function AdCard_Thumbnail(ad) {
 }
 
 
-export default function AdCard(ad) {
+export default function AdCard(adInfo, adLocationData) {
+    
+    let extractData = {
+        adId: adInfo.id,
+        locationId: adLocationData.id,
+        address: adLocationData.address,
+        region: adLocationData.region,
+        name: adInfo.name,
+        type: adLocationData.type,
+        form: adLocationData.form,
+        locationType: adLocationData.locationType,
+        contractStartDate: adInfo.contractStartDate,
+        contractEndDate: adInfo.contractEndDate,
+        size: adInfo.size,
+        thumbnails: adInfo.thumbnails,
+    }
+
+    function openDetailAdModal(ad) {
+        let detailAdInfo = JSON.parse(decodeURIComponent(ad));        
+        
+        document.querySelector('.modal-root').innerHTML = DetailAdModal(detailAdInfo);
+
+        // var myModal = new bootstrap.Modal(document.getElementById(`detail-ad-modal-${detailAdInfo.adId}`), {
+        //     backdrop: 'static',
+        //     keyboard: false,
+        // });
+        // myModal.show();
+    }
+
+    window.openDetailAdModal = openDetailAdModal;
+
+
     return `
     <div class='ad-card'>
         <div class='ad-card__title'>
-            <h1>${ad.name}</h1>
+            <h1>${adInfo.name}</h1>
         </div>
 
         <div class="ad-card__info">
             <h2>Kích thước</h2>
-            <p>${ad.size}</p>
+            <p>${adInfo.size}</p>
 
             
             <div class="w-33 d-flex flex-column"  style="min-width: 33%;">
@@ -51,8 +85,8 @@ export default function AdCard(ad) {
                         </svg>
                     </div>
                     <div class="d-flex flex-column">
-                        <span>${ad.contractStartDate}</span>
-                        <span>${ad.contractEndDate}</span>
+                        <span>${adInfo.contractStartDate}</span>
+                        <span>${adInfo.contractEndDate}</span>
                     </div>
                 </div>
             </div>
@@ -61,11 +95,11 @@ export default function AdCard(ad) {
         </div>
 
 
-        ${AdCard_Thumbnail(ad)}
+        ${AdCard_Thumbnail(adInfo)}
 
 
         <div class="ad-card__button">
-            <button class="btn btn-outline-primary custom-btn">
+            <button class="btn btn-outline-primary custom-btn" onclick="openDetailAdModal('${encodeURIComponent(JSON.stringify(extractData))}')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                 Chi tiết
             </button>
