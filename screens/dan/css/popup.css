@@ -1,0 +1,21 @@
+/* Custom CSS for Tooltip */
+.tippy-content {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+.tippy-box{
+    border-radius: 10px;
+}
+.tippy-width-1 {  
+    width: 450px;
+}
+
+.tippy-width-2 {
+    width: 300px; /* Adjust the width as needed */
+}
+
+
+
