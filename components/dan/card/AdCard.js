@@ -55,11 +55,6 @@ export default function AdCard(adInfo, adLocationData) {
         
         document.querySelector('.modal-root').innerHTML = DetailAdModal(detailAdInfo);
 
-        // var myModal = new bootstrap.Modal(document.getElementById(`detail-ad-modal-${detailAdInfo.adId}`), {
-        //     backdrop: 'static',
-        //     keyboard: false,
-        // });
-        // myModal.show();
     }
 
     window.openDetailAdModal = openDetailAdModal;
