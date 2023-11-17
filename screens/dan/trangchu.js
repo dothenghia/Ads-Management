@@ -6,9 +6,13 @@ import ReportListButton from '/components/dan/ReportListButton.js';
 import AdMarker from '/components/dan/marker/AdMarker.js';
 import ReportMarker from '/components/dan/marker/ReportMarker.js';
 
+
+import DetailReportModal from '/components/dan/modal/DetailReportModal.js';
+
+
 // Import Functions
-import getAdLocationList from '/functions/dan/getAdLocationList.js';
-import getReportLocationList from '/functions/dan/getReportLocationList.js';
+import { getAllAdList } from '/functions/dan/getAdLocationInfo.js';
+import { getAllReportList } from '/functions/dan/getReportLocationInfo.js';
 
 // MapBox Initialization
 var mylongitude = 106.682667;
@@ -33,7 +37,7 @@ const trangchu = {
     
     // Fetch dữ liệu các điểm QC và Show lên Map
     fetchAdMarkers: async function () {
-        this.adLocationList = await getAdLocationList();
+        this.adLocationList = await getAllAdList();
         this.renderAdMarkers();
     },
     renderAdMarkers: function () {
@@ -43,7 +47,7 @@ const trangchu = {
 
     // Fetch dữ liệu các điểm Bị báo cáo và Show lên Map
     fetchReportMarkers: async function () {
-        this.reportLocationList = await getReportLocationList();
+        this.reportLocationList = await getAllReportList();
         this.renderReportMarkers();
     },
     renderReportMarkers: function () {

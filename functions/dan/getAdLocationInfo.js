@@ -3,6 +3,9 @@ const fakeAdLocationInfo = [
     {
         id: 1,
         quyhoach: true,
+        isReported: true,
+        reportStatus: '',
+        reportRecord: 1,
         longitude: 106.683218,
         latitude: 10.761180,
 
@@ -23,6 +26,7 @@ const fakeAdLocationInfo = [
                 id: 1,
                 name: 'Bảng quảng cáo 1',
                 size: '2.5m x 10m',
+                reportStatus: 'Đang xử lý',
                 contractStartDate: 'Ngày 10 tháng 01 năm 2023',
                 contractEndDate: 'Ngày 18 tháng 10 năm 2023',
                 thumbnails: [
@@ -35,6 +39,7 @@ const fakeAdLocationInfo = [
                 id: 2,
                 name: 'Bảng quảng cáo 2',
                 size: '5m x 5m',
+                reportStatus: '',
                 contractStartDate: 'Ngày 10 tháng 01 năm 2023',
                 contractEndDate: 'Ngày 31 tháng 12 năm 2023',
                 thumbnails: [
@@ -48,6 +53,8 @@ const fakeAdLocationInfo = [
     {
         id: 2,
         quyhoach: false,
+        isReported: false,
+        reportRecord: 0,
         longitude: 106.681622,
         latitude: 10.765123,
 
@@ -64,6 +71,9 @@ const fakeAdLocationInfo = [
     {
         id: 3,
         quyhoach: false,
+        isReported: true,
+        reportStatus: 'Đã xử lý',
+        reportRecord: 1,
         longitude: 106.689628,
         latitude: 10.761667,
 
@@ -80,6 +90,8 @@ const fakeAdLocationInfo = [
     {
         id: 4,
         quyhoach: true,
+        isReported: false,
+        reportRecord: 0,
         longitude: 106.686656,
         latitude: 10.762573,
 
@@ -100,6 +112,7 @@ const fakeAdLocationInfo = [
                 id: 1,
                 name: 'Bảng quảng cáo 1',
                 size: '6m x 6m',
+                reportStatus: '',
                 contractStartDate: 'Ngày 01 tháng 01 năm 2023',
                 contractEndDate: 'Ngày 01 tháng 01 năm 2024',
                 thumbnails: [
@@ -112,6 +125,15 @@ const fakeAdLocationInfo = [
     }
 ]
 
-export default async function getAdLocationInfo(id) {
+async function getAllAdList() {
+    return fakeAdLocationInfo;
+}
+
+async function getAdLocationInfoById(id) {
     return fakeAdLocationInfo.find(info => info.id === id);
+}
+
+export {
+    getAllAdList,
+    getAdLocationInfoById
 }
