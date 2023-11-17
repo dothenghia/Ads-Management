@@ -1,0 +1,39 @@
+{
+    "binhthanh": {
+        "id": "binhthanh",
+        "name": "Bình Thạnh",
+        "phuong": {
+            "3": {
+                "id": "3",
+                "name": "3",
+                "duong": {
+                    "vht": {
+                        "id": "vht",
+                        "name": "Vũ Huy Tấn",
+                        "baocao": {
+                            "YCCP00001": {
+                                "id": "YCCP00001",
+                                "co": {
+                                    "id": "vc",
+                                    "name": "Vin Cơm",
+                                    "email": "vcome@gmail.com",
+                                    "phone": "324932423"
+                                },
+                                "loc": {
+                                    "sonha": "123",
+                                    "duong": "vht",
+                                    "quan": "binhthanh",
+                                    "phuong": "3"
+                                },
+                                "startdate": "22/12/2023",
+                                "enddate": "22/12/2024",
+                                "content": "OK bấy bề",
+                                "status": false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

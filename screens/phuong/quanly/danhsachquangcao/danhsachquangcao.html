@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Quản lý - Cán bộ phường | AdsMap</title>
+    <title>Danh sách quảng cáo - Quản lý - Cán bộ phường | AdsMap</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/assets/chung/favicon.ico" type="image/x-icon">
@@ -36,13 +36,6 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 
     <script>
-        if (localStorage.getItem("previousPage") != null) {
-            let storedPageData = JSON.parse(localStorage.getItem("previousPage"));
-            if (storedPageData.href == window.location.href) {
-                window.scrollY = Number.parseInt(storedPageData.scroll);
-                localStorage.removeItem("previousPage");
-            } 
-        }
         function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
             let adData = {
                 "adTypeId": adTypeId,
@@ -50,8 +43,7 @@
                 "adAddr": adAddr,
                 "adInfo": adInfo
             }
-            localStorage.setItem('adPageData', JSON.stringify(adData));
-            localStorage.setItem('previousPage', JSON.stringify({"href": window.location.href, "scroll": window.scrollY}));
+            sessionStorage.setItem('adPageData', JSON.stringify(adData));
             window.location.href = '/screens/canbo/thongtinquangcao/thongtinquangcao.html';
         }
     </script>

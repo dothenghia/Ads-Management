@@ -45,7 +45,7 @@ const trangchu = {
                                     <img src="" alt="Ad">
                                 </div>
                                 <div class="col-7">
-                                    <h5 id="name"></h5>
+                                    <h5 id="name">Báo cáo</h5>
                                     <p id="cnt"></p>
                                     <p id="size"></p>
                                     <p id="purpose"></p>
@@ -63,7 +63,7 @@ const trangchu = {
         `
         root.appendChild(main);
         
-        const adData = JSON.parse(sessionStorage.getItem("adPageData"));
+        const adData = JSON.parse(sessionStorage.getItem("repPageData"));
         let contentOverlay = document.getElementById('contentOverlay');
         contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/' + adData.adTypeId + '.jpeg'
         contentOverlay.querySelector('#name').innerHTML = "<span style='color: #2B77D0'>" + adData.adTypeName + "</span>" ;

@@ -11,6 +11,7 @@ import AdInfoDropdownButton from '/components/phuong/AdInfoDropdownButton.js';
 
 // Import Functions
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
+import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
@@ -25,9 +26,6 @@ const trangchu = {
 
     fetchData : async function() {
         const ads = await getAdsInfo();
-        this.areaInfo["quan"] = ads[0][this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong];
-
         let streets = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
 
         // Re-organize data from database to fit for table display
@@ -51,6 +49,10 @@ const trangchu = {
         this.adInfo = adInfo;
 
         this.adDetail = ads[1];
+
+        const areas = await getAreaInfo();
+        this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
+        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
 
         this.render();
     },
@@ -78,7 +80,7 @@ const trangchu = {
                         <ul id="category">
                             <li class="tb-active">Thông tin quảng cáo</li>
                             <li><a href="../yeucauchinhsua/yeucauchinhsua.html">Yêu cầu chỉnh sửa</a></li>
-                            <li>Báo cáo vi phạm</li>
+                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo vi phạm</a></li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -125,7 +127,7 @@ const trangchu = {
                                                                     let adAddr = JSON.stringify({
                                                                         "duong": streetInfo.name,
                                                                         "quan": areaInfo.quan,
-                                                                        "phuong": areaInfo.phuong.name
+                                                                        "phuong": areaInfo.phuong
                                                                     });
                                                                     let adDetailJson = JSON.stringify(adDetail);
                                                                     let rowSpecific = `

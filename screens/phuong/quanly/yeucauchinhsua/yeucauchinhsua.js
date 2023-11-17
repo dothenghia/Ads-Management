@@ -10,8 +10,9 @@ import SideBar from '/components/canbo/SideBar.js';
 import AdInfoDropdownButton from '/components/phuong/AdInfoDropdownButton.js';
 
 // Import Functions
-import getReqInfo from '/functions/canbo/getReqInfo.js';
+import {getChangeReqInfo} from '/functions/canbo/getReqInfo.js';
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
+import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
@@ -27,12 +28,14 @@ const trangchu = {
     fetchData : async function() {
         const ads = await getAdsInfo();
 
-        const reqs = await getReqInfo();
-        this.areaInfo["quan"] = ads[0][this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong];
+        const reqs = await getChangeReqInfo();
         this.reqInfo = reqs[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
 
         this.adTypeInfo = ads[1];
+
+        const areas = await getAreaInfo();
+        this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
+        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name;
 
         this.render();
     },
@@ -61,7 +64,7 @@ const trangchu = {
                         <ul id="category">
                             <li><a href="../danhsachquangcao/danhsachquangcao.html">Thông tin quảng cáo</a></li>
                             <li class="tb-active">Yêu cầu chỉnh sửa</li>
-                            <li>Báo cáo vi phạm</li>
+                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo vi phạm</a></li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -80,6 +83,11 @@ const trangchu = {
                                         return Object.values(streetInfo.yeucau).map((req) => {
                                             let adInfo = req.loc.split("_");
                                             let reqAdOldInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
+                                            let adAddr = JSON.stringify({
+                                                "duong": streetInfo.name,
+                                                "quan": areaInfo.quan,
+                                                "phuong": areaInfo.phuong
+                                            });
                                             
                                             let statusText;
                                             switch (req.status) {
@@ -90,10 +98,10 @@ const trangchu = {
                                                     statusText = `<div class="req-status-1">Đang xử lý</div>`;
                                                     break;
                                                 case 2:
-                                                    statusText = `<div class="req-status-2">Bị từ chốt</div>`;
+                                                    statusText = `<div class="req-status-2">Đã xử lý</div>`;
                                                     break;
                                                 case 3:
-                                                    statusText = `<div class="req-status-3">Chưa xử lý</div>`;
+                                                    statusText = `<div class="req-status-3">Bị từ chối</div>`;
                                                     break;
                                             }
 
@@ -105,7 +113,9 @@ const trangchu = {
                                                 <td>${req.reason}</td>
                                                 <td>${statusText}</td>
                                                 <td>
-                                                    ${AdInfoDropdownButton("ad" + i + "Specific")}
+                                                    <button onclick='redirectToChangeReqPage(${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)})'>
+                                                        Chi tiết
+                                                    </button>
                                                 </td>
                                             </tr>
                                             `

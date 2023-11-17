@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Yêu cầu chỉnh sửa - Quản lý - Cán bộ phường | AdsMap</title>
+    <title>Báo cáo vi phạm - Quản lý - Cán bộ phường | AdsMap</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/assets/chung/favicon.ico" type="image/x-icon">
@@ -16,7 +16,7 @@
     <!-- Custom links -->
     <link rel="stylesheet" href="/screens/canbo/nav.css">
     <link rel="stylesheet" href="../quanly.css">
-    <link rel="stylesheet" href="./yeucauchinhsua.css">
+    <link rel="stylesheet" href="./baocaovipham.css">
 
 </head>
 
@@ -24,7 +24,7 @@
     <div id="root" class="w-100"></div>
 
 
-    <script src="./yeucauchinhsua.js" type="module"></script>
+    <script src="./baocaovipham.js" type="module"></script>
 
 
 
@@ -36,14 +36,15 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 
     <script>
-        function redirectToChangeReqPage(oldAddr, oldInfo, newInfo) {
-            let reqData = {
-                "oldAddr": oldAddr,
-                "oldInfo": oldInfo,
-                "newInfo": newInfo
+        function redirectToRepPage(adTypeId, adTypeName, adAddr, adInfo) {
+            let adData = {
+                "adTypeId": adTypeId,
+                "adTypeName": adTypeName,
+                "adAddr": adAddr,
+                "adInfo": adInfo
             }
-            sessionStorage.setItem('reqPageData', JSON.stringify(reqData));
-            window.location.href = '/screens/canbo/thongtinyeucaudieuchinh/thongtinyeucaudieuchinh.html';
+            sessionStorage.setItem('repPageData', JSON.stringify(adData));
+            window.location.href = '/screens/canbo/thongtinbaocaovipham/thongtinbaocaovipham.html';
         }
     </script>
 </body>

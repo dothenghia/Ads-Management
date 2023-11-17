@@ -1,0 +1,70 @@
+{
+    "binhthanh": {
+        "id": "binhthanh",
+        "name": "Bình Thạnh",
+        "phuong": {
+            "3": {
+                "id": "3",
+                "name": "3",
+                "duong": {
+                    "vht": {
+                        "id": "vht",
+                        "name": "Vũ Huy Tấn"
+                    },
+                    "vk": {
+                        "id": "vk",
+                        "name": "Vạn Kiếp"
+                    }
+                }
+            },
+            "4": {
+                "id": "4",
+                "name": "4",
+                "duong": {
+                    "vht": {
+                        "id": "vvt",
+                        "name": "Võ Văn Tần"
+                    },
+                    "vk": {
+                        "id": "thl",
+                        "name": "Trần Huy Liệu"
+                    }
+                }
+            }
+        }
+    },
+    "4": {
+        "id": "4",
+        "name": "4",
+        "phuong": {
+            "12": {
+                "id": "12",
+                "name": "12",
+                "duong": {
+                    "vht": {
+                        "id": "vht",
+                        "name": "Vũ Huy Tấn"
+                    },
+                    "vk": {
+                        "id": "vk",
+                        "name": "Vạn Kiếp"
+                    }
+                }
+            },
+            "7": {
+                "id": "7",
+                "name": "7",
+                "duong": {
+                    "vht": {
+                        "id": "vvt",
+                        "name": "Võ Văn Tần"
+                    },
+                    "vk": {
+                        "id": "thl",
+                        "name": "Trần Huy Liệu"
+                    }
+                }
+            }
+        }
+    }
+}
