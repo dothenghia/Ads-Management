@@ -26,6 +26,18 @@
 
 
 /* ------ Info chung ------ */
+.ad-card__info {
+    position: relative;
+}
+.ad-card__info-tag {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+
+
 .ad-card__info div.w-33 {
     margin-bottom: 14px;
 }

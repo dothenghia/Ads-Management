@@ -1,7 +1,7 @@
 const $ = document.querySelector.bind(document);
 
 import ReportSidebar from './sidebar/ReportSidebar.js';
-import getReportList from "/functions/dan/getReportList.js";
+import { getAllReportList } from "/functions/dan/getReportLocationInfo.js";
 
 export default function ReportListButton() {
 
@@ -16,7 +16,7 @@ export default function ReportListButton() {
         // Nên Fetch data trước
         // ròi mới truyền vào Component để render thoi nhe 👌
         const fetchData = async () => {
-            var data = await getReportList();
+            var data = await getAllReportList();
             console.log(data);
 
             $('.sidebar-root').innerHTML = ReportSidebar(data)

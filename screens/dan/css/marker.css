@@ -26,6 +26,10 @@
     border: solid 4px var(--chuaqh-color-subtle);
 }
 
+.marker-rp {
+    background-color: var(--report-color);
+    border: solid 4px var(--report-color-subtle);
+}
 
 .marker-tgsp {
     background-color: var(--tgsp-color);

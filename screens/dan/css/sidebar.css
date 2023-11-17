@@ -19,7 +19,7 @@
     margin-bottom: 20px;
     padding: 20px 20px 8px;
     width: fit-content;
-    height: calc(100% - 20px - 74px - 20px);
+    height: calc(100% - 20px - 52px - 20px);
     border-radius: 12px;
     
     overflow-y: scroll;
@@ -60,7 +60,13 @@
 
 
 /* ------ Thumbnail ------ */
+.ad-sidebar__tag {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
 .ad-sidebar__thumbnail {
+    position: relative;
     width: 340px;
     height: 200px;
     margin-bottom: 10px;

@@ -28,5 +28,5 @@ export default function StatusTag(status) {
         default:
             break;
     }
-    return `<h4>${status}</h4>`
+    return ``
 }
