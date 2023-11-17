@@ -15,6 +15,7 @@ import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
+    
     init : function() {
         this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
         this.sidebarHrefs = ["#", "../nhansu/nhansu.html","../thongke/thongke.html", "../kiemduyet/kiemduyet.html"];
@@ -65,10 +66,6 @@ const trangchu = {
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
         this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
-
-        this.render(0);
-
-
     },
 
     render : function(ID) {
@@ -76,9 +73,8 @@ const trangchu = {
         root.innerHTML = `
             ${Header(this.profileInfo)}
         `
-
-        if (document.querySelector("#root>main") != null) { 
-            console.log(document.querySelector("#root > main"));
+        if (document.querySelector("#root>main") != undefined) { 
+            //console.log(document.querySelector("#root>main"));
             document.querySelector("#root>main").remove() 
         }
         let main = document.createElement("main");
@@ -266,10 +262,10 @@ const trangchu = {
         }
         root.appendChild(main);
         this.event();
-        this.redirectToAdInfoPage();
+        this.redirectToAdInfoPage(ID);
     },
 
-    redirectToAdInfoPage : () => {
+    redirectToAdInfoPage : (ID) => {
         function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
             let adData = {
                 "adTypeId": adTypeId,
@@ -277,8 +273,8 @@ const trangchu = {
                 "adAddr": adAddr,
                 "adInfo": adInfo
             }
-            console.log(adData);
             sessionStorage.setItem('adPageData', JSON.stringify(adData));
+            sessionStorage.setItem('selectedRenderID', ID); // Store the current render ID
             window.location.href = '/screens/canbo/thongtinquangcao/thongtinquangcao.html';
         }
 
@@ -291,7 +287,7 @@ const trangchu = {
                 let adAddr = this.children[2].innerText;
                 let adInfo = this.children[3].innerText;
 
-                console.log(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+                //console.log(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
                 redirectToAdInfoPage(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
             });
         }
@@ -312,11 +308,15 @@ const trangchu = {
         }
     },
 
-    start : function() {
+    start : async function() {
         this.init(); // Dô thì sẽ khởi tạo các state trước
-        this.fetchData(); // Xong sẽ fetch mấy cái data
-        this.render(0); // Xong sẽ render mấy cái data đó
-        
+        await this.fetchData(); // Xong sẽ fetch mấy cái data      
+        const storedRenderID = sessionStorage.getItem('selectedRenderID');
+        if (storedRenderID !== null) {
+            this.render(parseInt(storedRenderID));
+        } else {
+            this.render(0); // Default render ID
+        } 
     }
 }
 
