@@ -65,7 +65,6 @@ const trangchu = {
         
         const adData = JSON.parse(sessionStorage.getItem("adPageData"));
 
-        console.log(adData);
         let adInfo = JSON.parse(adData.adInfo);
         let contentOverlay = document.getElementById('contentOverlay');
         contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/' + adData.adTypeId + '.jpeg'
