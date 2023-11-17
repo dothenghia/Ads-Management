@@ -7,7 +7,6 @@ import AdMarker from '/components/dan/marker/AdMarker.js';
 import ReportMarker from '/components/dan/marker/ReportMarker.js';
 
 
-import DetailReportModal from '/components/dan/modal/DetailReportModal.js';
 
 
 // Import Functions
