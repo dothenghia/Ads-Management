@@ -14,12 +14,12 @@ export default function DetailReportModal(detailReportInfo) {
                     </button>
                 </div>
 
+
                 <div class="detail-report-modal__address">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     <h1>${detailReportInfo.address}, ${detailReportInfo.region}</h1>
                 </div>
 
-                
 
                 <div class="detail-report-modal__info">
                     <div class="detail-report-modal__info-row">
@@ -51,7 +51,6 @@ export default function DetailReportModal(detailReportInfo) {
                             <p>${detailReportInfo.phone}</p>
                         </div>
                     </div>
-
                 </div>
 
                 
@@ -66,7 +65,6 @@ export default function DetailReportModal(detailReportInfo) {
                     <div id="detail-report-modal__carousel-" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" role="listbox">
 
-
                             ${
                                 detailReportInfo.images.map((thumbnail, index) => {
                                     return `
@@ -76,7 +74,6 @@ export default function DetailReportModal(detailReportInfo) {
                                     `
                                 }).join('')
                             }
-
 
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#detail-report-modal__carousel-" data-bs-slide="prev">

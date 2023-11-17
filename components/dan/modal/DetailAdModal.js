@@ -1,6 +1,5 @@
 
 export default function DetailAdModal(detailAdInfo) {
-    console.log(detailAdInfo)
 
     return `
         <div class="detail-ad-modal-container">
@@ -13,6 +12,7 @@ export default function DetailAdModal(detailAdInfo) {
                     </button>
                 </div>
 
+
                 <div class="detail-ad-modal__address">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     <h1>${detailAdInfo.address}, ${detailAdInfo.region}</h1>
@@ -22,6 +22,7 @@ export default function DetailAdModal(detailAdInfo) {
                 <div class="detail-ad-modal__name">
                     <h2>${detailAdInfo.name}</h2>
                 </div>
+
 
                 <div class="detail-ad-modal__info">
                     <div class="detail-ad-modal__info-row">
@@ -66,13 +67,13 @@ export default function DetailAdModal(detailAdInfo) {
                             </button>
                         </div>
                     </div>
-
                 </div>
 
                 
                 <div class="detail-ad-modal__thumbnail-title">
                     <h2>Hình ảnh quảng cáo</h2>
                 </div>
+
 
                 <div class="detail-ad-modal__thumbnail">
                     <div id="detail-ad-modal__carousel-${detailAdInfo.adId}" class="carousel slide" data-bs-ride="carousel">
@@ -87,7 +88,6 @@ export default function DetailAdModal(detailAdInfo) {
                                 `
                             }).join('')
                         }
-
 
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#detail-ad-modal__carousel-${detailAdInfo.adId}" data-bs-slide="prev">
