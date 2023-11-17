@@ -260,6 +260,9 @@ const trangchu = {
             </div>
         `
         }
+        else{
+            
+        }
         root.appendChild(main);
         this.event();
         this.redirectToAdInfoPage(ID);
