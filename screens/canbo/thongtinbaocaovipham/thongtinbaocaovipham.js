@@ -45,15 +45,15 @@ const trangchu = {
                                     <img src="" alt="Ad">
                                 </div>
                                 <div class="col-7">
-                                    <h5 id="name">Báo cáo</h5>
-                                    <p id="cnt"></p>
-                                    <p id="size"></p>
-                                    <p id="purpose"></p>
-                                    <p id="co"></p>
-                                    <p id="type"></p>
+                                    <h5 id="name" style="text-align: center;"><span style='color: #2B77D0;'>Báo cáo</span></h5>
+                                    <p id="senderName"></p>
+                                    <p id="senderEmail"></p>
+                                    <p id="senderPhone"></p>
                                     <p id="addr"></p>
+                                    <p id="type"></p>
+                                    <p id="rep-content"></p>
                                     <p id="status"></p>
-                                    <p id="ad-content"></p>
+                                    <div id="solution"></div>
                                 </div>
                             </div>
                         </div>
@@ -65,27 +65,23 @@ const trangchu = {
         
         const adData = JSON.parse(sessionStorage.getItem("repPageData"));
         let contentOverlay = document.getElementById('contentOverlay');
-        contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/' + adData.adTypeId + '.jpeg'
-        contentOverlay.querySelector('#name').innerHTML = "<span style='color: #2B77D0'>" + adData.adTypeName + "</span>" ;
-        contentOverlay.querySelector('#name').style.textAlign = 'center'
-        contentOverlay.querySelector('#cnt').innerHTML = '<span style="color: #2B77D0">SL trụ: </span>' + adData.adInfo.cnt;
-        contentOverlay.querySelector('#size').innerHTML = '<span style="color: #2B77D0">Kích thước: </span>' + adData.adInfo.size;
-        contentOverlay.querySelector('#purpose').innerHTML = '<span style="color: #2B77D0">Hình thức: </span>' + adData.adInfo.purpose;
-        contentOverlay.querySelector('#co').innerHTML = '<span style="color: #2B77D0">Công ty: </span>' + adData.adInfo.co;
-        contentOverlay.querySelector('#type').innerHTML = '<span style="color: #2B77D0">Phân loại: </span>' + adData.adInfo.type;
+        contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/' + adData.adTypeId + '.jpeg';
+        contentOverlay.querySelector('#senderName').innerHTML = '<span style="color: #2B77D0">Họ tên người gửi: </span>' + adData.repInfo.sender.name;
+        contentOverlay.querySelector('#senderEmail').innerHTML = '<span style="color: #2B77D0">Email người gửi: </span>' + adData.repInfo.sender.email;
+        contentOverlay.querySelector('#senderPhone').innerHTML = '<span style="color: #2B77D0">Số ĐT người gửi: </span>' + adData.repInfo.sender.phone;
         contentOverlay.querySelector('#addr').innerHTML =
-            '<span style="color: #2B77D0">Địa chỉ: </span>' + adData.adInfo.sonha + ',  Đ. ' + adData.adAddr.duong + ', P. ' + adData.adAddr.phuong + ', Quận ' + adData.adAddr.quan;
+            '<span style="color: #2B77D0">Địa điểm cần báo cáo:</span><br>' + adData.adInfo.sonha + ' ' + adData.adAddr.duong + ', P. ' + adData.adAddr.phuong + ', Quận ' + adData.adAddr.quan;
         
-        let status = contentOverlay.querySelector('#status');
-        status.innerHTML = '<span style="color: #2B77D0">Tình trạng: </span>';
-        if (adData.adInfo.status) {
-            status.innerHTML += "<span style='color: green'>Đã xử lý</span>";
+        contentOverlay.querySelector('#type').innerHTML = '<span style="color: #2B77D0">Hình thức báo cáo: </span>' + adData.repInfo.type.name;
+        contentOverlay.querySelector('#rep-content').innerHTML = '<span style="color: #2B77D0">Nội dung:</span><br>' + adData.repInfo.content;
+        let solution = contentOverlay.querySelector('#solution');
+        solution.innerHTML = '<span style="color: #2B77D0">Cách thức xử lý:</span><br>'
+        if (adData.repInfo.status) {
+            solution.innerHTML += adData.repInfo.solution;
         }
         else {
-            status.innerHTML += "<span style='color: red'>Chưa xử lý</span>";
+            solution.innerHTML += '<input type="text" style="width: 100%">';
         }
-        contentOverlay.querySelector('#ad-content').innerHTML = '<span style="color: #2B77D0">Nội dung QC: </span>' + adData.adInfo.content;
-        contentOverlay.style.removeProperty('display')
     },
 
     start : function() {

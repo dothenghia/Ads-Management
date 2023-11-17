@@ -82,7 +82,12 @@ const trangchu = {
                                     Object.values(this.repInfo).map(function (streetInfo) {
                                         return Object.values(streetInfo.baocao).map((rep) => {
                                             let adInfo = rep.loc.split("_");
-                                            let reqAdOldInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
+                                            let repAdInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
+                                            let adAddr = JSON.stringify({
+                                                "duong": streetInfo.name,
+                                                "quan": areaInfo.quan,
+                                                "phuong": areaInfo.phuong
+                                            });
                                             
                                             let statusText;
                                             if (!rep.status) {
@@ -96,11 +101,11 @@ const trangchu = {
                                             <tr class="ad-general">
                                                 <td>${i}</td>
                                                 <td>${rep.date}</td>
-                                                <td>${reqAdOldInfo.sonha} ${streetInfo.name}</td>
+                                                <td>${repAdInfo.sonha} ${streetInfo.name}</td>
                                                 <td>${rep.type.name}</td>
                                                 <td>${statusText}</td>
                                                 <td>
-                                                    <button onclick='redirectToChangeReqPage(${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)})'>
+                                                    <button onclick='redirectToRepPage(${adAddr}, ${JSON.stringify(repAdInfo)}, ${JSON.stringify(rep)})'>
                                                         Chi tiết
                                                     </button>
                                                 </td>

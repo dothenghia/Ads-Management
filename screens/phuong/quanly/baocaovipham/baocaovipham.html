@@ -36,14 +36,13 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 
     <script>
-        function redirectToRepPage(adTypeId, adTypeName, adAddr, adInfo) {
-            let adData = {
-                "adTypeId": adTypeId,
-                "adTypeName": adTypeName,
+        function redirectToRepPage(adAddr, adInfo, repInfo) {
+            let repData = {
                 "adAddr": adAddr,
-                "adInfo": adInfo
+                "adInfo": adInfo,
+                "repInfo": repInfo
             }
-            sessionStorage.setItem('repPageData', JSON.stringify(adData));
+            sessionStorage.setItem('repPageData', JSON.stringify(repData));
             window.location.href = '/screens/canbo/thongtinbaocaovipham/thongtinbaocaovipham.html';
         }
     </script>

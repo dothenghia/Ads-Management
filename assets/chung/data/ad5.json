@@ -24,7 +24,9 @@
                                     "email": "fdfaadsf",
                                     "phone": "343543534"
                                 },
-                                "status": false
+                                "content": "Không phù hợp thuần phong mỹ tục",
+                                "status": true,
+                                "solution": "Chém đầu"
                             }
                         }
                     }
