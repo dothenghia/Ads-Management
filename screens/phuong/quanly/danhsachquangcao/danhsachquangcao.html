@@ -35,18 +35,6 @@
     <!-- Mapbox JS -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 
-    <script>
-        function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
-            let adData = {
-                "adTypeId": adTypeId,
-                "adTypeName": adTypeName,
-                "adAddr": adAddr,
-                "adInfo": adInfo
-            }
-            sessionStorage.setItem('adPageData', JSON.stringify(adData));
-            window.location.href = '/screens/canbo/thongtinquangcao/thongtinquangcao.html';
-        }
-    </script>
 </body>
 
 </html>

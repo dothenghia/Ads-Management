@@ -10,8 +10,9 @@ import SideBar from '/components/canbo/SideBar.js';
 import AdInfoDropdownButton from '/components/phuong/AdInfoDropdownButton.js';
 
 // Import Functions
-import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 import getDistrictInfo from '/functions/canbo/getDistrictInfo.js';
+import getAdsInfo from '/functions/canbo/getAdsInfo.js';
+import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
@@ -19,16 +20,20 @@ const trangchu = {
         this.sidebarHrefs = ["#", "../nhansu/nhansu.html","../thongke/thongke.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["quanly_icon.svg", "nhansu_icon.svg", "thongke_icon.svg","kiemduyet_icon.svg"];
         this.sidebarLabels = ["Quản lý", "Nhân Sự", "Thống Kế", "Kiểm duyệt"]
-        this.dInfo = {} // district
-        this.dDetail = {}
-        this.adInfo = {}
-        this.adDetail = {}
+        this.dInfo = {}; // district
+        this.dDetail = {};
+        this.adInfo = {};
+        this.adDetail = {};
+        this.areaInfo = {};
     },
 
     fetchData : async function() {
+
+        // Fetch District Info
         const ds = await getDistrictInfo();
         this.dInfo = ds[0];
 
+        // Fetch Ads Info
         const ads = await getAdsInfo();
         let streets = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
 
@@ -51,9 +56,15 @@ const trangchu = {
             }) 
             adInfo[streetInfo.id]["diemqc"] = diemqc;
         })
+
         this.adInfo = adInfo;
 
         this.adDetail = ads[1];
+
+        // Fetch Area Info
+        const areas = await getAreaInfo();
+        this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
+        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
 
         this.render(0);
 
@@ -74,6 +85,7 @@ const trangchu = {
         let i = 1;
         let j = 1;
         const adDetail = this.adDetail;
+        const areaInfo = this.areaInfo;
         if (ID == 0) {
             main.innerHTML = `
                 <div class="container-fluid d-flex flex-column">
@@ -206,6 +218,12 @@ const trangchu = {
                                                         <tbody>
                                                             ${
                                                                 Object.values(adSpotDetail.qc).map(function (adDetail) {
+                                                                    let adAddr = JSON.stringify({
+                                                                        "duong": streetInfo.name,
+                                                                        "quan": areaInfo.quan,
+                                                                        "phuong": areaInfo.phuong
+                                                                    })
+                                                                    let adDetailJson = JSON.stringify(adDetail);
                                                                     let rowSpecific = `
                                                                     <tr class="ad-specific" id="ad${i}Specific" style="display: none">
                                                                     <td>${j}</td>
@@ -214,7 +232,14 @@ const trangchu = {
                                                                     <td>${adDetail.cnt}</td>
                                                                     <td>${adDetail.purpose}</td>
                                                                     <td>${adDetail.type}</td>
-                                                                    
+                                                                    <td> 
+                                                                    <button id="btn-more">
+                                                                        <p  style="display: none">${adSpotDetail.id}</p>
+                                                                        <p  style="display: none">${adSpotDetail.name}</p>
+                                                                        <p  style="display: none">${adAddr}</p>
+                                                                        <p  style="display: none">${adDetailJson}</p>
+                                                                    ...
+                                                                    </td>
                                                                     </tr>
                                                                     `;
                                                                     j++;
@@ -241,8 +266,37 @@ const trangchu = {
         }
         root.appendChild(main);
         this.event();
+        this.redirectToAdInfoPage();
     },
 
+    redirectToAdInfoPage : () => {
+        function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
+            let adData = {
+                "adTypeId": adTypeId,
+                "adTypeName": adTypeName,
+                "adAddr": adAddr,
+                "adInfo": adInfo
+            }
+            console.log(adData);
+            sessionStorage.setItem('adPageData', JSON.stringify(adData));
+            window.location.href = '/screens/canbo/thongtinquangcao/thongtinquangcao.html';
+        }
+
+        var x = document.querySelector("#root>main").firstElementChild.querySelectorAll("#btn-more");
+
+        for (let i = 0; i < x.length; i++) {
+            x.item(i).addEventListener("click", function () {
+                let adSpotDetalID= this.children[0].innerText;
+                let adSpotDetalName = this.children[1].innerText;
+                let adAddr = this.children[2].innerText;
+                let adInfo = this.children[3].innerText;
+
+                console.log(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+                redirectToAdInfoPage(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+            });
+        }
+    
+    },
     event: function () {
         var x = document.querySelector("#root>main").firstElementChild.querySelectorAll("li.cate");
     

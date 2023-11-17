@@ -64,27 +64,30 @@ const trangchu = {
         root.appendChild(main);
         
         const adData = JSON.parse(sessionStorage.getItem("adPageData"));
+
+        console.log(adData);
+        let adInfo = JSON.parse(adData.adInfo);
         let contentOverlay = document.getElementById('contentOverlay');
         contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/' + adData.adTypeId + '.jpeg'
         contentOverlay.querySelector('#name').innerHTML = "<span style='color: #2B77D0'>" + adData.adTypeName + "</span>" ;
         contentOverlay.querySelector('#name').style.textAlign = 'center'
-        contentOverlay.querySelector('#cnt').innerHTML = '<span style="color: #2B77D0">SL trụ: </span>' + adData.adInfo.cnt;
-        contentOverlay.querySelector('#size').innerHTML = '<span style="color: #2B77D0">Kích thước: </span>' + adData.adInfo.size;
-        contentOverlay.querySelector('#purpose').innerHTML = '<span style="color: #2B77D0">Hình thức: </span>' + adData.adInfo.purpose;
-        contentOverlay.querySelector('#co').innerHTML = '<span style="color: #2B77D0">Công ty: </span>' + adData.adInfo.co;
-        contentOverlay.querySelector('#type').innerHTML = '<span style="color: #2B77D0">Phân loại: </span>' + adData.adInfo.type;
+        contentOverlay.querySelector('#cnt').innerHTML = '<span style="color: #2B77D0">SL trụ: </span>' + adInfo.cnt;
+        contentOverlay.querySelector('#size').innerHTML = '<span style="color: #2B77D0">Kích thước: </span>' + adInfo.size;
+        contentOverlay.querySelector('#purpose').innerHTML = '<span style="color: #2B77D0">Hình thức: </span>' + adInfo.purpose;
+        contentOverlay.querySelector('#co').innerHTML = '<span style="color: #2B77D0">Công ty: </span>' + adInfo.co;
+        contentOverlay.querySelector('#type').innerHTML = '<span style="color: #2B77D0">Phân loại: </span>' + adInfo.type;
         contentOverlay.querySelector('#addr').innerHTML =
-            '<span style="color: #2B77D0">Địa chỉ: </span>' + adData.adInfo.sonha + ',  Đ. ' + adData.adAddr.duong + ', P. ' + adData.adAddr.phuong + ', Quận ' + adData.adAddr.quan;
+            '<span style="color: #2B77D0">Địa chỉ: </span>' + adInfo.sonha + ',  Đ. ' + adData.adAddr.duong + ', P. ' + adData.adAddr.phuong + ', Quận ' + adData.adAddr.quan;
         
         let status = contentOverlay.querySelector('#status');
         status.innerHTML = '<span style="color: #2B77D0">Tình trạng: </span>';
-        if (adData.adInfo.status) {
+        if (adInfo.status) {
             status.innerHTML += "<span style='color: green'>Đã xử lý</span>";
         }
         else {
             status.innerHTML += "<span style='color: red'>Chưa xử lý</span>";
         }
-        contentOverlay.querySelector('#ad-content').innerHTML = '<span style="color: #2B77D0">Nội dung QC: </span>' + adData.adInfo.content;
+        contentOverlay.querySelector('#ad-content').innerHTML = '<span style="color: #2B77D0">Nội dung QC: </span>' + adInfo.content;
         contentOverlay.style.removeProperty('display')
     },
 

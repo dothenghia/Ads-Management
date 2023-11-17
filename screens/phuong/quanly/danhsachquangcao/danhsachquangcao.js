@@ -139,10 +139,13 @@ const trangchu = {
                                                                     <td>${adDetail.cnt}</td>
                                                                     <td>${adDetail.purpose}</td>
                                                                     <td>${adDetail.type}</td>
-                                                                    <td>
-                                                                    <button onclick='redirectToAdInfoPage("${adSpotDetail.id}","${adSpotDetail.name}",${adAddr}, ${adDetailJson})'>
-                                                                        ...
-                                                                    </button>
+                                                                    <td> 
+                                                                    <button id="btn-more">
+                                                                        <p  style="display: none">${adSpotDetail.id}</p>
+                                                                        <p  style="display: none">${adSpotDetail.name}</p>
+                                                                        <p  style="display: none">${adAddr}</p>
+                                                                        <p  style="display: none">${adDetailJson}</p>
+                                                                    ...
                                                                     </td>
                                                                     </tr>
                                                                     `;
@@ -168,6 +171,35 @@ const trangchu = {
             </div>
         `
         root.appendChild(main);
+        this.redirectToAdInfoPage();
+    },
+    redirectToAdInfoPage : () => {
+        function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
+            let adData = {
+                "adTypeId": adTypeId,
+                "adTypeName": adTypeName,
+                "adAddr": adAddr,
+                "adInfo": adInfo
+            }
+            console.log(adData);
+            sessionStorage.setItem('adPageData', JSON.stringify(adData));
+            window.location.href = '/screens/canbo/thongtinquangcao/thongtinquangcao.html';
+        }
+
+        var x = document.querySelector("#root>main").firstElementChild.querySelectorAll("#btn-more");
+
+        for (let i = 0; i < x.length; i++) {
+            x.item(i).addEventListener("click", function () {
+                let adSpotDetalID= this.children[0].innerText;
+                let adSpotDetalName = this.children[1].innerText;
+                let adAddr = this.children[2].innerText;
+                let adInfo = this.children[3].innerText;
+
+                console.log(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+                redirectToAdInfoPage(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+            });
+        }
+    
     },
 
     start : function() {
