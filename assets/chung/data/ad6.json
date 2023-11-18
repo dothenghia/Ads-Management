@@ -6,31 +6,40 @@
             "3": {
                 "id": "3",
                 "name": "3",
-                "duong": {
-                    "vht": {
-                        "id": "vht",
-                        "name": "Vũ Huy Tấn",
-                        "yeucau": {
-                            "YCCP00001": {
-                                "id": "YCCP00001",
-                                "co": {
-                                    "id": "vincom",
-                                    "name": "Vin Cơm",
-                                    "email": "vcome@gmail.com",
-                                    "phone": "324932423"
-                                },
-                                "loc": {
-                                    "sonha": "123",
-                                    "duong": "vht",
-                                    "quan": "binhthanh",
-                                    "phuong": "3"
-                                },
-                                "startdate": "22/12/2023",
-                                "enddate": "22/12/2024",
-                                "content": "OK bấy bề",
-                                "status": false
-                            }
-                        }
+                "yeucau": {
+                    "YCCP00001": {
+                        "id": "YCCP00001",
+                        "name": "Trụ panel",
+                        "co": {
+                            "id": "vincom",
+                            "name": "Vin Cơm",
+                            "email": "vcome@gmail.com",
+                            "phone": "324932423"
+                        },
+                        "loc": {
+                            "sonha": "123",
+                            "duong": "vht"
+                        },
+                        "startdate": "2023-12-22",
+                        "enddate": "2024-12-22",
+                        "content": "Sơn tường MTP"
+                    },
+                    "YCCP00002": {
+                        "id": "YCCP00002",
+                        "name": "Trụ bê tông",
+                        "co": {
+                            "id": "coopmart",
+                            "name": "Cốp Mắc",
+                            "email": "cmart@gmail.com",
+                            "phone": "324932423"
+                        },
+                        "loc": {
+                            "sonha": "123",
+                            "duong": "vht"
+                        },
+                        "startdate": "2023-12-22",
+                        "enddate": "2024-12-22",
+                        "content": "Bê tông cốt thép"
                     }
                 }
             }

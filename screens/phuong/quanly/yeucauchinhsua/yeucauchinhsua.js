@@ -144,6 +144,7 @@ const trangchu = {
                                                 </td>
                                             </tr>
                                             `
+                                            i++;
                                             return row
                                         }).join('');
                                     }).join('')

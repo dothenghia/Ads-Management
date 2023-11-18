@@ -12,6 +12,7 @@ import AdInfoDropdownButton from '/components/phuong/AdInfoDropdownButton.js';
 // Import Functions
 import {getPermissionReqInfo} from '/functions/canbo/getReqInfo.js';
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
+import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
@@ -39,9 +40,12 @@ const trangchu = {
         const ads = await getAdsInfo();
 
         const reqs = await getPermissionReqInfo();
-        this.areaInfo["quan"] = ads[0][this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong];
-        this.reqInfo = reqs[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
+        this.reqInfo = reqs[this.profileInfo.quan].phuong[this.profileInfo.phuong].yeucau;
+
+        const areas = await getAreaInfo();
+        this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
+        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name;
+        this.areaInfo["dsDuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
 
         this.adTypeInfo = ads[1];
 
@@ -59,6 +63,7 @@ const trangchu = {
         const adStreetInfo = this.adStreetInfo;
         const areaInfo = this.areaInfo;
         const reqInfo = this.reqInfo;
+        const permissionReqListUpdate = JSON.parse(localStorage.getItem("permissionReqListUpdate"));
         if (!this.reqInfo) return;
         const filter = this.filter;
         let i = 1;
@@ -82,40 +87,93 @@ const trangchu = {
                                     <th scope="col">Email</th>
                                     <th scope="col">SĐT</th>
                                     <th scope="col">Địa điểm</th>
-                                    <th scope="col" style="font-weight: bold; color: #2B77D0">+</th>
+                                    <th scope="col">
+                                        <button onclick='window.location.href="/screens/canbo/taoyeucaucapphep/taoyeucaucapphep.html"'>
+                                            +
+                                        </button>
+                                    </th>
                                     <th scope="col"> </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 ${
-                                    Object.keys(reqInfo).map(function (streetId) {
-                                        return Object.values(reqInfo[streetId].yeucau).map((req) => {
-                                            // let adInfo = req.loc.split("_");
-                                            // let reqAdOldInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
+                                    Object.values(reqInfo).map(function (req) {
+                                        // Check for filters
+                                        if (filter) {
+                                            if (!filter["co"].includes(req.co.id)) return ``;
+                                        }
 
-                                            // Check for filters
-                                            if (filter) {
-                                                if (!filter["co"].includes(req.co.id)) return ``;
-                                            }
+                                        // Check for elements that have been removed
+                                        let permissionReqListRemove = JSON.parse(localStorage.getItem("permissionReqListRemove"));
+                                        if (permissionReqListRemove) {
+                                            if (permissionReqListRemove.includes(req.id)) return ``;
+                                        }
 
-                                            let row = `
-                                            <tr class="ad-general">
-                                                <td>${i}</td>
-                                                <td>${req.co.name}</td>
-                                                <td>${req.co.email}</td>
-                                                <td>${req.co.phone}</td>
-                                                <td>${req.loc.sonha} ${req.loc.duong}</td>
-                                                <td>
-                                                    ${AdInfoDropdownButton("ad" + i + "Specific")}
-                                                </td>
-                                                <td>
-                                                    ${AdInfoDropdownButton("ad" + i + "Specific")}
-                                                </td>
-                                            </tr>
-                                            `
-                                            return row
-                                        }).join('');
+                                        let row = `
+                                        <tr class="ad-general">
+                                            <td>${i}</td>
+                                            <td>${req.co.name}</td>
+                                            <td>${req.co.email}</td>
+                                            <td>${req.co.phone}</td>
+                                            <td>${req.loc.sonha} ${areaInfo.dsDuong[req.loc.duong].name}</td>
+                                            <td>
+                                                <button onclick='
+                                                    let permissionReqListRemove = JSON.parse(localStorage.getItem("permissionReqListRemove"));
+                                                    if (!permissionReqListRemove)
+                                                        permissionReqListRemove = [];
+                                                    permissionReqListRemove.push("${req.id}");
+                                                    localStorage.setItem("permissionReqListRemove", JSON.stringify(permissionReqListRemove));
+                                                    location.reload();
+                                                '>
+                                                    Xóa
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button onclick='redirectToPermissionReqPage(${JSON.stringify(areaInfo)}, ${JSON.stringify(req)})'>
+                                                    Chi tiết
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        `
+                                        i++;
+                                        return row
                                     }).join('')
+                                }
+                                ${
+                                    (() => {
+                                        if (permissionReqListUpdate) {
+                                            return Object.values(JSON.parse(localStorage.getItem("permissionReqListUpdate")).yeucau).map(function (req) {
+                                                let row = `
+                                                <tr class="ad-general">
+                                                    <td>${i}</td>
+                                                    <td>${req.co.name}</td>
+                                                    <td>${req.co.email}</td>
+                                                    <td>${req.co.phone}</td>
+                                                    <td>${req.loc.sonha} ${areaInfo.dsDuong[req.loc.duong].name}</td>
+                                                    <td>
+                                                        <button onclick='
+                                                            let permissionReqListUpdate = JSON.parse(localStorage.getItem("permissionReqListUpdate"));
+                                                            if (permissionReqListUpdate && permissionReqListUpdate.yeucau["${req.id}"])
+                                                                delete permissionReqListUpdate.yeucau["${req.id}"];
+                                                            console.log(permissionReqListUpdate);
+                                                            localStorage.setItem("permissionReqListUpdate", JSON.stringify(permissionReqListUpdate));
+                                                        '>
+                                                            Xóa
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button onclick='redirectToPermissionReqPage(${JSON.stringify(areaInfo)}, ${JSON.stringify(req)})'>
+                                                            Chi tiết
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                `
+                                                i++;
+                                                return row
+                                            }).join('')
+                                        }
+                                        else return ``;
+                                    })()
                                 }
                             </tbody>
                         </table>
