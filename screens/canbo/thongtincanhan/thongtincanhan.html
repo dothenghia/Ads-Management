@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Thông tin cá nhân</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" type="text/css" href="thongtincanhan.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="thongtincanhan.js" defer></script>
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+  <main class="container rounded-5 bg-white w-50">
+    <div class="container">
+      <!--!chỗ này phải handle cái href-->
+      <button href="/screens/phuong/index.html" class="btn border-0 bg-transparent px-4 mt-3 text-primary"
+        id="backButton" onclick="backButton()"><i class="bi bi-arrow-left-square-fill"></i></button>
+      <h1 class="bg-transparent text-center fw-bold mb-1" id="AppName">
+        AdsMap
+      </h1>
+      <div class="container py-3">
+        <div class="card border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col text-center">
+                <!-- Image button to trigger file input -->
+                <img src="/assets/chung/avatar/avatar_sample.png" class="img-thumbnail border-0 p-1" alt="First slide"
+                  id="genericAvatar">
+                <br>
+              </div>
+              <div class="col">
+                <div class="mb-4">
+                  <label class="border-0 fw-bold" name="" id="">Họ và tên: </label>
+                  <span id="name"></span>
+                </div>
+                <div class="mb-4">
+                  <label class="border-0 fw-bold" name="" id="">Địa chỉ Email: </label>
+                  <span id="email"></span>
+                </div>
+                <div class="mb-4">
+                  <label class="border-0 fw-bold" name="" id="">Điện thoại liên lạc: </label>
+                  <span id="phone"></span>
+                </div>
+                <label class="border-0 fw-bold" name="" id="">Ngày tháng năm sinh: </label>
+                <span id="date"></span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </main>
+
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
