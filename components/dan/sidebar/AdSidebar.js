@@ -3,7 +3,6 @@ import AdCard from "../card/AdCard.js"
 import StatusTag from '../tag/StatusTag.js'
 
 function AdSidebar_Thumbnail(adLocationData) {
-    var thumbnails = adLocationData.thumbnails;
 
     if (adLocationData.quyhoach == false) {
         return `
@@ -18,10 +17,15 @@ function AdSidebar_Thumbnail(adLocationData) {
 
     return `
     <div class="ad-sidebar__thumbnail">
-        <div id="ad-sidebar__carousel-${adLocationData.id}" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="ad-sidebar__tag">
+            ${StatusTag(adLocationData.reportStatus)}
+        </div>
+
+        <div id="ad-sidebar__carousel-${adLocationData.locationId}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
                 ${
-                    thumbnails.map((thumbnail, index) => {
+                    adLocationData.thumbnails.map((thumbnail, index) => {
                         return `
                         <div class="carousel-item rounded-3 ${index==0 && 'active'}">
                             <img src=${thumbnail.url} class="rounded-3" alt=${thumbnail.url}>
@@ -30,11 +34,11 @@ function AdSidebar_Thumbnail(adLocationData) {
                     }).join('')
                 }
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#ad-sidebar__carousel-${adLocationData.id}" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#ad-sidebar__carousel-${adLocationData.locationId}" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#ad-sidebar__carousel-${adLocationData.id}" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#ad-sidebar__carousel-${adLocationData.locationId}" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -71,7 +75,7 @@ function AdSidebar_Info(adLocationData) {
             (adLocationData.isReported == true && adLocationData.reportStatus != '') ?
             `<button class="custom-btn custom-btn-fade w-100">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Xem lại phản hồi
+                Xem lại phản hồi địa điểm này
             </button>`
             :
             `<button class="btn btn-outline-primary custom-btn w-100 ">

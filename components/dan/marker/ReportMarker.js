@@ -2,7 +2,7 @@
 export default function ReportMarker(map, reportInfo) {
     const mk = document.createElement('div');
 
-    if (reportInfo.type == 'qc') {return}
+    if (reportInfo.type == 'qc' || reportInfo.type == 'ddqc') {return}
     
     switch (reportInfo.form) {
         case 'Tố giác sai phạm':
