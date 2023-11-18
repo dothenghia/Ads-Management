@@ -82,7 +82,9 @@ main > div {
 #filterMenu {
     align-items: center;
     justify-content: center;
-    margin: 10em;
+    margin: 0 10em 10em 10em;
+    height: 50vh;
+    padding: 0;
     border: 3px solid #0065FF;
     border-radius: 15px;
     font-size: large;

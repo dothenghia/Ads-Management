@@ -34,7 +34,8 @@ const trangchu = {
         `
         
         const areas = this.areas;
-        console.log(this.areas)
+        if (areas == undefined) return;
+
         let main = document.createElement("main");
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
@@ -101,7 +102,7 @@ const trangchu = {
         let newQuan = areas[newInfo.quan].name;
         let newPhuong = areas[newInfo.quan].phuong[newInfo.phuong].name;
         let newDuong = areas[newInfo.quan].phuong[newInfo.phuong].duong[newInfo.duong].name;
-        contentOverlay.querySelector('#addr-new').textContent =  newInfo.sonha + " " + newDuong + ", P. " + newDuong + ", Quận " + newQuan;
+        contentOverlay.querySelector('#addr-new').textContent =  newInfo.sonha + " " + newDuong + ", P. " + newPhuong + ", Quận " + newQuan;
         contentOverlay.querySelector('#size-new').textContent = newInfo.size;
         contentOverlay.querySelector('#cnt-new').textContent = newInfo.cnt;
         contentOverlay.querySelector('#purpose-new').textContent = newInfo.purpose;
