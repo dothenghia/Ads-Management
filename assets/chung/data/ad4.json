@@ -24,8 +24,25 @@
                                     "purpose": "Đất công",
                                     "type": "Thương mại"
                                 },
-                                "date": "24/10/2023",
+                                "date": "2023-04-02",
                                 "reason": "Không phù hợp",
+                                "status": 0
+                            },
+                            "YCCS00002": {
+                                "id": "YCCS00002",
+                                "loc": "AD00002_00001",
+                                "new": {
+                                    "sonha": "471483",
+                                    "duong": "vk",
+                                    "phuong": "12",
+                                    "quan": "4",
+                                    "size": "2.5mx1.2m",
+                                    "cnt": 1,
+                                    "purpose": "Đất công",
+                                    "type": "Thương mại"
+                                },
+                                "date": "2022-05-14",
+                                "reason": "Không tác dụng",
                                 "status": 0
                             }
                         }

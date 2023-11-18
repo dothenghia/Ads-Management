@@ -36,8 +36,9 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 
     <script>
-        function redirectToRepPage(adAddr, adInfo, repInfo) {
+        function redirectToRepPage(repId, adAddr, adInfo, repInfo) {
             let repData = {
+                "id": repId,
                 "adAddr": adAddr,
                 "adInfo": adInfo,
                 "repInfo": repInfo

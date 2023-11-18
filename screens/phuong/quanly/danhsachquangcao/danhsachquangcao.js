@@ -77,7 +77,7 @@ const trangchu = {
         let main = document.createElement("main");
         const adDetail = this.adDetail;
         const areaInfo = this.areaInfo;
-        const filter = this.filter
+        const filter = this.filter;
         let i = 1;
         let j = 1;
         main.innerHTML = `
@@ -92,7 +92,7 @@ const trangchu = {
                         <ul id="category">
                             <li class="tb-active">Thông tin quảng cáo</li>
                             <li><a href="../yeucauchinhsua/yeucauchinhsua.html">Yêu cầu chỉnh sửa</a></li>
-                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo vi phạm</a></li>
+                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo</a></li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -111,7 +111,7 @@ const trangchu = {
                                             let adSpotDetail = adDetail[adTypeId];
                                             
                                             // Check for filters
-                                            if (filter && Object.keys(adSpotDetail.qc).length > filter["cnt"]) {
+                                            if (filter && filter["cnt"] != -1 && Object.keys(adSpotDetail.qc).length > filter["cnt"]) { 
                                                 return ``;
                                             }
 
@@ -183,6 +183,7 @@ const trangchu = {
                                 }
                             </tbody>
                         </table>
+
                         <div id="filter-button">
                             <button type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu">
                                 <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
@@ -194,7 +195,7 @@ const trangchu = {
                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
                             <div class="offcanvas-body small">
-                                <form id="cntFilterForm">
+                                <form id="adFilterForm" class="row">
                                     <div class="col">
                                         <h5>Số lượng</h5>
                                         <div id="cntFilterCard">
@@ -214,8 +215,9 @@ const trangchu = {
                                             <label for="cnt15"><= 15</label>
                                         </div>
                                     </div>
-                                    <input type="submit" value="Lọc">
+                                    <input type="submit" id="filterSubmit" value="" class="hidden">
                                 </form>
+                                <label for="filterSubmit">Lọc</label>
                             </div>
                         </div>
                     </div>
@@ -226,39 +228,34 @@ const trangchu = {
         this.redirectToAdInfoPage();
 
         // Adjust filter menu to fit with current filter data
-        if (filter) {
-            document.querySelector("#cntFilterForm input[id='cnt" + filter.cnt + "']").checked = true;
+        if (filter && filter["cnt"] != -1) {
+            document.querySelector("#adFilterForm input[id='cnt" + filter.cnt + "']").checked = true;
         }
-        else {
-            document.querySelector("#cntFilterForm input[id='cntAll']").checked = true;
+        else if (!filter || filter["cnt"] == -1) {
+            document.querySelector("#adFilterForm input[id='cntAll']").checked = true;
         }
 
         // Listen to filter button click
         const adminRole = this.profileInfo.role;
-        document.getElementById("cntFilterForm").addEventListener("submit", (e) => {
-            let isFiltered = false;
+        document.getElementById("adFilterForm").addEventListener("submit", (e) => {
             let totalFilter = {};
             e.preventDefault();
-            let cntFilter = document.querySelector('#filterMenu input[type="radio"][name="cnt"]:checked').id.substring(3);
-            let storedFilter = JSON.parse(sessionStorage.getItem("adListFilter"));
+            let cntFilter = document.querySelector('#filterMenu #cntFilterCard input[type="radio"][name="cnt"]:checked').id.substring(3);
+            let storedFilter = filter;
             if (cntFilter == "All") {
                 if (!storedFilter || storedFilter["cnt"] != -1) {
                     totalFilter["role"] = adminRole;
                     totalFilter["cnt"] = -1;
-                    isFiltered = true;
                 }
             }
             else {
                 if (!storedFilter || storedFilter["cnt"] != parseInt(cntFilter)) {
                     totalFilter["role"] = adminRole;
                     totalFilter["cnt"] = parseInt(cntFilter);
-                    isFiltered = true;
                 }
             }
             sessionStorage.setItem("adListFilter", JSON.stringify(totalFilter));
-            if (isFiltered) {
-                location.reload();
-            }
+            location.reload();
         });
     },
     redirectToAdInfoPage : () => {

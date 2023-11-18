@@ -23,6 +23,16 @@ const trangchu = {
         this.areaInfo = {};
         this.reqInfo = {}
         this.adTypeInfo = {};
+
+        // Transfer existing filter data to code storage
+        let filter = sessionStorage.getItem("changeReqListFilter");
+        if (filter) {
+            filter = JSON.parse(filter);
+            if (filter["role"] == this.profileInfo.role) {
+                this.filter = filter;
+                sessionStorage.removeItem("changeReqListFilter");
+            }
+        }
     },
 
     fetchData : async function() {
@@ -50,8 +60,12 @@ const trangchu = {
         const adTypeInfo = this.adTypeInfo;
         const adStreetInfo = this.adStreetInfo;
         const areaInfo = this.areaInfo;
+        const filter = this.filter;
+
+        // Simulate getting updates from database
+        const updates = JSON.parse(localStorage.getItem("changeReqListUpdate"));
+
         let i = 1;
-        let j = 1;
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
                 <div class="row flex-grow-1">
@@ -64,7 +78,7 @@ const trangchu = {
                         <ul id="category">
                             <li><a href="../danhsachquangcao/danhsachquangcao.html">Thông tin quảng cáo</a></li>
                             <li class="tb-active">Yêu cầu chỉnh sửa</li>
-                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo vi phạm</a></li>
+                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo</a></li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -89,6 +103,17 @@ const trangchu = {
                                                 "phuong": areaInfo.phuong
                                             });
                                             
+                                            // Check for updates on request status
+                                            if (updates && updates[req.id]) req.status = updates[req.id];
+                                            
+                                            // Check for filters
+                                            if (filter) {
+                                                console.log(filter)
+                                                if (filter["date"] > Date.parse(req.date)) return ``;
+                                                if (!filter["reason"].includes(req.reason)) return ``;
+                                                if (!filter["status"].includes(req.status)) return ``;
+                                            }
+
                                             let statusText;
                                             switch (req.status) {
                                                 case 0:
@@ -113,7 +138,7 @@ const trangchu = {
                                                 <td>${req.reason}</td>
                                                 <td>${statusText}</td>
                                                 <td>
-                                                    <button onclick='redirectToChangeReqPage(${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)})'>
+                                                    <button onclick='redirectToChangeReqPage("${req.id}", ${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)})'>
                                                         Chi tiết
                                                     </button>
                                                 </td>
@@ -125,11 +150,135 @@ const trangchu = {
                                 }
                             </tbody>
                         </table>
+
+                        <div id="filter-button">
+                            <button type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu">
+                                <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
+                            </button>
+                        </div>
+                        <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">
+                            <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body small">
+                                <form id="changeReqFilterForm" class="row">
+                                    <div class="col">
+                                        <h5>Thời điểm gửi yêu cầu (đến nay)</h5>
+                                        <div id="dateFilterCard">
+                                            <input type="date" id="date" name="date" value="2000-01-01" min="2000-01-01" max="2024-01-01">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <h5>Lý do chỉnh sửa</h5>
+                                        <div id="reasonFilterCard">
+                                            <input type="checkbox" id="reason1">
+                                            <label for="reason1">Không phù hợp</label>
+                                        </div>
+                                        <div id="reasonFilterCard">
+                                            <input type="checkbox" id="reason2">
+                                            <label for="reason2">Không tác dụng</label>
+                                        </div>
+                                        <div id="reasonFilterCard">
+                                            <input type="checkbox" id="reason3">
+                                            <label for="reason3">Đổi mới</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <h5>Tình trạng</h5>
+                                        <div id="statusFilterCard">
+                                            <input type="checkbox" id="status0">
+                                            <label for="status0">Chưa xử lí</label>
+                                        </div>
+                                        <div id="statusFilterCard">
+                                            <input type="checkbox" id="status1">
+                                            <label for="status1">Đang xử lí</label>
+                                        </div>
+                                        <div id="statusFilterCard">
+                                            <input type="checkbox" id="status2">
+                                            <label for="status2">Đã xử lí</label>
+                                        </div>
+                                        <div id="statusFilterCard">
+                                            <input type="checkbox" id="status3">
+                                            <label for="status3">Bị từ chối</label>
+                                        </div>
+                                    </div>
+                                    <input type="submit" id="filterSubmit" value="" class="hidden">
+                                </form>
+                                <label for="filterSubmit">Lọc</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         `
         root.appendChild(main);
+        
+        // Adjust filter menu to fit with current filter data
+        if (filter) {
+            document.querySelector('#filterMenu #dateFilterCard input').value = (new Date(filter["date"])).toISOString().substring(0, 10);
+
+            let reasonNo = {"Không phù hợp": "1", "Không tác dụng": "2", "Đổi mới": "3"};
+            filter["reason"].forEach((reason) => {
+                document.querySelector('#filterMenu #reasonFilterCard input[type="checkbox"][id="reason' + reasonNo[reason] + '"]').checked = true;
+            })
+
+            filter["status"].forEach((status) => {
+                document.querySelector('#filterMenu #statusFilterCard input[type="checkbox"][id="status' + status + '"]').checked = true;
+            })
+        }
+        else {
+            let reasonCheckboxes = document.querySelectorAll('#filterMenu #reasonFilterCard input[type="checkbox"][id^="reason"]');
+            reasonCheckboxes.forEach((checkbox) => {
+                checkbox.checked = true;
+            });
+
+            let statusCheckboxes = document.querySelectorAll('#filterMenu #statusFilterCard input[type="checkbox"][id^="status"]');
+            statusCheckboxes.forEach((checkbox) => {
+                checkbox.checked = true;
+            });
+        }
+
+        // Listen to filter button click
+        const adminRole = this.profileInfo.role;
+        document.getElementById("changeReqFilterForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            let totalFilter = {};
+
+            totalFilter["role"] = adminRole;
+
+            let filterDate = new Date(document.querySelector("#filterMenu #dateFilterCard input").value);
+            totalFilter["date"] = Date.parse(filterDate);
+
+            let reasonCheckboxes = document.querySelectorAll('#filterMenu #reasonFilterCard input[type="checkbox"][id^="reason"]:checked');
+            let reasonFilter = [];
+            reasonCheckboxes.forEach((checkbox) => {
+                let reason = parseInt(checkbox.id.substring(6));
+                switch (reason) {
+                    case 1:
+                        reasonFilter.push("Không phù hợp");
+                        break;
+                    case 2:
+                        reasonFilter.push("Không tác dụng");
+                        break;
+                    case 3:
+                        reasonFilter.push("Đổi mới");
+                        break;
+                }
+            });
+            totalFilter["reason"] = reasonFilter;
+
+            let statusCheckboxes = document.querySelectorAll('#filterMenu #statusFilterCard input[type="checkbox"][id^="status"]:checked');
+            let statusFilter = [];
+            statusCheckboxes.forEach((checkbox) => {
+                let status = parseInt(checkbox.id.substring(6));
+                statusFilter.push(status);
+            });
+            totalFilter["status"] = statusFilter;
+
+            sessionStorage.setItem("changeReqListFilter", JSON.stringify(totalFilter));
+            location.reload();
+        });
     },
 
     start : function() {

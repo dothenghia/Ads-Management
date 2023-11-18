@@ -44,13 +44,67 @@ const trangchu = {
                         }
                     </div>
                     <div id="content" class="col-md-11 col-12">
-                            <div class="offcanvas offcanvas-start" tabindex="51" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
+                        <div class="offcanvas offcanvas-start" tabindex="51" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
                             <div class="offcanvas-header">
                                 <h5 id="offcanvasLeftLabel">Offcanvas right</h5>
                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvasLeft" aria-label="Close"></button>
                             </div>
                             <div id="adInfo" class="offcanvas-body">
                                 
+                            </div>
+                        </div>
+
+                        <div id="sideButtons">
+                            <div id="report">
+                                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                    <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
+                                </button>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="51" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                                <div class="offcanvas-header">
+                                    <h5 id="offcanvasRightLabel">Báo cáo</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvasRight" aria-label="Close"></button>
+                                </div>
+                                <div id="repInfo" class="offcanvas-body">
+                                    
+                                </div>
+                            </div>
+
+                            <div id="filter">
+                                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu">
+                                    <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
+                                </button>
+                            </div>
+                            <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">
+                                <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body small">
+                                    <form id="reqFilterForm" class="row">
+                                        <div class="col">
+                                            <h5>Công ty</h5>
+                                            <div id="coFilterCard">
+                                                <input type="checkbox" id="co_vincom">
+                                                <label for="co_vincom">Vincom</label>
+                                            </div>
+                                            <div id="coFilterCard">
+                                                <input type="checkbox" id="co_coopmart">
+                                                <label for="co_coopmart">Cốp Mắc</label>
+                                            </div>
+                                            <div id="coFilterCard">
+                                                <input type="checkbox" id="co_aeon">
+                                                <label for="co_aeon">Aeon Mô</label>
+                                            </div>
+                                            <div id="coFilterCard">
+                                                <input type="checkbox" id="co_bigc">
+                                                <label for="co_bigc">Beeg See</label>
+                                            </div>
+                                        </div>
+                                        <input type="submit" id="filterSubmit" value="" class="hidden">
+                                    </form>
+                                    <label for="filterSubmit">Lọc</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -190,7 +244,7 @@ const trangchu = {
                 
                 const spotInfo = {"quan": quanName, "phuong": phuongName, "duong": duongName, "adId": adId}
                 setAdInfoBar(spotInfo, this.ads[1]);
-                let offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
+                let offcanvasElementList = [].slice.call(document.querySelectorAll('#offcanvasLeft'))
                 offcanvasElementList.map(function (offcanvasEl) {
                     let offcanvas = new bootstrap.Offcanvas(offcanvasEl)
                     offcanvas.show();
