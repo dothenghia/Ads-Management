@@ -10,6 +10,7 @@ import SideBar from '/components/canbo/SideBar.js';
 
 // Import Functions
 import getDistrictInfo from '/functions/canbo/getDistrictInfo.js';
+import getReportStatInfo from '/functions/canbo/getReportStats.js';
 
 const trangchu = {
     
@@ -23,6 +24,8 @@ const trangchu = {
 
     fetchData : async function() {
         
+        var reportStat= await getReportStatInfo();
+        this.reportStat = reportStat[0];
 
         this.render(0);
     },
@@ -51,8 +54,10 @@ const trangchu = {
                                 <p class="fs-5 fw-semibold" style="color: rgb(0, 101, 255);">Thống Kê Báo Cáo</p>
                             </div>
                             
-                            <div class="container-fluid d-flex flex-row-1">
-                                <canvas id="myChart" class="p-1"></canvas>
+                            <div class="container-fluid d-flex flex-row p-2">
+                                <div class="container-fluid px-3">
+                                    <canvas id="myChart"></canvas>
+                                </div>
                                 <img src="/assets/chung/icon/trangke.svg" alt="Next" id="btn-next">
                             </div>
                         </div>
@@ -66,17 +71,19 @@ const trangchu = {
                     <div class="row flex-grow-1">
                         <div class="col-md-1 d-none d-sm-none d-md-block p-0">
                             ${
-                                SideBar(this.sidebarIcons, this.sidebarLabels, this.sidebarHrefs, 0)
+                                SideBar(this.sidebarIcons, this.sidebarLabels, this.sidebarHrefs, )
                             }
                         </div>
-                        <div id="content" class="container-fluid text-start rounded-3" style="border: 2px solid rgb(43, 119, 208); width: 400px">
+                        <div id="content" class="container-fluid text-start rounded-3">
                             <div>
-                                <p class="fs-5 fw-semibold">Thống Kê Cách Thức Xử Lý</p>
+                                <p class="fs-5 fw-semibold"  style="color: rgb(0, 101, 255);">Thống Kê Cách Thức Xử Lý</p>
                             </div>
                             
-                            <div class="container-fluid d-flex flex-row-1">
-                                <canvas id="myChart" class="p-1"></canvas>
-                                <img src="/assets/chung/icon/trangke.svg" alt="Next" id="btn-next">
+                            <div class="container-fluid d-flex flex-row p-2">
+                                <img src="/assets/chung/icon/trangcu.svg" alt="Back" id="btn-back">
+                                <div class="container-fluid px-3">
+                                    <canvas id="myChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,62 +91,80 @@ const trangchu = {
             `
         }
         root.appendChild(main);
-        this.renderChart();
+        this.event();
+        this.renderChart(ID);
         // Khi nhấn next đổi sang statistic khác
         sessionStorage.setItem('selectedRenderID', ID);
     },
 
-    renderChart : function() {
-        //let ctx =  document.querySelector("#root>main").firstElementChild.getElementById("myChart").getContext("2d");
+    renderChart : function(ID) {
+        
+        // Query chart
         let ctx =  document.querySelector("#root>main").firstElementChild.querySelector("canvas#myChart").getContext("2d");
-        let myChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: [
-                "Quý 1",
-                "Quý 2",
-                "Quý 3",
-            ],
-            datasets: [
-                {
-                    label: "Quận 1",
-                    data: [4, 9, 3],
-                    backgroundColor: "rgb(91, 155, 213)",
-                },
-                {
-                    label: "Quận 11",
-                    data: [3, 2, 5],
-                    backgroundColor: "rgb(114, 225, 209)",
-                },
-            ],
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+
+        var i = 0; // Count for colorSet
+        var colorSet = ["rgb(91, 155, 213)", "rgb(114, 225, 209)", "rgb(42, 96, 65)", "rgb(254, 127, 45)", "rgb(31, 1, 185)"]
+
+        // Label and dataset for chart - Thống kê báo cáo
+        var labelID0 = ["Quý 1", "Quý 2", "Quý 3"]; 
+        var dataSetsID0 = Object.values(this.reportStat).map(function(values) {
+            i++;
+            return {
+                label: values.name,
+                data: [values.quy1, values.quy2, values.quy3],
+                backgroundColor: colorSet[i - 1],
             }
+        });
+        // Label and dataset for chart - Thống kê cách thức xử lý
+        var labelID1 = ["Gò Vấp", "Quận 1"];
+        var dataSetsID1 = [
+            {
+                label: "Từ Chối Yêu Cầu",
+                data: [10, 50],
+                backgroundColor: colorSet[3],
+            },
+            {
+                label: "Cảnh báo Vi Phạm",
+                data: [5, 15],
+                backgroundColor: colorSet[0],
+            },
+            {
+                label: "Xử Lý Vi Phạm",
+                data: [6, 30],
+                backgroundColor: colorSet[4],
+            }
+        ];
+        // Generate Chart
+        let myChart = new Chart(ctx, {
+        type: "bar", // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data: {
+            labels: ID == 0 ? labelID0 : labelID1,
+            datasets: ID == 0 ? dataSetsID0 : dataSetsID1,
+        },
+        options: { // Set yAxis begin at 0
+            animation: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
         }
     });
 
-    let btn_next = document.querySelector("img#btn-next");
-    btn_next.addEventListener("click", () => {
-        console.log("click");
-    });
     },
+
     event: function () {
-        var x = document.querySelector("#root>main").firstElementChild.querySelectorAll("li.cate");
-    
-        for (let i = 0; i < x.length; i++) {
-            x.item(i).addEventListener("click", function () {
-    
-                // Determine which category was clicked based on its ID
-                const categoryId = this.id.split('-')[1];
-                
-                // Call the render function with the clicked category ID
-                trangchu.render(parseInt(categoryId));
+        var x = document.querySelector("#root>main").firstElementChild
+        let btn_next = x.querySelector("img#btn-next");
+        if (btn_next != null) {
+            btn_next.addEventListener("click", () => {
+                trangchu.render(1);
+            });
+        }
+        let btn_back = x.querySelector("img#btn-back");
+        if (btn_back != null) {
+            btn_back.addEventListener("click", () => {
+                trangchu.render(0);
             });
         }
     },
