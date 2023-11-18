@@ -46,3 +46,28 @@
 #repInfo {
     margin-top: 4vh;
 }
+
+#repInfo h3 {
+    text-align: right;
+}
+
+#repInfo div {
+    text-align: center;
+    margin: 0.75em;
+    padding: 1em;
+    border: 2px solid rgb(247, 244, 244);
+    box-shadow: 2px 2px 2px rgb(203, 203, 203);
+    border-radius: 10px;
+}
+
+#repInfo h5 {
+    color: #0D6EFD;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+}
+
+#repInfo p {
+    margin: 1em 0;
+    font-weight: bold;
+}

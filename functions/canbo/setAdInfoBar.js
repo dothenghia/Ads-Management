@@ -24,7 +24,6 @@ export default async function setAdInfoBar(spotInfo, adInfo) {
                     <p>Địa chỉ: ${info.sonha} ${spotInfo.duong}, P.${spotInfo.phuong}, Quận ${spotInfo.quan}</p>
                     <p>Nội dung quảng cáo: ${info.content}</p>
                 </div>
-
             `
             adInfoCards += adInfoCard;
         })
