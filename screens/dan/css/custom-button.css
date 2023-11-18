@@ -42,7 +42,7 @@
     border: none;
     background-color: white;
     color: var(--primary-color);
-    box-shadow: 0px 2px 28px -2px rgba(0,0,0,0.4);
+    box-shadow: 0px 2px 28px -1px rgba(0,0,0,0.4);
 }
 .report-list-button:hover {
     background-color: var(--primary-color);

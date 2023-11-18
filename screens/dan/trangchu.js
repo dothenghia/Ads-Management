@@ -53,14 +53,9 @@ const trangchu = {
     },
 
 
-    // Render những thành phần cố định của Trang chủ như Header, Nút DS Báo cáo và các Root để attach component
     renderHomePage: function () {
         document.getElementById('main').innerHTML = `
             ${Header()}
-
-            <div class='py-2 container '>
-                ${SideBar('Quản lý', 'Xem báo cáo', 'HaiMen', 'Quản lý Cán bộ')}
-            </div>
 
             <div class="report-list-button-root"></div>
             
