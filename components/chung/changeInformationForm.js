@@ -1,23 +1,6 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <title>Đổi thông tin cá nhân</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS v5.2.1 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" type="text/css" href="doithongtincanhan.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="doithongtincanhan.js" defer></script>
-</head>
-
-<body class="d-flex justify-content-center align-items-center">
-  <main class="container rounded-5 bg-white w-50">
+export default function changeInforForm(){
+    return `
+    <main class="container rounded-5 bg-white w-50">
     <div class="container">
       <!--!chỗ này phải handle cái href-->
       <button href="/screens/phuong/index.html" class="btn border-0 bg-transparent px-4 mt-3 text-primary" id="backButton" onclick="backButton()"><i
@@ -65,14 +48,14 @@
                     <select id="day" name="day" class="w-25">
                       <script>
                         for (let i = 1; i <= 31; i++) {
-                          document.write(`<option value="${i}">${i}</option>`);
+                          document.write(<option value="${i}">${i}</option>);
                         }
                       </script>
                     </select>
                     <select id="month" name="month" class="w-25">
                       <script>
                         for (let i = 1; i <= 12; i++) {
-                          document.write(`<option value="${i}">${i}</option>`);
+                          document.write(<option value="${i}">${i}</option>);
                         }
                       </script>
                     </select>
@@ -80,7 +63,7 @@
                       <script>
                         const currentYear = new Date().getFullYear();
                         for (let i = currentYear; i >= currentYear - 100; i--) {
-                          document.write(`<option value="${i}">${i}</option>`);
+                          document.write(<option value="${i}">${i}</option>);
                         }
                       </script>
                     </select>
@@ -98,16 +81,5 @@
       </form>
 
     </div>
-  </main>
-    
-  <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-    </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-    </script>
-</body>
-
-</html>
+  </main>`
+}

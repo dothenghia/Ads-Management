@@ -8,7 +8,7 @@ async function validateLogin(e){
     e.preventDefault();
     try {
         // Fetch JSON file
-        const response = await fetch('/screens/canbo/taikhoan.json');
+        const response = await fetch('/assets/chung/data/taikhoan.json');
         const data = await response.json();
 
         // Get user input
