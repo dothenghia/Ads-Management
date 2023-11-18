@@ -22,9 +22,9 @@
     background-color: #fefefe;
 
     padding: 20px 20px 8px;
+    min-width: 700px;
     width: fit-content;
-    max-width: 70%;
-    min-width: 70%;
+    max-width: 840px;
     max-height: 90%;
     border-radius: 12px;
 
