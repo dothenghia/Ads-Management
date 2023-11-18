@@ -5,8 +5,7 @@ import ReportListButton from '/components/dan/ReportListButton.js';
 
 import AdMarker from '/components/dan/marker/AdMarker.js';
 import ReportMarker from '/components/dan/marker/ReportMarker.js';
-
-
+import RandomMarker from '/components/dan/marker/RandomMarker.js';
 
 
 // Import Functions
@@ -26,7 +25,7 @@ const trangchu = {
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
-            zoom: 15,
+            zoom: 16,
         });
 
         this.adLocationList = [];
@@ -64,9 +63,12 @@ const trangchu = {
             <div class="modal-root"></div>
             
             <div class="sidebar-root"></div>
+
+            <div class="random-popup-root"></div>
         `
         
         ReportListButton()
+        RandomMarker(this.map)
     },
 
 
