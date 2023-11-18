@@ -1,5 +1,13 @@
 
+import ReportFormModal from "./ReportFormModal.js";
+
 export default function DetailAdModal(detailAdInfo) {
+
+    function openReportFormModal_DetailAdModal() {
+        document.querySelector('.modal-root').innerHTML = ReportFormModal();
+    }
+
+    window.openReportFormModal_DetailAdModal = openReportFormModal_DetailAdModal;
 
     return `
         <div class="detail-ad-modal-container">
@@ -61,7 +69,7 @@ export default function DetailAdModal(detailAdInfo) {
                         </div>
                         <div class="detail-ad-modal__info-col">
                             <h2 style="margin-bottom: 4px;">Phản hồi thông tin</h2>
-                            <button class="btn btn-outline-primary custom-btn">
+                            <button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal_DetailAdModal()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                                 Phản hồi
                             </button>

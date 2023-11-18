@@ -37,7 +37,7 @@ const fakeReportLocationInfo = [
         address: "Nguyễn Văn Cừ - An Dương Vương",
         region: "Phường 4, Quận 5",
         form: 'Giải đáp thắc mắc',
-        status: 'Đã xử lý',
+        status: 'Đang xử lý',
         time: '18/10/2023 - 18:10:23',
 
         fullname: 'Sinh tố dâu',
@@ -173,12 +173,17 @@ async function getReportInfoById(reportId) {
     return fakeReportLocationInfo.find(info => info.reportId === reportId);
 }
 
-async function getDetailReportInfoByAdId(locationId, adId) {
+async function getDetailReportInfoOfAdLocation(locationId) {
+    return fakeReportLocationInfo.find(info => info.locationId === locationId && info.type === 'ddqc');
+}
+
+async function getDetailReportInfoOfAd(locationId, adId) {
     return fakeReportLocationInfo.find(info => info.locationId === locationId && info.adId === adId);
 }
 
 export {
     getAllReportList,
     getReportInfoById,
-    getDetailReportInfoByAdId
+    getDetailReportInfoOfAdLocation,
+    getDetailReportInfoOfAd,
 }

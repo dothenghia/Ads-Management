@@ -2,7 +2,7 @@
 import DetailAdModal from "../modal/DetailAdModal.js";
 import ReportFormModal from "../modal/ReportFormModal.js";
 import DetailReportModal from "../modal/DetailReportModal.js";
-import { getDetailReportInfoByAdId } from '/functions/dan/getReportLocationInfo.js';
+import { getDetailReportInfoOfAd } from '/functions/dan/getReportLocationInfo.js';
 
 import StatusTag from '../tag/StatusTag.js'
 
@@ -59,35 +59,31 @@ export default function AdCard(adInfo, adLocationData) {
         adId: adInfo.adId,
     }
 
-    function openDetailAdModal(ad) {
+    function openDetailAdModal_AdCard(ad) {
         let detailAdInfo = JSON.parse(decodeURIComponent(ad));        
         
         document.querySelector('.modal-root').innerHTML = DetailAdModal(detailAdInfo);
 
     }
 
-    function openReportFormModal() {
+    function openReportFormModal_AdCard() {
         document.querySelector('.modal-root').innerHTML = ReportFormModal();
     }
 
-    function openDetailReportModal(id) {
+    function openDetailReportModal_AdCard(id) {
         let {adId, locationId} = JSON.parse(decodeURIComponent(id));
 
-        console.log(locationId, adId);
-
-        getDetailReportInfoByAdId(locationId, adId).then(detailReportInfo => {
+        getDetailReportInfoOfAd(locationId, adId).then(detailReportInfo => {
             console.log(detailReportInfo);
 
-            // document.querySelector('.modal-root').innerHTML = DetailReportModal(detailReportInfo);
+            document.querySelector('.modal-root').innerHTML = DetailReportModal(detailReportInfo);
         })
-
-        // document.querySelector('.modal-root').innerHTML = DetailReportModal();
     }
     
 
-    window.openDetailAdModal = openDetailAdModal;
-    window.openReportFormModal = openReportFormModal;
-    window.openDetailReportModal = openDetailReportModal;
+    window.openDetailAdModal_AdCard = openDetailAdModal_AdCard;
+    window.openReportFormModal_AdCard = openReportFormModal_AdCard;
+    window.openDetailReportModal_AdCard = openDetailReportModal_AdCard;
 
 
     return `
@@ -129,19 +125,19 @@ export default function AdCard(adInfo, adLocationData) {
 
 
         <div class="ad-card__button">
-            <button class="btn btn-outline-primary custom-btn" onclick="openDetailAdModal('${encodeURIComponent(JSON.stringify(extractData))}')">
+            <button class="btn btn-outline-primary custom-btn" onclick="openDetailAdModal_AdCard('${encodeURIComponent(JSON.stringify(extractData))}')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                 Chi tiết
             </button>
 
             ${
                 (adInfo.reportStatus == '') ?
-                `<button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal()">
+                `<button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal_AdCard()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     Phản hồi
                 </button>`
                 :
-                `<button class="custom-btn custom-btn-fade" onclick="openDetailReportModal('${encodeURIComponent(JSON.stringify(reportId))}')">
+                `<button class="custom-btn custom-btn-fade" onclick="openDetailReportModal_AdCard('${encodeURIComponent(JSON.stringify(reportId))}')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     Xem lại phản hồi
                 </button>`
