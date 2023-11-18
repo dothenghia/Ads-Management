@@ -36,13 +36,14 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 
     <script>
-        function redirectToChangeReqPage(oldAddr, oldInfo, newInfo) {
+        function redirectToChangeReqPage(reqId, oldAddr, oldInfo, newInfo) {
             let reqData = {
+                "id": reqId,
                 "oldAddr": oldAddr,
                 "oldInfo": oldInfo,
                 "newInfo": newInfo
             }
-            sessionStorage.setItem('reqPageData', JSON.stringify(reqData));
+            sessionStorage.setItem('changeReqPageData', JSON.stringify(reqData));
             window.location.href = '/screens/canbo/thongtinyeucaudieuchinh/thongtinyeucaudieuchinh.html';
         }
     </script>

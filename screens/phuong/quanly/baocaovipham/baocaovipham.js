@@ -62,8 +62,11 @@ const trangchu = {
         const adStreetInfo = this.adStreetInfo;
         const areaInfo = this.areaInfo;
         const filter = this.filter;
+
+        // Simulate getting updates from database
+        const updates = JSON.parse(localStorage.getItem("repListUpdate"));
+
         let i = 1;
-        let j = 1;
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
                 <div class="row flex-grow-1">
@@ -76,7 +79,7 @@ const trangchu = {
                         <ul id="category">
                             <li><a href="../danhsachquangcao/danhsachquangcao.html">Thông tin quảng cáo</a></li>
                             <li><a href="../yeucauchinhsua/yeucauchinhsua.html">Yêu cầu chỉnh sửa</a></li>
-                            <li class="tb-active">Báo cáo vi phạm</li>
+                            <li class="tb-active">Báo cáo</li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -101,6 +104,12 @@ const trangchu = {
                                                 "phuong": areaInfo.phuong
                                             });
 
+                                            // Check for updates on report state
+                                            if (updates && updates[rep.id]) {
+                                                rep.status = true;
+                                                rep.solution = updates[rep.id];
+                                            }
+
                                             // Check for filters
                                             if (filter) {
                                                 if (filter["date"] > Date.parse(rep.date)) return ``;
@@ -124,7 +133,7 @@ const trangchu = {
                                                 <td>${rep.type.name}</td>
                                                 <td>${statusText}</td>
                                                 <td>
-                                                    <button onclick='redirectToRepPage(${adAddr}, ${JSON.stringify(repAdInfo)}, ${JSON.stringify(rep)})'>
+                                                    <button onclick='redirectToRepPage("${rep.id}", ${adAddr}, ${JSON.stringify(repAdInfo)}, ${JSON.stringify(rep)})'>
                                                         Chi tiết
                                                     </button>
                                                 </td>

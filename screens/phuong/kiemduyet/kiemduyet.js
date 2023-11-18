@@ -22,6 +22,17 @@ const trangchu = {
         this.areaInfo = {};
         this.repInfo = {}
         this.adTypeInfo = {};
+
+        // Transfer existing filter data to code storage
+        let filter = sessionStorage.getItem("permissionReqListFilter");
+        if (filter) {
+            filter = JSON.parse(filter);
+            if (filter["role"] == this.profileInfo.role) {
+                console.log(filter);
+                this.filter = filter;
+                sessionStorage.removeItem("permissionReqListFilter");
+            }
+        }
     },
 
     fetchData : async function() {
@@ -47,8 +58,10 @@ const trangchu = {
         const adTypeInfo = this.adTypeInfo;
         const adStreetInfo = this.adStreetInfo;
         const areaInfo = this.areaInfo;
+        const reqInfo = this.reqInfo;
+        if (!this.reqInfo) return;
+        const filter = this.filter;
         let i = 1;
-        let j = 1;
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
                 <div class="row flex-grow-1">
@@ -75,10 +88,15 @@ const trangchu = {
                             </thead>
                             <tbody>
                                 ${
-                                    Object.keys(this.reqInfo).map(function (streetId) {
-                                        return Object.values(streetInfo.baocao).map((req) => {
+                                    Object.keys(reqInfo).map(function (streetId) {
+                                        return Object.values(reqInfo[streetId].yeucau).map((req) => {
                                             // let adInfo = req.loc.split("_");
                                             // let reqAdOldInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
+
+                                            // Check for filters
+                                            if (filter) {
+                                                if (!filter["co"].includes(req.co.id)) return ``;
+                                            }
 
                                             let row = `
                                             <tr class="ad-general">
@@ -101,11 +119,81 @@ const trangchu = {
                                 }
                             </tbody>
                         </table>
+
+                        <div id="filter-button">
+                            <button type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu">
+                                <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
+                            </button>
+                        </div>
+                        <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">
+                            <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body small">
+                                <form id="reqFilterForm" class="row">
+                                    <div class="col">
+                                        <h5>Công ty</h5>
+                                        <div id="coFilterCard">
+                                            <input type="checkbox" id="co_vincom">
+                                            <label for="co_vincom">Vincom</label>
+                                        </div>
+                                        <div id="coFilterCard">
+                                            <input type="checkbox" id="co_coopmart">
+                                            <label for="co_coopmart">Cốp Mắc</label>
+                                        </div>
+                                        <div id="coFilterCard">
+                                            <input type="checkbox" id="co_aeon">
+                                            <label for="co_aeon">Aeon Mô</label>
+                                        </div>
+                                        <div id="coFilterCard">
+                                            <input type="checkbox" id="co_bigc">
+                                            <label for="co_bigc">Beeg See</label>
+                                        </div>
+                                    </div>
+                                    <input type="submit" id="filterSubmit" value="" class="hidden">
+                                </form>
+                                <label for="filterSubmit">Lọc</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         `
         root.appendChild(main);
+
+        // Adjust filter menu to fit with current filter data
+        if (filter) {
+            filter["co"].forEach((type) => {
+                document.querySelector('#filterMenu #coFilterCard input[type="checkbox"][id="co_' + type + '"]').checked = true;
+            })
+        }
+        else {
+            let coCheckboxes = document.querySelectorAll('#filterMenu #coFilterCard input[type="checkbox"][id^="co_"]');
+            coCheckboxes.forEach((checkbox) => {
+                checkbox.checked = true;
+            });
+        }
+
+        // Listen to filter button click
+        const adminRole = this.profileInfo.role;
+        document.getElementById("reqFilterForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            let totalFilter = {};
+
+            totalFilter["role"] = adminRole;
+
+            let coCheckboxes = document.querySelectorAll('#filterMenu #coFilterCard input[type="checkbox"][id^="co_"]:checked');
+            let coFilter = [];
+            coCheckboxes.forEach((checkbox) => {
+                let co = checkbox.id.substring(3);
+                coFilter.push(co);
+            });
+            totalFilter["co"] = coFilter;
+
+            sessionStorage.setItem("permissionReqListFilter", JSON.stringify(totalFilter));
+            location.reload();
+        });
     },
 
     start : function() {

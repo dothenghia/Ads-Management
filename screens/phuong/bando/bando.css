@@ -35,3 +35,14 @@
     margin: 1em 0;
     font-weight: bold;
 }
+
+#sideButtons {
+    z-index: 52;
+    position: absolute;
+    right: 5px;
+    bottom: 5vh;
+}
+
+#repInfo {
+    margin-top: 4vh;
+}

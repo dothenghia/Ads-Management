@@ -36,6 +36,12 @@ const trangchu = {
         const areas = this.areas;
         if (areas == undefined) return;
 
+        const adData = JSON.parse(sessionStorage.getItem('changeReqPageData'));
+        const id = adData.id;
+        const oldAddr = adData.oldAddr;
+        const oldInfo = adData.oldInfo;
+        const newInfo = adData.newInfo;
+
         let main = document.createElement("main");
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
@@ -81,7 +87,26 @@ const trangchu = {
                                 <div class="col-4 justify-content-center"><p id="type-old"></p></div>
                                 <div class="col-4 justify-content-center"><p id="type-new"></p></div>
                             </div>
-                            <div class="row justify-content-end">Địa điểm & Bảng QC</div>
+                            <div class="row justify-content-end inline" id="choice">
+                                <button class="col-2" onclick="
+                                    let changeReqListUpdate = JSON.parse(localStorage.getItem('changeReqListUpdate'));
+                                    if (!changeReqListUpdate) changeReqListUpdate = {};
+                                    changeReqListUpdate['${id}'] = 3;
+                                    localStorage.setItem('changeReqListUpdate', JSON.stringify(changeReqListUpdate));
+                                    history.back();
+                                ">
+                                    Từ chối
+                                </button>
+                                <button class="col-2" onclick="
+                                    let changeReqListUpdate = JSON.parse(localStorage.getItem('changeReqListUpdate'));
+                                    if (!changeReqListUpdate) changeReqListUpdate = {};
+                                    changeReqListUpdate['${id}'] = 2;
+                                    localStorage.setItem('changeReqListUpdate', JSON.stringify(changeReqListUpdate));
+                                    history.back();
+                                ">
+                                    Gửi lên Sở
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,10 +114,11 @@ const trangchu = {
         `
         root.appendChild(main);
         
-        const adData = JSON.parse(sessionStorage.getItem('reqPageData'));
-        const oldAddr = adData.oldAddr;
-        const oldInfo = adData.oldInfo;
-        const newInfo = adData.newInfo;
+        // Disable further updates if already updated
+        let changeReqListUpdate = JSON.parse(localStorage.getItem('changeReqListUpdate'));
+        if (changeReqListUpdate && changeReqListUpdate[id] && changeReqListUpdate[id] >= 2)
+            document.getElementById("choice").style.display = 'none';
+        
         let contentOverlay = document.getElementById('contentOverlay');
         contentOverlay.querySelector('#addr-old').textContent =  oldInfo.sonha + " " + oldAddr.duong + ", P. " + oldAddr.phuong + ", Quận " + oldAddr.quan;
         contentOverlay.querySelector('#size-old').textContent = oldInfo.size;

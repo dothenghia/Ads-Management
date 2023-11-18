@@ -25,8 +25,48 @@
                                     "phone": "343543534"
                                 },
                                 "content": "Không phù hợp thuần phong mỹ tục",
-                                "status": true,
-                                "solution": "Chém đầu"
+                                "status": false,
+                                "solution": ""
+                            },
+                            "BC00002": {
+                                "id": "BC00002",
+                                "loc": "AD00002_00002",
+                                "date": "2009-10-24",
+                                "type": {
+                                    "id": "dgyk",
+                                    "name": "Đóng góp ý kiến"
+                                },
+                                "sender": {
+                                    "name": "Nguyễn Văn B",
+                                    "email": "fdfaadsf",
+                                    "phone": "343543534"
+                                },
+                                "content": "Nội dung chưa rõ ràng",
+                                "status": false,
+                                "solution": ""
+                            }
+                        }
+                    },
+                    "vk": {
+                        "id": "vk",
+                        "name": "Vạn Kiếp",
+                        "baocao": {
+                            "BC00003": {
+                                "id": "BC00003",
+                                "loc": "AD00005_00001",
+                                "date": "2023-10-24",
+                                "type": {
+                                    "id": "dknd",
+                                    "name": "Đăng ký nội dung"
+                                },
+                                "sender": {
+                                    "name": "Nguyễn Văn B",
+                                    "email": "fdfaadsf",
+                                    "phone": "343543534"
+                                },
+                                "content": "Nội dung: fkasdfjsdh",
+                                "status": false,
+                                "solution": ""
                             }
                         }
                     }

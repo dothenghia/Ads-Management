@@ -92,7 +92,7 @@ const trangchu = {
                         <ul id="category">
                             <li class="tb-active">Thông tin quảng cáo</li>
                             <li><a href="../yeucauchinhsua/yeucauchinhsua.html">Yêu cầu chỉnh sửa</a></li>
-                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo vi phạm</a></li>
+                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo</a></li>
                         </ul>
                         <table class="table table-sm">
                             <thead>

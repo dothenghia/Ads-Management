@@ -25,6 +25,10 @@ const trangchu = {
         root.innerHTML = `
             ${Header(this.profileInfo)}
         `
+        
+        const adData = JSON.parse(sessionStorage.getItem("repPageData"));
+        const id = adData.id;
+        console.log(adData);
 
         let main = document.createElement("main");
         main.innerHTML = `
@@ -57,15 +61,24 @@ const trangchu = {
                                 </div>
                             </div>
                         </div>
+                        <div class="row justify-content-end inline" id="update">
+                            <button class="col-2">
+                                Cập nhật
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         `
         root.appendChild(main);
         
-        const adData = JSON.parse(sessionStorage.getItem("repPageData"));
+        // Disable further updates if already updated
+        let repListUpdate = JSON.parse(localStorage.getItem('repListUpdate'));
+        if (repListUpdate && repListUpdate[id])
+            document.getElementById("update").style.display = 'none';
+
         let contentOverlay = document.getElementById('contentOverlay');
-        contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/' + adData.adTypeId + '.jpeg';
+        contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/' + adData.repInfo.loc.split('_')[0] + '.jpeg';
         contentOverlay.querySelector('#senderName').innerHTML = '<span style="color: #2B77D0">Họ tên người gửi: </span>' + adData.repInfo.sender.name;
         contentOverlay.querySelector('#senderEmail').innerHTML = '<span style="color: #2B77D0">Email người gửi: </span>' + adData.repInfo.sender.email;
         contentOverlay.querySelector('#senderPhone').innerHTML = '<span style="color: #2B77D0">Số ĐT người gửi: </span>' + adData.repInfo.sender.phone;
@@ -82,6 +95,19 @@ const trangchu = {
         else {
             solution.innerHTML += '<input type="text" style="width: 100%">';
         }
+
+        // Spawn "Update" button
+        let button = document.querySelector("#content #update button")
+        button.addEventListener('click', () => {
+            if (!repListUpdate) repListUpdate = {};
+            let solutionInput = document.querySelector("#contentOverlay #solution input").value;
+            if (solutionInput == "") alert("Vui lòng cung cấp cách thức xử lý cho báo cáo này!");
+            else {
+                repListUpdate[id] = document.querySelector("#contentOverlay #solution input").value;
+                localStorage.setItem('repListUpdate', JSON.stringify(repListUpdate));
+                history.back();
+            }
+        })
     },
 
     start : function() {

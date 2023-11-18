@@ -61,6 +61,10 @@ const trangchu = {
         const adStreetInfo = this.adStreetInfo;
         const areaInfo = this.areaInfo;
         const filter = this.filter;
+
+        // Simulate getting updates from database
+        const updates = JSON.parse(localStorage.getItem("changeReqListUpdate"));
+
         let i = 1;
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
@@ -74,7 +78,7 @@ const trangchu = {
                         <ul id="category">
                             <li><a href="../danhsachquangcao/danhsachquangcao.html">Thông tin quảng cáo</a></li>
                             <li class="tb-active">Yêu cầu chỉnh sửa</li>
-                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo vi phạm</a></li>
+                            <li><a href="../baocaovipham/baocaovipham.html">Báo cáo</a></li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -99,6 +103,9 @@ const trangchu = {
                                                 "phuong": areaInfo.phuong
                                             });
                                             
+                                            // Check for updates on request status
+                                            if (updates && updates[req.id]) req.status = updates[req.id];
+                                            
                                             // Check for filters
                                             if (filter) {
                                                 console.log(filter)
@@ -106,7 +113,7 @@ const trangchu = {
                                                 if (!filter["reason"].includes(req.reason)) return ``;
                                                 if (!filter["status"].includes(req.status)) return ``;
                                             }
-                                            
+
                                             let statusText;
                                             switch (req.status) {
                                                 case 0:
@@ -131,7 +138,7 @@ const trangchu = {
                                                 <td>${req.reason}</td>
                                                 <td>${statusText}</td>
                                                 <td>
-                                                    <button onclick='redirectToChangeReqPage(${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)})'>
+                                                    <button onclick='redirectToChangeReqPage("${req.id}", ${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)})'>
                                                         Chi tiết
                                                     </button>
                                                 </td>
