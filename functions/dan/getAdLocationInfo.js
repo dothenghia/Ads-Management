@@ -178,10 +178,29 @@ async function getAdLocationInfoById(locationId) {
 }
 
 async function getDetailAdInfoById(locationId, adId) {
-    return fakeAdLocationInfo.find(info => info.locationId === locationId).adList.find(ad => ad.adId === adId);
+    let locationData = fakeAdLocationInfo.find(info => info.locationId === locationId)
+    let adData = fakeAdLocationInfo.find(info => info.locationId === locationId).adList.find(ad => ad.adId === adId);
+
+    let extractData = {
+        adId: adData.adId,
+        locationId: locationData.locationId,
+        address: locationData.address,
+        region: locationData.region,
+        name: adData.name,
+        type: locationData.type,
+        form: locationData.form,
+        locationType: locationData.locationType,
+        contractStartDate: adData.contractStartDate,
+        contractEndDate: adData.contractEndDate,
+        size: adData.size,
+        thumbnails: adData.thumbnails,
+    }
+    
+    return extractData;
 }
 
 export {
     getAllAdList,
-    getAdLocationInfoById
+    getAdLocationInfoById,
+    getDetailAdInfoById
 }

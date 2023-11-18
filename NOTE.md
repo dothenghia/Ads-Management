@@ -4,15 +4,15 @@ API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 AdMarker ==hover=> AdPopup
     --> AdSidebar :
         + AdSidebar_Thumbnail
-        + AdSidebar_Info --> Report Form Modal
-        + AdCard --> Detail Ad Modal & Report Form Modal
+        + AdSidebar_Info --> Report Form Modal & Detail Report Modal
+        + AdCard --> Detail Ad Modal & Report Form Modal & Detail Report Modal
 
 ReportMarker
     --> Detail Report Modal
 
 ReportListButton
     --> ReportSidebar :
-        + ReportCard --> (Detail Ad Modal || AdSidebar) & Detail Report Modal
+        + ReportCard --> Detail Ad Modal & Detail Report Modal
 
 
 

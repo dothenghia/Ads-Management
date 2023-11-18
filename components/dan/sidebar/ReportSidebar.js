@@ -6,7 +6,7 @@ export default function ReportSidebar(reportData) {
     const qcReports = reportData.filter(report => report.type === 'qc');
     const ddReports = reportData.filter(report => report.type === 'ddqc' || report.type === 'ddbk');
 
-    function switchTab(tabType) {
+    function switchTab_ReportSidebar(tabType) {
         const tabs = document.querySelectorAll('.report-sidebar__tab');
         tabs.forEach(tab => tab.classList.remove('active'));
 
@@ -20,8 +20,8 @@ export default function ReportSidebar(reportData) {
         activeContent.style.display = 'block';
     }
 
-    // Gọi hàm switchTab khi tạo HTML để đảm bảo nó thuộc phạm vi toàn cục
-    window.switchTab = switchTab;
+    // Gọi hàm switchTab_ReportSidebar khi tạo HTML để đảm bảo nó thuộc phạm vi toàn cục
+    window.switchTab_ReportSidebar = switchTab_ReportSidebar;
 
     return (
         `<div class="report-sidebar-container">
@@ -36,10 +36,10 @@ export default function ReportSidebar(reportData) {
 
                 
                 <div class="report-sidebar__tabs">
-                    <button type="button" class="report-sidebar__tab active" onclick="switchTab('qc')" data-type="qc">
+                    <button type="button" class="report-sidebar__tab active" onclick="switchTab_ReportSidebar('qc')" data-type="qc">
                         Quảng cáo (${qcReports.length})
                     </button>
-                    <button type="button" class="report-sidebar__tab" onclick="switchTab('dd')" data-type="dd">
+                    <button type="button" class="report-sidebar__tab" onclick="switchTab_ReportSidebar('dd')" data-type="dd">
                         Địa điểm (${ddReports.length})
                     </button>
                 </div>
