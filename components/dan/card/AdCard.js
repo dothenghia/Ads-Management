@@ -1,12 +1,16 @@
 
 import DetailAdModal from "../modal/DetailAdModal.js";
+import ReportFormModal from "../modal/ReportFormModal.js";
+import DetailReportModal from "../modal/DetailReportModal.js";
+import { getDetailReportInfoByAdId } from '/functions/dan/getReportLocationInfo.js';
+
 import StatusTag from '../tag/StatusTag.js'
 
 
 function AdCard_Thumbnail(adInfo) {
     return `
     <div class="ad-card__thumbnail">
-        <div id="ad-card__carousel-${adInfo.id}" class="carousel slide" data-bs-ride="carousel">
+        <div id="ad-card__carousel-${adInfo.adId}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
 
                 ${
@@ -20,11 +24,11 @@ function AdCard_Thumbnail(adInfo) {
                 }
 
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#ad-card__carousel-${adInfo.id}" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#ad-card__carousel-${adInfo.adId}" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#ad-card__carousel-${adInfo.id}" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#ad-card__carousel-${adInfo.adId}" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -37,8 +41,8 @@ function AdCard_Thumbnail(adInfo) {
 export default function AdCard(adInfo, adLocationData) {
     
     let extractData = {
-        adId: adInfo.id,
-        locationId: adLocationData.id,
+        adId: adInfo.adId,
+        locationId: adLocationData.locationId,
         address: adLocationData.address,
         region: adLocationData.region,
         name: adInfo.name,
@@ -50,6 +54,10 @@ export default function AdCard(adInfo, adLocationData) {
         size: adInfo.size,
         thumbnails: adInfo.thumbnails,
     }
+    let reportId = {
+        locationId: adLocationData.locationId,
+        adId: adInfo.adId,
+    }
 
     function openDetailAdModal(ad) {
         let detailAdInfo = JSON.parse(decodeURIComponent(ad));        
@@ -58,7 +66,28 @@ export default function AdCard(adInfo, adLocationData) {
 
     }
 
+    function openReportFormModal() {
+        document.querySelector('.modal-root').innerHTML = ReportFormModal();
+    }
+
+    function openDetailReportModal(id) {
+        let {adId, locationId} = JSON.parse(decodeURIComponent(id));
+
+        console.log(locationId, adId);
+
+        getDetailReportInfoByAdId(locationId, adId).then(detailReportInfo => {
+            console.log(detailReportInfo);
+
+            // document.querySelector('.modal-root').innerHTML = DetailReportModal(detailReportInfo);
+        })
+
+        // document.querySelector('.modal-root').innerHTML = DetailReportModal();
+    }
+    
+
     window.openDetailAdModal = openDetailAdModal;
+    window.openReportFormModal = openReportFormModal;
+    window.openDetailReportModal = openDetailReportModal;
 
 
     return `
@@ -107,12 +136,12 @@ export default function AdCard(adInfo, adLocationData) {
 
             ${
                 (adInfo.reportStatus == '') ?
-                `<button class="btn btn-outline-primary custom-btn">
+                `<button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     Phản hồi
                 </button>`
                 :
-                `<button class="custom-btn custom-btn-fade">
+                `<button class="custom-btn custom-btn-fade" onclick="openDetailReportModal('${encodeURIComponent(JSON.stringify(reportId))}')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     Xem lại phản hồi
                 </button>`
