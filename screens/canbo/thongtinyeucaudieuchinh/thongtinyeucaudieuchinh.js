@@ -56,57 +56,58 @@ const trangchu = {
                             <button onclick="history.back()"><img src="/assets/chung/icon/trove_icon.svg" alt="Return"></button>
                         </div>
                         <div id="contentOverlay" class="container">
-                            <div class="row">Địa điểm & Bảng QC</div>
+                            <div id="title" class="row">Địa điểm & Bảng QC</div>
                             <div class="row">
-                                <div class="col-4 justify-content-center"><h5> </h5></div>
-                                <div class="col-4 justify-content-center"><h5>Thông tin cũ</h5></div>
-                                <div class="col-4 justify-content-center"><h5>Thông tin mới</h5></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4 justify-content-center"><h5>Địa chỉ</h5></div>
-                                <div class="col-4 justify-content-center"><p id="addr-old"></p></div>
-                                <div class="col-4 justify-content-center"><p id="addr-new"></p></div>
+                                <div class="col-4"><h5> </h5></div>
+                                <div class="col-4"><h5>Thông tin cũ</h5></div>
+                                <div class="col-4"><h5>Thông tin mới</h5></div>
                             </div>
                             <div class="row">
-                                <div class="col-4 justify-content-center"><h5>Kích thước</h5></div>
-                                <div class="col-4 justify-content-center"><p id="size-old"></p></div>
-                                <div class="col-4 justify-content-center"><p id="size-new"></p></div>
+                                <div class="col-4"><h5>Địa chỉ</h5></div>
+                                <div class="col-4"><p id="addr-old"></p></div>
+                                <div class="col-4"><p id="addr-new"></p></div>
                             </div>
                             <div class="row">
-                                <div class="col-4 justify-content-center"><h5>SL trụ</h5></div>
-                                <div class="col-4 justify-content-center"><p id="cnt-old"></p></div>
-                                <div class="col-4 justify-content-center"><p id="cnt-new"></p></div>
+                                <div class="col-4"><h5>Kích thước</h5></div>
+                                <div class="col-4"><p id="size-old"></p></div>
+                                <div class="col-4"><p id="size-new"></p></div>
                             </div>
                             <div class="row">
-                                <div class="col-4 justify-content-center"><h5>Hình thức</h5></div>
-                                <div class="col-4 justify-content-center"><p id="purpose-old"></p></div>
-                                <div class="col-4 justify-content-center"><p id="purpose-new"></p></div>
+                                <div class="col-4"><h5>SL trụ</h5></div>
+                                <div class="col-4"><p id="cnt-old"></p></div>
+                                <div class="col-4"><p id="cnt-new"></p></div>
                             </div>
                             <div class="row">
-                                <div class="col-4 justify-content-center"><h5>Phân loại</h5></div>
-                                <div class="col-4 justify-content-center"><p id="type-old"></p></div>
-                                <div class="col-4 justify-content-center"><p id="type-new"></p></div>
+                                <div class="col-4"><h5>Hình thức</h5></div>
+                                <div class="col-4"><p id="purpose-old"></p></div>
+                                <div class="col-4"><p id="purpose-new"></p></div>
                             </div>
-                            <div class="row justify-content-end inline" id="choice">
-                                <button class="col-2" onclick="
-                                    let changeReqListUpdate = JSON.parse(localStorage.getItem('changeReqListUpdate'));
-                                    if (!changeReqListUpdate) changeReqListUpdate = {};
-                                    changeReqListUpdate['${id}'] = 3;
-                                    localStorage.setItem('changeReqListUpdate', JSON.stringify(changeReqListUpdate));
-                                    history.back();
-                                ">
-                                    Từ chối
-                                </button>
-                                <button class="col-2" onclick="
-                                    let changeReqListUpdate = JSON.parse(localStorage.getItem('changeReqListUpdate'));
-                                    if (!changeReqListUpdate) changeReqListUpdate = {};
-                                    changeReqListUpdate['${id}'] = 2;
-                                    localStorage.setItem('changeReqListUpdate', JSON.stringify(changeReqListUpdate));
-                                    history.back();
-                                ">
-                                    Gửi lên Sở
-                                </button>
+                            <div class="row">
+                                <div class="col-4"><h5>Phân loại</h5></div>
+                                <div class="col-4"><p id="type-old"></p></div>
+                                <div class="col-4"><p id="type-new"></p></div>
                             </div>
+                        </div>
+
+                        <div class="row justify-content-end inline" id="choice">
+                            <button id="deny" class="col-2" onclick="
+                                let changeReqListUpdate = JSON.parse(localStorage.getItem('changeReqListUpdate'));
+                                if (!changeReqListUpdate) changeReqListUpdate = {};
+                                changeReqListUpdate['${id}'] = 3;
+                                localStorage.setItem('changeReqListUpdate', JSON.stringify(changeReqListUpdate));
+                                history.back();
+                            ">
+                                Từ chối
+                            </button>
+                            <button id="accept" class="col-2" onclick="
+                                let changeReqListUpdate = JSON.parse(localStorage.getItem('changeReqListUpdate'));
+                                if (!changeReqListUpdate) changeReqListUpdate = {};
+                                changeReqListUpdate['${id}'] = 2;
+                                localStorage.setItem('changeReqListUpdate', JSON.stringify(changeReqListUpdate));
+                                history.back();
+                            ">
+                                Gửi lên Sở
+                            </button>
                         </div>
                     </div>
                 </div>

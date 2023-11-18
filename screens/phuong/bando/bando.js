@@ -76,7 +76,7 @@ const trangchu = {
                         <div id="sideButtons">
                             <div id="report">
                                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                    <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
+                                    <img src="/assets/chung/icon/hopthu_icon.svg" alt="Filter">
                                 </button>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="51" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">

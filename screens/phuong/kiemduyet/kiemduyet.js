@@ -184,10 +184,6 @@ const trangchu = {
                             </button>
                         </div>
                         <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">
-                            <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
-                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
                             <div class="offcanvas-body small">
                                 <form id="reqFilterForm" class="row">
                                     <div class="col">
@@ -211,7 +207,11 @@ const trangchu = {
                                     </div>
                                     <input type="submit" id="filterSubmit" value="" class="hidden">
                                 </form>
-                                <label for="filterSubmit">Lọc</label>
+                            </div>
+                            
+                            <div id="filterNav" class="row justify-content-center">
+                                <div class="col-6"><button type="button" data-bs-dismiss="offcanvas" aria-label="Close">Đóng</button></div>
+                                <div class="col-6"><label class="col-6" for="filterSubmit">Lọc</label></div
                             </div>
                         </div>
                     </div>

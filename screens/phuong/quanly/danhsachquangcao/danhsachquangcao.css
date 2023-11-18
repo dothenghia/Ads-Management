@@ -19,23 +19,25 @@
     padding: 0.75em 0;
 }
 
-/* .tb table {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 2em;
+.tb table tr.ad-specific button {
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border-color: grey;
+    border-style: solid;
+    border-width: 0 1px 2px 0;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
 }
 
-.tb table th {
+#filterMenu #adFilterForm {
     text-align: center;
-    color: #999;
-    font-weight: lighter;
-    padding: 1em 0;
 }
 
-.tb table td {
-    text-align: center;
-    word-wrap: break-word;
-    padding: 1em 3em;
-    border: solid #999;
-    border-width: 2px 0;
-} */
+#filterMenu #adFilterForm #cntFilterCard {
+    margin: 1vh 0;
+    padding: 0.5vh 0;
+    color: #0D6EFD;
+    border: 1px solid #0D6EFD;
+    border-radius: 15px;
+}

@@ -43,6 +43,17 @@
     bottom: 5vh;
 }
 
+#sideButtons #report button {
+    background: none;
+    box-shadow: none;
+    border: 0;
+}
+
+#sideButtons #report button:hover img {
+    width: 105%;
+    height: auto;
+}
+
 #repInfo {
     margin-top: 4vh;
 }
@@ -70,4 +81,20 @@
 #repInfo p {
     margin: 1em 0;
     font-weight: bold;
+}
+
+#repInfo button {
+    color: #0D6EFD;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #0D6EFD;
+    border-radius: 4px;
+}
+
+#repInfo button:hover {
+    color: white;
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 4px;
 }

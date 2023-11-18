@@ -16,20 +16,77 @@
 #content #contentOverlay {
     background-color: #EBE8E8;
     padding: 2em 10em;
+    text-align: center;
 }
 
 #content #contentOverlay h5 {
+    color: #999999;
+}
+
+#content #contentOverlay #title {
+    color: #2B77D0;
     font-weight: bold;
+    border: 0 solid #2B77D0;
+    border-width: 3px 3px 0 3px;
 }
 
 #content #contentOverlay div.row {
-    padding: 1em;
-    border: 2px solid blue;
+    background-color: white;
+    padding: 0.5em;
+    border: 0 solid #2B77D0;
+    border-width: 0 3px;
+}
+
+#content #contentOverlay div.row:nth-of-type(7) {
+    border: 0 solid #2B77D0;
+    border-width: 0 3px 3px 3px;
 }
 
 #content #contentOverlay div.row img {
     width: 100%;
     height: auto;
+}
+
+#choice {
+    padding: 0 11em;
+}
+
+#choice #accept {
+    color: #0D6EFD;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #0D6EFD;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+    margin: 0 2vw;
+}
+
+#choice #accept:hover {
+    color: white;
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+
+#choice #deny {
+    color: grey;
+    background-color: #F2F5FF;
+    box-shadow: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+    margin: 0 2vw;
+}
+
+#choice #deny:hover {
+    color: white;
+    background-color: #FF0000;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
 }
 
 @media screen and (max-width: 1250px) {
