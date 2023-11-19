@@ -35,7 +35,7 @@ const trangchu = {
                 "../kiemduyet/kiemduyet.html",
             ];
             this.sidebarIcons = [
-                "quanly_icon.svg",
+                "quanly_ic_normal.svg",
                 "nhansu_icon.svg",
                 "thongke_icon.svg",
                 "kiemduyet_icon.svg",
@@ -64,8 +64,8 @@ const trangchu = {
                     </div>
                     <div id="content" class="col-md-11 col-12 text-center d-flex justify-content-center align-items-center">
                         <div class="container-fluid justify-content-center d-flex align-items-center flex-column gap-5">
-                            <button class="btn btn-primary" onclick="window.location.href ='/screens/canbo/doimatkhau/doimatkhau.html'">Đổi mật khẩu</button>
-                            <button class="btn btn-primary" onclick="window.location.href ='/screens/canbo/doithongtincanhan/doithongtincanhan.html'">Đổi thông tin cá nhân</button>
+                            <button class="btn btn-primary" onclick="window.location.href ='/screens/canbo/doimatkhau/doimatkhau.html?key=${keyDirect}'">Đổi mật khẩu</button>
+                            <button class="btn btn-primary" onclick="window.location.href ='/screens/canbo/doithongtincanhan/doithongtincanhan.html?key=${keyDirect}'">Đổi thông tin cá nhân</button>
                         </div>
                     </div>
                 </div>
@@ -77,6 +77,8 @@ const trangchu = {
     highlight: function(){
         const setting = $i('setting').classList;
         setting.add('sidebar-active')
+        const icon = $i('iconSetting');
+        //icon.src = "/assets/chung/icon/" sau khi có icon thì chỉnh cái này 
     },
     start : async function() {
         this.init(); // Dô thì sẽ khởi tạo các state trước

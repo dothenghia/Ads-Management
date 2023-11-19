@@ -63,7 +63,7 @@ export default function SideBar(categoryIcons, categoryLabels, categoryHrefs, cu
                     return element;
                 }).join('')
             }
-            <li id="setting" class=""><button href="#" onclick="window.location.href='${settingURL}'"><img src="${iconDir}caidat_icon.svg"><br>Cài đặt</button></li>
+            <li id="setting" class=""><button href="#" onclick="window.location.href='${settingURL}'" ><img src="${iconDir}caidat_icon.svg" id="iconSetting"><br>Cài đặt</button></li>
         </ul>
         <ul>
             <li><button href="#" onclick="window.location.href='/screens/canbo/dangnhap/dangnhap.html'"><img src="${iconDir}dangxuat_icon.svg"><br>Đăng xuất</button></li>

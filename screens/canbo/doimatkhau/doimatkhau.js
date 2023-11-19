@@ -80,3 +80,18 @@ async function updatePassword(userEmail, newPassword) {
         console.error('Error fetching or parsing JSON:', error);
     }
 }
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+var keyDirect = urlParams.get("key");
+var settingURL;
+if (keyDirect == "so") {
+    var settingURL = "/screens/canbo/caidat/caidat.html?key=" + "so";
+} else if (keyDirect == "quan") {
+    var settingURL = "/screens/canbo/caidat/caidat.html?key=" + "quan";
+} else {
+    var settingURL = "/screens/canbo/caidat/caidat.html?key=" + "phuong";
+}
+
+function backButton() {
+    window.location.href = settingURL;
+}
