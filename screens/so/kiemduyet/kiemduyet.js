@@ -75,7 +75,7 @@ const trangchu = {
                 <div class="row flex-grow-1">
                     <div class="col-md-1 d-none d-sm-none d-md-block p-0">
                         ${
-                            SideBar(this.sidebarIcons, this.sidebarLabels, this.sidebarHrefs, 2)
+                            SideBar(this.sidebarIcons, this.sidebarLabels, this.sidebarHrefs, 3)
                         }
                     </div>
                     <div id="content" class="tb col-md-11 col-12">
