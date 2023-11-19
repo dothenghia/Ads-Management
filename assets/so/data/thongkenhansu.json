@@ -1,0 +1,19 @@
+{
+    "a": {
+        "name": "Nguyễn Văn Võ",
+        "role": "Cán Bộ Quận",
+        "roleHierarchy": "2",
+        "area": "Quận 1",
+        "email": "nvv@gmail.com",
+        "password": "123456"
+    },
+    "b": {
+        "name": "Nguyễn Trần Nam",
+        "role": "Cán Bộ Phường",
+        "roleHierarchy": "1",
+        "area": "Phường Phạm Ngũ Lão",
+        "email": "ntn@gmail.com",
+        "password": "absavab"
+    }
+    
+}

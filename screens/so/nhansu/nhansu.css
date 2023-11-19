@@ -30,58 +30,37 @@
     margin-bottom: 0;
 }
 
-.tb table tr.ad-general-header th {
+.tb table tr.personnel-info-header th {
     text-align: center;
     color: #999;
     font-weight: normal;
     padding: 0 0 1em 0;
 }
 
-.tb table tr.ad-general {
+.tb table tr.personnel-info {
     text-align: center;
     word-wrap: break-word;
 }
 
-.tb table tr.ad-general td {
+.tb table tr.personnel-info td {
     vertical-align: middle;
-    padding: 0.75em 0;
+    padding: 0.75em 0em;
     border-top-width: 2px !important;
     border-bottom-width: 0 !important;
     border-color: #999;
+
+}
+.buttons {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;;
+    height: 10rem;
 }
 
-.tb table tr.ad-specific-header th {
-    text-align: center;
-    color: #999;
-    font-weight: normal;
-    border-style: dashed;
-    border-top-width: 2px !important;
-    border-bottom-width: 0 !important;
-    border-color: #999;
-}
 
-.tb table tr.ad-specific {
-    text-align: center;
-    word-wrap: break-word;
-    font-size: 15px;
-}
-
-.tb table tr.ad-specific td {
-    text-align: center;
-    padding: 0.75em 0;
-}
-
-.tb .rep-status-0 {
-    background-color: #F2F5FF;
-    color: #6A6E83;
-    border-radius: 10px;
-}
-
-.tb .rep-status-1 {
-    background-color: #34A853;
-    color: white;
-    border-radius: 10px;
-}
 /* .tb table {
     display: flex;
     justify-content: space-between;

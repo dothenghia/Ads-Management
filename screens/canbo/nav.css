@@ -78,6 +78,11 @@ main > div {
     right: 3em;
     bottom: 3em;
 }
+#add-button{
+    position: absolute;
+    right: 100px;
+    bottom: 5px;
+}
 
 #filter-button button {
     background-color: #0D6EFD;
@@ -165,7 +170,25 @@ main > div {
     border-radius: 15px;
     padding: 0.25em 0.75em;
 }
+#addMenu {
+    align-items: center;
+    justify-content: center;
+    margin: 0 10em 10em 10em;
+    height: 50vh;
+    padding: 0;
+    border: 3px solid #0065FF;
+    border-radius: 15px;
+    font-size: large;
+}
 
+#addMenu input[type="checkbox"] {
+    opacity: 0;
+    width: 1px; height: 1px;
+}
+
+#addMenu input[type="checkbox"]:checked + label {
+    background-color: #2074F4;
+}
 @media screen and (max-width: 1250px) {
     #side-bar {
         font-size: 13px;
