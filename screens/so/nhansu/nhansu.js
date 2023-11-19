@@ -15,10 +15,10 @@ const trangchu = {
   init: function () {
     this.profileInfo = {
       name: "Nguyễn Văn A",
-      quan: "binhthanh",
-      phuong: "3",
-      role: "phuong",
-      role_area: "3",
+      quan: "",
+      phuong: "",
+      role: "so",
+      role_area: "",
     };
     this.sidebarHrefs = [
       "/screens/so/quanly/quanly.html",

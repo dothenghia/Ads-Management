@@ -15,7 +15,7 @@ import getReportStatInfo from '/functions/canbo/getReportStats.js';
 const trangchu = {
     
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "", "phuong": "", "role": "so", "role_area": ""}
         this.sidebarHrefs = ["../quanly/quanly.html", "../nhansu/nhansu.html","#", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["quanly_ic_normal.svg", "nhansu_ic_normal.svg", "thongke_ic_active.svg","kiemduyet_ic_normal.svg"];
         this.sidebarLabels = ["Quản lý", "Nhân Sự", "Thống Kê", "Kiểm duyệt"]
