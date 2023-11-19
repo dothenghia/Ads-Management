@@ -1,0 +1,20 @@
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    display: none;
+}
+
+.mapboxgl-ctrl.mapboxgl-ctrl-group {
+    z-index: 5;
+    position: fixed;
+    bottom: 92px;
+    right: calc(28px + ((40px - 32px) / 2));
+
+    background-color: white;
+    box-shadow: 0px 2px 28px -1px rgba(0,0,0,0.4);
+    margin: 0;
+    width: 32px;
+}
+
+.mapboxgl-ctrl.mapboxgl-ctrl-group button {
+    width: 32px;
+    height: 32px;
+}

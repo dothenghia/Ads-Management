@@ -39,43 +39,6 @@ const fakeAdLocationInfo = [
         ],
     },
     {
-        locationId: 3,
-        quyhoach: true,
-        longitude: 106.683218,
-        latitude: 10.761180,
-
-        isReported: true,
-        reportStatus: 'Đang xử lý',
-        reportRecord: 1,
-
-        thumbnails: [
-            { url: "/assets/dan/thumbnail2.jpg" },
-            { url: "/assets/dan/thumbnail1.jpeg" },
-        ],
-
-        address: "Nguyễn Văn Cừ - An Dương Vương",
-        region: "Phường 4, Quận 5",
-        type: 'Màn hình điện tử ốp tường', // Loại bảng quảng cáo
-        form: 'Xã hội hoá', // Hình thức quảng cáo
-        quantity: '1 màn hình', // Số lượng
-        locationType: 'Nhà chờ xe buýt', // Loại vị trí
-
-        adList: [
-            {
-                adId: 4,
-                name: 'Bảng quảng cáo 4',
-                size: '4m x 2m',
-                reportStatus: '',
-                contractStartDate: 'Ngày 31 tháng 01 năm 2023',
-                contractEndDate: 'Ngày 30 tháng 04 năm 2024',
-                thumbnails: [
-                    { url: "/assets/dan/thumbnail3.jpg" },
-                    { url: "/assets/dan/thumbnail5.jpg" },
-                ]
-            }
-        ],
-    },
-    {
         locationId: 1,
         quyhoach: true,
         longitude: 106.679085,
@@ -128,6 +91,26 @@ const fakeAdLocationInfo = [
         ],
     },
     {
+        locationId: 4,
+        quyhoach: false,
+        longitude: 106.686656,
+        latitude: 10.762573,
+
+        isReported: false,
+        reportStatus: '',
+        reportRecord: 0,
+
+        thumbnails: [],
+        address: "Nguyễn Trãi - Nguyễn Cư Trinh",
+        region: "Phường Nguyễn Cư Trinh, Quận 1",
+        type: 'Trụ màn hình điện tử LED', // Loại bảng quảng cáo
+        form: 'Quảng cáo thương mại', // Hình thức quảng cáo
+        quantity: '1 trụ/bảng', // Số lượng
+        locationType: 'Trung tâm thương mại', // Loại vị trí
+
+        adList: [],
+    },
+    {
         locationId: 5,
         quyhoach: false,
         longitude: 106.689628,
@@ -148,26 +131,42 @@ const fakeAdLocationInfo = [
         adList: [],
     },
     {
-        locationId: 4,
-        quyhoach: false,
-        longitude: 106.686656,
-        latitude: 10.762573,
+        locationId: 3,
+        quyhoach: true,
+        longitude: 106.683218,
+        latitude: 10.761180,
 
-        isReported: false,
-        reportStatus: '',
-        reportRecord: 0,
+        isReported: true,
+        reportStatus: 'Đang xử lý',
+        reportRecord: 1,
 
-        thumbnails: [],
-        address: "Nguyễn Trãi - Nguyễn Cư Trinh",
-        region: "Phường Nguyễn Cư Trinh, Quận 1",
-        type: 'Trụ màn hình điện tử LED', // Loại bảng quảng cáo
-        form: 'Quảng cáo thương mại', // Hình thức quảng cáo
-        quantity: '1 trụ/bảng', // Số lượng
-        locationType: 'Trung tâm thương mại', // Loại vị trí
+        thumbnails: [
+            { url: "/assets/dan/thumbnail2.jpg" },
+            { url: "/assets/dan/thumbnail1.jpeg" },
+        ],
 
-        adList: [],
+        address: "Nguyễn Văn Cừ - An Dương Vương",
+        region: "Phường 4, Quận 5",
+        type: 'Màn hình điện tử ốp tường', // Loại bảng quảng cáo
+        form: 'Xã hội hoá', // Hình thức quảng cáo
+        quantity: '1 màn hình', // Số lượng
+        locationType: 'Nhà chờ xe buýt', // Loại vị trí
+
+        adList: [
+            {
+                adId: 4,
+                name: 'Bảng quảng cáo 4',
+                size: '4m x 2m',
+                reportStatus: '',
+                contractStartDate: 'Ngày 31 tháng 01 năm 2023',
+                contractEndDate: 'Ngày 30 tháng 04 năm 2024',
+                thumbnails: [
+                    { url: "/assets/dan/thumbnail3.jpg" },
+                    { url: "/assets/dan/thumbnail5.jpg" },
+                ]
+            }
+        ],
     },
-
 ]
 
 async function getAllAdList() {
