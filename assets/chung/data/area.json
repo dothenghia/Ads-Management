@@ -17,17 +17,13 @@
                     }
                 }
             },
-            "4": {
-                "id": "4",
-                "name": "4",
+            "17": {
+                "id": "17",
+                "name": "17",
                 "duong": {
-                    "vht": {
-                        "id": "vvt",
-                        "name": "Võ Văn Tần"
-                    },
-                    "vk": {
-                        "id": "thl",
-                        "name": "Trần Huy Liệu"
+                    "tvk": {
+                        "id": "tvk",
+                        "name": "Trần Văn Khê"
                     }
                 }
             }

@@ -126,5 +126,50 @@
                 "status": true
             }
         }
+    },
+    "AD00006": {
+        "id": "AD00006",
+        "name": "Trụ treo băng rôn chéo",
+        "qc": {
+            "00001": {
+                "id": "00001",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "888",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": false
+            }
+        }
+    },
+    "AD00007": {
+        "id": "AD00007",
+        "name": "Trụ treo băng rôn 4 chiều",
+        "qc": {
+            "00001": {
+                "id": "00002",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "999",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": false
+            },
+            "00002": {
+                "id": "00003",
+                "cnt": 1,
+                "size": "2.5mx1.2m",
+                "purpose": "Cổ Động Chính Trị",
+                "co": "Công Ti TNHH MMT",
+                "type": "Đất Công/Hành Lang ATGT",
+                "sonha": "101010",
+                "content": "Thương Mại Mang Đến Giải Trí Cho Cộng Đồng",
+                "status": true
+            }
+        }
     }
 }

@@ -13,7 +13,6 @@ import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
         this.sidebarHrefs = ["#", "../quanly/quanly.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
@@ -28,15 +27,16 @@ const trangchu = {
     },
 
     render : function() {
+        const adData = JSON.parse(sessionStorage.getItem('changeReqPageData'));
+
         const root = $i('root');
         root.innerHTML = `
-            ${Header(this.profileInfo)}
+            ${Header(adData.profileInfo)}
         `
         
         const areas = this.areas;
         if (areas == undefined) return;
 
-        const adData = JSON.parse(sessionStorage.getItem('changeReqPageData'));
         const id = adData.id;
         const oldAddr = adData.oldAddr;
         const oldInfo = adData.oldInfo;

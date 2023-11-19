@@ -10,7 +10,6 @@ import SideBar from '/components/canbo/SideBar.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
         this.sidebarHrefs = ["#", "../quanly/quanly.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
@@ -21,9 +20,11 @@ const trangchu = {
     },
 
     render : function() {
+        const adData = JSON.parse(sessionStorage.getItem("adPageData"));
+
         const root = $i('root');
         root.innerHTML = `
-            ${Header(this.profileInfo)}
+            ${Header(adData.profileInfo)}
         `
 
         let main = document.createElement("main");
@@ -63,7 +64,7 @@ const trangchu = {
         `
         root.appendChild(main);
         
-        const adData = JSON.parse(sessionStorage.getItem("adPageData"));
+        let adAddr = JSON.parse(adData.adAddr);
 
         let adInfo = JSON.parse(adData.adInfo);
         let contentOverlay = document.getElementById('contentOverlay');
@@ -76,7 +77,7 @@ const trangchu = {
         contentOverlay.querySelector('#co').innerHTML = '<span style="color: #2B77D0">Công ty: </span>' + adInfo.co;
         contentOverlay.querySelector('#type').innerHTML = '<span style="color: #2B77D0">Phân loại: </span>' + adInfo.type;
         contentOverlay.querySelector('#addr').innerHTML =
-            '<span style="color: #2B77D0">Địa chỉ: </span>' + adInfo.sonha + ',  Đ. ' + adData.adAddr.duong + ', P. ' + adData.adAddr.phuong + ', Quận ' + adData.adAddr.quan;
+            '<span style="color: #2B77D0">Địa chỉ: </span>' + adInfo.sonha + ' ' + adAddr.duong + ', P. ' + adAddr.phuong + ', Quận ' + adAddr.quan;
         
         let status = contentOverlay.querySelector('#status');
         status.innerHTML = '<span style="color: #2B77D0">Tình trạng: </span>';

@@ -10,7 +10,6 @@ import SideBar from '/components/canbo/SideBar.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
         this.sidebarHrefs = ["#", "../quanly/quanly.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
@@ -21,14 +20,14 @@ const trangchu = {
     },
 
     render : function() {
+        const adData = JSON.parse(sessionStorage.getItem("repPageData"));
+
         const root = $i('root');
         root.innerHTML = `
-            ${Header(this.profileInfo)}
+            ${Header(adData.profileInfo)}
         `
         
-        const adData = JSON.parse(sessionStorage.getItem("repPageData"));
         const id = adData.id;
-        console.log(adData);
 
         let main = document.createElement("main");
         main.innerHTML = `

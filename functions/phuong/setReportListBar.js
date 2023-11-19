@@ -1,9 +1,9 @@
 const $i = document.getElementById.bind(document);
 
-export default async function setReportListBar(repInfo, areaInfo, adTypeInfo) {
+export default async function setReportListBar(repInfo, areaInfo, adTypeInfo, profileInfo) {
     let repInfoBar = $i("repInfo");
     let repInfoCards = `
-        <h3><button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button></h3>
+        <h3><button type="button" id="close" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button></h3>
     `;
     Object.values(repInfo).map(function (streetInfo) {
         Object.values(streetInfo.baocao).map((rep) => {
@@ -21,7 +21,7 @@ export default async function setReportListBar(repInfo, areaInfo, adTypeInfo) {
                     <p>Họ tên: ${rep.sender.name}</p>
                     <p>Email: ${rep.sender.email}</p>
                     <p>Điện thoại: ${rep.sender.phone}</p>
-                    <button onclick='redirectToRepPage("${rep.id}", ${adAddr}, ${JSON.stringify(repAdInfo)}, ${JSON.stringify(rep)})'>
+                    <button onclick='redirectToRepPage("${rep.id}", ${adAddr}, ${JSON.stringify(repAdInfo)}, ${JSON.stringify(rep)}, ${JSON.stringify(profileInfo)})'>
                         Chi tiết
                     </button>
                 </div>
