@@ -18,7 +18,7 @@ import getRepInfo from '/functions/canbo/getRepInfoForSo.js';
 const trangchu = {
     
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "so", "role_area": ""}
         this.sidebarHrefs = ["#", "../nhansu/nhansu.html","../thongke/thongke.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["quanly_icon.svg", "nhansu_icon.svg", "thongke_icon.svg","kiemduyet_icon.svg"];
         this.sidebarLabels = ["Quản lý", "Nhân Sự", "Thống Kê", "Kiểm duyệt"]
@@ -479,7 +479,7 @@ const trangchu = {
         if (storedRenderID !== null) {
             this.render(parseInt(storedRenderID));
         } else {
-            this.render(3); // Default render ID
+            this.render(0); // Default render ID
         } 
     }
 }

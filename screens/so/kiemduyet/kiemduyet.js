@@ -16,7 +16,7 @@ import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "so", "role_area": ""}
         this.sidebarHrefs = ["/screens/so/quanly/quanly.html", "/screens/so/nhansu/nhansu.html","/screens/so/thongke/thongke.html","#"];
         this.sidebarIcons = ["quanly_ic_normal.svg","nhansu_ic_normal.svg" ,"thongke_icon.svg","kiemduyet_ic_active.svg"];
         this.sidebarLabels = ["Quản lý", "Nhân sự","Thống kê","Kiểm duyệt"];
