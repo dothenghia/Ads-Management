@@ -18,3 +18,16 @@
     width: 32px;
     height: 32px;
 }
+
+
+.mapboxgl-ctrl.mapboxgl-ctrl-group > .mapboxgl-ctrl-geolocate {
+    z-index: 5;
+    position: fixed;
+    bottom: 168px;
+    right: 0px;
+
+    background-color: white;
+    box-shadow: 0px 2px 28px -1px rgba(0,0,0,0.4);
+    margin: 0;
+    width: 32px;
+}
