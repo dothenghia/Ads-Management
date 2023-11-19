@@ -2,20 +2,22 @@
 <html lang="en">
 
 <head>
-    <title>Nhân sự - Cán bộ sở | AdsMap</title>
+    <title>Nhân sự| AdsMap</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/assets/chung/favicon.ico" type="image/x-icon">
 
+
     <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Mapbox CSS -->
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
 
     <!-- Custom links -->
     <link rel="stylesheet" href="../../canbo/nav.css">
-    <link rel="stylesheet" href="./kiemduyet.css">
+    <link rel="stylesheet" href="./nhansu.css">
 
 </head>
 
@@ -23,16 +25,49 @@
     <div id="root" class="w-100"></div>
 
 
-    <script src="./kiemduyet.js" type="module"></script>
+    <script src="./nhansu.js" type="module"></script>
 
+    <script>
+        function resetArea(select, index) {
+            const areaSelectId = `area_${index}`;
+            const areaSelect = document.getElementById(areaSelectId);
 
+            // Pass the selected value of the "role" select to the resetArea function
+            const selectedRole = select.value;
+
+            if (selectedRole == "1") {
+                areaSelect.innerHTML = `
+                    <option value="" selected disabled hidden>Khu vực</option>
+                    <option value="1">Phường 1</option>
+                    <option value="2">Phường 2</option>`;
+            } else if (selectedRole == "2") {
+                areaSelect.innerHTML = `
+                    <option value="" selected disabled hidden>Khu vực</option>
+                    <option value="1">Quận 1</option>
+                    <option value="2">Quận 2</option>`;
+            } else {
+                // Handle other cases if needed
+                areaSelect.innerHTML = '';
+            }
+        }
+
+        function edit() {
+            console.log('hehehe')
+        }
+        
+       
+    </script>
 
 
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+        crossorigin="anonymous"></script>
     <!-- Mapbox JS -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 </body>
 
 </html>
