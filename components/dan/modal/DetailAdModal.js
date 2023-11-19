@@ -51,7 +51,7 @@ export default function DetailAdModal(detailAdInfo) {
                     <div class="detail-ad-modal__info-row">
                         <div class="detail-ad-modal__info-col">
                             <h2>Thời hạn hợp đồng</h2>
-                            <div class="d-flex flex-row justify-content-start">
+                            <div class="detail-ad-modal__info-contract d-flex flex-row justify-content-start">
                                 <div style="padding-right: 3px;">
                                     <svg width="6" height="36" viewBox="0 0 6 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="pt-1 h-100 mx-1" >
                                     <path d="M3 0.333333C1.52724 0.333333 0.333333 1.52724 0.333333 3C0.333333 4.47276 1.52724 5.66667 3 5.66667C4.47276 5.66667 5.66667 4.47276 5.66667 3C5.66667 1.52724 4.47276 0.333333 3 0.333333ZM3 30.3333C1.52724 30.3333 0.333333 31.5272 0.333333 33C0.333333 34.4728 1.52724 35.6667 3 35.6667C4.47276 35.6667 5.66667 34.4728 5.66667 33C5.66667 31.5272 4.47276 30.3333 3 30.3333ZM2.5 3L2.5 33H3.5L3.5 3H2.5Z" fill="#0D6EFD"/>
