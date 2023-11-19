@@ -21,3 +21,13 @@
 .header__search:focus  {
     outline: solid 2px var(--primary-color);
 }
+
+@media only screen and (max-width : 767px) {
+    .header__name {
+        font-size: 1.3rem;
+    }
+    .header__search {
+        padding: 6px 10px;
+        width: 200px;
+    }
+}
