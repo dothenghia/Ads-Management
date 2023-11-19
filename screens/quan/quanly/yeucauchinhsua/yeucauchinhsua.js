@@ -18,7 +18,7 @@ const trangchu = {
     init : function() {
         this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
         this.sidebarHrefs = ["/screens/quan/bando/bando.html", "#", "/screens/quan/kiemduyet/kiemduyet.html"];
-        this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
+        this.sidebarIcons = ["bando_icon.svg", "quanly_ic_active.svg", "kiemduyet_ic_normal.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"];
         this.areaInfo = {};
         this.reqInfo = {}

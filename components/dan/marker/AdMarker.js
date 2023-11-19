@@ -1,11 +1,11 @@
 
-import AdPopup from '../popup/AdPopup.js';
-import AdSidebar from '../sidebar/AdSidebar.js';
+import AdPopup from '/components/dan/popup/AdPopup.js';
+import AdSidebar from '/components/dan/sidebar/AdSidebar.js';
 import { getAdLocationInfoById } from '/functions/dan/getAdLocationInfo.js';
 
 export default function AdMarker(map, adInfo) {
     const mk = document.createElement('div');
-    mk.className = `marker marker-${adInfo.quyhoach ? 'qh' : 'cqh'} ${adInfo.isReported ? 'marker-rp' : ''} ad-marker-${adInfo.locationId}`;
+    mk.className = `marker ad-marker marker-${adInfo.quyhoach ? 'qh' : 'cqh'} ${adInfo.isReported ? 'marker-rp' : ''} ad-marker-${adInfo.locationId}`;
 
     mk.innerHTML = adInfo.quyhoach ?
     `

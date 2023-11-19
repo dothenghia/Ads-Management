@@ -13,18 +13,20 @@ import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 import setAdInfoBar from '/functions/canbo/setAdInfoBar.js';
 import getRepInfo from '/functions/canbo/getRepInfo.js';
 import getAreaInfo from '/functions/canbo/getAreaInfo.js';
+import getMapboxInfo from '/functions/canbo/getMapboxInfo.js';
 import setReportListBar from '/functions/quan/setReportListBar.js';
 
 const trangchu = {
     init : function() {
         this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
         this.sidebarHrefs = ["#", "/screens/quan/quanly/quanly.html", "/screens/quan/kiemduyet/kiemduyet.html"];
-        this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
+        this.sidebarIcons = ["bando_icon.svg", "quanly_ic_normal.svg", "kiemduyet_ic_normal.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
         this.ads = []
         this.areaInfo = {};
         this.repInfo = {}
         this.adTypeInfo = {};
+        this.mapboxInfo = {};
     },
 
     fetchData : async function() {
@@ -39,6 +41,9 @@ const trangchu = {
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
 
+        const mapbox = await getMapboxInfo();
+        this.mapboxInfo = mapbox;
+
         this.render();
     },
 
@@ -52,6 +57,7 @@ const trangchu = {
         const adTypeInfo = this.adTypeInfo;
         const adStreetInfo = this.adStreetInfo;
         const areaInfo = this.areaInfo;
+        const mapboxInfo = this.mapboxInfo;
 
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
