@@ -180,23 +180,22 @@ const trangchu = {
         </div>
     `;
     root.appendChild(main);
-    // Listen to filter button click
+    // Listen to submit button click
     const adminRole = this.profileInfo.role;
     document.getElementById("addForm").addEventListener("submit", (e) => {
       //prevent for demos, remove this after import backend
       e.preventDefault();
-       // Get values from input fields
+      // Get values from input fields
       const hoTenValue = document.getElementById("hoTenInput").value;
       const taiKhoanValue = document.getElementById("taiKhoanInput").value; //!checking same username
       const matKhauValue = document.getElementById("matKhauInput").value;
 
-      // Add to database 
+      // Add to database
       console.log("Họ tên:", hoTenValue);
       console.log("Tài Khoản:", taiKhoanValue);
       console.log("Mật khẩu:", matKhauValue);
     });
   },
-
 
   start: async function () {
     this.init(); // Dô thì sẽ khởi tạo các state trước

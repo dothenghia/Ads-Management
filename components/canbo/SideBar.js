@@ -3,7 +3,17 @@ const $i = document.getElementById.bind(document);
 
 export default function SideBar(categoryIcons, categoryLabels, categoryHrefs, currentLabelIndex) {
     let i = 0;
-
+    let curRole = window.location.href;
+    let splitStr = curRole.split('/')
+    if (splitStr.includes('so')){
+        var settingURL = "/screens/canbo/caidat/caidat.html?key=" + "so";
+    }
+    else if (splitStr.includes('quan')){
+        var settingURL = "/screens/canbo/caidat/caidat.html?key=" + "quan";
+    }
+    else{
+        var settingURL = "/screens/canbo/caidat/caidat.html?key=" + "phuong";
+    }
     $i("collapsibleSidebar").innerHTML = `
         <ul class="navbar-nav me-auto mt-2 mt-lg-none">
             ${
@@ -25,8 +35,8 @@ export default function SideBar(categoryIcons, categoryLabels, categoryHrefs, cu
                     return element;
                 }).join('')
             }
-            <li><button href="#">Cài đặt</button></li>
-            <li><button href="#">Đăng xuất</button></li>
+            <li><button href="#" onclick="window.location.href=${settingURL}">Cài đặt</button></li>
+            <li><button href="#" onclick="window.location.href='/screens/canbo/dangnhap/dangnhap.html'">Đăng xuất</button></li>
         </ul>
     `
     i = 0;
@@ -53,10 +63,10 @@ export default function SideBar(categoryIcons, categoryLabels, categoryHrefs, cu
                     return element;
                 }).join('')
             }
-            <li><button href="#"><img src="${iconDir}caidat_icon.svg"><br>Cài đặt</button></li>
+            <li id="setting" class=""><button href="#" onclick="window.location.href='${settingURL}'"><img src="${iconDir}caidat_icon.svg"><br>Cài đặt</button></li>
         </ul>
         <ul>
-            <li><button href="#"><img src="${iconDir}dangxuat_icon.svg"><br>Đăng xuất</button></li>
+            <li><button href="#" onclick="window.location.href='/screens/canbo/dangnhap/dangnhap.html'"><img src="${iconDir}dangxuat_icon.svg"><br>Đăng xuất</button></li>
         </ul>
     </div>
     `

@@ -50,15 +50,6 @@
     border-color: #999;
 
 }
-.buttons {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;;
-    height: 10rem;
-}
 
 
 /* .tb table {
