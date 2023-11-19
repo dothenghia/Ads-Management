@@ -64,10 +64,54 @@ const trangchu = {
             <div class="sidebar-root"></div>
 
             <div class="random-popup-root"></div>
+
+            <div class="filter-switch-root">
+                <h1 class="filter-title">Quảng cáo</h1>
+                <label class="filter-switch">
+                    <input type="checkbox" id="filter-switch-ad" checked>
+                    <span class="filter-switch__slider round"></span>
+                </label>
+                <h1 class="filter-title divider">Báo cáo</h1>
+                <label class="filter-switch">
+                    <input type="checkbox" id="filter-switch-report" checked>
+                    <span class="filter-switch__slider round"></span>
+                </label>
+            </div>
         `
         
         ReportListButton()
         RandomMarker(this.map)
+    },
+
+
+    filterHandler: function() {
+        document.querySelector('#filter-switch-ad').onclick = function () {
+            if(this.checked) {
+                let markers = document.getElementsByClassName("ad-marker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                }
+            } else {
+                let markers = document.getElementsByClassName("ad-marker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                }
+            }
+        }
+
+        document.querySelector('#filter-switch-report').onclick = function () {
+            if(this.checked) {
+                let markers = document.getElementsByClassName("report-marker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "visible";
+                }
+            } else {
+                let markers = document.getElementsByClassName("report-marker");
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].style.visibility = "hidden";
+                }
+            }
+        }
     },
 
 
@@ -76,6 +120,7 @@ const trangchu = {
         this.fetchAdMarkers();
         this.fetchReportMarkers();
         this.renderHomePage();
+        this.filterHandler();
     }
 }
 
