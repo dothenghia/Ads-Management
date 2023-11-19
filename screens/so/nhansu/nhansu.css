@@ -96,3 +96,107 @@
         text-underline-offset: 1.5vh;
     }
 }
+#add-button{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+#add-button button{
+    background-color: #0D6EFD;
+    box-shadow: 3px 5px 5px grey;
+    border: 1px solid #0D6EFD;
+    border-radius: 100px;
+    padding: 0.75em 1em;
+}
+#addMenu {
+    align-items: center;
+    justify-content: center;
+    margin: 0 20vw 10em 20vw;
+    height: 50vh;
+    padding: 5vh 0;
+    border: 3px solid #0065FF;
+    border-radius: 15px;
+    font-size: large;
+}
+
+#addMenu form h5 {
+    color: #0065FF;
+    font-weight: bolder;
+    margin-bottom: 2vh;
+}
+
+#addMenu input[type="checkbox"] {
+    opacity: 0;
+    width: 1px; height: 1px;
+}
+
+#addMenu input[type="checkbox"] + label {
+    padding: 0.5em;
+    margin: 0.5vh 0;
+    border-radius: 20px;
+}
+
+#addMenu input[type="checkbox"]:checked + label {
+    background-color: #D9D9D9;
+}
+
+#addMenu input#filterSubmit {
+    display: none;
+}
+
+#addMenu #addnav {
+    margin-top: 4vh;
+}
+
+#addMenu #addnav button {
+    color: grey;
+    background-color: #F2F5FF;
+    box-shadow: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+    margin: 0 1vw;
+}
+
+#addMenu #addnav button:hover {
+    color: white;
+    background-color: #FF0000;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+#addMenu #addnav #addSubmit:hover {
+    color: white;
+    background-color: blue;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+#addMenu #addnav label {
+    display:inline-table;
+    text-align: center;
+    color: #0D6EFD;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #0D6EFD;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+
+#addMenu #addnav label:hover {
+    color: white;
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+#addMenu #addForm {
+    text-align: center;
+}
+.form-control::placeholder {
+    font-style: italic;
+    text-align: center;
+}
