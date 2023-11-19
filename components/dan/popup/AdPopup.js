@@ -21,4 +21,4 @@ export default function AdPopup(adInfo) {
         </div>
     </div>
     `
-}
+} 

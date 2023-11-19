@@ -6,6 +6,7 @@ import ReportListButton from '/components/dan/ReportListButton.js';
 import AdMarker from '/components/dan/marker/AdMarker.js';
 import ReportMarker from '/components/dan/marker/ReportMarker.js';
 import RandomMarker from '/components/dan/marker/RandomMarker.js';
+import RandomPopup from '/components/dan/popup/RandomPopup.js';
 
 
 // Import Functions
@@ -26,13 +27,17 @@ const trangchu = {
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
             zoom: 16,
-        });
+        }).addControl(
+            new mapboxgl.NavigationControl({ showCompass: true }),
+            'bottom-right'
+        )
+        this.map.doubleClickZoom.disable();
 
         this.adLocationList = [];
         this.reportLocationList = [];
     },
 
-    
+
     // Fetch dữ liệu các điểm QC và Show lên Map
     fetchAdMarkers: async function () {
         this.adLocationList = await getAllAdList();
@@ -65,6 +70,8 @@ const trangchu = {
 
             <div class="random-popup-root"></div>
 
+            <div class="captcha-box-root"></div>
+
             <div class="filter-switch-root">
                 <h1 class="filter-title">Quảng cáo</h1>
                 <label class="filter-switch">
@@ -78,15 +85,14 @@ const trangchu = {
                 </label>
             </div>
         `
-        
+
         ReportListButton()
-        RandomMarker(this.map)
     },
 
 
-    filterHandler: function() {
+    filterHandler: function () {
         document.querySelector('#filter-switch-ad').onclick = function () {
-            if(this.checked) {
+            if (this.checked) {
                 let markers = document.getElementsByClassName("ad-marker");
                 for (let i = 0; i < markers.length; i++) {
                     markers[i].style.visibility = "visible";
@@ -100,7 +106,7 @@ const trangchu = {
         }
 
         document.querySelector('#filter-switch-report').onclick = function () {
-            if(this.checked) {
+            if (this.checked) {
                 let markers = document.getElementsByClassName("report-marker");
                 for (let i = 0; i < markers.length; i++) {
                     markers[i].style.visibility = "visible";
@@ -115,12 +121,68 @@ const trangchu = {
     },
 
 
+    clusteringMarkers: function () {
+
+
+
+    },
+
+
+    // Xử lý khi người dùng nhấn 2 lần vào điểm bất kì trên bản đồ
+    geocodingRandomPosotion: function () {
+        this.map.on('dblclick', (e) => {
+            var coordinates = e.lngLat.toArray();
+
+            trangchu.map._markers.forEach(marker => {
+                if (marker._element.id == 'random-marker') {
+                    marker.remove();
+                }
+            })
+            
+            reverseGeocode(coordinates);
+        });
+
+        // Function to perform reverse geocoding
+        function reverseGeocode(coordinates) {
+            var url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${mapboxgl.accessToken}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var location = data;
+
+                    let extractData = {
+                        longitude: coordinates[0],
+                        latitude: coordinates[1],
+
+                        name: location.features[0].text,
+
+                        region: `${location.features[1].text}, ${location.features[3].text}, ${location.features[4].text}`,
+                    }
+
+                    return extractData;
+                })
+                .then(data => {
+                    RandomMarker(trangchu.map, data)
+
+                    document.querySelector('.random-popup-root').innerHTML = RandomPopup(trangchu.map, data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+    },
+
+
     start: function () {
         this.init();
-        this.fetchAdMarkers();
         this.fetchReportMarkers();
+        this.fetchAdMarkers();
         this.renderHomePage();
         this.filterHandler();
+        this.clusteringMarkers();
+        this.geocodingRandomPosotion();
     }
 }
 
