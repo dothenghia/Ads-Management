@@ -13,12 +13,12 @@ import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 import setAdInfoBar from '/functions/canbo/setAdInfoBar.js';
 import getRepInfo from '/functions/canbo/getRepInfo.js';
 import getAreaInfo from '/functions/canbo/getAreaInfo.js';
-import setReportListBar from '/functions/phuong/setReportListBar.js';
+import setReportListBar from '/functions/quan/setReportListBar.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
-        this.sidebarHrefs = ["#", "/screens/phuong/quanly/quanly.html", "/screens/phuong/kiemduyet/kiemduyet.html"];
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
+        this.sidebarHrefs = ["#", "/screens/quan/quanly/quanly.html", "/screens/quan/kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
         this.ads = []
@@ -32,13 +32,12 @@ const trangchu = {
         this.ads = ads;
 
         const reps = await getRepInfo();
-        this.repInfo = reps[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
+        this.repInfo = reps[this.profileInfo.quan].phuong;
 
         this.adTypeInfo = ads[1];
 
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
 
         this.render();
     },
@@ -100,8 +99,8 @@ const trangchu = {
 
         /* Map */
         const bounds = [
-            [106.691989, 10.793368],     // Southwest coords
-            [106.697761, 10.803528]    // Northeast coords
+            [106.678150, 10.784289],     // Southwest coords
+            [106.757037, 10.841702]    // Northeast coords
         ]
         let map = new mapboxgl.Map({
             container: 'content',

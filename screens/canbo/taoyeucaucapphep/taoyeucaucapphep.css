@@ -16,6 +16,7 @@
 #content #contentOverlay {
     background-color: #EBE8E8;
     padding: 2em 10em;
+    font-size: 12px;
 }
 
 #content #contentOverlay h5 {
@@ -34,6 +35,29 @@
 #content #contentOverlay div.row img {
     width: 100%;
     height: auto;
+}
+
+#update {
+    padding: 0 11em;
+}
+
+#update button {
+    color: #0D6EFD;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #0D6EFD;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+    margin: 0 2vw;
+}
+
+#update button:hover {
+    color: white;
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
 }
 
 @media screen and (max-width: 1250px) {

@@ -16,8 +16,8 @@ import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
-        this.sidebarHrefs = ["/screens/phuong/bando/bando.html", "#", "/screens/phuong/kiemduyet/kiemduyet.html"];
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
+        this.sidebarHrefs = ["/screens/quan/bando/bando.html", "#", "/screens/quan/kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"];
         this.areaInfo = {};
@@ -40,13 +40,12 @@ const trangchu = {
         const ads = await getAdsInfo();
 
         const reps = await getRepInfo();
-        this.repInfo = reps[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
+        this.repInfo = reps[this.profileInfo.quan].phuong;
 
         this.adTypeInfo = ads[1];
 
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
 
         this.render();
     },
@@ -95,54 +94,57 @@ const trangchu = {
                             </thead>
                             <tbody>
                                 ${
-                                    Object.values(this.repInfo).map(function (streetInfo) {
-                                        return Object.values(streetInfo.baocao).map((rep) => {
-                                            let adInfo = rep.loc.split("_");
-                                            let repAdInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
-                                            let adAddr = JSON.stringify({
-                                                "duong": streetInfo.name,
-                                                "quan": areaInfo.quan,
-                                                "phuong": areaInfo.phuong
-                                            });
-
-                                            // Check for updates on report state
-                                            if (updates && updates[rep.id]) {
-                                                rep.status = true;
-                                                rep.solution = updates[rep.id];
-                                            }
-
-                                            // Check for filters
-                                            if (filter) {
-                                                if (filter["date"] > Date.parse(rep.date)) return ``;
-                                                if (!filter["type"].includes(rep.type.id)) return ``;
-                                                if (!filter["status"].includes(parseInt(+ rep.status))) return ``;
-                                            }
-                                            
-                                            let statusText;
-                                            if (!rep.status) {
-                                                statusText = `<div class="rep-status-0">Đang xử lý</div>`;
-                                            }
-                                            else {
-                                                statusText = `<div class="rep-status-1">Đã xử lý</div>`;
-                                            }
-
-                                            let row = `
-                                            <tr class="ad-general">
-                                                <td>${i}</td>
-                                                <td>${rep.date}</td>
-                                                <td>${repAdInfo.sonha} ${streetInfo.name}</td>
-                                                <td>${rep.type.name}</td>
-                                                <td>${statusText}</td>
-                                                <td>
-                                                    <button onclick='redirectToRepPage("${rep.id}", ${adAddr}, ${JSON.stringify(repAdInfo)}, ${JSON.stringify(rep)}, ${JSON.stringify(profileInfo)})'>
-                                                        Chi tiết
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            `
-                                            i++;
-                                            return row
-                                        }).join('');
+                                    Object.values(this.repInfo).map(function (districtInfo) {
+                                        return Object.values(districtInfo.duong).map(function (streetInfo) {
+                                            return Object.values(streetInfo.baocao).map((rep) => {
+                                                let adInfo = rep.loc.split("_");
+                                                let repAdInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
+                                                let adAddr = JSON.stringify({
+                                                    "duong": streetInfo.name,
+                                                    "quan": areaInfo.quan,
+                                                    "phuong": districtInfo.name
+                                                });
+    
+                                                // Check for updates on report state
+                                                if (updates && updates[rep.id]) {
+                                                    rep.status = true;
+                                                    rep.solution = updates[rep.id];
+                                                }
+    
+                                                // Check for filters
+                                                if (filter) {
+                                                    if (!filter["ph"].includes(districtInfo.id)) return ``;
+                                                    if (filter["date"] > Date.parse(rep.date)) return ``;
+                                                    if (!filter["type"].includes(rep.type.id)) return ``;
+                                                    if (!filter["status"].includes(parseInt(+ rep.status))) return ``;
+                                                }
+                                                
+                                                let statusText;
+                                                if (!rep.status) {
+                                                    statusText = `<div class="rep-status-0">Đang xử lý</div>`;
+                                                }
+                                                else {
+                                                    statusText = `<div class="rep-status-1">Đã xử lý</div>`;
+                                                }
+    
+                                                let row = `
+                                                <tr class="ad-general">
+                                                    <td>${i}</td>
+                                                    <td>${rep.date}</td>
+                                                    <td>${repAdInfo.sonha} ${streetInfo.name}, P. ${districtInfo.name}</td>
+                                                    <td>${rep.type.name}</td>
+                                                    <td>${statusText}</td>
+                                                    <td>
+                                                        <button onclick='redirectToRepPage("${rep.id}", ${adAddr}, ${JSON.stringify(repAdInfo)}, ${JSON.stringify(rep)}, ${JSON.stringify(profileInfo)})'>
+                                                            Chi tiết
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                `
+                                                i++;
+                                                return row
+                                            }).join('');
+                                        }).join('')
                                     }).join('')
                                 }
                             </tbody>
@@ -156,6 +158,17 @@ const trangchu = {
                         <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">
                             <div class="offcanvas-body small">
                                 <form id="repFilterForm" class="row">
+                                    <div class="col">
+                                        <h5>Phường</h5>
+                                        <div id="phFilterCard">
+                                            <input type="checkbox" id="ph_3">
+                                            <label for="ph_3">Phường 3</label>
+                                        </div>
+                                        <div id="phFilterCard">
+                                            <input type="checkbox" id="ph_17">
+                                            <label for="ph_17">Phường 17</label>
+                                        </div>
+                                    </div>
                                     <div class="col">
                                         <h5>Thời điểm gửi báo cáo (đến nay)</h5>
                                         <div id="dateFilterCard">
@@ -209,6 +222,10 @@ const trangchu = {
         
         // Adjust filter menu to fit with current filter data
         if (filter) {
+            filter["ph"].forEach((ph) => {
+                document.querySelector('#filterMenu #phFilterCard input[type="checkbox"][id="ph_' + ph + '"]').checked = true;
+            })
+
             document.querySelector('#filterMenu #dateFilterCard input').value = (new Date(filter["date"])).toISOString().substring(0, 10);
 
             filter["type"].forEach((type) => {
@@ -220,6 +237,11 @@ const trangchu = {
             })
         }
         else {
+            let phCheckboxes = document.querySelectorAll('#filterMenu #phFilterCard input[type="checkbox"][id^="ph_"]');
+            phCheckboxes.forEach((checkbox) => {
+                checkbox.checked = true;
+            });
+
             let typeCheckboxes = document.querySelectorAll('#filterMenu #typeFilterCard input[type="checkbox"][id^="type_"]');
             typeCheckboxes.forEach((checkbox) => {
                 checkbox.checked = true;
@@ -238,6 +260,14 @@ const trangchu = {
             let totalFilter = {};
 
             totalFilter["role"] = adminRole;
+
+            let phCheckboxes = document.querySelectorAll('#filterMenu #phFilterCard input[type="checkbox"][id^="ph_"]:checked');
+            let phFilter = [];
+            phCheckboxes.forEach((checkbox) => {
+                let ph = checkbox.id.substring(3);
+                phFilter.push(ph);
+            });
+            totalFilter["ph"] = phFilter;
 
             let filterDate = new Date(document.querySelector("#filterMenu #dateFilterCard input").value);
             totalFilter["date"] = Date.parse(filterDate);

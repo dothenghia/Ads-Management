@@ -20,7 +20,7 @@
 }
 
 #top-bar, #side-bar {
-    z-index: 999;
+    z-index: 52;
     background-color: white;
 }
 
@@ -75,8 +75,8 @@ main > div {
 
 #filter-button {
     position: absolute;
-    right: 5px;
-    bottom: 5px;
+    right: 3em;
+    bottom: 3em;
 }
 
 #filter-button button {

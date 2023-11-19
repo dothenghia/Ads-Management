@@ -78,6 +78,32 @@
                 "duong": "vk",
                 "id": "SPT00006"
             }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [106.707023, 10.795505]
+            },
+            "properties": {
+                "quan": "binhthanh",
+                "phuong": "17",
+                "duong": "tvk",
+                "id": "SPT00007"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [106.705763, 10.794775]
+            },
+            "properties": {
+                "quan": "binhthanh",
+                "phuong": "17",
+                "duong": "tvk",
+                "id": "SPT00008"
+            }
         }
     ]   
 }

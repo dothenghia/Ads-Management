@@ -77,6 +77,7 @@ const trangchu = {
         let main = document.createElement("main");
         const adDetail = this.adDetail;
         const areaInfo = this.areaInfo;
+        const profileInfo = this.profileInfo;
         const filter = this.filter;
         let i = 1;
         let j = 1;
@@ -162,6 +163,7 @@ const trangchu = {
                                                                         <p  style="display: none">${adSpotDetail.name}</p>
                                                                         <p  style="display: none">${adAddr}</p>
                                                                         <p  style="display: none">${adDetailJson}</p>
+                                                                        <p  style="display: none">${profileInfo}</p>
                                                                     ...
                                                                     </td>
                                                                     </tr>
@@ -259,12 +261,13 @@ const trangchu = {
         });
     },
     redirectToAdInfoPage : () => {
-        function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
+        function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo, profileInfo) {
             let adData = {
                 "adTypeId": adTypeId,
                 "adTypeName": adTypeName,
                 "adAddr": adAddr,
-                "adInfo": adInfo
+                "adInfo": adInfo,
+                "profileInfo": profileInfo
             }
             sessionStorage.setItem('adPageData', JSON.stringify(adData));
             window.location.href = '/screens/canbo/thongtinquangcao/thongtinquangcao.html';
@@ -278,8 +281,9 @@ const trangchu = {
                 let adSpotDetalName = this.children[1].innerText;
                 let adAddr = this.children[2].innerText;
                 let adInfo = this.children[3].innerText;
+                let profileInfo = this.children[4].innerText;
 
-                redirectToAdInfoPage(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+                redirectToAdInfoPage(adSpotDetalID, adSpotDetalName, adAddr, adInfo, profileInfo);
             });
         }
     },
