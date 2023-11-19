@@ -13,6 +13,7 @@ import AdInfoDropdownButton from '/components/phuong/AdInfoDropdownButton.js';
 import getDistrictInfo from '/functions/canbo/getDistrictInfo.js';
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 import getAreaInfo from '/functions/canbo/getAreaInfo.js';
+import getRepInfo from '/functions/canbo/getRepInfoForSo.js';
 
 const trangchu = {
     
@@ -26,6 +27,7 @@ const trangchu = {
         this.adInfo = {};
         this.adDetail = {};
         this.areaInfo = {};
+        this.repInfo = {};
     },
 
     fetchData : async function() {
@@ -66,6 +68,12 @@ const trangchu = {
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
         this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
+
+        // Fetch Rep Info
+        const reps = await getRepInfo();
+        this.repInfo = reps;
+
+        console.log(this.repInfo);
     },
 
     render : function(ID) {
@@ -96,7 +104,7 @@ const trangchu = {
                             <ul id="category">
                                 <li class="tb-active cate" id="cate-0">Thông tin chung</li>
                                 <li class="cate" id="cate-1">Thông tin quảng cáo </li>
-                                <li class="cate" id="cate-2">Báo cáo vi phạm</li>
+                                <li class="cate" id="cate-2">Báo cáo người dân</li>
                             </ul>
                             <table class="table table-sm">
                                 <thead>
@@ -170,7 +178,7 @@ const trangchu = {
                         <ul id="category">
                             <li class="cate" id="cate-0">Thông tin chung</li>
                             <li class="tb-active cate" id="cate-1">Thông tin quảng cáo </li>
-                            <li class="cate" id="cate-2">Báo cáo vi phạm</li>
+                            <li class="cate" id="cate-2">Báo cáo người dân</li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -260,8 +268,58 @@ const trangchu = {
             </div>
         `
         }
-        else{
-            
+        else {
+            main.innerHTML = `
+                <div class="container-fluid d-flex flex-column">
+                    <div class="row flex-grow-1">
+                        <div class="col-md-1 d-none d-sm-none d-md-block p-0">
+                            ${
+                                SideBar(this.sidebarIcons, this.sidebarLabels, this.sidebarHrefs, 0)
+                            }
+                        </div>
+                        <div id="content" class="tb col-md-11 col-12">
+                            <div id="contentOverlay" style="display: none"></div>
+                            <ul id="category">
+                                <li class="cate" id="cate-0">Thông tin chung</li>
+                                <li class="cate" id="cate-1">Thông tin quảng cáo </li>
+                                <li class="tb-active cate" id="cate-2">Báo cáo người dân</li>
+                            </ul>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr class="ad-general-header">
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Thời Điểm Gửi</th>
+                                        <th scope="col">Địa Điểm</th>
+                                        <th scope="col">Hình Thức Báo Cáo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${
+                                        Object.values(this.repInfo).map(function (repInfo){
+                                            return Object.values(repInfo.duong).map(function (repDetail) {
+                                                    let row =` 
+                                                    <tr class="ad-general">
+                                                        <td>${i}</td>
+                                                        <td>${repDetail.date}</td>
+                                                        <td>${repDetail.name}, ${repInfo.name}</td>
+                                                        <td>${repDetail.type}</td>
+                                                        <td>
+                                                            <button id="btn-more">
+                                                                Chi Tiet
+                                                            </button>
+                                                        </td>
+                                                    `;
+                                                    i++;
+                                                    return row;
+                                                }).join('')
+                                        }).join('')
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `
         }
         root.appendChild(main);
         this.event();
@@ -318,7 +376,7 @@ const trangchu = {
         if (storedRenderID !== null) {
             this.render(parseInt(storedRenderID));
         } else {
-            this.render(0); // Default render ID
+            this.render(3); // Default render ID
         } 
     }
 }
