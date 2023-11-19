@@ -132,79 +132,47 @@ const trangchu = {
                         </form>
                         
                     </table>
-                      <div class= "buttons" >
                         <div id="add-button">
                         <button type="button" data-bs-toggle="offcanvas" data-bs-target="#addMenu" aria-controls="addMenu">
                             <img src="/assets/chung/icon/plus-circle.svg" alt="Add">
                         </button>
                         </div>
-                      <div id="filter-button">
-                              <button type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu">
-                                  <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
-                              </button>
-                      </div>
-                      
-                    </div>
-                    <div class="offcanvas offcanvas-bottom" tabindex="51" id="addMenu" aria-labelledby="offcanvasBottomLabel">
-                    <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body small">
-                        <form id="adFilterForm" class="row">
-                            <div class="col">
-                                <h5>Số lượng</h5>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cntAll" name="cnt">
-                                    <label for="cntAll">Tất cả</label>
+                        <div class="offcanvas offcanvas-bottom" tabindex="51" id="addMenu">
+                                <div class="offcanvas-header p-0">
                                 </div>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cnt5" name="cnt">
-                                    <label for="cnt5"><= 5</label>
+                                <div class="offcanvas-body small position-relative">
+                                    <form id="addForm" class="">
+                                      <div class="container d-flex justify-justify-content-between align-items-center">
+                                          <div class="col text-center px-3">
+                                            <h5>Họ tên</h5>
+                                            <div> 
+                                              <input type="text" class="form-control border-1 rounded-3 border-primary" name="" id="hoTenInput"
+                                                aria-describedby="helpId" placeholder="Enter" required> 
+                                            </div>
+                                          </div>
+                                          <div class="col text-center px-3">
+                                            <h5>Tài Khoản</h5>
+                                            <div>
+                                              <input type="text" class="form-control border-1 rounded-3 border-primary" name="" id="taiKhoanInput"
+                                                aria-describedby="helpId" placeholder="Enter" required>
+                                            </div>
+                                          </div>
+                                          <div class="col text-center px-3">
+                                            <h5>Mật khẩu</h5>
+                                            <div>
+                                              <input type="text" class="form-control border-1 rounded-3 border-primary" name="" id="matKhauInput"
+                                                aria-describedby="helpId" placeholder="Enter" required>
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="container position-absolute d-flex bottom-0 end-0 justify-content-center" id="addnav">
+                                        <div class=""><button type="button" data-bs-dismiss="offcanvas" aria-label="Close">Đóng</button></div>
+                                        <div class=""><button type="submit" data-bs-dismiss="offcanvas" id="addSubmit">Xác nhận</div
+                                      </div>
+                                    </form>
+
                                 </div>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cnt10" name="cnt">
-                                    <label for="cnt10"><= 10</label>
-                                </div>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cnt15" name="cnt">
-                                    <label for="cnt15"><= 15</label>
-                                </div>
-                            </div>
-                            <input type="submit" id="filterSubmit" value="" class="hidden">
-                        </form>
-                        <label for="filterSubmit">Lọc</label>
-                    </div>
-                    <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">
-                    <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body small">
-                        <form id="adFilterForm" class="row">
-                            <div class="col">
-                                <h5>Số lượng</h5>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cntAll" name="cnt">
-                                    <label for="cntAll">Tất cả</label>
-                                </div>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cnt5" name="cnt">
-                                    <label for="cnt5"><= 5</label>
-                                </div>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cnt10" name="cnt">
-                                    <label for="cnt10"><= 10</label>
-                                </div>
-                                <div id="cntFilterCard">
-                                    <input type="radio" id="cnt15" name="cnt">
-                                    <label for="cnt15"><= 15</label>
-                                </div>
-                            </div>
-                            <input type="submit" id="filterSubmit" value="" class="hidden">
-                        </form>
-                        <label for="filterSubmit">Lọc</label>
-                    </div>
+
                 </div>
                 
             </div>
@@ -212,6 +180,21 @@ const trangchu = {
         </div>
     `;
     root.appendChild(main);
+    // Listen to filter button click
+    const adminRole = this.profileInfo.role;
+    document.getElementById("addForm").addEventListener("submit", (e) => {
+      //prevent for demos, remove this after import backend
+      e.preventDefault();
+       // Get values from input fields
+      const hoTenValue = document.getElementById("hoTenInput").value;
+      const taiKhoanValue = document.getElementById("taiKhoanInput").value; //!checking same username
+      const matKhauValue = document.getElementById("matKhauInput").value;
+
+      // Add to database 
+      console.log("Họ tên:", hoTenValue);
+      console.log("Tài Khoản:", taiKhoanValue);
+      console.log("Mật khẩu:", matKhauValue);
+    });
   },
 
 
