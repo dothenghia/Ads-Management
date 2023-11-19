@@ -117,8 +117,8 @@ const trangchu = {
 
     start: function () {
         this.init();
-        this.fetchAdMarkers();
         this.fetchReportMarkers();
+        this.fetchAdMarkers();
         this.renderHomePage();
         this.filterHandler();
     }
