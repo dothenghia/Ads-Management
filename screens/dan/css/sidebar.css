@@ -21,16 +21,27 @@
     width: fit-content;
     height: calc(100% - 20px - 52px - 20px);
     border-radius: 12px;
-    
+
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
 .ad-sidebar::-webkit-scrollbar,
 .report-sidebar::-webkit-scrollbar {
     display: none;
 }
 
+@media only screen and (max-width : 640px) {
+
+
+    .ad-sidebar,
+    .report-sidebar {
+        margin: 0 auto;
+        height: calc(100%);
+        border-radius: 0px;
+    }
+}
 
 
 /* ------ Title ------ */
@@ -66,6 +77,7 @@
     right: 10px;
     z-index: 20;
 }
+
 .ad-sidebar__thumbnail {
     position: relative;
     width: 340px;
@@ -90,6 +102,7 @@
     border: solid 1px var(--border-color);
     border-radius: 12px;
 }
+
 .ad-sidebar__thumbnail.chuaquyhoach img {
     object-fit: contain;
 }
@@ -162,7 +175,7 @@
     background-color: transparent;
     border: none;
     border-bottom: solid 3px;
-    
+
     color: var(--text-color);
     border-bottom-color: transparent
 }
