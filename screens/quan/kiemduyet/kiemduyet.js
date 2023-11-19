@@ -18,7 +18,7 @@ const trangchu = {
     init : function() {
         this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
         this.sidebarHrefs = ["/screens/quan/bando/bando.html", "/screens/quan/quanly/danhsachquangcao/danhsachquangcao.html", "#"];
-        this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
+        this.sidebarIcons = ["bando_icon.svg", "quanly_ic_normal.svg", "kiemduyet_ic_active.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"];
         this.areaInfo = {};
         this.repInfo = {}
@@ -63,6 +63,7 @@ const trangchu = {
         const adTypeInfo = this.adTypeInfo;
         const adStreetInfo = this.adStreetInfo;
         const profileInfo = this.profileInfo;
+        let profileInfoString = JSON.stringify(profileInfo);
         const areaInfo = this.areaInfo;
         const reqInfo = this.reqInfo;
         const permissionReqListUpdate = JSON.parse(localStorage.getItem("permissionReqListUpdate"));
@@ -91,7 +92,7 @@ const trangchu = {
                                     <th scope="col">Địa điểm</th>
                                     <th scope="col">
                                         <button onclick='
-                                            sessionStorage.setItem("createPermissionReqPageData", ${JSON.stringify(profileInfo)});
+                                            sessionStorage.setItem("createPermissionReqPageData", ${JSON.stringify(profileInfoString)});
                                             window.location.href="/screens/canbo/taoyeucaucapphep/taoyeucaucapphep.html";
                                         '>
                                             +

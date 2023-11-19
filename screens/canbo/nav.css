@@ -74,7 +74,7 @@ main > div {
 }
 
 #filter-button {
-    position: absolute;
+    position: fixed;
     right: 3em;
     bottom: 3em;
 }

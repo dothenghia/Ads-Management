@@ -18,10 +18,10 @@ import getRepInfo from '/functions/canbo/getRepInfoForSo.js';
 const trangchu = {
     
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
         this.sidebarHrefs = ["#", "../nhansu/nhansu.html","../thongke/thongke.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["quanly_icon.svg", "nhansu_icon.svg", "thongke_icon.svg","kiemduyet_icon.svg"];
-        this.sidebarLabels = ["Quản lý", "Nhân Sự", "Thống Kế", "Kiểm duyệt"]
+        this.sidebarLabels = ["Quản lý", "Nhân Sự", "Thống Kê", "Kiểm duyệt"]
         this.dInfo = {}; // district
         this.dDetail = {};
         this.adInfo = {};
@@ -38,26 +38,32 @@ const trangchu = {
 
         // Fetch Ads Info
         const ads = await getAdsInfo();
-        let streets = ads[0][this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
+        let districts = ads[0][this.profileInfo.quan].phuong;
 
         // Re-organize data from database to fit for table display
         let adInfo = {}
-        Object.values(streets).map(function (streetInfo) {
-            adInfo[streetInfo.id] = {}
-            adInfo[streetInfo.id]["id"] = streetInfo.id;
-            adInfo[streetInfo.id]["name"] = streetInfo.name;
-            let diemqc = {};
-            Object.values(streetInfo.diemqc).map(function (adSpots) {
-                Object.keys(adSpots).map(function (adSpot) {
-                    if (diemqc[adSpot] == undefined) {
-                        diemqc[adSpot] = [];
-                    }
-                    
-                    diemqc[adSpot] = diemqc[adSpot].concat(adSpots[adSpot]);
-                    diemqc[adSpot] = [...new Set(diemqc[adSpot])];
+        Object.values(districts).map(function (districtInfo) {
+            adInfo[districtInfo.id] = {}
+            adInfo[districtInfo.id]["id"] = districtInfo.id;
+            adInfo[districtInfo.id]["name"] = districtInfo.name;
+            adInfo[districtInfo.id].duong = {};
+            Object.values(districtInfo.duong).map(function (streetInfo) {
+                adInfo[districtInfo.id].duong[streetInfo.id] = {}
+                adInfo[districtInfo.id].duong[streetInfo.id]["id"] = streetInfo.id;
+                adInfo[districtInfo.id].duong[streetInfo.id]["name"] = streetInfo.name;
+                let diemqc = {};
+                Object.values(streetInfo.diemqc).map(function (adSpots) {
+                    Object.keys(adSpots).map(function (adSpot) {
+                        if (diemqc[adSpot] == undefined) {
+                            diemqc[adSpot] = [];
+                        }
+                        
+                        diemqc[adSpot] = diemqc[adSpot].concat(adSpots[adSpot]);
+                        diemqc[adSpot] = [...new Set(diemqc[adSpot])];
+                    })
                 })
-            }) 
-            adInfo[streetInfo.id]["diemqc"] = diemqc;
+                adInfo[districtInfo.id].duong[streetInfo.id]["diemqc"] = diemqc;
+            })
         })
 
         this.adInfo = adInfo;
@@ -67,8 +73,7 @@ const trangchu = {
         // Fetch Area Info
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
-
+        
         // Fetch Rep Info
         const reps = await getRepInfo();
         this.repInfo = reps;
@@ -97,6 +102,7 @@ const trangchu = {
         let j = 1;
         const adDetail = this.adDetail;
         const areaInfo = this.areaInfo;
+        const profileInfo = this.profileInfo;
 
         if (ID == 0) {
             main.innerHTML = `
@@ -200,72 +206,75 @@ const trangchu = {
                             </thead>
                             <tbody>
                                 ${
-                                    Object.values(this.adInfo).map(function (streetInfo) {
-                                        return Object.keys(streetInfo.diemqc).map(function (adTypeId) {
-                                            let adSpotDetail = adDetail[adTypeId];
-                                            let row = `
-                                                <tr class="ad-general">
-                                                    <td>${i}</td>
-                                                    <td>${streetInfo.name}</td>
-                                                    <td>${adSpotDetail.name}</td>
-                                                    <td>${Object.keys(adSpotDetail.qc).length}</td>
-                                                    <td>
-                                                        ${AdInfoDropdownButton("ad" + i + "Specific")}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="5">
-                                                    <table class="table table-sm">
-                                                        <thead>
-                                                            <tr class="ad-specific-header" id="ad${i}Specific" style="display: none">
-                                                                <th scope="col">#</th>
-                                                                <th scope="col">Địa chỉ</th>
-                                                                <th scope="col">Kích thước</th>
-                                                                <th scope="col">SL trụ</th>
-                                                                <th scope="col">Hình thức</th>
-                                                                <th scope="col">Phân loại</th>
-                                                                <th scope="col"> </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            ${
-                                                                Object.values(adSpotDetail.qc).map(function (adDetail) {
-                                                                    let adAddr = JSON.stringify({
-                                                                        "duong": streetInfo.name,
-                                                                        "quan": areaInfo.quan,
-                                                                        "phuong": areaInfo.phuong
-                                                                    })
-                                                                    let adDetailJson = JSON.stringify(adDetail);
-                                                                    let rowSpecific = `
-                                                                    <tr class="ad-specific" id="ad${i}Specific" style="display: none">
-                                                                    <td>${j}</td>
-                                                                    <td>${adDetail.sonha} ${streetInfo.name}</td>
-                                                                    <td>${adDetail.size}</td>
-                                                                    <td>${adDetail.cnt}</td>
-                                                                    <td>${adDetail.purpose}</td>
-                                                                    <td>${adDetail.type}</td>
-                                                                    <td> 
-                                                                    <button id="btn-more">
-                                                                        <p  style="display: none">${adSpotDetail.id}</p>
-                                                                        <p  style="display: none">${adSpotDetail.name}</p>
-                                                                        <p  style="display: none">${adAddr}</p>
-                                                                        <p  style="display: none">${adDetailJson}</p>
-                                                                    ...
-                                                                    </td>
-                                                                    </tr>
-                                                                    `;
-                                                                    j++;
-                                                                    return rowSpecific;
-                                                                }).join('')
-                                                            }
-                                                        </tbody>
-                                                    </table>
-                                                    </td>
-                                                </tr>
-                                            `;
-                                            i++;
-                                            j = 1;
-                                            return row;
+                                    Object.values(this.adInfo).map(function (districtInfo) {
+                                        return Object.values(districtInfo.duong).map(function (streetInfo) {
+                                            return Object.keys(streetInfo.diemqc).map(function (adTypeId) {
+                                                let adSpotDetail = adDetail[adTypeId];
+                                                let row = `
+                                                    <tr class="ad-general">
+                                                        <td>${i}</td>
+                                                        <td>${streetInfo.name}, P. ${districtInfo.name}</td>
+                                                        <td>${adSpotDetail.name}</td>
+                                                        <td>${Object.keys(adSpotDetail.qc).length}</td>
+                                                        <td>
+                                                            ${AdInfoDropdownButton("ad" + i + "Specific")}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                        <table class="table table-sm">
+                                                            <thead>
+                                                                <tr class="ad-specific-header" id="ad${i}Specific" style="display: none">
+                                                                    <th scope="col">#</th>
+                                                                    <th scope="col">Địa chỉ</th>
+                                                                    <th scope="col">Kích thước</th>
+                                                                    <th scope="col">SL trụ</th>
+                                                                    <th scope="col">Hình thức</th>
+                                                                    <th scope="col">Phân loại</th>
+                                                                    <th scope="col"> </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                ${
+                                                                    Object.values(adSpotDetail.qc).map(function (adDetail) {
+                                                                        let adAddr = JSON.stringify({
+                                                                            "duong": streetInfo.name,
+                                                                            "quan": areaInfo.quan,
+                                                                            "phuong": districtInfo.name
+                                                                        });
+                                                                        let adDetailJson = JSON.stringify(adDetail);
+                                                                        let rowSpecific = `
+                                                                        <tr class="ad-specific" id="ad${i}Specific" style="display: none">
+                                                                        <td>${j}</td>
+                                                                        <td>${adDetail.sonha} ${streetInfo.name}</td>
+                                                                        <td>${adDetail.size}</td>
+                                                                        <td>${adDetail.cnt}</td>
+                                                                        <td>${adDetail.purpose}</td>
+                                                                        <td>${adDetail.type}</td>
+                                                                        <td> 
+                                                                        <button id="btn-more">
+                                                                            <p  style="display: none">${adSpotDetail.id}</p>
+                                                                            <p  style="display: none">${adSpotDetail.name}</p>
+                                                                            <p  style="display: none">${adAddr}</p>
+                                                                            <p  style="display: none">${adDetailJson}</p>
+                                                                            <p  style="display: none">${profileInfo}</p>
+                                                                        ...
+                                                                        </td>
+                                                                        </tr>
+                                                                        `;
+                                                                        j++;
+                                                                        return rowSpecific;
+                                                                    }).join('')
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                        </td>
+                                                    </tr>
+                                                `;
+                                                i++;
+                                                j = 1;
+                                                return row;
+                                            }).join('')
                                         }).join('')
                                     }).join('')
                                 }
@@ -419,12 +428,13 @@ const trangchu = {
 
     },
     redirectToAdInfoPage : (ID) => {
-        function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
+        function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo, profileInfo) {
             let adData = {
                 "adTypeId": adTypeId,
                 "adTypeName": adTypeName,
                 "adAddr": adAddr,
-                "adInfo": adInfo
+                "adInfo": adInfo,
+                "profileInfo": profileInfo,
             }
             sessionStorage.setItem('adPageData', JSON.stringify(adData));
             sessionStorage.setItem('selectedRenderID', ID); // Store the current render ID
@@ -439,9 +449,10 @@ const trangchu = {
                 let adSpotDetalName = this.children[1].innerText;
                 let adAddr = this.children[2].innerText;
                 let adInfo = this.children[3].innerText;
+                let profileInfo = this.children[4].innerText;
 
                 //console.log(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
-                redirectToAdInfoPage(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+                redirectToAdInfoPage(adSpotDetalID, adSpotDetalName, adAddr, adInfo, profileInfo);
             });
         }
     
