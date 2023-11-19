@@ -1,0 +1,26 @@
+{
+  "so": {
+    "email": "so@gmail.com",
+    "password": "123",
+    "name": "Nguyen Van A",
+    "avatar": "/assets/chung/avatar/avatar_sample.png",
+    "phone": "12345678",
+    "date": "01/01/2003"
+  },
+  "quan": {
+    "email": "quan@gmail.com",
+    "password": "123",
+    "name": "Nguyen Van A",
+    "avatar": "/assets/chung/avatar/avatar_sample.png",
+    "phone": "12345678",
+    "date": "01/01/2003"
+  },
+  "phuong": {
+    "email": "phuong@gmail.com",
+    "password": "123",
+    "name": "Nguyen Van A",
+    "avatar": "/assets/chung/avatar/avatar_sample.png",
+    "phone": "12345678",
+    "date": "01/01/2003"
+  }
+}

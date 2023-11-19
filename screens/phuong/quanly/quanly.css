@@ -47,6 +47,24 @@
     border-color: #999;
 }
 
+.tb table tr.ad-general button {
+    color: #0D6EFD;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #0D6EFD;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+
+.tb table tr.ad-general button:hover {
+    color: white;
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+
 @media screen and (max-width: 900px) {
     #content {
         padding: 4em 2em;
