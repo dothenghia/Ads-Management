@@ -4,12 +4,12 @@ export default function Header() {
     <header class="container-fluid bg-light z-2 position-absolute header">
         <nav class="navbar navbar-expand-sm navbar-dark container">
             <div class="container">
-                <h1 class="header-name">
+                <h1 class="header__name">
                     AdsMap
                 </h1>
                 
                 <div>
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="header__search" type="search" placeholder="Nhập địa chỉ..." aria-label="Search">
                 </div>
             </div>
         </nav>

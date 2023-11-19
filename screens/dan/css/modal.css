@@ -342,7 +342,7 @@
     margin-bottom: 0;
     margin-left: 4px;
 }
-.report-form-modal__drop-area span {
+.report-form-modal__drop-area label {
     font-size: 15px;
     font-weight: 600;
     color: var(--primary-color);
