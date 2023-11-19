@@ -78,7 +78,7 @@ const trangchu = {
         const setting = $i('setting').classList;
         setting.add('sidebar-active')
         const icon = $i('iconSetting');
-        //icon.src = "/assets/chung/icon/" sau khi có icon thì chỉnh cái này 
+        icon.src = "/assets/chung/icon/caidat_ic_active.svg"
     },
     start : async function() {
         this.init(); // Dô thì sẽ khởi tạo các state trước
