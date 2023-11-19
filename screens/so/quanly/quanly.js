@@ -72,24 +72,32 @@ const trangchu = {
         // Fetch Rep Info
         const reps = await getRepInfo();
         this.repInfo = reps;
-
-        console.log(this.repInfo);
     },
 
     render : function(ID) {
+        // Root
         const root = $i('root');
         root.innerHTML = `
             ${Header(this.profileInfo)}
         `
+
+        // Modal
+        const modal = root.querySelector("#for-modal");
+
+        // Check exists
         if (document.querySelector("#root>main") != undefined) { 
             //console.log(document.querySelector("#root>main"));
             document.querySelector("#root>main").remove() 
         }
+        
+        // Create main element
         let main = document.createElement("main");
+
         let i = 1;
         let j = 1;
         const adDetail = this.adDetail;
         const areaInfo = this.areaInfo;
+
         if (ID == 0) {
             main.innerHTML = `
                 <div class="container-fluid d-flex flex-column">
@@ -304,7 +312,14 @@ const trangchu = {
                                                         <td>${repDetail.name}, ${repInfo.name}</td>
                                                         <td>${repDetail.type}</td>
                                                         <td>
-                                                            <button id="btn-more">
+                                                            <button id="btn-chitiet">
+                                                                <p  style="display: none">${repDetail.type}</p>
+                                                                <p  style="display: none">${repDetail.user_name}</p>
+                                                                <p  style="display: none">${repDetail.email}</p>
+                                                                <p  style="display: none">${repDetail.phone}</p>
+                                                                <p  style="display: none">${repDetail.url}</p>
+                                                                <p  style="display: none">${repDetail.street_num}, Đ. ${repDetail.name}, ${repInfo.name}</p>
+                                                                <p  style="display: none">${repDetail.content}</p>
                                                                 Chi Tiet
                                                             </button>
                                                         </td>
@@ -324,8 +339,85 @@ const trangchu = {
         root.appendChild(main);
         this.event();
         this.redirectToAdInfoPage(ID);
+        this.showModal();
     },
 
+    showModal: function () {
+
+        function renderModal(type, senderName, email, phone, url, addr, content){
+            return `
+            <div class="modal fade" id="ReportForCitizens" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="width: 70%;">
+                    <div class="modal-content">
+                        
+                        <div class="modal-body">
+                            <div class="container-fluid d-flex flex-column">
+                                <div class="container-fluid mb-1">
+                                    <img src="/assets/chung/icon/CloseBtn.svg" alt="Close" style="float: right;" data-bs-dismiss="modal">
+                                    <span class="text-primary fw-semibold fs-2" style="float: right; margin-right: 1em;">
+                                        ${type}                                  
+                                    </span>
+                                </div>
+
+                                <div class="container-fluid px-1 py-0">
+                                    <div class="d-flex flex-row justify-content-between " style="margin-bottom: 8px;">
+                                        <img src="${url}" alt="Anh Vi Pham" class="object-fit-cover w-50">
+                                        <div class="w-50 d-flex flex-column mx-2" style="min-width: 50%;">
+                                            <p class="fs-3 fw-bold lh-base m-0 text-primary mb-1">Người Gửi:</p>
+                                            <div class="container d-flex flex-column">
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Họ Tên:</span> ${senderName}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Email:</span> ${email}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">SĐT liên lạc :</span> ${phone}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Địa Chỉ:</span> ${addr}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Nội Dung: </span> ${content}</p>
+                                            </div>
+                                            
+                                        </div>                         
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        }
+        var x = document.querySelector("#root>main").firstElementChild.querySelectorAll("#btn-chitiet");
+
+        const fetchData = function (type, senderName, email, phone, url, addr, content) {
+            var y = document.querySelector("#root");
+            
+            if (document.getElementById("ReportForCitizens") != null) {
+                document.getElementById("ReportForCitizens").remove();
+            }
+
+            var forModal = document.createElement("div");
+            forModal.innerHTML = renderModal(type, senderName, email, phone, url, addr, content);
+            y.appendChild(forModal);
+        }
+
+        for (let i = 0; i < x.length; i++) {
+            x.item(i).addEventListener("click", function () {
+                let type= this.children[0].innerText;
+                let senderName = this.children[1].innerText;
+                let email = this.children[2].innerText;
+                let phone = this.children[3].innerText;
+                let url= this.children[4].innerText;
+                let addr = this.children[5].innerText;
+                let content = this.children[6].innerText;
+
+                //console.log(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+                fetchData(type, senderName, email, phone, url, addr, content);
+                var myModal = new bootstrap.Modal(document.getElementById('ReportForCitizens'), {
+                    backdrop: 'static',
+                    keyboard: false,
+                
+                });
+                myModal.show();
+            });
+        }
+
+    },
     redirectToAdInfoPage : (ID) => {
         function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
             let adData = {
