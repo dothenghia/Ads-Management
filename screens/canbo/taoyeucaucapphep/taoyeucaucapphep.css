@@ -1,0 +1,55 @@
+#content {
+    padding: 2em 1em;
+}
+
+#content #return button {
+    background: none;
+    box-shadow: none;
+    border: 0;
+}
+
+#content #return img {
+    width: 3vw;
+    height: auto;
+}
+
+#content #contentOverlay {
+    background-color: #EBE8E8;
+    padding: 2em 10em;
+}
+
+#content #contentOverlay h5 {
+    font-weight: bold;
+}
+
+#content #contentOverlay input:not(#name, #sonha, #startDate, #endDate), #content #contentOverlay textarea {
+    width: 100%;
+}
+
+#content #contentOverlay div.row {
+    padding: 1em;
+    border: 2px solid blue;
+}
+
+#content #contentOverlay div.row img {
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 1250px) {
+    #content #contentOverlay {
+        font-size: 13px;
+    }
+}
+@media screen and (max-width: 1100px) {
+    #content #contentOverlay {
+        font-size: 9px;
+    }
+    #content #contentOverlay h5 {
+        font-size: 14px;
+    }
+    #content #contentOverlay p {
+        font-size: 9px;
+        margin: 2.5vh 0;
+    }
+}

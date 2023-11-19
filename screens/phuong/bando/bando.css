@@ -43,6 +43,58 @@
     bottom: 5vh;
 }
 
+#sideButtons #report button {
+    background: none;
+    box-shadow: none;
+    border: 0;
+}
+
+#sideButtons #report button:hover img {
+    width: 105%;
+    height: auto;
+}
+
 #repInfo {
     margin-top: 4vh;
+}
+
+#repInfo h3 {
+    text-align: right;
+}
+
+#repInfo div {
+    text-align: center;
+    margin: 0.75em;
+    padding: 1em;
+    border: 2px solid rgb(247, 244, 244);
+    box-shadow: 2px 2px 2px rgb(203, 203, 203);
+    border-radius: 10px;
+}
+
+#repInfo h5 {
+    color: #0D6EFD;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+}
+
+#repInfo p {
+    margin: 1em 0;
+    font-weight: bold;
+}
+
+#repInfo button {
+    color: #0D6EFD;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #0D6EFD;
+    border-radius: 4px;
+}
+
+#repInfo button:hover {
+    color: white;
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 4px;
 }

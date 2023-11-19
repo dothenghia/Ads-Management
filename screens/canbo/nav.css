@@ -84,15 +84,29 @@ main > div {
     bottom: 5px;
 }
 
+#filter-button button {
+    background-color: #0D6EFD;
+    box-shadow: 3px 5px 5px grey;
+    border: 1px solid #0D6EFD;
+    border-radius: 100px;
+    padding: 0.75em 1em;
+}
+
 #filterMenu {
     align-items: center;
     justify-content: center;
-    margin: 0 10em 10em 10em;
+    margin: 0 20vw 10em 20vw;
     height: 50vh;
-    padding: 0;
+    padding: 5vh 0;
     border: 3px solid #0065FF;
     border-radius: 15px;
     font-size: large;
+}
+
+#filterMenu form h5 {
+    color: #0065FF;
+    font-weight: bolder;
+    margin-bottom: 2vh;
 }
 
 #filterMenu input[type="checkbox"] {
@@ -100,8 +114,61 @@ main > div {
     width: 1px; height: 1px;
 }
 
+#filterMenu input[type="checkbox"] + label {
+    padding: 0.5em;
+    margin: 0.5vh 0;
+    border-radius: 20px;
+}
+
 #filterMenu input[type="checkbox"]:checked + label {
-    background-color: #2074F4;
+    background-color: #D9D9D9;
+}
+
+#filterMenu input#filterSubmit {
+    display: none;
+}
+
+#filterMenu #filterNav {
+    margin-top: 4vh;
+}
+
+#filterMenu #filterNav button {
+    color: grey;
+    background-color: #F2F5FF;
+    box-shadow: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+    margin: 0 1vw;
+}
+
+#filterMenu #filterNav button:hover {
+    color: white;
+    background-color: #FF0000;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+
+#filterMenu #filterNav label {
+    display:inline-table;
+    text-align: center;
+    color: #0D6EFD;
+    background: none;
+    box-shadow: none;
+    border: 1px solid #0D6EFD;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
+}
+
+#filterMenu #filterNav label:hover {
+    color: white;
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 0.25em 0.75em;
 }
 #addMenu {
     align-items: center;

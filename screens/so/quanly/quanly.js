@@ -13,6 +13,7 @@ import AdInfoDropdownButton from '/components/phuong/AdInfoDropdownButton.js';
 import getDistrictInfo from '/functions/canbo/getDistrictInfo.js';
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 import getAreaInfo from '/functions/canbo/getAreaInfo.js';
+import getRepInfo from '/functions/canbo/getRepInfoForSo.js';
 
 const trangchu = {
     
@@ -26,6 +27,7 @@ const trangchu = {
         this.adInfo = {};
         this.adDetail = {};
         this.areaInfo = {};
+        this.repInfo = {};
     },
 
     fetchData : async function() {
@@ -66,22 +68,36 @@ const trangchu = {
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
         this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
+
+        // Fetch Rep Info
+        const reps = await getRepInfo();
+        this.repInfo = reps;
     },
 
     render : function(ID) {
+        // Root
         const root = $i('root');
         root.innerHTML = `
             ${Header(this.profileInfo)}
         `
+
+        // Modal
+        const modal = root.querySelector("#for-modal");
+
+        // Check exists
         if (document.querySelector("#root>main") != undefined) { 
             //console.log(document.querySelector("#root>main"));
             document.querySelector("#root>main").remove() 
         }
+        
+        // Create main element
         let main = document.createElement("main");
+
         let i = 1;
         let j = 1;
         const adDetail = this.adDetail;
         const areaInfo = this.areaInfo;
+
         if (ID == 0) {
             main.innerHTML = `
                 <div class="container-fluid d-flex flex-column">
@@ -96,7 +112,7 @@ const trangchu = {
                             <ul id="category">
                                 <li class="tb-active cate" id="cate-0">Thông tin chung</li>
                                 <li class="cate" id="cate-1">Thông tin quảng cáo </li>
-                                <li class="cate" id="cate-2">Báo cáo vi phạm</li>
+                                <li class="cate" id="cate-2">Báo cáo người dân</li>
                             </ul>
                             <table class="table table-sm">
                                 <thead>
@@ -170,7 +186,7 @@ const trangchu = {
                         <ul id="category">
                             <li class="cate" id="cate-0">Thông tin chung</li>
                             <li class="tb-active cate" id="cate-1">Thông tin quảng cáo </li>
-                            <li class="cate" id="cate-2">Báo cáo vi phạm</li>
+                            <li class="cate" id="cate-2">Báo cáo người dân</li>
                         </ul>
                         <table class="table table-sm">
                             <thead>
@@ -260,14 +276,148 @@ const trangchu = {
             </div>
         `
         }
-        else{
-            
+        else {
+            main.innerHTML = `
+                <div class="container-fluid d-flex flex-column">
+                    <div class="row flex-grow-1">
+                        <div class="col-md-1 d-none d-sm-none d-md-block p-0">
+                            ${
+                                SideBar(this.sidebarIcons, this.sidebarLabels, this.sidebarHrefs, 0)
+                            }
+                        </div>
+                        <div id="content" class="tb col-md-11 col-12">
+                            <div id="contentOverlay" style="display: none"></div>
+                            <ul id="category">
+                                <li class="cate" id="cate-0">Thông tin chung</li>
+                                <li class="cate" id="cate-1">Thông tin quảng cáo </li>
+                                <li class="tb-active cate" id="cate-2">Báo cáo người dân</li>
+                            </ul>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr class="ad-general-header">
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Thời Điểm Gửi</th>
+                                        <th scope="col">Địa Điểm</th>
+                                        <th scope="col">Hình Thức Báo Cáo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${
+                                        Object.values(this.repInfo).map(function (repInfo){
+                                            return Object.values(repInfo.duong).map(function (repDetail) {
+                                                    let row =` 
+                                                    <tr class="ad-general">
+                                                        <td>${i}</td>
+                                                        <td>${repDetail.date}</td>
+                                                        <td>${repDetail.name}, ${repInfo.name}</td>
+                                                        <td>${repDetail.type}</td>
+                                                        <td>
+                                                            <button id="btn-chitiet">
+                                                                <p  style="display: none">${repDetail.type}</p>
+                                                                <p  style="display: none">${repDetail.user_name}</p>
+                                                                <p  style="display: none">${repDetail.email}</p>
+                                                                <p  style="display: none">${repDetail.phone}</p>
+                                                                <p  style="display: none">${repDetail.url}</p>
+                                                                <p  style="display: none">${repDetail.street_num}, Đ. ${repDetail.name}, ${repInfo.name}</p>
+                                                                <p  style="display: none">${repDetail.content}</p>
+                                                                Chi Tiet
+                                                            </button>
+                                                        </td>
+                                                    `;
+                                                    i++;
+                                                    return row;
+                                                }).join('')
+                                        }).join('')
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `
         }
         root.appendChild(main);
         this.event();
         this.redirectToAdInfoPage(ID);
+        this.showModal();
     },
 
+    showModal: function () {
+
+        function renderModal(type, senderName, email, phone, url, addr, content){
+            return `
+            <div class="modal fade" id="ReportForCitizens" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="width: 70%;">
+                    <div class="modal-content">
+                        
+                        <div class="modal-body">
+                            <div class="container-fluid d-flex flex-column">
+                                <div class="container-fluid mb-1">
+                                    <img src="/assets/chung/icon/CloseBtn.svg" alt="Close" style="float: right;" data-bs-dismiss="modal">
+                                    <span class="text-primary fw-semibold fs-2" style="float: right; margin-right: 1em;">
+                                        ${type}                                  
+                                    </span>
+                                </div>
+
+                                <div class="container-fluid px-1 py-0">
+                                    <div class="d-flex flex-row justify-content-between " style="margin-bottom: 8px;">
+                                        <img src="${url}" alt="Anh Vi Pham" class="object-fit-cover w-50">
+                                        <div class="w-50 d-flex flex-column mx-2" style="min-width: 50%;">
+                                            <p class="fs-3 fw-bold lh-base m-0 text-primary mb-1">Người Gửi:</p>
+                                            <div class="container d-flex flex-column">
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Họ Tên:</span> ${senderName}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Email:</span> ${email}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">SĐT liên lạc :</span> ${phone}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Địa Chỉ:</span> ${addr}</p>
+                                                <p class="fs-4 lh-base m-0 my-3"><span class="text-primary mx-3">Nội Dung: </span> ${content}</p>
+                                            </div>
+                                            
+                                        </div>                         
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        }
+        var x = document.querySelector("#root>main").firstElementChild.querySelectorAll("#btn-chitiet");
+
+        const fetchData = function (type, senderName, email, phone, url, addr, content) {
+            var y = document.querySelector("#root");
+            
+            if (document.getElementById("ReportForCitizens") != null) {
+                document.getElementById("ReportForCitizens").remove();
+            }
+
+            var forModal = document.createElement("div");
+            forModal.innerHTML = renderModal(type, senderName, email, phone, url, addr, content);
+            y.appendChild(forModal);
+        }
+
+        for (let i = 0; i < x.length; i++) {
+            x.item(i).addEventListener("click", function () {
+                let type= this.children[0].innerText;
+                let senderName = this.children[1].innerText;
+                let email = this.children[2].innerText;
+                let phone = this.children[3].innerText;
+                let url= this.children[4].innerText;
+                let addr = this.children[5].innerText;
+                let content = this.children[6].innerText;
+
+                //console.log(adSpotDetalID, adSpotDetalName, adAddr, adInfo);
+                fetchData(type, senderName, email, phone, url, addr, content);
+                var myModal = new bootstrap.Modal(document.getElementById('ReportForCitizens'), {
+                    backdrop: 'static',
+                    keyboard: false,
+                
+                });
+                myModal.show();
+            });
+        }
+
+    },
     redirectToAdInfoPage : (ID) => {
         function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo) {
             let adData = {
@@ -318,7 +468,7 @@ const trangchu = {
         if (storedRenderID !== null) {
             this.render(parseInt(storedRenderID));
         } else {
-            this.render(0); // Default render ID
+            this.render(3); // Default render ID
         } 
     }
 }

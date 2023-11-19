@@ -1,0 +1,63 @@
+{
+    "11": {
+        "id": "11",
+        "name": "Quận 11",
+        "duong": {
+            "THT": {
+                "id": "THT",
+                "name": "Tô Hiến Thành",
+                "street_num": "123",
+                "date": "22/10/2023",
+                "type": "Tố giác sai phạm",
+                "user_name": "Nguyễn Văn A",
+                "email": "nva@gmail.com",
+                "phone": "0123456789",
+                "url": "/assets/chung/img/adverts/AD00001.jpeg",
+                "content": "Sai phạm ở đây"
+            },
+            "LTK": {
+                "id": "LTK",
+                "name": "Lý Thường Kiệt",
+                "street_num": "321",
+                "date": "22/01/2023",
+                "type": "Đăng ký nội dung",
+                "user_name": "Nguyễn Văn B",
+                "email": "nvB@gmail.com",
+                "phone": "10123456789",
+                "url": "/assets/chung/img/adverts/AD00001.jpeg",
+                "content": "Đăng ký ở đây"
+            }
+        }
+    },
+
+    "1": {
+        "id": "1",
+        "name": "Quận 1",
+        "duong": {
+            "TDT": {
+                "id": "TDT",
+                "name": "Tôn Đức Thắng",
+                "street_num": "34",
+                "date": "01/09/2023",
+                "type": "Thắc mắc",
+                "user_name": "Nguyễn Văn A",
+                "email": "nva@gmail.com",
+                "phone": "0123456789",
+                "url": "/assets/chung/img/adverts/AD00002.jpeg",
+                "content": "Thắc mắc ở đây"
+            },
+            "CQ": {
+                "id": "CQ",
+                "name": "Cống Quỳnh",
+                "street_num": "112",
+                "date": "12/7/2023",
+                "type": "Đăng ký nội dung",
+                "user_name": "Nguyễn Văn B",
+                "email": "nvB@gmail.com",
+                "phone": "10123456789",
+                "url": "/assets/chung/img/adverts/AD00002.jpeg",
+                "content": "Đăng ký ở đây"
+            }
+        }
+    }
+}

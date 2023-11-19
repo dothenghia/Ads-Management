@@ -11,6 +11,9 @@ import SideBar from '/components/canbo/SideBar.js';
 // Import Functions
 import getAdsInfo from '/functions/canbo/getAdsInfo.js';
 import setAdInfoBar from '/functions/canbo/setAdInfoBar.js';
+import getRepInfo from '/functions/canbo/getRepInfo.js';
+import getAreaInfo from '/functions/canbo/getAreaInfo.js';
+import setReportListBar from '/functions/canbo/setReportListBar.js';
 
 const trangchu = {
     init : function() {
@@ -19,11 +22,23 @@ const trangchu = {
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
         this.ads = []
+        this.areaInfo = {};
+        this.repInfo = {}
+        this.adTypeInfo = {};
     },
 
     fetchData : async function() {
         const ads = await getAdsInfo();
         this.ads = ads;
+
+        const reps = await getRepInfo();
+        this.repInfo = reps[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
+
+        this.adTypeInfo = ads[1];
+
+        const areas = await getAreaInfo();
+        this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
+        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name
 
         this.render();
     },
@@ -35,6 +50,10 @@ const trangchu = {
         `
 
         let main = document.createElement("main");
+        const adTypeInfo = this.adTypeInfo;
+        const adStreetInfo = this.adStreetInfo;
+        const areaInfo = this.areaInfo;
+
         main.innerHTML = `
             <div class="container-fluid d-flex flex-column">
                 <div class="row flex-grow-1">
@@ -57,7 +76,7 @@ const trangchu = {
                         <div id="sideButtons">
                             <div id="report">
                                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                    <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
+                                    <img src="/assets/chung/icon/hopthu_icon.svg" alt="Filter">
                                 </button>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="51" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -69,43 +88,6 @@ const trangchu = {
                                     
                                 </div>
                             </div>
-
-                            <div id="filter">
-                                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#filterMenu" aria-controls="filterMenu">
-                                    <img src="/assets/chung/icon/boloc_icon.svg" alt="Filter">
-                                </button>
-                            </div>
-                            <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">
-                                <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
-                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                </div>
-                                <div class="offcanvas-body small">
-                                    <form id="reqFilterForm" class="row">
-                                        <div class="col">
-                                            <h5>Công ty</h5>
-                                            <div id="coFilterCard">
-                                                <input type="checkbox" id="co_vincom">
-                                                <label for="co_vincom">Vincom</label>
-                                            </div>
-                                            <div id="coFilterCard">
-                                                <input type="checkbox" id="co_coopmart">
-                                                <label for="co_coopmart">Cốp Mắc</label>
-                                            </div>
-                                            <div id="coFilterCard">
-                                                <input type="checkbox" id="co_aeon">
-                                                <label for="co_aeon">Aeon Mô</label>
-                                            </div>
-                                            <div id="coFilterCard">
-                                                <input type="checkbox" id="co_bigc">
-                                                <label for="co_bigc">Beeg See</label>
-                                            </div>
-                                        </div>
-                                        <input type="submit" id="filterSubmit" value="" class="hidden">
-                                    </form>
-                                    <label for="filterSubmit">Lọc</label>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,6 +95,10 @@ const trangchu = {
         `
         root.appendChild(main);
         
+        /* Reports sidebar */
+        setReportListBar(this.repInfo, areaInfo, adTypeInfo);
+
+        /* Map */
         const bounds = [
             [106.691989, 10.793368],     // Southwest coords
             [106.697761, 10.803528]    // Northeast coords

@@ -33,6 +33,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <!-- Mapbox JS -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    
+    <script>
+        function redirectToRepPage(repId, adAddr, adInfo, repInfo) {
+            let repData = {
+                "id": repId,
+                "adAddr": adAddr,
+                "adInfo": adInfo,
+                "repInfo": repInfo
+            }
+            sessionStorage.setItem('repPageData', JSON.stringify(repData));
+            window.location.href = '/screens/canbo/thongtinbaocaovipham/thongtinbaocaovipham.html';
+        }
+    </script>
 </body>
 
 </html>
