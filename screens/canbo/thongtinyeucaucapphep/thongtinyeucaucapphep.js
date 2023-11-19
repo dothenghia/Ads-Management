@@ -10,7 +10,6 @@ import SideBar from '/components/canbo/SideBar.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
         this.sidebarHrefs = ["#", "../quanly/quanly.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
@@ -21,13 +20,13 @@ const trangchu = {
     },
 
     render : function() {
+        const adData = JSON.parse(sessionStorage.getItem("permissionReqPageData"));
+
         const root = $i('root');
         root.innerHTML = `
-            ${Header(this.profileInfo)}
+            ${Header(adData.profileInfo)}
         `
         
-        const adData = JSON.parse(sessionStorage.getItem("permissionReqPageData"));
-        const id = adData.id;
 
         let main = document.createElement("main");
         main.innerHTML = `
@@ -65,11 +64,11 @@ const trangchu = {
         root.appendChild(main);
 
         let contentOverlay = document.getElementById('contentOverlay');
-        contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/pending/' + adData.reqInfo.id + '.jpeg';
+        contentOverlay.querySelector('img').src = '/assets/chung/img/adverts/pending/YCCP00001.jpeg';
         contentOverlay.querySelector('#name').innerHTML = '<span style="color: #2B77D0">' + adData.reqInfo.name + '</span>';
         contentOverlay.querySelector('#addr').innerHTML =
             '<span style="color: #2B77D0">Địa điểm:</span><br>' + adData.reqInfo.loc.sonha + ' ' 
-            + adData.adArea.dsDuong[adData.reqInfo.loc.duong].name + ', P. ' + adData.adArea.phuong + ', Quận ' + adData.adArea.quan;
+            + adData.reqAddr.duong + ', P. ' + adData.reqAddr.phuong + ', Quận ' + adData.reqAddr.quan;
         contentOverlay.querySelector('#coName').innerHTML = '<span style="color: #2B77D0">Công ty: </span>' + adData.reqInfo.co.name;
         contentOverlay.querySelector('#coEmail').innerHTML = '<span style="color: #2B77D0">Email: </span>' + adData.reqInfo.co.email;
         contentOverlay.querySelector('#coPhone').innerHTML = '<span style="color: #2B77D0">Số ĐT: </span>' + adData.reqInfo.co.phone;

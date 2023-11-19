@@ -16,8 +16,8 @@ import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
-        this.sidebarHrefs = ["/screens/phuong/bando/bando.html", "/screens/phuong/quanly/danhsachquangcao/danhsachquangcao.html", "#"];
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
+        this.sidebarHrefs = ["/screens/quan/bando/bando.html", "/screens/quan/quanly/danhsachquangcao/danhsachquangcao.html", "#"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"];
         this.areaInfo = {};
@@ -40,12 +40,13 @@ const trangchu = {
         const ads = await getAdsInfo();
 
         const reqs = await getPermissionReqInfo();
-        this.reqInfo = reqs[this.profileInfo.quan].phuong[this.profileInfo.phuong].yeucau;
+        this.reqInfo = reqs[this.profileInfo.quan].phuong;
 
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name;
-        this.areaInfo["dsDuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
+        this.areaInfo["dsPhuong"] = areas[this.profileInfo.quan].phuong
+        // this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name;
+        // this.areaInfo["dsDuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
 
         this.adTypeInfo = ads[1];
 
@@ -101,52 +102,55 @@ const trangchu = {
                             </thead>
                             <tbody>
                                 ${
-                                    Object.values(reqInfo).map(function (req) {
-                                        // Check for filters
-                                        if (filter) {
-                                            if (!filter["co"].includes(req.co.id)) return ``;
-                                        }
+                                    Object.values(reqInfo).map(function (districtInfo) {
+                                        return Object.values(districtInfo.yeucau).map(function (req) {
+                                            // Check for filters
+                                            if (filter) {
+                                                if (!filter["co"].includes(req.co.id)) return ``;
+                                            }
+    
+                                            // Check for elements that have been removed
+                                            let permissionReqListRemove = JSON.parse(localStorage.getItem("permissionReqListRemove"));
+                                            if (permissionReqListRemove) {
+                                                if (permissionReqListRemove.includes(req.id)) return ``;
+                                            }
+                                            
+                                            let dsDuong = areaInfo.dsPhuong[districtInfo.id].duong;
+                                            let reqAddr = {
+                                                "quan": areaInfo.quan,
+                                                "phuong": districtInfo.name,
+                                                "duong": dsDuong[req.loc.duong].name
+                                            }
 
-                                        // Check for elements that have been removed
-                                        let permissionReqListRemove = JSON.parse(localStorage.getItem("permissionReqListRemove"));
-                                        if (permissionReqListRemove) {
-                                            if (permissionReqListRemove.includes(req.id)) return ``;
-                                        }
-                                        
-                                        let reqAddr = {
-                                            "quan": areaInfo.quan,
-                                            "phuong": areaInfo.phuong,
-                                            "duong": areaInfo.dsDuong[req.loc.duong].name
-                                        }
-
-                                        let row = `
-                                        <tr class="ad-general">
-                                            <td>${i}</td>
-                                            <td>${req.co.name}</td>
-                                            <td>${req.co.email}</td>
-                                            <td>${req.co.phone}</td>
-                                            <td>${req.loc.sonha} ${areaInfo.dsDuong[req.loc.duong].name}</td>
-                                            <td>
-                                                <button onclick='
-                                                    let permissionReqListRemove = JSON.parse(localStorage.getItem("permissionReqListRemove"));
-                                                    if (!permissionReqListRemove)
-                                                        permissionReqListRemove = [];
-                                                    permissionReqListRemove.push("${req.id}");
-                                                    localStorage.setItem("permissionReqListRemove", JSON.stringify(permissionReqListRemove));
-                                                    location.reload();
-                                                '>
-                                                    Xóa
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button onclick='redirectToPermissionReqPage(${JSON.stringify(reqAddr)}, ${JSON.stringify(req)}, ${JSON.stringify(profileInfo)})'>
-                                                    Chi tiết
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        `
-                                        i++;
-                                        return row
+                                            let row = `
+                                            <tr class="ad-general">
+                                                <td>${i}</td>
+                                                <td>${req.co.name}</td>
+                                                <td>${req.co.email}</td>
+                                                <td>${req.co.phone}</td>
+                                                <td>${req.loc.sonha} ${dsDuong[req.loc.duong].name}, P. ${districtInfo.name}</td>
+                                                <td>
+                                                    <button onclick='
+                                                        let permissionReqListRemove = JSON.parse(localStorage.getItem("permissionReqListRemove"));
+                                                        if (!permissionReqListRemove)
+                                                            permissionReqListRemove = [];
+                                                        permissionReqListRemove.push("${req.id}");
+                                                        localStorage.setItem("permissionReqListRemove", JSON.stringify(permissionReqListRemove));
+                                                        location.reload();
+                                                    '>
+                                                        Xóa
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button onclick='redirectToPermissionReqPage(${JSON.stringify(reqAddr)}, ${JSON.stringify(req)}, ${JSON.stringify(profileInfo)})'>
+                                                        Chi tiết
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            `
+                                            i++;
+                                            return row
+                                        }).join('')
                                     }).join('')
                                 }
                                 ${
@@ -155,17 +159,17 @@ const trangchu = {
                                             return Object.values(JSON.parse(localStorage.getItem("permissionReqListUpdate")).yeucau).map(function (req) {
                                                 let reqAddr = {
                                                     "quan": areaInfo.quan,
-                                                    "phuong": areaInfo.phuong,
-                                                    "duong": areaInfo.dsDuong[req.loc.duong].name
+                                                    "phuong": areaInfo.dsPhuong[req.loc.phuong].name,
+                                                    "duong": areaInfo.dsPhuong[req.loc.phuong].duong[req.loc.duong].name
                                                 }
-                                                
+
                                                 let row = `
                                                 <tr class="ad-general">
                                                     <td>${i}</td>
                                                     <td>${req.co.name}</td>
                                                     <td>${req.co.email}</td>
                                                     <td>${req.co.phone}</td>
-                                                    <td>${req.loc.sonha} ${areaInfo.dsDuong[req.loc.duong].name}</td>
+                                                    <td>${req.loc.sonha} ${reqAddr.duong}, P. ${reqAddr.phuong}</td>
                                                     <td>
                                                         <button onclick='
                                                             let permissionReqListUpdate = JSON.parse(localStorage.getItem("permissionReqListUpdate"));

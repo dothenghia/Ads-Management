@@ -16,8 +16,8 @@ import getAreaInfo from '/functions/canbo/getAreaInfo.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
-        this.sidebarHrefs = ["/screens/phuong/bando/bando.html", "#", "/screens/phuong/kiemduyet/kiemduyet.html"];
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
+        this.sidebarHrefs = ["/screens/quan/bando/bando.html", "#", "/screens/quan/kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"];
         this.areaInfo = {};
@@ -39,13 +39,12 @@ const trangchu = {
         const ads = await getAdsInfo();
 
         const reqs = await getChangeReqInfo();
-        this.reqInfo = reqs[this.profileInfo.quan].phuong[this.profileInfo.phuong].duong;
+        this.reqInfo = reqs[this.profileInfo.quan].phuong;
 
         this.adTypeInfo = ads[1];
 
         const areas = await getAreaInfo();
         this.areaInfo["quan"] = areas[this.profileInfo.quan].name;
-        this.areaInfo["phuong"] = areas[this.profileInfo.quan].phuong[this.profileInfo.phuong].name;
 
         this.render();
     },
@@ -94,60 +93,62 @@ const trangchu = {
                             </thead>
                             <tbody>
                                 ${
-                                    Object.values(this.reqInfo).map(function (streetInfo) {
-                                        return Object.values(streetInfo.yeucau).map((req) => {
-                                            let adInfo = req.loc.split("_");
-                                            let reqAdOldInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
-                                            let adAddr = JSON.stringify({
-                                                "duong": streetInfo.name,
-                                                "quan": areaInfo.quan,
-                                                "phuong": areaInfo.phuong
-                                            });
-                                            
-                                            // Check for updates on request status
-                                            if (updates && updates[req.id]) req.status = updates[req.id];
-                                            
-                                            // Check for filters
-                                            if (filter) {
-                                                console.log(filter)
-                                                if (filter["date"] > Date.parse(req.date)) return ``;
-                                                if (!filter["reason"].includes(req.reason)) return ``;
-                                                if (!filter["status"].includes(req.status)) return ``;
-                                            }
-
-                                            let statusText;
-                                            switch (req.status) {
-                                                case 0:
-                                                    statusText = `<div class="req-status-0">Chưa xử lý</div>`;
-                                                    break;
-                                                case 1:
-                                                    statusText = `<div class="req-status-1">Đang xử lý</div>`;
-                                                    break;
-                                                case 2:
-                                                    statusText = `<div class="req-status-2">Đã xử lý</div>`;
-                                                    break;
-                                                case 3:
-                                                    statusText = `<div class="req-status-3">Bị từ chối</div>`;
-                                                    break;
-                                            }
-
-                                            let row = `
-                                            <tr class="ad-general">
-                                                <td>${i}</td>
-                                                <td>${reqAdOldInfo.sonha} ${streetInfo.name}</td>
-                                                <td>${req.date}</td>
-                                                <td>${req.reason}</td>
-                                                <td>${statusText}</td>
-                                                <td>
-                                                    <button onclick='redirectToChangeReqPage("${req.id}", ${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)}, ${JSON.stringify(profileInfo)})'>
-                                                        Chi tiết
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            `
-                                            i++;
-                                            return row
-                                        }).join('');
+                                    Object.values(this.reqInfo).map(function (districtInfo) {
+                                        return Object.values(districtInfo.duong).map(function (streetInfo) {
+                                            return Object.values(streetInfo.yeucau).map((req) => {
+                                                let adInfo = req.loc.split("_");
+                                                let reqAdOldInfo = adTypeInfo[adInfo[0]].qc[adInfo[1]]
+                                                let adAddr = JSON.stringify({
+                                                    "duong": streetInfo.name,
+                                                    "quan": areaInfo.quan,
+                                                    "phuong": districtInfo.name
+                                                });
+                                                
+                                                // Check for updates on request status
+                                                if (updates && updates[req.id]) req.status = updates[req.id];
+                                                
+                                                // Check for filters
+                                                if (filter) {
+                                                    if (!filter["ph"].includes(districtInfo.id)) return ``;
+                                                    if (filter["date"] > Date.parse(req.date)) return ``;
+                                                    if (!filter["reason"].includes(req.reason)) return ``;
+                                                    if (!filter["status"].includes(req.status)) return ``;
+                                                }
+    
+                                                let statusText;
+                                                switch (req.status) {
+                                                    case 0:
+                                                        statusText = `<div class="req-status-0">Chưa xử lý</div>`;
+                                                        break;
+                                                    case 1:
+                                                        statusText = `<div class="req-status-1">Đang xử lý</div>`;
+                                                        break;
+                                                    case 2:
+                                                        statusText = `<div class="req-status-2">Đã xử lý</div>`;
+                                                        break;
+                                                    case 3:
+                                                        statusText = `<div class="req-status-3">Bị từ chối</div>`;
+                                                        break;
+                                                }
+    
+                                                let row = `
+                                                <tr class="ad-general">
+                                                    <td>${i}</td>
+                                                    <td>${reqAdOldInfo.sonha} ${streetInfo.name}, P. ${districtInfo.name}</td>
+                                                    <td>${req.date}</td>
+                                                    <td>${req.reason}</td>
+                                                    <td>${statusText}</td>
+                                                    <td>
+                                                        <button onclick='redirectToChangeReqPage("${req.id}", ${adAddr}, ${JSON.stringify(reqAdOldInfo)}, ${JSON.stringify(req.new)}, ${JSON.stringify(profileInfo)})'>
+                                                            Chi tiết
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                `
+                                                i++;
+                                                return row
+                                            }).join('');
+                                        }).join('')
                                     }).join('')
                                 }
                             </tbody>
@@ -161,6 +162,17 @@ const trangchu = {
                         <div class="offcanvas offcanvas-bottom" tabindex="51" id="filterMenu" aria-labelledby="offcanvasBottomLabel">   
                             <div class="offcanvas-body small">
                                 <form id="changeReqFilterForm" class="row">
+                                    <div class="col">
+                                        <h5>Phường</h5>
+                                        <div id="phFilterCard">
+                                            <input type="checkbox" id="ph_3">
+                                            <label for="ph_3">Phường 3</label>
+                                        </div>
+                                        <div id="phFilterCard">
+                                            <input type="checkbox" id="ph_17">
+                                            <label for="ph_17">Phường 17</label>
+                                        </div>
+                                    </div>
                                     <div class="col">
                                         <h5>Thời điểm gửi yêu cầu (đến nay)</h5>
                                         <div id="dateFilterCard">
@@ -218,6 +230,10 @@ const trangchu = {
         
         // Adjust filter menu to fit with current filter data
         if (filter) {
+            filter["ph"].forEach((ph) => {
+                document.querySelector('#filterMenu #phFilterCard input[type="checkbox"][id="ph_' + ph + '"]').checked = true;
+            })
+
             document.querySelector('#filterMenu #dateFilterCard input').value = (new Date(filter["date"])).toISOString().substring(0, 10);
 
             let reasonNo = {"Không phù hợp": "1", "Không tác dụng": "2", "Đổi mới": "3"};
@@ -230,6 +246,11 @@ const trangchu = {
             })
         }
         else {
+            let phCheckboxes = document.querySelectorAll('#filterMenu #phFilterCard input[type="checkbox"][id^="ph_"]');
+            phCheckboxes.forEach((checkbox) => {
+                checkbox.checked = true;
+            });
+
             let reasonCheckboxes = document.querySelectorAll('#filterMenu #reasonFilterCard input[type="checkbox"][id^="reason"]');
             reasonCheckboxes.forEach((checkbox) => {
                 checkbox.checked = true;
@@ -248,6 +269,14 @@ const trangchu = {
             let totalFilter = {};
 
             totalFilter["role"] = adminRole;
+
+            let phCheckboxes = document.querySelectorAll('#filterMenu #phFilterCard input[type="checkbox"][id^="ph_"]:checked');
+            let phFilter = [];
+            phCheckboxes.forEach((checkbox) => {
+                let ph = checkbox.id.substring(3);
+                phFilter.push(ph);
+            });
+            totalFilter["ph"] = phFilter;
 
             let filterDate = new Date(document.querySelector("#filterMenu #dateFilterCard input").value);
             totalFilter["date"] = Date.parse(filterDate);

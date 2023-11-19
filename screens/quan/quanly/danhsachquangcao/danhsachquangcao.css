@@ -1,0 +1,43 @@
+.tb table tr.ad-specific-header th {
+    text-align: center;
+    color: #999;
+    font-weight: normal;
+    border-style: dashed;
+    border-top-width: 2px !important;
+    border-bottom-width: 0 !important;
+    border-color: #999;
+}
+
+.tb table tr.ad-specific {
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 15px;
+}
+
+.tb table tr.ad-specific td {
+    text-align: center;
+    padding: 0.75em 0;
+}
+
+.tb table tr.ad-specific button {
+    background-color: #0D6EFD;
+    box-shadow: none;
+    border-color: grey;
+    border-style: solid;
+    border-width: 0 1px 2px 0;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+}
+
+#filterMenu #adFilterForm {
+    text-align: center;
+}
+
+#filterMenu #adFilterForm #cntFilterCard {
+    margin: 1vh 0;
+    padding: 0.5vh 0;
+    color: #0D6EFD;
+    border: 1px solid #0D6EFD;
+    border-radius: 15px;
+}

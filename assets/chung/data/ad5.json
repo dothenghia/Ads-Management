@@ -71,6 +71,35 @@
                         }
                     }
                 }
+            },
+            "17": {
+                "id": "17",
+                "name": "17",
+                "duong": {
+                    "vht": {
+                        "id": "tvk",
+                        "name": "Trần Văn Khê",
+                        "baocao": {
+                            "BC00004": {
+                                "id": "BC00004",
+                                "loc": "AD00001_00001",
+                                "date": "2023-10-24",
+                                "type": {
+                                    "id": "tgsp",
+                                    "name": "Tố giác sai phạm"
+                                },
+                                "sender": {
+                                    "name": "Nguyễn Văn B",
+                                    "email": "fdfaadsf",
+                                    "phone": "343543534"
+                                },
+                                "content": "Không phù hợp thuần phong mỹ tục",
+                                "status": false,
+                                "solution": ""
+                            }
+                        }
+                    }
+                }
             }
         }
     }

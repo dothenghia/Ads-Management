@@ -10,7 +10,7 @@ import SideBar from '/components/canbo/SideBar.js';
 
 const trangchu = {
     init : function() {
-        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "3", "role": "phuong", "role_area": "3"}
+        this.profileInfo = {"name": "Nguyễn Văn A", "quan": "binhthanh", "phuong": "", "role": "quan", "role_area": "Bình Thạnh"}
         this.sidebarHrefs = ["#", "../quanly/quanly.html", "../kiemduyet/kiemduyet.html"];
         this.sidebarIcons = ["bando_icon.svg", "quanly_icon.svg", "kiemduyet_icon.svg"];
         this.sidebarLabels = ["Bản đồ", "Quản lý", "Kiểm duyệt"]
@@ -21,13 +21,12 @@ const trangchu = {
     },
 
     render : function() {
+        const data = JSON.parse(sessionStorage.getItem("createPermissionReqPageData"));
+
         const root = $i('root');
         root.innerHTML = `
             ${Header(this.profileInfo)}
         `
-        
-        const adData = JSON.parse(sessionStorage.getItem("permissionReqPageData"));
-        const id = adData.id;
 
         let main = document.createElement("main");
         main.innerHTML = `
@@ -58,6 +57,9 @@ const trangchu = {
                                         <select id="duong" name="duong">
                                             <option value="vht">Vũ Huy Tấn</option>
                                             <option value="vk">Vạn Kiếp</option>
+                                        </select>
+                                        <select id="phuong" name="phuong" value="3">
+                                            <option value="3">3</option>
                                         </select>
                                     </p>
                                     <p>
@@ -94,6 +96,10 @@ const trangchu = {
             </div>
         `
         root.appendChild(main);
+
+        // Block changing district if role is "phuong"
+        if (this.profileInfo.role == "phuong")
+            document.querySelector("#contentOverlay #phuong").disabled = true;
         
         // "Update" button
         let button = document.querySelector("#content #update button");
@@ -108,6 +114,7 @@ const trangchu = {
             let name = document.querySelector("#contentOverlay input#name").value;
             let sonha = document.querySelector("#contentOverlay input#sonha").value;
             let duong = document.querySelector("#contentOverlay select#duong").value;
+            let phuong = document.querySelector("#contentOverlay select#phuong").value;
             let coName = document.querySelector("#contentOverlay input#coName").value;
             let coEmail = document.querySelector("#contentOverlay input#coEmail").value;
             let coPhone = document.querySelector("#contentOverlay input#coPhone").value;
@@ -115,7 +122,7 @@ const trangchu = {
             let endDate = document.querySelector("#contentOverlay input#endDate").value;
             let reqContent = document.querySelector("#contentOverlay textarea#req-content").value;
             
-            if (!name || !sonha || !duong || !coName || !coEmail || !coPhone || !startDate || !endDate || !reqContent) {
+            if (!name || !sonha || !duong || !phuong || !coName || !coEmail || !coPhone || !startDate || !endDate || !reqContent) {
                 alert("Cần nhập đầy đủ dữ liệu của 1 yêu cầu!");
                 return;
             }
@@ -136,7 +143,8 @@ const trangchu = {
                 },
                 "loc": {
                     "sonha": sonha,
-                    "duong": duong
+                    "duong": duong,
+                    "phuong": phuong
                 },
                 "startdate": startDate,
                 "enddate": endDate,
