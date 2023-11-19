@@ -70,6 +70,8 @@ const trangchu = {
 
             <div class="random-popup-root"></div>
 
+            <div class="captcha-box-root"></div>
+
             <div class="filter-switch-root">
                 <h1 class="filter-title">Quảng cáo</h1>
                 <label class="filter-switch">
