@@ -27,8 +27,8 @@ const trangchu = {
       "../kiemduyet/kiemduyet.html",
     ];
     this.sidebarIcons = [
-      "quanly_icon.svg",
-      "nhansu_icon.svg",
+      "quanly_ic_normal.svg",
+      "nhansu_ic_active.svg",
       "thongke_icon.svg",
       "kiemduyet_icon.svg",
     ];
