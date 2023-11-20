@@ -345,9 +345,10 @@ const trangchu = {
                 </div>
             `
         }
+        sessionStorage.setItem('selectedRenderID', ID); // Store the current render ID
         root.appendChild(main);
         this.event();
-        this.redirectToAdInfoPage(ID);
+        this.redirectToAdInfoPage();
         this.showModal();
     },
 
@@ -427,7 +428,7 @@ const trangchu = {
         }
 
     },
-    redirectToAdInfoPage : (ID) => {
+    redirectToAdInfoPage : () => {
         function redirectToAdInfoPage(adTypeId, adTypeName, adAddr, adInfo, profileInfo) {
             let adData = {
                 "adTypeId": adTypeId,
@@ -437,7 +438,6 @@ const trangchu = {
                 "profileInfo": profileInfo,
             }
             sessionStorage.setItem('adPageData', JSON.stringify(adData));
-            sessionStorage.setItem('selectedRenderID', ID); // Store the current render ID
             window.location.href = '/screens/canbo/thongtinquangcao/thongtinquangcao.html';
         }
 
