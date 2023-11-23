@@ -1,0 +1,39 @@
+<main class="container rounded-5 bg-white w-50">
+        <div class="container">
+            <h1 class="bg-transparent text-center fw-bold" id="AppName">
+                AdsMap
+            </h1>
+            <p class="text-danger fst-italic disabled" id="LoiDangNhap">{{error}}</p>
+            <div class="d-flex justify-content-center">
+                <form action="/login" class="w-75" id="loginForm" method="post"> 
+                    <!-- Email input-->
+                    <div class="form-outline mb-4">
+                        <label class="form-label fw-bold" for="Email">Email</label>
+                        <input type="email" id="Email" class="form-control rounded-5"  name="username" />
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label fw-bold" for="Password" >Mật khẩu</label>
+                        <input type="password" id="Password" class="form-control rounded-5" name="password"/>
+                    </div>
+                    <!-- Submit button -->
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-block mb-4 rounded-5">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+            <div class="text-center">
+                <small class=""><i>Hoặc đăng nhập bằng:</i></small>
+            </div>
+            <div class="d-flex justify-content-center gap-5 " id="otherLogin">
+                <a href="/auth/google"><button><i class="bi bi-google"></i></button></a>
+                <a href="/auth/facebook"><button><i class="bi bi-facebook"></i></button></a>
+                <a href="/auth/twitter"><button><i class="bi bi-twitter"></i></button></a>
+            </div>
+            <div class="text-center">
+                <a href="/screens/canbo/quenmatkhau/quenmatkhau.html"><button type="button" class="btn btn-block mb-4 rounded-5">Quên mật khẩu?</button></a>
+            </div>
+        </div>
+    </main>
+
+  
