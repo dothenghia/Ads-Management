@@ -13,8 +13,10 @@ const express = require('express'); //Khai báo các thứ cần thiết
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
+const authMiddleware = require('./controllers/authMiddleware');
 const app = express();
-app.use(express.static("./"));
+app.use(express.static(__dirname + "/html"));
+//! điều này sẽ khiến khi import các CSS ở trong cái hbs Thì chỉ cần ghi css/....
 // Use body-parser middleware to parse form data
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,33 +37,20 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+//! KO BỎ COMMENT DÒNG NÀY 
+//app.use(authMiddleware);
+
+
 //Phần bên trên ko nên đụng vào 
 // Simulated user database
-const users = [
-    { username: 'so@gmail.com', password: '123', accountType: '3' },
-    { username: 'quan@gmail.com', password: '123', accountType: '2' },
-    { username: 'phuong@gmail.com', password: '123', accountType: '1' },
-];
-//!phần này là của tao ko liên quan
-// Middleware to check if the user is authenticated
-const checkAuth = (req, res, next) => {
-    if (req.session.accountType) {
-        // User is authenticated, proceed to the next middleware or route handler
-        next();
-    } else {
-        // User is not authenticated, redirect to the login page
-        res.redirect('/login');
-    }
-};
 
-// Route: Home Page
-app.get('/', checkAuth, (req, res) => {
-    // This route is accessible only if the user is authenticated
-    res.render('login', { accountType: req.session.accountType });
-});
 //! get sẽ là method mà bọn mày sử dụng nhiều nhất, chỉ khi submit form như đăng nhập đổi mật khẩu thì thì mới xài post
 // Route: Login Page
+app.use('/',require("./routes/general/loginRoute"));
 app.use('/login', require("./routes/general/loginRoute")); //! nếu muốn sử dụng layout khác với default thì chỉnh layout trong này 
+app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
+app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
+app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
 //!ĐIỀU hướng cái này: index sẽ là ROOT, từ đó đi vào phải có ./, ko có nó bị lỗi ko hiểu tại sao
 
 //! Viết code bọn bay tiếp theo dưới này
