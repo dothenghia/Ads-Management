@@ -45,3 +45,24 @@
     width: 100%;
     z-index: 1;
 }
+
+
+@keyframes movein-from-top {
+    0% {
+        transform: translate(0, -100vh);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes movein-from-left {
+    0% {
+        transform: translate(-100vw, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}

@@ -25,6 +25,8 @@
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+
+    animation: movein-from-left 0.8s ease-out ;
 }
 
 .ad-sidebar::-webkit-scrollbar,
