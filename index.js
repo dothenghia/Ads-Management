@@ -61,27 +61,8 @@ app.get('/', checkAuth, (req, res) => {
 });
 //! get sẽ là method mà bọn mày sử dụng nhiều nhất, chỉ khi submit form như đăng nhập đổi mật khẩu thì thì mới xài post
 // Route: Login Page
-app.get('/login', (req, res) => {
-    res.render('login',{layout: 'layout_general'}); //! nếu muốn sử dụng layout khác với default thì chỉnh layout trong này 
-});
-
-
-// Route: Handle login form submission //!POST
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-  
-    // Find the user in the simulated user database
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        // Set the user's account type in the session
-        req.session.accountType = user.accountType;
-        // Redirect to the home page after successful login
-        res.redirect('/');
-    } else {
-        // Display an error message for invalid username or password
-        res.render('login', { layout: 'layout_general', error: 'Sai tên đăng nhập hoặc mật khẩu.' }); //! t có thể sửa một element trong hbs, TUY NHIÊN: Nếu nhiều quá thì sãy xài ROUTES và CONTROLLERS
-    }
-});
+app.use('/login', require("./routes/general/loginRoute")); //! nếu muốn sử dụng layout khác với default thì chỉnh layout trong này 
+//!ĐIỀU hướng cái này: index sẽ là ROOT, từ đó đi vào phải có ./, ko có nó bị lỗi ko hiểu tại sao
 
 //! Viết code bọn bay tiếp theo dưới này
 //! Mẫu cho việc sử dụng  ROUTES Vào CONTROLLERS
