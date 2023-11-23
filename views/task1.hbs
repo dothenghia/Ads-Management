@@ -1,0 +1,29 @@
+<!--contain-->
+<div class="container">
+  <h1 class="text-center">Inspiring Quotes</h1>
+  <div class="row destacados">
+    {{#each emotions}}
+      <div class="col-md-3">
+        <a href="#">
+          <img
+            src="images{{imagePath}}"
+            alt="{{title}}"
+            class="img-circle img-thumbnail"
+            onclick="changeQuote('images{{quotePath}}')"
+          />
+          <h2>{{title}}</h2>
+        </a>
+      </div>
+    {{/each}}
+  </div>
+  <div class="row text-center">
+    <img class="img-thumbnail" src="images/task1/default.jpg" id="quote" />
+  </div>
+</div>
+<!--/contain-->
+
+<script>
+  function changeQuote(quotePath){
+    document.querySelector('#quote').src = quotePath;
+  }
+</script>

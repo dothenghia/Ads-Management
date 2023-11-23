@@ -9,7 +9,6 @@
 //! Routes sẽ chứa các request của user sau đó đưa đến controller 
 
 // các thư mục đều đã có file mẫu nên dựa theo đó để làm
-
 const express = require('express'); //Khai báo các thứ cần thiết
 const session = require('express-session');
 const bodyParser = require('body-parser');
