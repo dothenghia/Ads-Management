@@ -111,13 +111,27 @@ function AdSidebar_Info(adLocationData) {
 
 export default function AdSidebar(adLocationData) {
 
-    return (
-        `<div class="ad-sidebar-container">
 
-            <div class="ad-sidebar">
+    // Close sidebar handler
+    function CloseAdSidebar() {
+        document.querySelector('.sidebar-root').innerHTML = '';
+    }
+    window.CloseAdSidebar = CloseAdSidebar;
+
+    function PreventCloseAdSidebar(e) {
+        e.stopPropagation();
+    }
+    window.PreventCloseAdSidebar = PreventCloseAdSidebar;
+
+
+
+    return (
+        `<div class="ad-sidebar-container" onclick="CloseAdSidebar()">
+
+            <div class="ad-sidebar" onclick="PreventCloseAdSidebar(event)">
                 <div class="ad-sidebar__header">
                     <h1>Thông tin địa điểm</h1>
-                    <button type="button" onclick="document.querySelector('.sidebar-root').innerHTML = ''">
+                    <button type="button" onclick="CloseAdSidebar()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
