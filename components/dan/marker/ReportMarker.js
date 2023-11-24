@@ -1,6 +1,6 @@
 
-let tgspColor = '#DC3545';
-let dkndColor = '#F6BA45';
+let tgspColor = '#D21312';
+let dkndColor = '#FFA33C';
 let dgykColor = '#F448CE';
 let gdtmColor = '#9747FF';
 
@@ -26,8 +26,101 @@ export default function ReportMarker(map) {
                 ['==', ['get', 'form'], 'Giải đáp thắc mắc'], gdtmColor, // Màu của gdtm
                 '#000000' // Màu mặc định
             ],
-            'circle-radius': 13,
+            'circle-radius': 14,
         }
     });
+
+    map.loadImage('/assets/dan/TGSP.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('tgsp-icon', image);
+
+        map.addLayer({
+            id: 'ReportMarker-icon-tgsp',
+            type: 'symbol',
+            source: 'CombinedLocation',
+            filter: [
+                'all',
+                ['!', ['has', 'point_count']],
+                ['==', ['get', 'type'], 'ddbk'],
+                ['==', ['get', 'form'], 'Tố giác sai phạm'],
+                ['==', ['get', 'markerType'], 'Report']
+            ],
+            layout: {
+                'icon-image': 'tgsp-icon',
+                'icon-size': 0.75,
+                // 'icon-allow-overlap': true
+            }
+        });
+    });
+    
+    map.loadImage('/assets/dan/DKND.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('dknd-icon', image);
+
+        map.addLayer({
+            id: 'ReportMarker-icon-dknd',
+            type: 'symbol',
+            source: 'CombinedLocation',
+            filter: [
+                'all',
+                ['!', ['has', 'point_count']],
+                ['==', ['get', 'type'], 'ddbk'],
+                ['==', ['get', 'form'], 'Đăng ký nội dung'],
+                ['==', ['get', 'markerType'], 'Report']
+            ],
+            layout: {
+                'icon-image': 'dknd-icon',
+                'icon-size': 0.75,
+                // 'icon-allow-overlap': true
+            }
+        });
+    });
+
+    map.loadImage('/assets/dan/DGYK.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('dgyk-icon', image);
+
+        map.addLayer({
+            id: 'ReportMarker-icon-dgyk',
+            type: 'symbol',
+            source: 'CombinedLocation',
+            filter: [
+                'all',
+                ['!', ['has', 'point_count']],
+                ['==', ['get', 'type'], 'ddbk'],
+                ['==', ['get', 'form'], 'Đóng góp ý kiến'],
+                ['==', ['get', 'markerType'], 'Report']
+            ],
+            layout: {
+                'icon-image': 'dgyk-icon',
+                'icon-size': 0.75,
+                // 'icon-allow-overlap': true
+            }
+        });
+    });
+
+    map.loadImage('/assets/dan/GDTM.png', (error, image) => {
+        if (error) throw error;
+        map.addImage('gdtm-icon', image);
+
+        map.addLayer({
+            id: 'ReportMarker-icon-gdtm',
+            type: 'symbol',
+            source: 'CombinedLocation',
+            filter: [
+                'all',
+                ['!', ['has', 'point_count']],
+                ['==', ['get', 'type'], 'ddbk'],
+                ['==', ['get', 'form'], 'Giải đáp thắc mắc'],
+                ['==', ['get', 'markerType'], 'Report']
+            ],
+            layout: {
+                'icon-image': 'gdtm-icon',
+                'icon-size': 0.75,
+                // 'icon-allow-overlap': true
+            }
+        });
+    });
+
     
 }
