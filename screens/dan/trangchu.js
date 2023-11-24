@@ -1,24 +1,11 @@
 
-// Import Components
-import Header from '/components/dan/Header.js';
-import ReportListButton from '/components/dan/ReportListButton.js';
-
-import AdMarker from '/components/dan/marker/AdMarker.js';
-import ReportMarker from '/components/dan/marker/ReportMarker.js';
-import RandomMarker from '/components/dan/marker/RandomMarker.js';
-import RandomPopup from '/components/dan/popup/RandomPopup.js';
-
-// import ReportFormModal from '/components/dan/modal/ReportFormModal.js';
-
-// Import Functions
-import { getAllAdList } from '/functions/dan/getAdLocationInfo.js';
-import { getAllReportList } from '/functions/dan/getReportLocationInfo.js';
+// Import components
+import AdMarker from "/components/dan/marker/AdMarker.js";
+import ReportMarker from "/components/dan/marker/ReportMarker.js";
 
 // MapBox Initialization
 var mylongitude = 106.682667;
 var mylatitude = 10.762886;
-
-mapboxgl.accessToken = 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ';
 
 
 const trangchu = {
@@ -27,22 +14,9 @@ const trangchu = {
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
-            zoom: 16,
-        }).addControl(
-            new mapboxgl.NavigationControl({ showCompass: true }),
-            'bottom-right'
-        ).addControl(
-            new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                // When active the map will receive updates to the device's location as it changes.
-                trackUserLocation: true,
-                // Draw an arrow next to the location dot to indicate which direction the device is heading.
-                showUserHeading: true
-            }),
-            'bottom-left'
-        )
+            accessToken: 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ',
+            zoom: 15
+        })
 
         this.map.doubleClickZoom.disable();
 
@@ -53,151 +27,184 @@ const trangchu = {
 
     // Fetch dữ liệu các điểm QC và Show lên Map
     fetchAdMarkers: async function () {
-        this.adLocationList = await getAllAdList();
-        this.renderAdMarkers();
-    },
-    renderAdMarkers: function () {
-        this.adLocationList.forEach(adInfo => AdMarker(this.map, adInfo));
+        let data = await fetch('/functions/dan/AdLocation.json');
+        this.adLocationList = await data.json();
     },
 
-
-    // Fetch dữ liệu các điểm Bị báo cáo và Show lên Map
+    // Fetch dữ liệu các điểm QC và Show lên Map
     fetchReportMarkers: async function () {
-        this.reportLocationList = await getAllReportList();
-        this.renderReportMarkers();
-    },
-    renderReportMarkers: function () {
-        this.reportLocationList.forEach(reportInfo => ReportMarker(this.map, reportInfo));
-    },
-
-
-    renderHomePage: function () {
-        document.getElementById('main').innerHTML = `
-            ${Header()}
-
-            <div class="report-list-button-root"></div>
-            
-            <div class="modal-root"></div>
-            
-            <div class="sidebar-root"></div>
-
-            <div class="random-popup-root"></div>
-
-            <div class="captcha-box-root"></div>
-
-            <div class="filter-switch-root">
-                <h1 class="filter-title">Quảng cáo</h1>
-                <label class="filter-switch">
-                    <input type="checkbox" id="filter-switch-ad" checked>
-                    <span class="filter-switch__slider round"></span>
-                </label>
-                <h1 class="filter-title divider">Báo cáo</h1>
-                <label class="filter-switch">
-                    <input type="checkbox" id="filter-switch-report" checked>
-                    <span class="filter-switch__slider round"></span>
-                </label>
-            </div>
-        `
-
-        ReportListButton()
-    },
-
-
-    filterHandler: function () {
-        document.querySelector('#filter-switch-ad').onclick = function () {
-            if (this.checked) {
-                let markers = document.getElementsByClassName("ad-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "visible";
-                }
-            } else {
-                let markers = document.getElementsByClassName("ad-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "hidden";
-                }
-            }
-        }
-
-        document.querySelector('#filter-switch-report').onclick = function () {
-            if (this.checked) {
-                let markers = document.getElementsByClassName("report-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "visible";
-                }
-            } else {
-                let markers = document.getElementsByClassName("report-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "hidden";
-                }
-            }
-        }
+        let data = await fetch('/functions/dan/ReportLocation.json');
+        this.reportLocationList = await data.json();
     },
 
 
     clusteringMarkers: function () {
 
+        this.map.on('load', () => {
+
+            let filteredReportList = this.reportLocationList.features.filter(feature => 
+                feature.properties.type !== 'qc' && feature.properties.type !== 'ddqc'
+            );
+            console.log(filteredReportList)
+
+            let combinedData = {
+                type: 'FeatureCollection',
+                features: [
+                    ...this.adLocationList.features.map(feature => ({
+                        ...feature,
+                        properties: {
+                            ...feature.properties,
+                            markerType: 'Ad'
+                        }
+                    })),
+                    ...filteredReportList.map(feature => ({
+                        ...feature,
+                        properties: {
+                            ...feature.properties,
+                            markerType: 'Report'
+                        }
+                    }))
+                ]
+            };
+            console.log(combinedData)
+
+            // ====== 1. THÊM SOURCE VÀO MAP ======
+            // Và set 'cluster' option to true
+            // GL-JS sẽ thêm thuộc tính point_count vào dữ liệu nguồn.
+            // CHO NÊN LÀ PHẢI THÊM FILTER ['!', ['has', 'point_count']] VÀO các marker bình thường
+            this.map.addSource('CombinedLocation', {
+                type: 'geojson',
+                data: combinedData,
+                cluster: true,
+                clusterMaxZoom: 14,
+                clusterRadius: 30
+            });
 
 
-    },
+            // ====== 2/ THÊM LAYER MARKER VÀO MAP ======
+            // Render Địa điểm QC và Địa điểm BC
+            AdMarker(this.map)
+
+            ReportMarker(this.map)
 
 
-    // Xử lý khi người dùng nhấn 2 lần vào điểm bất kì trên bản đồ
-    geocodingRandomPosotion: function () {
-        this.map.on('dblclick', (e) => {
-            var coordinates = e.lngLat.toArray();
-
-            trangchu.map._markers.forEach(marker => {
-                if (marker._element.id == 'random-marker') {
-                    marker.remove();
+            // ====== 3/ GOM NHÓM ======
+            // Địa điểm QC - Khi Gom nhóm
+            this.map.addLayer({
+                id: 'LocationMarker-cluster',
+                type: 'circle',
+                source: 'CombinedLocation',
+                filter: ['has', 'point_count'],
+                paint: {
+                    'circle-color': [
+                        'step',
+                        ['get', 'point_count'],
+                        '#51bbd6', 3, // Ít hơn 3 sẽ là màu
+                        '#f1f075', 5, // Ít hơn 5 sẽ là màu vàng
+                        '#f28cb1'     // Còn lại là màu hồng
+                    ],
+                    'circle-radius': [
+                        'step',
+                        ['get', 'point_count'],
+                        15, 2, 20, 4, 25
+                    ]
                 }
-            })
+            });
 
-            reverseGeocode(coordinates);
-        });
-
-        // Function to perform reverse geocoding
-        function reverseGeocode(coordinates) {
-            var url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${mapboxgl.accessToken}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    var location = data;
-
-                    let extractData = {
-                        longitude: coordinates[0],
-                        latitude: coordinates[1],
-
-                        name: location.features[0].text,
-
-                        region: `${location.features[1].text}, ${location.features[3].text}, ${location.features[4].text}`,
-                    }
-
-                    return extractData;
-                })
-                .then(data => {
-                    RandomMarker(trangchu.map, data)
-
-                    document.querySelector('.random-popup-root').innerHTML = RandomPopup(trangchu.map, data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
+            // Hiển thị số lượng điểm trong 1 cluster
+            this.map.addLayer({
+                id: 'LocationMarker-cluster-count',
+                type: 'symbol',
+                source: 'CombinedLocation', // ID của cái source ở trên
+                filter: ['has', 'point_count'],
+                layout: {
+                    'text-field': ['get', 'point_count_abbreviated'],
+                    'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                    'text-size': 12
+                }
+            });
+        })
 
     },
 
 
-    start: function () {
+    start: async function () {
         this.init();
-        this.fetchReportMarkers();
-        this.fetchAdMarkers();
-        this.renderHomePage();
-        this.filterHandler();
+
+        await this.fetchAdMarkers();
+        await this.fetchReportMarkers();
+
         this.clusteringMarkers();
-        this.geocodingRandomPosotion();
+
     }
 }
 
 
 trangchu.start();
+
+
+
+
+// // ====== 1. THÊM SOURCE VÀO MAP ======
+//             // Và set 'cluster' option to true
+//             // GL-JS sẽ thêm thuộc tính point_count vào dữ liệu nguồn.
+//             // CHO NÊN LÀ PHẢI THÊM FILTER ['!', ['has', 'point_count']] VÀO các marker bình thường
+//             this.map.addSource('AdLocation', { // ID của Source, muốn đặt j đặt
+//                 type: 'geojson',
+//                 data: this.adLocationList, // Dữ liệu geojson
+//                 cluster: true,
+//                 clusterMaxZoom: 14, // Max zoom để bắt đầu clustering
+//                 clusterRadius: 30
+//             });
+
+//             this.map.addSource('ReportLocation', {
+//                 type: 'geojson',
+//                 data: this.reportLocationList,
+//                 cluster: true,
+//                 clusterMaxZoom: 14,
+//                 clusterRadius: 30
+//             });
+
+
+//             // ====== 2/ THÊM LAYER MARKER VÀO MAP ======
+//             // Render Địa điểm QC và Địa điểm BC
+//             AdMarker(this.map)
+
+//             ReportMarker(this.map)
+
+
+//             // ====== 3/ GOM NHÓM ======
+//             // Địa điểm QC - Khi Gom nhóm
+//             this.map.addLayer({
+//                 id: 'AdMarker-cluster',
+//                 type: 'circle',
+//                 source: 'AdLocation',
+//                 filter: ['has', 'point_count'],
+//                 paint: {
+//                     'circle-color': [
+//                         'step',
+//                         ['get', 'point_count'],
+//                         '#51bbd6', 3, // Ít hơn 3 sẽ là màu
+//                         '#f1f075', 5, // Ít hơn 5 sẽ là màu vàng
+//                         '#f28cb1'     // Còn lại là màu hồng
+//                     ],
+//                     'circle-radius': [
+//                         'step',
+//                         ['get', 'point_count'],
+//                         15, 2, 20, 4, 25
+//                     ]
+//                 }
+//             });
+
+//             // Hiển thị số lượng điểm trong 1 cluster
+//             this.map.addLayer({
+//                 id: 'AdMarker-cluster-count',
+//                 type: 'symbol',
+//                 source: 'AdLocation', // ID của cái source ở trên
+//                 filter: ['has', 'point_count'],
+//                 layout: {
+//                     'text-field': ['get', 'point_count_abbreviated'],
+//                     'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+//                     'text-size': 12
+//                 }
+//             });
