@@ -9,6 +9,9 @@ import ReportMarker from '/components/dan/marker/ReportMarker.js';
 import RandomMarker from '/components/dan/marker/RandomMarker.js';
 import RandomPopup from '/components/dan/popup/RandomPopup.js';
 
+// Import Functions
+import { getAllAdList } from '/functions/dan/getAdLocationInfo.js';
+import { getAllReportList } from '/functions/dan/getReportLocationInfo.js';
 
 // MapBox Initialization
 var mylongitude = 106.682667;
@@ -32,9 +35,7 @@ const trangchu = {
                 positionOptions: {
                     enableHighAccuracy: true
                 },
-                // When active the map will receive updates to the device's location as it changes.
                 trackUserLocation: true,
-                // Draw an arrow next to the location dot to indicate which direction the device is heading.
                 showUserHeading: true
             }),
             'bottom-left'
@@ -82,16 +83,14 @@ const trangchu = {
 
     // ====== Fetch dữ liệu các Địa điểm QC và Địa điểm BC
     fetchAdMarkers: async function () {
-        let data = await fetch('/functions/dan/AdLocation.json');
-        this.adLocationList = await data.json();
+        this.adLocationList = await getAllAdList();
     },
     fetchReportMarkers: async function () {
-        let data = await fetch('/functions/dan/ReportLocation.json');
-        this.reportLocationList = await data.json();
+        this.reportLocationList = await getAllReportList();
     },
 
     // ====== Hiển thị và Gom nhóm các Địa điểm QC và Địa điểm BC
-    clusteringMarkers: function () {
+    renderMarkers: function () {
 
         this.map.on('load', () => {
 
@@ -154,7 +153,7 @@ const trangchu = {
                     'circle-color': [
                         'step', ['get', 'point_count'],
                         '#51bbd6', 3, // Ít hơn 3 sẽ là màu
-                        '#f1f075', 5, // Ít hơn 5 sẽ là màu vàng
+                        '#FFD93D', 5, // Ít hơn 5 sẽ là màu vàng
                         '#f28cb1'     // Còn lại là màu hồng
                     ],
                     'circle-radius': [
@@ -253,7 +252,7 @@ const trangchu = {
 
         await this.fetchAdMarkers();
         await this.fetchReportMarkers();
-        this.clusteringMarkers();
+        this.renderMarkers();
 
         this.filterHandler();
         this.geocodingRandomPosotion();

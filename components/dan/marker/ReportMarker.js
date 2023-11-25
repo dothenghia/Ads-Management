@@ -4,6 +4,9 @@ let dkndColor = '#FFA33C';
 let dgykColor = '#F448CE';
 let gdtmColor = '#9747FF';
 
+import DetailReportModal from "../modal/DetailReportModal.js";
+import { getReportInfoById } from '/functions/dan/getReportLocationInfo.js';
+
 export default function ReportMarker(map) {
 
     // Tạo layer hình tròn
@@ -122,5 +125,23 @@ export default function ReportMarker(map) {
         });
     });
 
-    
+
+
+    // Xử lý sự kiện click vào marker
+    map.on('click', 'ReportMarker-circle', (e) => {
+        let infomationOfMarker = e.features[0];
+        // console.log(infomationOfMarker.properties);
+        
+        getReportInfoById(infomationOfMarker.properties.reportId).then(reportInfo => {
+            document.querySelector('.modal-root').innerHTML = DetailReportModal(reportInfo);
+        })
+    });
+
+    // Chỉnh con trỏ chuột khi hover vào marker
+    map.on('mouseenter', 'ReportMarker-circle', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'ReportMarker-circle', () => {
+        map.getCanvas().style.cursor = '';
+    });
 }
