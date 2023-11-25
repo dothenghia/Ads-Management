@@ -183,17 +183,27 @@ const trangchu = {
     filterHandler: function () {
         document.querySelector('#filter-switch-ad').onclick = function () {
             if (this.checked) {
-                console.log('checked')
+                trangchu.map.setLayoutProperty('AdMarker-circle', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('AdMarker-text', 'visibility', 'visible');
             } else {
-                console.log('unchecked')
+                trangchu.map.setLayoutProperty('AdMarker-circle', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('AdMarker-text', 'visibility', 'none');
             }
         }
 
         document.querySelector('#filter-switch-report').onclick = function () {
             if (this.checked) {
-                console.log('checked')
+                trangchu.map.setLayoutProperty('ReportMarker-circle', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-tgsp', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dknd', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dgyk', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-gdtm', 'visibility', 'visible');
             } else {
-                console.log('unchecked')
+                trangchu.map.setLayoutProperty('ReportMarker-circle', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-tgsp', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dknd', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dgyk', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-gdtm', 'visibility', 'none');
             }
         }
     },
