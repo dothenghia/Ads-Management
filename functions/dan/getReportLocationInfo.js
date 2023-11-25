@@ -205,6 +205,10 @@ async function getAllReportList() {
     return reportCollectionGeoJSON;
 }
 
+async function getNormalList() {
+    return fakeReportLocationInfo;
+}
+
 async function getReportInfoById(reportId) {
     return fakeReportLocationInfo.find(info => info.reportId === reportId);
 }
@@ -219,6 +223,7 @@ async function getDetailReportInfoOfAd(locationId, adId) {
 
 export {
     getAllReportList,
+    getNormalList,
     getReportInfoById,
     getDetailReportInfoOfAdLocation,
     getDetailReportInfoOfAd,

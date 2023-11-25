@@ -185,9 +185,13 @@ const trangchu = {
             if (this.checked) {
                 trangchu.map.setLayoutProperty('AdMarker-circle', 'visibility', 'visible');
                 trangchu.map.setLayoutProperty('AdMarker-text', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'visible');
             } else {
                 trangchu.map.setLayoutProperty('AdMarker-circle', 'visibility', 'none');
                 trangchu.map.setLayoutProperty('AdMarker-text', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'none');
             }
         }
 
@@ -198,12 +202,16 @@ const trangchu = {
                 trangchu.map.setLayoutProperty('ReportMarker-icon-dknd', 'visibility', 'visible');
                 trangchu.map.setLayoutProperty('ReportMarker-icon-dgyk', 'visibility', 'visible');
                 trangchu.map.setLayoutProperty('ReportMarker-icon-gdtm', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'visible');                
             } else {
                 trangchu.map.setLayoutProperty('ReportMarker-circle', 'visibility', 'none');
                 trangchu.map.setLayoutProperty('ReportMarker-icon-tgsp', 'visibility', 'none');
                 trangchu.map.setLayoutProperty('ReportMarker-icon-dknd', 'visibility', 'none');
                 trangchu.map.setLayoutProperty('ReportMarker-icon-dgyk', 'visibility', 'none');
                 trangchu.map.setLayoutProperty('ReportMarker-icon-gdtm', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'none');
             }
         }
     },
