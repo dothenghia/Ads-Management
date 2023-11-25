@@ -8,6 +8,7 @@ let chuaqhColorSubtle = '#9EEAF9';
 let reportColor = '#FF1E1E';
 let reportColorSubtle = '#e8828e';
 
+import AdPopup from '/components/dan/popup/AdPopup.js';
 import AdSidebar from '/components/dan/sidebar/AdSidebar.js';
 import { getAdLocationInfoById } from '/functions/dan/getAdLocationInfo.js';
 
@@ -29,7 +30,7 @@ export default function AdMarker(map) {
                 // ['==', ['get', 'isReported'], true], reportColor, // Màu xanh nhạt khi quyhoach là false
                 ['==', ['get', 'quyhoach'], true], primaryColor, // Màu xanh khi quyhoach là true
                 ['==', ['get', 'quyhoach'], false], chuaqhColor, // Màu xanh nhạt khi quyhoach là false
-                '#000000' 
+                '#000000'
             ],
             'circle-radius': 11,
             'circle-stroke-width': 3,
@@ -66,7 +67,6 @@ export default function AdMarker(map) {
     });
 
 
-
     // Xử lý sự kiện click vào marker
     map.on('click', 'AdMarker-circle', (e) => {
         let infomationOfMarker = e.features[0];
@@ -77,11 +77,35 @@ export default function AdMarker(map) {
         })
     });
 
-    // Chỉnh con trỏ chuột khi hover vào marker
-    map.on('mouseenter', 'AdMarker-circle', () => {
+
+    // Tạo popup (Nhưng chưa hiển thị)
+    let popup = new mapboxgl.Popup({
+        offset: 20, // Dời lên 20px
+        closeButton: false, // Không hiển thị nút đóng
+    })
+
+    // Xử lý sự kiện hover vào marker
+    map.on('mouseenter', 'AdMarker-circle', (e) => {
         map.getCanvas().style.cursor = 'pointer';
+
+        let infomationOfMarker = e.features[0];
+        // console.log(infomationOfMarker.properties);
+        const coordinates = e.features[0].geometry.coordinates.slice();
+
+        // Đảm bảo rằng nếu bản đồ được thu nhỏ sao cho có thể nhìn thấy nhiều bản sao của đối tượng địa lý thì cửa sổ bật lên sẽ xuất hiện trên bản sao được trỏ tới.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360; }
+
+        // Show popup
+        popup.setLngLat(coordinates)
+            .setHTML(
+                `${AdPopup(infomationOfMarker.properties)}`
+            )
+            .addTo(map);
     });
+
     map.on('mouseleave', 'AdMarker-circle', () => {
         map.getCanvas().style.cursor = '';
+
+        popup.remove();
     });
 }

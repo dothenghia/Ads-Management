@@ -1,25 +1,41 @@
-.report-marker-popup-root,
-.ad-marker-popup-root {
-    display: none;
+
+/* Style đè lên style mặc định của Mapbox */
+.mapboxgl-popup {
+    max-width: fit-content !important;
+    filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.25)) !important;
 }
-.report-marker-popup-root.hover,
-.ad-marker-popup-root.hover {
-    display: block;
+.mapboxgl-popup .mapboxgl-popup-content {
+    padding: 0px !important;
+    background-color: transparent !important;
+}
+.mapboxgl-popup-tip {
+    filter: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.25)) !important;
 }
 
 .report-popup,
 .ad-popup {
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: calc(-340px / 2 + 50%);
-    z-index: 30 !important;
-
     background-color: var(--white-color);
     padding: 12px 16px;
     border-radius: 8px;
     width: 332px;
     height: fit-content;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mapboxgl-popup-anchor-top-right .report-popup,
+.mapboxgl-popup-anchor-top-right .ad-popup {
+    border-top-right-radius: 0px;
+}
+.mapboxgl-popup-anchor-top-left .report-popup,
+.mapboxgl-popup-anchor-top-left .ad-popup {
+    border-top-left-radius: 0px;
+}
+.mapboxgl-popup-anchor-bottom-right .report-popup,
+.mapboxgl-popup-anchor-bottom-right .ad-popup {
+    border-bottom-right-radius: 0px;
+}
+.mapboxgl-popup-anchor-bottom-left .report-popup,
+.mapboxgl-popup-anchor-bottom-left .ad-popup {
+    border-bottom-left-radius: 0px;
 }
 
 

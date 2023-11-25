@@ -152,7 +152,7 @@ const trangchu = {
                 paint: {
                     'circle-color': [
                         'step', ['get', 'point_count'],
-                        '#51bbd6', 3, // Ít hơn 3 sẽ là màu
+                        '#51bbd6', 3, // Ít hơn 3 sẽ là màu xanh
                         '#FFD93D', 5, // Ít hơn 5 sẽ là màu vàng
                         '#f28cb1'     // Còn lại là màu hồng
                     ],
@@ -203,20 +203,19 @@ const trangchu = {
     geocodingRandomPosotion: function () {
         this.map.on('dblclick', (e) => {
             var coordinates = e.lngLat.toArray();
-            console.log(coordinates)
 
-            // trangchu.map._markers.forEach(marker => {
-            //     if (marker._element.id == 'random-marker') {
-            //         marker.remove();
-            //     }
-            // })
+            trangchu.map._markers.forEach(marker => {
+                if (marker._element.id == 'random-marker') {
+                    marker.remove();
+                }
+            })
 
-            // reverseGeocode(coordinates);
+            reverseGeocode(coordinates);
         });
 
         // Function to perform reverse geocoding
         function reverseGeocode(coordinates) {
-            var url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${mapboxgl.accessToken}`;
+            var url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ`;
 
             fetch(url)
                 .then(response => response.json())
