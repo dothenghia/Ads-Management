@@ -27,7 +27,9 @@ app.engine('hbs', expressHbs.engine({
     extname: 'hbs',
     defaultLayout: 'layout', //!Layout sẽ là phần header dành cho cán bộ chung, nếu thấy tại sao tao có layout riêng ở bên dưới nữa thì đọc phần bên dưới
     layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/',
+    partialsDir: [
+        __dirname + '/views/partials/'
+    ],
 }));
 app.set('view engine', 'hbs');
 
@@ -54,6 +56,7 @@ app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
 //!ĐIỀU hướng cái này: index sẽ là ROOT, từ đó đi vào phải có ./, ko có nó bị lỗi ko hiểu tại sao
 
 //! Viết code bọn bay tiếp theo dưới này
+app.use('/phuong', require("./routes/user/phuongRoute"));
 //! Mẫu cho việc sử dụng  ROUTES Vào CONTROLLERS
 // app.use("/task1.htm", require("./routes/task1Route"))
 // app.use("/task2.htm", require("./routes/task2Route"))
