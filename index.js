@@ -14,7 +14,11 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
 const authMiddleware = require('./controllers/authMiddleware');
+const helpers = {
+    "checkRole": require("./functions/canbo/mathOperations")
+}
 const app = express();
+
 app.use(express.static(__dirname + "/html"));
 //! điều này sẽ khiến khi import các CSS ở trong cái hbs Thì chỉ cần ghi css/....
 // Use body-parser middleware to parse form data
@@ -28,8 +32,13 @@ app.engine('hbs', expressHbs.engine({
     defaultLayout: 'layout', //!Layout sẽ là phần header dành cho cán bộ chung, nếu thấy tại sao tao có layout riêng ở bên dưới nữa thì đọc phần bên dưới
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: [
-        __dirname + '/views/partials/'
+        __dirname + '/views/partials/',
+        __dirname + '/views/partials/components',
+        __dirname + '/views/partials/screens/'
     ],
+    helpers: {
+        equalNumber: helpers.checkRole.equalNumber
+    }
 }));
 app.set('view engine', 'hbs');
 
