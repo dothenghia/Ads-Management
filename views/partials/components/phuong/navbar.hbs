@@ -1,0 +1,8 @@
+<div id="side-bar" class="d-flex flex-column justify-content-between">
+    <a href="/phuong"><img src="/assets/img/logo.svg" alt=""></a>
+    <ul>
+        <li {{#if (equalNumber current 0)}}class="sidebar-active"{{/if}}><img src="/assets/icon/bando_icon.svg">Bản đồ</li>
+        <li {{#if (equalNumber current 1)}}class="sidebar-active"{{/if}}><img src="/assets/icon/quanly_ic_normal.svg">Quản lý</li>
+        <li {{#if (equalNumber current 2)}}class="sidebar-active"{{/if}}><img src="/assets/icon/kiemduyet_ic_normal.svg">Kiểm duyệt</li>
+    </ul>
+</div>

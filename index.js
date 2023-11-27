@@ -14,7 +14,11 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
 const authMiddleware = require('./controllers/authMiddleware');
+const helpers = {
+    "checkRole": require("./functions/canbo/mathOperations")
+}
 const app = express();
+
 app.use(express.static(__dirname + "/html"));
 //! điều này sẽ khiến khi import các CSS ở trong cái hbs Thì chỉ cần ghi css/....
 // Use body-parser middleware to parse form data
@@ -27,7 +31,14 @@ app.engine('hbs', expressHbs.engine({
     extname: 'hbs',
     defaultLayout: 'layout', //!Layout sẽ là phần header dành cho cán bộ chung, nếu thấy tại sao tao có layout riêng ở bên dưới nữa thì đọc phần bên dưới
     layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/',
+    partialsDir: [
+        __dirname + '/views/partials/',
+        __dirname + '/views/partials/components',
+        __dirname + '/views/partials/screens/'
+    ],
+    helpers: {
+        equalNumber: helpers.checkRole.equalNumber
+    }
 }));
 app.set('view engine', 'hbs');
 
@@ -74,6 +85,7 @@ app.post("/create", async (req, res) => {
 //!ĐIỀU hướng cái này: index sẽ là ROOT, từ đó đi vào phải có ./, ko có nó bị lỗi ko hiểu tại sao
 
 //! Viết code bọn bay tiếp theo dưới này
+app.use('/phuong', require("./routes/user/phuongRoute"));
 //! Mẫu cho việc sử dụng  ROUTES Vào CONTROLLERS
 // app.use("/task1.htm", require("./routes/task1Route"))
 // app.use("/task2.htm", require("./routes/task2Route"))
