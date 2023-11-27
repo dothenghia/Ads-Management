@@ -15,7 +15,8 @@ const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
 const authMiddleware = require('./controllers/authMiddleware');
 const helpers = {
-    "checkRole": require("./functions/canbo/mathOperations")
+    "mathOps": require("./functions/canbo/mathOps"),
+    "httpFuncs": require("./functions/canbo/httpFuncs")
 }
 const app = express();
 
@@ -37,7 +38,8 @@ app.engine('hbs', expressHbs.engine({
         __dirname + '/views/partials/screens/'
     ],
     helpers: {
-        equalNumber: helpers.checkRole.equalNumber
+        equalNumber: helpers.mathOps.equalNumber,
+        onclick: helpers.httpFuncs.onclick
     }
 }));
 app.set('view engine', 'hbs');

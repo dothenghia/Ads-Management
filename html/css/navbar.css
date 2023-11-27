@@ -61,6 +61,10 @@ main > div {
     display: flex;
 }
 
+#side-bar li:hover {
+    cursor: pointer;
+}
+
 #side-bar li:first-of-type {
     margin-top: 3em;
 }

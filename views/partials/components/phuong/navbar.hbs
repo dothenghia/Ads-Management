@@ -3,23 +3,23 @@
 <a id="logo" href="/phuong"><img src="/assets/img/logo.svg" alt=""></a>
 <div id="side-bar" class="d-flex flex-column justify-content-between">
     <ul>
-        <li {{#if (equalNumber current 0)}}class="sidebar-active"{{else}}onclick="window.location.href='bando'"{{/if}}>
+        <li {{#if (equalNumber current 0)}}class="sidebar-active"{{else}}{{#onclick 'bando'}}{{/onclick}}{{/if}}>
             <img src="/assets/icon/bando_icon.svg">
             Bản đồ
         </li>
-        <li {{#if (equalNumber current 1)}}class="sidebar-active"{{else}}onclick="window.location.href='thongtinquangcao'"{{/if}}>
+        <li {{#if (equalNumber current 1)}}class="sidebar-active"{{else}}{{#onclick 'thongtinquangcao'}}{{/onclick}}{{/if}}>
             <img src="/assets/icon/thongtinquangcao_icon.svg">
             Thông tin quảng cáo
         </li>
-        <li {{#if (equalNumber current 2)}}class="sidebar-active"{{else}}onclick="window.location.href='yeucaudieuchinh'"{{/if}}>
+        <li {{#if (equalNumber current 2)}}class="sidebar-active"{{else}}{{#onclick 'yeucaudieuchinh'}}{{/onclick}}{{/if}}>
             <img src="/assets/icon/yeucaudieuchinh_icon.svg">
             Yêu cầu điều chỉnh
         </li>
-        <li {{#if (equalNumber current 3)}}class="sidebar-active"{{else}}onclick="window.location.href='baocao'"{{/if}}>
+        <li {{#if (equalNumber current 3)}}class="sidebar-active"{{else}}{{#onclick 'baocao'}}{{/onclick}}{{/if}}>
             <img src="/assets/icon/baocao_icon.svg">
             Báo cáo
         </li>
-        <li {{#if (equalNumber current 4)}}class="sidebar-active"{{else}}onclick="window.location.href='thongtinquangcao'"{{/if}}>
+        <li {{#if (equalNumber current 4)}}class="sidebar-active"{{else}}{{#onclick 'thongtinquangcao'}}{{/onclick}}{{/if}}>
             <img src="/assets/icon/yeucaucapphep_icon.svg">
             Yêu cầu cấp phép
         </li>
