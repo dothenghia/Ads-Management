@@ -1,53 +1,30 @@
 API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
 
-AdMarker ==hover=> AdPopup
-    --> AdSidebar :
-        + AdSidebar_Thumbnail
-        + AdSidebar_Info --> Report Form Modal & Detail Report Modal
-        + AdCard --> Detail Ad Modal & Report Form Modal & Detail Report Modal
+PHÂN CÔNG :
 
-ReportMarker
-    --> Detail Report Modal
+Nghĩa :
++ Chốt Schema của từng Bảng Của Người Dân
++ Xác định những phương thức CRUD Của Người dân + Cái dạng dữ liệu cần trả về
 
-ReportListButton
-    --> ReportSidebar :
-        + ReportCard --> Detail Ad Modal & Detail Report Modal
+Khoa :
++ Tiếp tục chuyển đổi Handlebars Phường + Quận
+
+Bảo :
++ Tiếp tục hoàn thiện UI
++ Tiếp tục chuyển đổi Handlebars Sở
+
+Hải :
++ Những chức năng chung của cán bộ
+
+
+[+ Chốt Schema của từng Bảng Của Cán bộ] (Th nào code Hbs thì để ý Data cho từng trang)
+[+ Xác định những phương thức CRUD của Cán bộ]
 
 
 
-<details>
-    <summary>Phân công</summary>
-    
-    Người dân :
-    (Nghĩa)
-    - Thanh tìm kiếm
-    - Nút Danh sách /
-    - Nút thu phóng
-    - Các nút ẩn hiện
-    - 9 cái điểm đánh dấu (8/9)
-        + Click
-    - SideBar Thông tin địa điểm đặt QC + Thông tin chung của các QC đặt tại đó /
-    - Sidebar Danh sách báo cáo /
 
-    (Bảo)
-    - Popup Thông tin địa điểm bất kì
-    - Modal Thông tin chi tiết QC
-    - Modal Đơn phản hồi báo cáo
-    - Modal Thông tin chi tiết Báo cáo
 
-    Cán bộ :
-    (Khoa)
-    - Làm Phường
-    - Làm Quận
-
-    (Bảo + Ai xong thì qua phụ ní Bảo)
-    - Làm Sở
-
-    (Hải)
-    - Các trang chung của CB (Đăng nhập, Đăng ký, Quên mật khẩu, Đổi thông các nhân)
-
-</details>
 
 <details>
     <summary>Cấu trúc thư mục</summary>

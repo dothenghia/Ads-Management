@@ -1,5 +1,6 @@
 const controller = {}
 
+
 controller.show = (req, res) => {
     res.render('general/forgotPassword', {
         layout: 'layout_general',

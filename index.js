@@ -62,6 +62,26 @@ app.use('/login', require("./routes/general/loginRoute")); //! nếu muốn sử
 app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
 app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
+app.post("/create", async (req, res) => {
+    try {
+      const id = req.body.email; // Change res.body to req.body
+  
+      const userJson = {
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+      };
+  
+      // Wait for the Firestore operation to complete
+      await db.collection("accounts").doc(id).set(userJson);
+  
+      res.send("User created successfully");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+  
 //!ĐIỀU hướng cái này: index sẽ là ROOT, từ đó đi vào phải có ./, ko có nó bị lỗi ko hiểu tại sao
 
 //! Viết code bọn bay tiếp theo dưới này
