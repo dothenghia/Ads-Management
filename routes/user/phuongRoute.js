@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-router.use("/bando", require("./phuong/bandoRoute"));
+router.use("/bando", require("./phuong/bdRoute"));
+router.use("/thongtinquangcao", require("./phuong/ttqcRoute"));
 // router.use("/thongtinquangcao", require("./phuong/ttqcRoute"));
 // router.use("/yeucaudieuchinh", require("./phuong/ycdcRoute"));
 // router.use("/baocao", require("./phuong/bcRoute"));
