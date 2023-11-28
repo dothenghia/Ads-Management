@@ -1,3 +1,8 @@
+.report-form-modal-root.hide {
+    display: none;
+}
+
+
 .report-form-modal-container,
 .detail-report-modal-container,
 .detail-ad-modal-container {

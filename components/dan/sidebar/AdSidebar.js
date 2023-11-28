@@ -2,7 +2,6 @@
 import AdCard from "../card/AdCard.js"
 import StatusTag from '../tag/StatusTag.js'
 
-import ReportFormModal from "../modal/ReportFormModal.js";
 import DetailReportModal from "../modal/DetailReportModal.js";
 import { getDetailReportInfoOfAdLocation } from '/functions/dan/getReportLocationInfo.js';
 
@@ -55,7 +54,7 @@ function AdSidebar_Thumbnail(adLocationData) {
 function AdSidebar_Info(adLocationData) {
 
     function openReportFormModal_AdSidebar() {
-        document.querySelector('.modal-root').innerHTML = ReportFormModal();
+        document.querySelector('.report-form-modal-root').classList.remove('hide');
     }
     window.openReportFormModal_AdSidebar = openReportFormModal_AdSidebar;
 

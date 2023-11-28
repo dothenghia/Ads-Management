@@ -1,10 +1,9 @@
 
-import ReportFormModal from "./ReportFormModal.js";
 
 export default function DetailAdModal(detailAdInfo) {
 
     function openReportFormModal_DetailAdModal() {
-        document.querySelector('.modal-root').innerHTML = ReportFormModal();
+        document.querySelector('.report-form-modal-root').classList.remove('hide');
     }
 
     window.openReportFormModal_DetailAdModal = openReportFormModal_DetailAdModal;

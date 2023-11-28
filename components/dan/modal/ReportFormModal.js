@@ -3,7 +3,8 @@ import CaptchaBox from "../captcha/CaptchaBox.js";
 
 export default function ReportFormModal() {
 
-    function ShowCaptchaBox() {
+    function ShowCaptchaBox(e) {
+        e.preventDefault();
         document.querySelector('.captcha-box-root').innerHTML = CaptchaBox();
     }
     window.ShowCaptchaBox = ShowCaptchaBox;
@@ -48,7 +49,7 @@ export default function ReportFormModal() {
 
     // Close modal handler
     function CloseReportFormModal() {
-        document.querySelector('.modal-root').innerHTML = '';
+        document.querySelector('.report-form-modal-root').classList.add('hide');
     }
     window.CloseReportFormModal = CloseReportFormModal;
 
@@ -72,7 +73,8 @@ export default function ReportFormModal() {
 
                 <form
                     action=""
-                    onsubmit="event.preventDefault(); ShowCaptchaBox()"
+                    onsubmit="ShowCaptchaBox(event)"
+                    novalidate
                     class="report-form-modal__form"
                 >
                     <div class="report-form-modal__row">
@@ -134,8 +136,7 @@ export default function ReportFormModal() {
                         <textarea
                             id="report-form-modal__content"
                             class="report-form-modal__content"
-                            name="content"
-                            aria-label="content"
+                            name="report-form-modal__content"
                             placeholder="Nhập nội dung báo cáo"
                             required
                         ></textarea>

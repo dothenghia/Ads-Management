@@ -9,6 +9,8 @@ import ReportMarker from '/components/dan/marker/ReportMarker.js';
 import RandomMarker from '/components/dan/marker/RandomMarker.js';
 import RandomPopup from '/components/dan/popup/RandomPopup.js';
 
+import ReportFormModal from '/components/dan/modal/ReportFormModal.js';
+
 // Import Functions
 import { getAllAdList } from '/functions/dan/getAdLocationInfo.js';
 import { getAllReportList } from '/functions/dan/getReportLocationInfo.js';
@@ -56,6 +58,8 @@ const trangchu = {
             <div class="report-list-button-root"></div>
             
             <div class="modal-root"></div>
+            
+            <div class="report-form-modal-root hide">${ReportFormModal()}</div>
             
             <div class="sidebar-root"></div>
 
