@@ -13,9 +13,15 @@ body {
 }
 
 #content {
+    padding: 1vh 0.2vw;
     border: 5px solid white;
     border-radius: 20px 0 0 20px;
     background-color: white;
+}
+
+#title {
+    color: #6A6E83;
+    font-weight: bolder;
 }
 
 /* #filter-button {

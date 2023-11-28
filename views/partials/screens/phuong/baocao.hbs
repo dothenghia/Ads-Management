@@ -2,15 +2,27 @@
 <link rel="stylesheet" href="/css/table.css">
 <div class="container-fluid tb" id="content">
     <div class="row flex-row" id="title">
-        <h3 class="col"><strong>Thông Tin Quảng Cáo</strong></h3>
+        <h3 class="col"><strong>Báo cáo</strong></h3>
         <div class="col dropdown d-flex justify-content-end align-items-center">
+            {{!-- Thời điểm gửi báo cáo --}}
             <button class="btn dropdown-toggle" type="button" id="cntFilter" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Số lượng
+                Thời điểm gửi báo cáo
             </button>
             <div class="dropdown-menu" aria-labelledby="cntFilter">
                 <button class="dropdown-item" onclick="setDropdownFilterValue(this, 'Tất cả')">Tất cả</button>
                 <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 5')">&le; 5</button>
                 <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 10')">&le; 10</button>
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 15')">&le; 15</button>
+            </div>
+
+            {{!-- Loại hình báo cáo --}}
+            <button class="btn dropdown-toggle" type="button" id="cntFilter" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Loại hình báo cáo
+            </button>
+            <div class="dropdown-menu" aria-labelledby="cntFilter">
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, 'Tất cả')">Tố giác sai phạm</button>
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 5')">Đăng ký nội dung</button>
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 10')">Phường 1</button>
                 <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 15')">&le; 15</button>
             </div>
         </div>

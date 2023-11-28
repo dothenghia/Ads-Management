@@ -39,7 +39,7 @@ app.engine('hbs', expressHbs.engine({
     ],
     helpers: {
         equalNumber: helpers.mathOps.equalNumber,
-        onclick: helpers.httpFuncs.onclick
+        onclickRedirect: helpers.httpFuncs.onclickRedirect
     }
 }));
 app.set('view engine', 'hbs');

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/table.css">
 <div class="container-fluid tb" id="content">
     <div class="row flex-row" id="title">
-        <h3 class="col"><strong>Thông Tin Quảng Cáo</strong></h3>
+        <h3 class="col"><strong>Yêu Cầu Điều Chỉnh</strong></h3>
         <div class="col dropdown d-flex justify-content-end align-items-center">
             <button class="btn dropdown-toggle" type="button" id="cntFilter" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Số lượng
@@ -16,11 +16,3 @@
         </div>
     </div>
 </div>
-
-{{!-- Custom JS script --}}
-<script>
-    function setDropdownFilterValue(currentElement, value) {
-        let associatedFilterButton = currentElement.parentElement.attributes["aria-labelledby"].nodeValue;
-        document.querySelector("#" + associatedFilterButton).innerHTML = value;
-    }
-</script>
