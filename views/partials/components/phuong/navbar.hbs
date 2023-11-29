@@ -1,0 +1,31 @@
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/css/navbar.css">
+<a id="logo" href="/phuong"><img src="/assets/img/logo.svg" alt=""></a>
+<div id="side-bar" class="d-flex flex-column justify-content-between">
+    <ul>
+        <li {{#if (equalNumber current 0)}}class="sidebar-active"{{else}}{{#onclickRedirect 'bando'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/bando_icon.svg">
+            Bản đồ
+        </li>
+        <li {{#if (equalNumber current 1)}}class="sidebar-active"{{else}}{{#onclickRedirect 'thongtinquangcao'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/thongtinquangcao_icon.svg">
+            Thông tin quảng cáo
+        </li>
+        <li {{#if (equalNumber current 2)}}class="sidebar-active"{{else}}{{#onclickRedirect 'yeucaudieuchinh'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/yeucaudieuchinh_icon.svg">
+            Yêu cầu điều chỉnh
+        </li>
+        <li {{#if (equalNumber current 3)}}class="sidebar-active"{{else}}{{#onclickRedirect 'baocao'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/baocao_icon.svg">
+            Báo cáo
+        </li>
+        <li {{#if (equalNumber current 4)}}class="sidebar-active"{{else}}{{#onclickRedirect 'yeucaucapphep'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/yeucaucapphep_icon.svg">
+            Yêu cầu cấp phép
+        </li>
+    </ul>
+    <ul>
+        <li><img src="/assets/icon/thongtincanhan_icon.svg">Thông tin cá nhân</li>
+        <li><img src="/assets/icon/dangxuat_icon.svg">Đăng xuất</li>
+    </ul>
+</div>
