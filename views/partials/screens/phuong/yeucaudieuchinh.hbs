@@ -1,0 +1,18 @@
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/css/table.css">
+<div class="container-fluid tb" id="content">
+    <div class="row flex-row" id="title">
+        <h3 class="col"><strong>Yêu Cầu Điều Chỉnh</strong></h3>
+        <div class="col dropdown d-flex justify-content-end align-items-center">
+            <button class="btn dropdown-toggle" type="button" id="cntFilter" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Số lượng
+            </button>
+            <div class="dropdown-menu" aria-labelledby="cntFilter">
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, 'Tất cả')">Tất cả</button>
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 5')">&le; 5</button>
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 10')">&le; 10</button>
+                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 15')">&le; 15</button>
+            </div>
+        </div>
+    </div>
+</div>
