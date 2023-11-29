@@ -1,0 +1,43 @@
+<div id="side-bar" class="d-flex flex-column justify-content-between">
+    <a href="/so"><img src="/assets/img/logo.svg" alt=""></a>
+    <ul >
+        <li {{#if (equalNumber current 0)}}class="sidebar-active text-start"{{/if}} class="text-start"> 
+            <img src="/assets/icon/ad_ic_n.svg" class="mx-2 mb-2">
+            <span class="fs-4 fw-medium" style="color: rgb(93,102,121);">Quảng Cáo</span>
+        </li>
+
+        <li {{#if (equalNumber current 1)}}class="sidebar-active text-start"{{/if}} class="text-start"> 
+            <img src="/assets/icon/report_ic_a.svg" class="mx-2 mb-2">
+            <span {{#if (equalNumber current 1)}}class="fs-4 fw-medium text-primary"{{/if}}
+                class="fs-4 fw-medium" style="color: rgb(93,102,121);">Báo Cáo</span>
+        </li>
+        <li {{#if (equalNumber current 2)}}class="sidebar-active text-start"{{/if}} class="text-start"> 
+            <img src="/assets/icon/employee_ic_n.svg" class="mx-2 mb-2">
+            <span class="fs-4 fw-medium" style="color: rgb(93,102,121);">Nhân Sự</span>
+            
+        </li>
+        <li {{#if (equalNumber current 3)}}class="sidebar-active text-start"{{/if}} class="text-start"> 
+            <img src="/assets/icon/satistic_ic_n.svg" class="mx-2 mb-2">
+            <span class="fs-4 fw-medium" style="color: rgb(93,102,121);">Thống Kê</span>
+            
+        </li>
+        <li {{#if (equalNumber current 4)}}class="sidebar-active text-start"{{/if}} class="text-start"> 
+            <img src="/assets/icon/permit_ic_n.svg" class="mx-2 mb-2">
+            <span class="fs-4 fw-medium" style="color: rgb(93,102,121);">Cấp Phép</span>
+        </li>
+        <li {{#if (equalNumber current 5)}}class="sidebar-active text-start"{{/if}} class="text-start"> 
+            <img src="/assets/icon/adjust_ic_n.svg" class="mx-2 mb-2">
+            <span class="fs-4 fw-medium" style="color: rgb(93,102,121);">Điều Chỉnh</span>
+        </li>
+
+        <li class="text-start" style="margin-top: 15rem;"> 
+            <img src="/assets/icon/personalInfo_ic_n.svg" class="mx-2 mb-2">
+            <span class="fs-4 fw-medium" style="color: rgb(93,102,121);">Cá Nhân</span>
+        </li>
+        <li class="text-start"> 
+            <img src="/assets/icon/logOut_ic_n.svg" class="mx-2 mb-2">
+            <span class="fs-4 fw-medium" style="color: rgb(93,102,121);">Đăng Xuất</span>
+        </li>
+    
+    </ul>
+</div>

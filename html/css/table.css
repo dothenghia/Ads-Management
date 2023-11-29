@@ -1,0 +1,11 @@
+th {
+    color: rgb(0,101,255);
+    font-weight: 600;
+}
+
+
+td>.reportTableData {
+    font-weight: 400;
+    color: rgb(72,80,94);
+}
+
