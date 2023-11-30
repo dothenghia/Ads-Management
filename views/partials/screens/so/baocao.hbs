@@ -1,23 +1,23 @@
-<div class="container-fluid d-flex flex-column px-1 h-100 border-start border-2">
+<div class="container-fluid d-flex flex-column px-1 h-100">
     
     {{!-- Title và filter --}}
     <div class="row" style="padding: 1.5em;">
-        <span class="fs-1 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:20%;">Báo Cáo</span>
-        <div class="d-flex flex-row mt-3 justify-content-evenly" style="width: 73%; height: 65%;" >
+        <span class="fs-1 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:16%;">Báo Cáo</span>
+        <div class="d-flex flex-row mt-3 justify-content-around" style="width: 73%; height: 65%;" >
             {{!-- Hình thức báo cáo --}}
             <div class="border border-2 rounded-3 px-1 pt-1">
-                <span class="fs-6 fw-semibold ms-2" style="color: rgb(93,102,121);">Hình Thức Báo Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Hình Thức Báo Cáo</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 me-1">
             </div>
             {{!-- Loại báo cáo --}}
             <div class="border border-2 rounded-3 px-1 pt-1 ms-2">
-                <span class="fs-6 fw-semibold ms-2" style="color: rgb(93,102,121);">Loại Báo Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Loại Báo Cáo</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 me-1">
             </div>
             {{!-- Tình trạng báo cáo --}}
             <div class="border border-2 rounded-3 px-1 pt-1 ms-2">
-                <span class="fs-6 fw-semibold ms-2" style="color: rgb(93,102,121);">Tình Trạng Xử Lý</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Tình Trạng Xử Lý</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 me-1">
             </div>
             {{!-- Nút thêm --}}
             <div class="rounded-3 pt-2 px-3 ms-2" style="background-color: 	
@@ -50,27 +50,31 @@ rgb(0,101,255); border: rgb(0,101,255);">
                 {{!-- Pass data vào --}}
                 {{#each report }}
                 <tr>
-                    <td scope="col"  style="padding-top: 0.8em;">
-                        <span class="reportTableData">{{@index}}</span>
+                    <td scope="col"  style="padding-top: 1em;">
+                        <span class="reportTableData fs-6">{{@index}}</span>
                     </td>
-                    <td scope="col" style="padding-top: 0.8em;">
-                        <span class="reportTableData">{{translateReportType reportType}}</span>
+                    <td scope="col" style="padding-top: 1em;">
+                        <span class="reportTableData fs-6">{{translateReportType reportType}}</span>
                     </td>
-                    <td scope="col" style="padding-top: 0.8em;" >
-                        <span class="reportTableData">{{reportForm}}</span>
+                    <td scope="col" style="padding-top: 1em;" >
+                        <span class="reportTableData fs-6">{{reportForm}}</span>
                     </td>
-                    <td scope="col" style="padding-top: 0.8em;">
-                        <span class="reportTableData">{{time}}</span>
+                    <td scope="col" style="padding-top: 1em;">
+                        <span class="reportTableData fs-6">{{time}}</span>
                     </td>
-                    <td scope="col" style="padding-top: 0.8em;">
-                        <span class="reportTableData">
+                    <td scope="col text-center" style="padding-top: 1em; max-width:10em;" >
+                        <span class="reportTableData fs-6" >
                             {{getReportLocation ../adLocation locationId}}
                         </span>
                     </td>
-                    <td scope="col" style="padding-top: 0.8em;">
-                        <span class="reportTableData">{{status}}</span>
+                    <td scope="col" style="padding-top: 0.5em;">
+                        {{#if (getReportStatus status "Đang xử lý") }}
+                            <div class="w-100 text-center py-2 " style="border-radius: 20px;  background-color: rgb(255,196,163);">
+                                <span class="fw-semibold fs-6 " style="color: rgb(255,100,0);">{{status}}</span>
+                            </div>
+                        {{/if}}
                     </td>
-                    <td scope="col" style="padding-top: 0.8em;">
+                    <td scope="col" style="padding-top: 1em;">
                         <img src="/assets/icon/detail_ic.svg" alt="detail report">
                     </td>
                 </tr>

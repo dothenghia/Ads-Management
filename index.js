@@ -17,6 +17,7 @@ const authMiddleware = require('./controllers/authMiddleware');
 const helpers = {
     "reportTrans": require("./functions/so/translateReportType"),
     "reportLocation": require("./functions/so/getReportLocation"),
+    "reportStatus": require("./functions/so/getReportStatus"),
     "mathOps": require("./functions/canbo/mathOps"),
     "httpFuncs": require("./functions/canbo/httpFuncs")
 }
@@ -43,6 +44,7 @@ app.engine('hbs', expressHbs.engine({
         translateReportType: helpers.reportTrans.translateReportType,
         getReportLocation: helpers.reportLocation.getReportLocation,
         equalNumber: helpers.mathOps.equalNumber,
+        getReportStatus: helpers.reportStatus.getReportStatus,
         onclickRedirect: helpers.httpFuncs.onclickRedirect
     }
 }));
