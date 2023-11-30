@@ -1,32 +1,33 @@
+<link rel="stylesheet" href="/css/table.css">
 <div class="container-fluid d-flex flex-column px-1 h-100">
     
     {{!-- Title và filter --}}
     <div class="row" style="padding: 1.5em;">
-        <span class="fs-1 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:16%;">Báo Cáo</span>
-        <div class="d-flex flex-row mt-3 justify-content-around" style="width: 73%; height: 65%;" >
+        <span class="fs-2 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:18%;">Báo Cáo</span>
+        <div class="d-flex flex-row mt-2 justify-content-around" style="width: 75%; height: 65%;" >
             {{!-- Hình thức báo cáo --}}
-            <div class="border border-2 rounded-3 px-1 pt-1">
+            <div class="border border-2 rounded-3 px-1">
                 <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Hình Thức Báo Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 me-1">
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
             </div>
             {{!-- Loại báo cáo --}}
-            <div class="border border-2 rounded-3 px-1 pt-1 ms-2">
+            <div class="border border-2 rounded-3 px-1">
                 <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Loại Báo Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 me-1">
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
             </div>
             {{!-- Tình trạng báo cáo --}}
-            <div class="border border-2 rounded-3 px-1 pt-1 ms-2">
+            <div class="border border-2 rounded-3 px-1">
                 <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Tình Trạng Xử Lý</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 me-1">
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
             </div>
             {{!-- Nút thêm --}}
-            <div class="rounded-3 pt-2 px-3 ms-2" style="background-color: 	
-rgb(0,101,255); border: rgb(0,101,255);">
+            <div class="rounded-3 px-3" style="background-color: 	
+rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
                 <span class="fs-6 fw-semibold" style="color: white;">Thêm Báo Cáo</span>
             </div>
             {{!-- Nút Sửa --}}
-            <div class="rounded-3 pt-2 px-3 ms-2" style="background-color: 	
-rgb(0,101,255); border: rgb(0,101,255);">
+            <div class="rounded-3 px-3" style="background-color: 	
+rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
                 <span class="fs-6 fw-semibold" style="color: white;">Sửa Báo Cáo</span>
             </div>
         </div>
@@ -62,7 +63,7 @@ rgb(0,101,255); border: rgb(0,101,255);">
                     <td scope="col" style="padding-top: 1em;">
                         <span class="reportTableData fs-6">{{time}}</span>
                     </td>
-                    <td scope="col text-center" style="padding-top: 1em; max-width:10em;" >
+                    <td scope="col text-center" style="padding-top: 1em; max-width:15em;" >
                         <span class="reportTableData fs-6" >
                             {{getReportLocation ../adLocation locationId}}
                         </span>
