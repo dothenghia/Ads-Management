@@ -1,10 +1,9 @@
 
-import ReportFormModal from "../modal/ReportFormModal.js";
 
 export default function RandomPopup(map, data) {
 
     function openReportFormModal_RandomPopup() {
-        document.querySelector('.modal-root').innerHTML = ReportFormModal();
+        document.querySelector('.report-form-modal-root').classList.remove('hide');
     }
     window.openReportFormModal_RandomPopup = openReportFormModal_RandomPopup;
 

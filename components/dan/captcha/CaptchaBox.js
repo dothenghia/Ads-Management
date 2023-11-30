@@ -6,7 +6,7 @@ export default function CaptchaBox() {
 
         setTimeout(() => {
             document.querySelector('.captcha-box-root').innerHTML = '';
-            document.querySelector('.modal-root').innerHTML = '';
+            document.querySelector('.report-form-modal-root').classList.add('hide');
         }, 3500);
     }
 
