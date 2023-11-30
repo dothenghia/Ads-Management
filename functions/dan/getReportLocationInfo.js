@@ -3,7 +3,7 @@ const fakeReportLocationInfo = [
     {
         reportId: 1,
         type: 'qc',
-        
+
         locationId: 2,
         adId: 3,
         longitude: 106.681622,
@@ -21,8 +21,8 @@ const fakeReportLocationInfo = [
         phone: '0123456789',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quam atque, ex nulla ab perferendis incidunt magni in eum, corporis enim sapiente architecto odio. Officiis ut perferendis molestias labore quos illum atque reprehenderit sit doloremque reiciendis?',
         images: [
-            {url: "/assets/dan/thumbnail1.jpeg"},
-            {url: "/assets/dan/thumbnail3.jpg"},
+            { url: "/assets/dan/thumbnail1.jpeg" },
+            { url: "/assets/dan/thumbnail3.jpg" },
         ],
     },
     {
@@ -45,8 +45,8 @@ const fakeReportLocationInfo = [
         phone: '6667778889',
         content: 'Nội dung tố cáo Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quam atque, ex nulla ab perferendis incidunt magni in eum, corporis enim sapiente architecto odio. Officiis ut perferendis molestias labore quos illum atque reprehenderit sit doloremque reiciendis?',
         images: [
-            {url: "/assets/dan/thumbnail4.jpg"},
-            {url: "/assets/dan/thumbnail5.jpg"},
+            { url: "/assets/dan/thumbnail4.jpg" },
+            { url: "/assets/dan/thumbnail5.jpg" },
         ],
     },
     {
@@ -69,8 +69,8 @@ const fakeReportLocationInfo = [
         phone: '123654321',
         content: 'Tôi muốn tố giác về bảng quảng cáo này về việc nó không đúng với quy hoạch của thành phố. Tôi muốn tố giác về bảng quảng cáo này về việc nó không đúng với quy hoạch của thành phố. Tôi muốn tố giác về bảng quảng cáo này về việc nó không đúng với quy hoạch của thành phố.',
         images: [
-            {url: "/assets/dan/thumbnail2.jpg"},
-            {url: "/assets/dan/thumbnail4.jpg"},
+            { url: "/assets/dan/thumbnail2.jpg" },
+            { url: "/assets/dan/thumbnail4.jpg" },
         ],
     },
     {
@@ -92,8 +92,8 @@ const fakeReportLocationInfo = [
         phone: '6667778889',
         content: 'Xin chào Thế giới nhé',
         images: [
-            {url: "/assets/dan/thumbnail3.jpg"},
-            {url: "/assets/dan/thumbnail6.jpg"},
+            { url: "/assets/dan/thumbnail3.jpg" },
+            { url: "/assets/dan/thumbnail6.jpg" },
         ],
     }
     ,
@@ -116,7 +116,7 @@ const fakeReportLocationInfo = [
         phone: '6667778889',
         content: 'Tôi muốn đăng ký nội dung ở địa điểm này',
         images: [
-            {url: "/assets/dan/thumbnail1.jpeg"},
+            { url: "/assets/dan/thumbnail1.jpeg" },
         ],
     },
     {
@@ -138,7 +138,7 @@ const fakeReportLocationInfo = [
         phone: '6667778889',
         content: 'Tôi muốn đóng góp ý kiến về địa điểm này',
         images: [
-            {url: "/assets/dan/thumbnail5.jpg"},
+            { url: "/assets/dan/thumbnail5.jpg" },
         ],
     },
     {
@@ -160,12 +160,52 @@ const fakeReportLocationInfo = [
         phone: '6667778889',
         content: 'Tôi muốn được giải đáp thắc mắc về địa điểm này',
         images: [
-            {url: "/assets/dan/thumbnail2.jpg"},
+            { url: "/assets/dan/thumbnail2.jpg" },
         ],
     }
 ]
 
+
+// Hàm chuyển đổi dữ liệu Report thành GeoJSON
+function convertReportToGeoJSON(report) {
+    return {
+        type: 'Report',
+        geometry: {
+            type: 'Point',
+            coordinates: [report.longitude, report.latitude]
+        },
+        properties: {
+            reportId: report.reportId,
+            type: report.type,
+            locationId: report.locationId,
+            adId: report.adId,
+            name: report.name,
+            address: report.address,
+            region: report.region,
+            form: report.form,
+            status: report.status,
+            time: report.time,
+            fullname: report.fullname,
+            email: report.email,
+            phone: report.phone,
+            content: report.content,
+            images: report.images
+        }
+    };
+}
+
+
 async function getAllReportList() {
+    // Chuyển đổi toàn bộ dữ liệu Report vào định dạng JSON mong muốn
+    const reportCollectionGeoJSON = {
+        type: 'ReportCollection',
+        features: fakeReportLocationInfo.map(report => convertReportToGeoJSON(report))
+    };
+
+    return reportCollectionGeoJSON;
+}
+
+async function getNormalList() {
     return fakeReportLocationInfo;
 }
 
@@ -183,6 +223,7 @@ async function getDetailReportInfoOfAd(locationId, adId) {
 
 export {
     getAllReportList,
+    getNormalList,
     getReportInfoById,
     getDetailReportInfoOfAdLocation,
     getDetailReportInfoOfAd,

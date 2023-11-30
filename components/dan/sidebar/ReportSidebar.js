@@ -23,13 +23,27 @@ export default function ReportSidebar(reportData) {
     // Gọi hàm switchTab_ReportSidebar khi tạo HTML để đảm bảo nó thuộc phạm vi toàn cục
     window.switchTab_ReportSidebar = switchTab_ReportSidebar;
 
-    return (
-        `<div class="report-sidebar-container">
 
-            <div class="report-sidebar">
+    // Close sidebar handler
+    function CloseReportSidebar() {
+        document.querySelector('.sidebar-root').innerHTML = '';
+    }
+    window.CloseReportSidebar = CloseReportSidebar;
+
+    function PreventCloseReportSidebar(e) {
+        e.stopPropagation();
+    }
+    window.PreventCloseReportSidebar = PreventCloseReportSidebar;
+
+
+
+    return (
+        `<div class="report-sidebar-container" onclick="CloseReportSidebar()">
+
+            <div class="report-sidebar" onclick="PreventCloseReportSidebar(event)">
                 <div class="report-sidebar__header">
                     <h1>Danh sách báo cáo đã gửi</h1>
-                    <button type="button" onclick="document.querySelector('.sidebar-root').innerHTML = ''">
+                    <button type="button" onclick="CloseReportSidebar()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>

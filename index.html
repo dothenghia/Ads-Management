@@ -1,16 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-<!-- 
-Tài khoản cán bộ sở: so@gmail.com
-Mật Khẩu: 123 
-
-Tài khoản cán bộ quận: quan@gmail.com
-Mật Khẩu: 123 
-
-Tài khoản cán bộ phường: phường@gmail.com
-Mật Khẩu: 123 
--->
 <head>
     <title>AdsMap</title>
     <meta charset="utf-8">
@@ -31,50 +21,88 @@ Mật Khẩu: 123
         .trangchu-main {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             height: 100vh;
-            overflow: hidden;
+            /* overflow: hidden; */
         }
+
         .trangchu-container {
             text-align: center;
-            width: 60%;
-            height: 100%;
+            width: 100%;
+            padding: 0 1rem;
+            /* height: 100%; */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
         }
+
         .trangchu-container h1 {
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 0;
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
+
         .trangchu-container p {
-            font-size: 1.45rem;
+            font-size: 1.17rem;
             font-weight: 700;
             color: var(--primary-color);
         }
+
         .trangchu-container h2 {
-            font-size: 2.1rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: var(--title-color);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
+
         .trangchu-container h3 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--title-color);
             margin-bottom: 1rem;
         }
-        .trangchu-container img {
-            width: 100%;
-            object-fit: cover;
-            z-index: -10;
-            margin-bottom: -4rem;
+
+        .trangchu-note {
+            border: 2px solid var(--primary-color);
+            border-radius: 1rem;
+            margin-top: 1rem;
+            text-align: left;
+            padding: 0.8rem 1rem;
+            margin-bottom: 2rem;
         }
 
+        .trangchu-note h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--title-color);
+            margin-bottom: 0.6rem;
+        }
+
+        .trangchu-note h4 {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .trangchu-note span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .nguoidan-btn {
+            margin-right: 12px;
+        }
+
+        @media only screen and (max-width : 390px) {
+            .nguoidan-btn {
+                margin: 12px auto;
+            }
+        }
     </style>
 </head>
 
@@ -84,21 +112,25 @@ Mật Khẩu: 123
             <h1>AdsMap</h1>
             <p>Website Quản lý Quảng cáo</p>
             <h2>Nhóm 7 - 21KTPM4</h2>
-            
+
             <h3>Lựa chọn Phân hệ để tiếp tục</h3>
-            <p>Tài khoản cán bộ sở: so@gmail.com
-                Mật Khẩu: 123 </p>
-                
-            <p>Tài khoản cán bộ quận: quan@gmail.com
-                Mật Khẩu: 123 </p>
-                
-            <p>Tài khoản cán bộ phường: phường@gmail.com
-                Mật Khẩu: 123 </p>
-            <div style="margin-bottom: -6rem;">
-                <a href="./screens/dan/index.html" class="btn btn-primary mx-3 ">Người dân</a>
+            <div>
+                <a href="./screens/dan/index.html" class="btn btn-primary nguoidan-btn">Người dân</a>
                 <a href="./screens/canbo/dangnhap/dangnhap.html" class="btn btn-primary ">Cán bộ (Phường, Quận, Sở)</a>
             </div>
-            <img src="./assets/chung/background.webp" alt="background">
+
+            <div class="trangchu-note">
+                <h3>Ghi chú: </h3>
+                <h4>username Sở: <span>so@gmail.com</span></h4>
+                <h4 style="margin-bottom: 1rem;">password Sở: <span>123</span></h4>
+
+                <h4>username Quận: <span>quan@gmail.com</span></h4>
+                <h4 style="margin-bottom: 1rem;">password Quận: <span>123</span></h4>
+
+                <h4>username Phường: <span>phuong@gmail.com</span></h4>
+                <h4 style="margin-bottom: 1rem;">password Phường: <span>123</span></h4>
+            </div>
+
         </div>
     </div>
 

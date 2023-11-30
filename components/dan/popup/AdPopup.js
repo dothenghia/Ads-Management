@@ -4,11 +4,13 @@ export default function AdPopup(adInfo) {
     return `
     <div class="ad-popup">
         <div class="ad-popup__title">
-            
             <h1>
-                ${adInfo.form} ${adInfo.isReported ? 
-            `<span>${adInfo.reportRecord}</span>`
-            : ''}
+                ${adInfo.form}
+                ${
+                    adInfo.isReported ? 
+                    `<span>${adInfo.reportRecord}</span>`
+                    : ''
+                }
             </h1>
         </div>
         <div class="ad-popup__info">
@@ -21,4 +23,4 @@ export default function AdPopup(adInfo) {
         </div>
     </div>
     `
-} 
+}

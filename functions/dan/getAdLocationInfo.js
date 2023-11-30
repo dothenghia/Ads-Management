@@ -169,8 +169,42 @@ const fakeAdLocationInfo = [
     },
 ]
 
+
+// Hàm chuyển đổi dữ liệu Ad thành GeoJSON
+function convertAdToGeoJSON(ad) {
+    return {
+        type: 'Ad',
+        geometry: {
+            type: 'Point',
+            coordinates: [ad.longitude, ad.latitude]
+        },
+        properties: {
+            locationId: ad.locationId,
+            quyhoach: ad.quyhoach,
+            isReported: ad.isReported,
+            reportStatus: ad.reportStatus,
+            reportRecord: ad.reportRecord,
+            thumbnails: ad.thumbnails,
+            address: ad.address,
+            region: ad.region,
+            type: ad.type,
+            form: ad.form,
+            quantity: ad.quantity,
+            locationType: ad.locationType,
+            adList: ad.adList
+        }
+    };
+}
+
+
 async function getAllAdList() {
-    return fakeAdLocationInfo;
+    // Chuyển đổi toàn bộ dữ liệu về định dạng JSON
+    const adCollectionGeoJSON = {
+        type: 'AdCollection',
+        features: fakeAdLocationInfo.map(ad => convertAdToGeoJSON(ad))
+    };
+    // return JSON.stringify(adCollectionGeoJSON, null, 2);
+    return adCollectionGeoJSON;
 }
 
 async function getAdLocationInfoById(locationId) {
