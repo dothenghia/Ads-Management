@@ -15,6 +15,9 @@ const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
 const authMiddleware = require('./controllers/authMiddleware');
 const helpers = {
+    "reportTrans": require("./functions/so/translateReportType"),
+    "reportLocation": require("./functions/so/getReportLocation"),
+    "reportStatus": require("./functions/so/getReportStatus"),
     "mathOps": require("./functions/canbo/mathOps"),
     "httpFuncs": require("./functions/canbo/httpFuncs")
 }
@@ -38,8 +41,12 @@ app.engine('hbs', expressHbs.engine({
         __dirname + '/views/partials/screens/'
     ],
     helpers: {
+        translateReportType: helpers.reportTrans.translateReportType,
+        getReportLocation: helpers.reportLocation.getReportLocation,
         equalNumber: helpers.mathOps.equalNumber,
-        onclickRedirect: helpers.httpFuncs.onclickRedirect
+        getReportStatus: helpers.reportStatus.getReportStatus,
+        onclickRedirect: helpers.httpFuncs.onclickRedirect,
+        toJSON: helpers.httpFuncs.toJSON
     }
 }));
 app.set('view engine', 'hbs');
@@ -88,6 +95,8 @@ app.post("/create", async (req, res) => {
 
 //! Viết code bọn bay tiếp theo dưới này
 app.use('/phuong', require("./routes/user/phuongRoute"));
+
+app.use('/so', require("./routes/user/soRoute"))
 //! Mẫu cho việc sử dụng  ROUTES Vào CONTROLLERS
 // app.use("/task1.htm", require("./routes/task1Route"))
 // app.use("/task2.htm", require("./routes/task2Route"))

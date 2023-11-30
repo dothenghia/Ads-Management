@@ -1,3 +1,16 @@
+th {
+    color: rgb(0,101,255);
+    font-weight: 600;
+}
+
+
+td>.reportTableData {
+    font-weight: 500;
+    color: rgb(72,80,94);
+    padding-left: auto;
+    padding-right: auto;
+}
+
 .tb .dropdown button#cntFilter {
     background-color: white;
     border: 1px solid black;
