@@ -18,6 +18,7 @@ const helpers = {
     "reportTrans": require("./functions/so/translateReportType"),
     "reportLocation": require("./functions/so/getReportLocation"),
     "reportStatus": require("./functions/so/getReportStatus"),
+    "getLocation": require("./functions/phuong/getLocation"),
     "mathOps": require("./functions/canbo/mathOps"),
     "httpFuncs": require("./functions/canbo/httpFuncs")
 }
@@ -43,10 +44,14 @@ app.engine('hbs', expressHbs.engine({
     helpers: {
         translateReportType: helpers.reportTrans.translateReportType,
         getReportLocation: helpers.reportLocation.getReportLocation,
+        getLocation: helpers.getLocation.getLocation,
         equalNumber: helpers.mathOps.equalNumber,
+        addNumber: helpers.mathOps.addNumber,
         getReportStatus: helpers.reportStatus.getReportStatus,
         onclickRedirect: helpers.httpFuncs.onclickRedirect,
-        toJSON: helpers.httpFuncs.toJSON
+        fromJSON: helpers.httpFuncs.fromJSON,
+        toJSON: helpers.httpFuncs.toJSON,
+        arrayLength: helpers.httpFuncs.arrayLength
     }
 }));
 app.set('view engine', 'hbs');
