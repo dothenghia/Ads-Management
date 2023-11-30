@@ -3,6 +3,8 @@ const bounds = [
     [106.691989, 10.793368],     // Southwest coords
     [106.697761, 10.803528]    // Northeast coords
 ]
+const adLocation = document.currentScript.getAttribute("ad-location");
+
 let map = new mapboxgl.Map({
     container: 'content',
     zoom: 10,
@@ -24,7 +26,7 @@ map.on('load', () => {
         type: 'geojson',
         // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
         // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-        data: '/assets/chung/data/ad1.json',
+        data: JSON.parse(adLocation),
         cluster: true,
         clusterMaxZoom: 17, // Max zoom to cluster points on
         clusterRadius: 150 // Radius of each cluster when clustering points (defaults to 50)

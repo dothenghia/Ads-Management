@@ -45,7 +45,8 @@ app.engine('hbs', expressHbs.engine({
         getReportLocation: helpers.reportLocation.getReportLocation,
         equalNumber: helpers.mathOps.equalNumber,
         getReportStatus: helpers.reportStatus.getReportStatus,
-        onclickRedirect: helpers.httpFuncs.onclickRedirect
+        onclickRedirect: helpers.httpFuncs.onclickRedirect,
+        toJSON: helpers.httpFuncs.toJSON
     }
 }));
 app.set('view engine', 'hbs');
