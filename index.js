@@ -24,17 +24,6 @@ const helpers = {
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
-    // Chung
-    "mathOps": require("./functions/canbo/mathOps"),
-    "httpFuncs": require("./functions/canbo/httpFuncs"),
-
-    // Sở
-    "reportTrans": require("./functions/so/translateReportType"),
-    "reportLocation": require("./functions/so/getReportLocation"),
-    "reportStatus": require("./functions/so/getReportStatus"),
-
-    // Phường
-    "getAd": require("./functions/phuong/getAd"),
 }
 const app = express();
 app.use(express.static(__dirname + "/html"));
@@ -55,27 +44,6 @@ app.engine('hbs', expressHbs.engine({
         __dirname + '/views/partials/screens/'
     ],
     helpers: {
-        // Chung
-        equalNumber: helpers.mathOps.equalNumber,
-        addNumber: helpers.mathOps.addNumber,
-        onclickAction: helpers.httpFuncs.onclickAction,
-        onclickRedirect: helpers.httpFuncs.onclickRedirect,
-        createGlobal: helpers.httpFuncs.createGlobal,
-        getGlobal: helpers.httpFuncs.getGlobal,
-        removeGlobal: helpers.httpFuncs.removeGlobal,
-        incrementGlobal: helpers.httpFuncs.incrementGlobal,
-        fromJSON: helpers.httpFuncs.fromJSON,
-        toJSON: helpers.httpFuncs.toJSON,
-        arrayLength: helpers.httpFuncs.arrayLength,
-
-        // Sở
-        translateReportType: helpers.reportTrans.translateReportType,
-        getReportLocation: helpers.reportLocation.getReportLocation,
-        getReportStatus: helpers.reportStatus.getReportStatus,
-
-        // Phường
-        getLocation: helpers.getAd.getLocation,
-        getAdInfo: helpers.getAd.getAdInfo,
         // Chung
         equalNumber: helpers.mathOps.equalNumber,
         addNumber: helpers.mathOps.addNumber,
