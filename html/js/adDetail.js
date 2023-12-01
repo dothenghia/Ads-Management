@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     i++;
                 });
             }
-            inactiveSlide.style.display = "none";
+            inactiveSlide.parentElement.removeChild(inactiveSlide)
         }
         else {
             adThumbnails.style.display = "none";
