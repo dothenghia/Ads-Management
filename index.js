@@ -117,8 +117,6 @@ app.use('/phuong', require("./routes/user/phuongRoute"));
 
 app.use('/so', require("./routes/user/soRoute"))
 
-app.use('/so', require("./routes/user/soRoute"))
-
 
 //! PORT 3000, đừng thay PORT KHÁC NẾU NHƯ LÀ 1 THẰNG ĐÀN ÔNG
 // Start the server on port 3000

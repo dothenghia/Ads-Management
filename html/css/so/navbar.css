@@ -1,0 +1,7 @@
+.offcanvas.offcanvas-start {
+    transform: translateX(calc(0 + var(--navbar-width-1) - var(--navbar-width-2))) !important;
+}
+.offcanvas {
+    visibility: visible !important;
+    background-color: var(--primary-color);
+}

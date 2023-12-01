@@ -29,6 +29,9 @@
     --daxuly-color-subtle : #C7EDD9;
     --tuchoi-color : #DC3545;
     --tuchoi-color-subtle : #FBBFBF;
+
+    --navbar-width-1 : 80px;
+    --navbar-width-2 : 300px;
 }
 
 * {
@@ -38,31 +41,3 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
-#map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 1;
-}
-
-
-@keyframes movein-from-top {
-    0% {
-        transform: translate(0, -100%);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-@keyframes movein-from-left {
-    0% {
-        transform: translate(-100vw, 0);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
