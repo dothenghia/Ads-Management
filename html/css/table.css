@@ -1,22 +1,67 @@
-th {
-    color: rgb(0,101,255);
+/*
+    FILE NÀY SẼ STYLE NHỮNG THÀNH PHẦN CỦA TABLE 
+    NHỮNG CÁI NHƯ HEADING, TD, THẺ TAG, NÚT CHI TIẾT ...
+    
+    XEM MẪU BÊN TRANG baocao CỦA SỞ
+*/
+
+table th {
+    font-size: var(--text-base);
+    color: var(--title-color);
     font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table th select {
+    border: solid 1px var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+table td {
+    font-size: var(--text-sm);
+    color: var(--text-color);
+    text-align: center;
+    vertical-align: middle;
 }
 
 
-td>.reportTableData {
+
+/* ========== CÁC CÁI TAG TÌNH TRẠNG XỬ LÝ ========== */
+.status-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 40px;
+}
+.status-tag span {
+    font-size: 14px;
     font-weight: 500;
-    color: rgb(72,80,94);
-    padding-left: auto;
-    padding-right: auto;
+    margin: 0;
+    margin-left: 4px;
+}
+.status-tag-dangxuly {
+    background-color: var(--dangxuly-color-subtle);
+    color: var(--dangxuly-color);
+}
+.status-tag-daxuly {
+    background-color: var(--daxuly-color-subtle);
+    color: var(--daxuly-color);
+}
+.status-tag-tuchoi {
+    background-color: var(--tuchoi-color-subtle);
+    color: var(--tuchoi-color);
 }
 
-.tb .dropdown button#cntFilter {
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-}
 
-.tb .dropdown .dropdown-menu button:hover {
-    background-color: #F0F1F3;
+
+/* ========== Nút Chi tiết ========== */
+table .table-detail-button {
+    color: var(--primary-color);
+    background-color: transparent;
+    border: none;
 }

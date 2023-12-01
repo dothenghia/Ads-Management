@@ -1,0 +1,69 @@
+/* adDetailModal */
+
+#adDetailModal {
+    --bs-modal-width: 50vw;
+}
+
+#adDetailModal .modal-header {
+    padding: 2vh 1.2vw 0.8vh 1.2vw;
+}
+
+#adDetailModal .modal-header #adDetailModalLabel {
+    font-weight: 600;
+}
+
+#adDetailModal .modal-header #adDetailModalLabel br {
+    display: block;
+    margin: 0.1em 0;
+}
+
+#adDetailModal .modal-header #adDetailModalLabel i {
+    color: #0065FF;
+}
+
+#adDetailModal .modal-body {
+    padding: 0.8vh 1.2vw 4vh 1.2vw;
+    font-size: 18px;
+}
+
+#adDetailModal .modal-body hr {
+    margin: 0.5vh 0 2vh 0;
+}
+
+#adDetailModal .modal-body #adDetailName {
+    font-weight: 700;
+    margin-bottom: 2vh;
+}
+
+#adDetailModal .modal-body #adDetailCategoryRow {
+    margin-top: 1vh;
+}
+
+#adDetailModal .modal-body h6#adDetailCategoryTitle {
+    font-weight: bold;
+    color: rgb(81, 80, 80);
+    margin-bottom: 3px;
+}
+
+#adDetailModal .modal-body h6:not(#adDetailCategoryTitle) {
+    color: rgb(81, 80, 80);
+    font-weight: 500;
+}
+
+#adDetailModal .modal-body #adDetailThumbnails {
+    margin-top: 1vh;
+}
+
+#adDetailModal .modal-body #adDetailThumbnails .carousel-item img {
+    border: 1px solid white;
+    border-radius: 20px;
+    width: 60% !important;
+    height: auto;
+    margin: auto;
+}
+
+#adDetailModal .modal-body #adDetailNoThumbnails {
+    text-align: center;
+    font-weight: 200;
+    color: rgb(98, 97, 97);
+}

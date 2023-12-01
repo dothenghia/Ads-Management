@@ -1,29 +1,31 @@
+<link rel="stylesheet" type="text/css" href="/css/general/OTPValidate.css">
 
-<link rel="stylesheet" type="text/css" href="../css/OTPValidate.css">
-<main class="container rounded-5 bg-white shadow-lg">
-        <div class="container">
-            <a href="forgotPassword" class="btn border-0 bg-transparent px-4 mt-5 text-primary" id="backButton"><i class="bi bi-arrow-left-square-fill"></i></a>
-            <h1 class="bg-transparent text-center fw-bold mb-5" id="AppName">
-                AdsMap
-            </h1>
-            <div class="d-flex justify-content-center flex-column px-5" id="text-block">
-                <h5 id="textblock-1">Một email OTP đã được gửi đến địa chỉ email của anh chị.</h5>
-                <h5 id="textblock-2">Anh/chị vui lòng kiểm tra hộp thư".</h5>
-            </div>
-            <form action="#" method="post" class="p-4" id="myForm">
-                <!--!!! Thêm method="post" vào, hiện tại chỉ là client side-->
-                <div class="form-outline mb-4 d-flex align-items-center justify-content-around">
-                    <input type="text" id="OTP" class="form-control border-0 border-bottom mb-2 w-50"
-                        placeholder="Mã OTP"/>
-                    <button type="button" class="btn btn-primary mb-3">Gửi lại OTP</button>
-                </div>
-            <div class="d-flex px-5">
-                <h5 id="wrongOTP" class="text-danger"></h5>
-            </div>    
-                <div class="d-flex justify-content-center p-4">
-                    <button type="submit" class="btn btn-primary btn-block mb-3 rounded-5 mx-auto" >Xác thực OTP</button>
-                </div>
-            </form>
+<main class="OTPValidate-screen">
+
+    <a href="forgotPassword" id="backButton" class="OTPValidate-back">
+        <i class="bi bi-arrow-left-short"></i>
+    </a>
+
+    <div class="OTPValidate-illustration">
+        <img src="/img/illustration/otp.png" alt="">
+    </div>
+
+    <div class="OTPValidate-content">
+        <h1>Nhập mã khôi phục</h1>
+        <h2>Mã OTP đã được gửi đến địa chỉ email của bạn</h2>
+    </div>
+
+    <form action="#" method="post" id="OTPValidate-form" class="OTPValidate-form">
+        <div class="OTPValidate-form-row">
+            <input type="number" id="OTP" name="OTP" placeholder="Nhập mã OTP" />
+            <button type="button" class="btn btn-outline-primary">Gửi lại OTP</button>
         </div>
 
-    </main>
+        <h5 id="wrongOTP"></h5>
+
+        <button type="submit" class="btn btn-primary custom-btn w-100 validateOTP" id="">
+            Xác thực OTP
+        </button>
+    </form>
+
+</main>

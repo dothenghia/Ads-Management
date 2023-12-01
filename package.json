@@ -19,12 +19,17 @@
     "express-session": "^1.17.3",
     "firebase": "^10.7.0",
     "firebase-admin": "^11.11.1",
+<<<<<<< HEAD
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.7",
     "nodemon": "^3.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
+=======
+    "nodemon": "^3.0.1",
+    "passport": "^0.7.0",
+>>>>>>> SSR
     "passport-local": "^1.0.0"
   }
 }

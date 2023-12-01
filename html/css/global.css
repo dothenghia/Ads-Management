@@ -1,4 +1,5 @@
 :root {
+    /* ============== COLOR ============== */
     --white-color: #fff;
     --black-color: #000;
     --primary-color : #0D6EFD;
@@ -29,6 +30,22 @@
     --daxuly-color-subtle : #C7EDD9;
     --tuchoi-color : #DC3545;
     --tuchoi-color-subtle : #FBBFBF;
+
+    /* ============== SIZE ============== */
+    --navbar-width-1 : 4.4rem;
+    --navbar-width-2 : 16rem;
+
+
+
+
+    /* ============== TEXT ============== */
+    --text-xs : 0.8rem;
+    --text-sm : 0.9rem;
+    --text-base : 1rem;
+    --text-lg : 1.1rem;
+    --text-xl : 1.2rem;
+    --text-2xl : 1.3rem;
+    --text-3xl : 1.4rem;
 }
 
 * {
@@ -38,31 +55,3 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
-#map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 1;
-}
-
-
-@keyframes movein-from-top {
-    0% {
-        transform: translate(0, -100%);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-@keyframes movein-from-left {
-    0% {
-        transform: translate(-100vw, 0);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}

@@ -1,18 +1,82 @@
-<!-- Custom CSS -->
 <link rel="stylesheet" href="/css/table.css">
-<div class="container-fluid tb" id="content">
-    <div class="row flex-row" id="title">
-        <h3 class="col"><strong>Yêu Cầu Điều Chỉnh</strong></h3>
-        <div class="col dropdown d-flex justify-content-end align-items-center">
-            <button class="btn dropdown-toggle" type="button" id="cntFilter" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Số lượng
-            </button>
-            <div class="dropdown-menu" aria-labelledby="cntFilter">
-                <button class="dropdown-item" onclick="setDropdownFilterValue(this, 'Tất cả')">Tất cả</button>
-                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 5')">&le; 5</button>
-                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 10')">&le; 10</button>
-                <button class="dropdown-item" onclick="setDropdownFilterValue(this, '&le; 15')">&le; 15</button>
+<div class="container-fluid d-flex flex-column px-1 h-100">
+    {{!-- Title và filter --}}
+    <div class="row" style="padding: 1.5em;">
+        <span class="fs-2 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:18%;">Báo Cáo</span>
+        <div class="d-flex flex-row mt-2 justify-content-around" style="width: 75%; height: 65%;" >
+            {{!-- Hình thức báo cáo --}}
+            <div class="border border-2 rounded-3 px-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Hình Thức Báo Cáo</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+            </div>
+            {{!-- Loại báo cáo --}}
+            <div class="border border-2 rounded-3 px-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Loại Báo Cáo</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+            </div>
+            {{!-- Tình trạng báo cáo --}}
+            <div class="border border-2 rounded-3 px-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Tình Trạng Xử Lý</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+            </div>
+            {{!-- Nút thêm --}}
+            <div class="rounded-3 px-3" style="background-color: rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
+                <span class="fs-6 fw-semibold" style="color: white;">Thêm Báo Cáo</span>
+            </div>
+            {{!-- Nút Sửa --}}
+            <div class="rounded-3 px-3" style="background-color: rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
+                <span class="fs-6 fw-semibold" style="color: white;">Sửa Báo Cáo</span>
             </div>
         </div>
     </div>
+
+    {{!-- Table --}}
+    <div class="row" style="padding: 1.5em;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Địa Điểm Quảng Cáo</th>
+                    <th scope="col">Thời Điểm Gửi Yêu Cầu</th>
+                    <th scope="col">Lý Do Chỉnh Sửa</th>
+                    <th scope="col"> </th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- Pass data vào --}}
+                {{#each changeReq}}
+                    <tr>
+                        <td scope="col"  style="padding-top: 1em;">
+                            <span class="reportTableData fs-6">{{addNumber @index 1}}</span>
+                        </td>
+                        <td scope="col text-center" style="padding-top: 1em; max-width:15em;" >
+                            <span class="reportTableData fs-6" >
+                                {{getLocation ../adLocation locationId 2}}
+                            </span>
+                        </td>
+                        <td scope="col"  style="padding-top: 1em;">
+                            <span class="reportTableData fs-6">{{date}}</span>
+                        </td>
+                        <td scope="col"  style="padding-top: 1em;">
+                            <span class="reportTableData fs-6">{{reason}}</span>
+                        </td>
+                        <td scope="col"  style="padding-top: 1em;">
+                            <span class="reportTableData fs-6">{{status}}</span>
+                        </td>
+                        <td scope="col" style="padding-top: 1em;">
+                            <img src="/assets/icon/detail_ic.svg" alt="Ad location detail">
+                        </td>
+                    </tr>
+                {{/each}}
+        </table>
+    </div>
 </div>
+
+{{!-- Custom JS script --}}
+<script>
+    function setDropdownFilterValue(currentElement, value) {
+        let associatedFilterButton = currentElement.parentElement.attributes["aria-labelledby"].nodeValue;
+        document.querySelector("#" + associatedFilterButton).innerHTML = value;
+    }
+</script>

@@ -7,10 +7,10 @@ body {
     align-items: center;
 }
 
-.forgorPassword-screen {
-    width: fit-content;
+.OTPValidate-screen {
+    min-width: 520px;
     height: fit-content;
-    padding: 1.6rem;
+    padding: 1.6rem 1.6rem 2.2rem;
 
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@ body {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
 
-.forgorPassword-back {
+.OTPValidate-back {
     width: 32px;
     height: 32px;
     display: flex;
@@ -30,22 +30,21 @@ body {
     align-items: center;
 }
 
-.forgorPassword-back i {
+.OTPValidate-back i {
     font-size: 2.3rem;
 }
 
 
-.forgorPassword-illustration {
+.OTPValidate-illustration {
     width: 360px;
     margin-top: -2.4rem;
     display: flex;
     align-self: center;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
 }
 
-.forgorPassword-illustration img {
+.OTPValidate-illustration img {
     width: 80%;
     height: 80%;
     object-fit: cover;
@@ -53,18 +52,18 @@ body {
 
 
 
-.forgorPassword-content {
-    padding: 0 1rem;
+.OTPValidate-content {
+    padding: 0 0.8rem;
 }
 
-.forgorPassword-content h1 {
+.OTPValidate-content h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     color: var(--title-color);
 }
 
-.forgorPassword-content h2 {
+.OTPValidate-content h2 {
     font-size: 1.0rem;
     font-weight: 500;
     margin-bottom: 1rem;
@@ -72,17 +71,33 @@ body {
 }
 
 
-.forgorPassword-form {
-    padding: 0 1rem;
-
+.OTPValidate-form {
+    padding: 0 0.8rem;
+    width: 100%;
 }
-
-.forgorPassword-form input {
+.OTPValidate-form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.OTPValidate-form input {
     border: solid 1px var(--border-color);
     border-radius: 6px;
     padding: 8px 12px;
     font-size: 15px;
     color: var(--text-color);
-    width: 100%;
-    margin-bottom: 16px;
+
+    flex: 1;
+    margin-right: 20px;
+}
+
+#wrongOTP {
+    margin-top: 0.5rem;
+    color: var(--report-color);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.validateOTP {
+    margin-top: 1rem;
 }

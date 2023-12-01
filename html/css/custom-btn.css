@@ -1,4 +1,9 @@
-
+/*
+    FILE NÀY CHỈ ĐƠN GIẢN LÀ STYLE THÊM CHO CÁI NÚT THOI
+    
+    Cứ sử dụng combo "btn btn-primary custom-btn" đi
+    Hoặc "btn btn-outline-primary custom-btn"
+*/
 
 .custom-btn {
     font-weight: 500;
