@@ -1,14 +1,30 @@
-<div class="container-fluid d-flex flex-column" id="main">
-    <div class="row flex-grow-1 justify-content-around">
-        <div class="col-md-2 ps-0 pe-1">
-            <div class="col-md-12 d-flex flex-column vh-100 p-0" id="nav">
-                {{>so/navbar current=current}}
-            </div>
-        </div>
-        <div class="col-md-10 ps-1 pe-0">
-            <div class="col-md-12 d-flex vh-100" id="content">
-                {{> (body)}}
-            </div>
-        </div>
+<style>
+    .so-main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+    }
+    .so-navbar {
+        width: var(--navbar-width-1);
+    }
+    .so-content {
+        width: calc(100vw - var(--navbar-width-1));
+        background-color: salmon;
+    }
+</style>
+
+<div class="so-main" id="main">
+
+    {{!-- NAVIGATION BAR --}}
+    <div class="so-navbar" id="nav">
+        {{>so/navbar current=current}}
     </div>
+
+
+    {{!-- CONTENT SECTION --}}
+    <div class="so-content" id="content">
+        {{!-- {{> (body)}} --}}
+        123123 213 132 1 Content
+    </div>
+
 </div>

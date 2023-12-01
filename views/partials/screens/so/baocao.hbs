@@ -1,10 +1,12 @@
 <link rel="stylesheet" href="/css/table.css">
+
+
 <div class="container-fluid d-flex flex-column px-1 h-100">
-    
+
     {{!-- Title và filter --}}
     <div class="row" style="padding: 1.5em;">
         <span class="fs-2 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:18%;">Báo Cáo</span>
-        <div class="d-flex flex-row mt-2 justify-content-around" style="width: 75%; height: 65%;" >
+        <div class="d-flex flex-row mt-2 justify-content-around" style="width: 75%; height: 65%;">
             {{!-- Hình thức báo cáo --}}
             <div class="border border-2 rounded-3 px-1">
                 <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Hình Thức Báo Cáo</span>
@@ -51,28 +53,29 @@ rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
                 {{!-- Pass data vào --}}
                 {{#each report }}
                 <tr>
-                    <td scope="col"  style="padding-top: 1em;">
+                    <td scope="col" style="padding-top: 1em;">
                         <span class="reportTableData fs-6">{{@index}}</span>
                     </td>
                     <td scope="col" style="padding-top: 1em;">
                         <span class="reportTableData fs-6">{{translateReportType reportType}}</span>
                     </td>
-                    <td scope="col" style="padding-top: 1em;" >
+                    <td scope="col" style="padding-top: 1em;">
                         <span class="reportTableData fs-6">{{reportForm}}</span>
                     </td>
                     <td scope="col" style="padding-top: 1em;">
                         <span class="reportTableData fs-6">{{time}}</span>
                     </td>
-                    <td scope="col text-center" style="padding-top: 1em; max-width:15em;" >
-                        <span class="reportTableData fs-6" >
+                    <td scope="col text-center" style="padding-top: 1em; max-width:15em;">
+                        <span class="reportTableData fs-6">
                             {{getReportLocation ../adLocation locationId}}
                         </span>
                     </td>
                     <td scope="col" style="padding-top: 0.5em;">
                         {{#if (getReportStatus status "Đang xử lý") }}
-                            <div class="w-100 text-center py-2 " style="border-radius: 20px;  background-color: rgb(255,196,163);">
-                                <span class="fw-semibold fs-6 " style="color: rgb(255,100,0);">{{status}}</span>
-                            </div>
+                        <div class="w-100 text-center py-2 "
+                            style="border-radius: 20px;  background-color: rgb(255,196,163);">
+                            <span class="fw-semibold fs-6 " style="color: rgb(255,100,0);">{{status}}</span>
+                        </div>
                         {{/if}}
                     </td>
                     <td scope="col" style="padding-top: 1em;">
@@ -80,4 +83,4 @@ rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
                     </td>
                 </tr>
                 {{/each}}
-</div>
+    </div>
