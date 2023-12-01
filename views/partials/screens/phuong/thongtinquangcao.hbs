@@ -37,8 +37,10 @@
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">Địa Điểm</th>
-                    <th scope="col">Loại</th>
+                    <th scope="col">Loại quảng cáo</th>
                     <th scope="col">Số lượng</th>
+                    <th scope="col">Hình thức</th>
+                    <th scope="col">Loại vị trí</th>
                     <th scope="col"> </th>
                 </tr>
             </thead>
@@ -58,11 +60,37 @@
                         <span class="reportTableData fs-6">{{type}}</span>
                     </td>
                     <td scope="col" style="padding-top: 1em;" >
-                        <span class="reportTableData fs-6">{{#arrayLength adList}}{{/arrayLength}}</span>
+                        <span class="reportTableData fs-6">{{quantity}}</span>
+                    </td>
+                    <td scope="col" style="padding-top: 1em;" >
+                        <span class="reportTableData fs-6">{{form}}</span>
+                    </td>
+                    <td scope="col" style="padding-top: 1em;" >
+                        <span class="reportTableData fs-6">{{locationType}}</span>
                     </td>
                     <td scope="col" style="padding-top: 1em;">
                         <img src="/assets/icon/detail_ic.svg" alt="Ad location detail">
                     </td>
+                </tr>
+                <tr style="display: none">
+                    <td><table>
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tên</th>
+                                <th scope="col">Kích thước</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each adList}}
+                                <tr scope="col">{{#addNumber @index 1}}{{/addNumber}}</tr>
+                                {{#with (lookup ../ad 'adId')}}
+                                    <tr scope="col">{{name}}</tr>
+                                    <tr scope="col">{{size}}</tr>
+                                {{/with}}
+                            {{/each}}
+                        </tbody>
+                    </table></td>
                 </tr>
                 {{/each}}
             </tbody>
