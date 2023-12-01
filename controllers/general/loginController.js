@@ -18,4 +18,14 @@ controller.submit = (req, res, next) => {
 };
 
 
+controller.initiateGoogleSignIn = passport.authenticate('google', { scope: ['profile', 'email'] });
+controller.googleSignInCallback = (req, res, next) => {
+    passport.authenticate('google', { failureRedirect: '/login' }, (err, user) => {
+        if (err || !user) {
+            return res.render('./general/login', { layout: 'layout_general', error: 'Đăng nhập bằng Google đã bị lỗi. Vui lòng kiểm tra lại!' });
+        }
+        const token = generateToken(user);
+        return res.json({ token });
+    })(req, res, next); // IIFE
+};
 module.exports = controller;
