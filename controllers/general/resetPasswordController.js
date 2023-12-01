@@ -7,9 +7,6 @@ controller.show = (req, res) => {
     });
 };
 
-
-//! RENDER = Tạo trang # REDIRECT = điều hướng
-// Route: Handle login form submission //!POST
 controller.submit = (req,res) => {
     const { password, confirmPassword } = req.body;
 

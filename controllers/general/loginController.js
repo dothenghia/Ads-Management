@@ -21,7 +21,7 @@ controller.submit = (req, res, next) => {
                 res.redirect('/phuong/bando');
                 break;
             case '2':
-                res.redirect('/quan/bando');
+                res.redirect('/quan/');
                 break;
             case '3':
                 res.redirect('/so');
@@ -49,7 +49,7 @@ controller.googleSignInCallback = (req, res, next) => {
                 res.redirect('/phuong/bando');
                 break;
             case '2':
-                res.redirect('/quan');
+                res.redirect('/quan'); 
                 break;
             case '3':
                 res.redirect('/so');
