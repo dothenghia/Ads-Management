@@ -1,0 +1,89 @@
+{
+    "type": "ReportCollection",
+    "features": [
+        {
+            "type": "Report",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.681622,10.765123 ]
+            },
+            "properties": {
+                "reportId": 1,
+                "type": "qc",
+                "form": "Tố giác sai phạm"
+            }
+        },
+        {
+            "type": "Report",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.683218,10.761180 ]
+            },
+            "properties": {
+                "reportId": 2,
+                "type": "ddqc",
+                "form": "Giải đáp thắc mắc"
+            }
+        },
+        {
+            "type": "Report",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.689628,10.761667 ]
+            },
+            "properties": {
+                "reportId": 3,
+                "type": "ddqc",
+                "form": "Tố giác sai phạm"
+            }
+        },
+        {
+            "type": "Report",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.683838,10.764617 ]
+            },
+            "properties": {
+                "reportId": 4,
+                "type": "ddbk",
+                "form": "Tố giác sai phạm"
+            }
+        },
+        {
+            "type": "Report",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.685008,10.764479 ]
+            },
+            "properties": {
+                "reportId": 5,
+                "type": "ddbk",
+                "form": "Đăng ký nội dung"
+            }
+        },
+        {
+            "type": "Report",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.686322,10.764507 ]
+            },
+            "properties": {
+                "reportId": 6,
+                "type": "ddbk",
+                "form": "Đóng góp ý kiến"
+            }
+        },
+        {
+            "type": "Report",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.687931,10.764055 ]
+            },
+            "properties": {
+                "reportId": 7,
+                "type": "ddbk",
+                "form": "Giải đáp thắc mắc"
+            }
+        }
+    ]
+}

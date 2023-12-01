@@ -1,6 +1,5 @@
 
 import DetailAdModal from "../modal/DetailAdModal.js";
-import ReportFormModal from "../modal/ReportFormModal.js";
 import DetailReportModal from "../modal/DetailReportModal.js";
 import { getDetailReportInfoOfAd } from '/functions/dan/getReportLocationInfo.js';
 
@@ -67,7 +66,7 @@ export default function AdCard(adInfo, adLocationData) {
     }
 
     function openReportFormModal_AdCard() {
-        document.querySelector('.modal-root').innerHTML = ReportFormModal();
+        document.querySelector('.report-form-modal-root').classList.remove('hide');
     }
 
     function openDetailReportModal_AdCard(id) {

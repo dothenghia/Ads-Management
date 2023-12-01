@@ -16,7 +16,12 @@ const passport = require('passport');
 
 app.use(passport.initialize());
 const helpers = {
-    "checkRole": require("./functions/canbo/mathOperations")
+    "reportTrans": require("./functions/so/translateReportType"),
+    "reportLocation": require("./functions/so/getReportLocation"),
+    "reportStatus": require("./functions/so/getReportStatus"),
+    "getAd": require("./functions/phuong/getAd"),
+    "mathOps": require("./functions/canbo/mathOps"),
+    "httpFuncs": require("./functions/canbo/httpFuncs")
 }
 const app = express();
 
@@ -37,7 +42,23 @@ app.engine('hbs', expressHbs.engine({
         __dirname + '/views/partials/screens/'
     ],
     helpers: {
-        equalNumber: helpers.checkRole.equalNumber
+        // Chung
+        equalNumber: helpers.mathOps.equalNumber,
+        addNumber: helpers.mathOps.addNumber,
+        onclickAction: helpers.httpFuncs.onclickAction,
+        onclickRedirect: helpers.httpFuncs.onclickRedirect,
+        fromJSON: helpers.httpFuncs.fromJSON,
+        toJSON: helpers.httpFuncs.toJSON,
+        arrayLength: helpers.httpFuncs.arrayLength,
+
+        // Sở
+        translateReportType: helpers.reportTrans.translateReportType,
+        getReportLocation: helpers.reportLocation.getReportLocation,
+        getReportStatus: helpers.reportStatus.getReportStatus,
+
+        // Phường
+        getLocation: helpers.getAd.getLocation,
+        getAdInfo: helpers.getAd.getAdInfo
     }
 }));
 app.set('view engine', 'hbs');
@@ -86,6 +107,8 @@ app.post("/create", async (req, res) => {
 
 //! Viết code bọn bay tiếp theo dưới này
 app.use('/phuong', require("./routes/user/phuongRoute"));
+
+app.use('/so', require("./routes/user/soRoute"))
 //! Mẫu cho việc sử dụng  ROUTES Vào CONTROLLERS
 // app.use("/task1.htm", require("./routes/task1Route"))
 // app.use("/task2.htm", require("./routes/task2Route"))

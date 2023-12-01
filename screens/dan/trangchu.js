@@ -1,4 +1,5 @@
 
+
 // Import Components
 import Header from '/components/dan/Header.js';
 import ReportListButton from '/components/dan/ReportListButton.js';
@@ -8,6 +9,7 @@ import ReportMarker from '/components/dan/marker/ReportMarker.js';
 import RandomMarker from '/components/dan/marker/RandomMarker.js';
 import RandomPopup from '/components/dan/popup/RandomPopup.js';
 
+import ReportFormModal from '/components/dan/modal/ReportFormModal.js';
 
 // Import Functions
 import { getAllAdList } from '/functions/dan/getAdLocationInfo.js';
@@ -17,16 +19,16 @@ import { getAllReportList } from '/functions/dan/getReportLocationInfo.js';
 var mylongitude = 106.682667;
 var mylatitude = 10.762886;
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ';
-
 
 const trangchu = {
+    // ====== Hàm Khởi tạo các State
     init: function () {
         this.map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
-            zoom: 16,
+            accessToken: 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ',
+            zoom: 16
         }).addControl(
             new mapboxgl.NavigationControl({ showCompass: true }),
             'bottom-right'
@@ -35,9 +37,7 @@ const trangchu = {
                 positionOptions: {
                     enableHighAccuracy: true
                 },
-                // When active the map will receive updates to the device's location as it changes.
                 trackUserLocation: true,
-                // Draw an arrow next to the location dot to indicate which direction the device is heading.
                 showUserHeading: true
             }),
             'bottom-left'
@@ -50,26 +50,7 @@ const trangchu = {
     },
 
 
-    // Fetch dữ liệu các điểm QC và Show lên Map
-    fetchAdMarkers: async function () {
-        this.adLocationList = await getAllAdList();
-        this.renderAdMarkers();
-    },
-    renderAdMarkers: function () {
-        this.adLocationList.forEach(adInfo => AdMarker(this.map, adInfo));
-    },
-
-
-    // Fetch dữ liệu các điểm Bị báo cáo và Show lên Map
-    fetchReportMarkers: async function () {
-        this.reportLocationList = await getAllReportList();
-        this.renderReportMarkers();
-    },
-    renderReportMarkers: function () {
-        this.reportLocationList.forEach(reportInfo => ReportMarker(this.map, reportInfo));
-    },
-
-
+    // ====== Render các Component và thẻ Root của Trang chủ
     renderHomePage: function () {
         document.getElementById('main').innerHTML = `
             ${Header()}
@@ -77,6 +58,8 @@ const trangchu = {
             <div class="report-list-button-root"></div>
             
             <div class="modal-root"></div>
+            
+            <div class="report-form-modal-root hide">${ReportFormModal()}</div>
             
             <div class="sidebar-root"></div>
 
@@ -102,45 +85,143 @@ const trangchu = {
     },
 
 
+    // ====== Fetch dữ liệu các Địa điểm QC và Địa điểm BC
+    fetchAdMarkers: async function () {
+        this.adLocationList = await getAllAdList();
+    },
+    fetchReportMarkers: async function () {
+        this.reportLocationList = await getAllReportList();
+    },
+
+    // ====== Hiển thị và Gom nhóm các Địa điểm QC và Địa điểm BC
+    renderMarkers: function () {
+
+        this.map.on('load', () => {
+
+            // Phải loại bỏ các Báo cáo 'qc' và 'ddqc' để không gom nhóm trùng
+            let filteredReportList = this.reportLocationList.features.filter(feature => feature.properties.type !== 'qc' && feature.properties.type !== 'ddqc');
+            
+            // ====== 0. TẠO DỮ LIỆU CHUNG ======
+            // Tạo bộ data chung bao gồm cả QC và BC (PHẢI VẬY MỚI GOM NHÓM ĐƯỢC)
+            // Và thêm thuộc tính 'markerType' để phân biệt QC và BC
+            let combinedData = {
+                type: 'FeatureCollection',
+                features: [
+                    ...this.adLocationList.features.map(feature => ({
+                        ...feature,
+                        properties: {
+                            ...feature.properties,
+                            markerType: 'Ad'
+                        }
+                    })),
+                    ...filteredReportList.map(feature => ({
+                        ...feature,
+                        properties: {
+                            ...feature.properties,
+                            markerType: 'Report'
+                        }
+                    }))
+                ]
+            };
+            // console.log(combinedData)
+
+
+            // ====== 1. THÊM SOURCE VÀO MAP ======
+            // Và set 'cluster' option to true
+            // GL-JS sẽ thêm thuộc tính point_count vào dữ liệu nguồn.
+            // CHO NÊN LÀ PHẢI THÊM FILTER ['!', ['has', 'point_count']] vào các marker bình thường
+            this.map.addSource('CombinedLocation', {
+                type: 'geojson',
+                data: combinedData,
+                cluster: true,
+                clusterMaxZoom: 14,
+                clusterRadius: 35
+            });
+
+
+            // ====== 2/ THÊM LAYER MARKER VÀO MAP ======
+            // Render Địa điểm QC và Địa điểm BC
+            AdMarker(this.map)
+
+            ReportMarker(this.map)
+
+
+            // ====== 3/ GOM NHÓM ======
+            // Địa điểm QC - Khi Gom nhóm
+            this.map.addLayer({
+                id: 'LocationMarker-cluster',
+                type: 'circle',
+                source: 'CombinedLocation',
+                filter: ['has', 'point_count'],
+                paint: {
+                    'circle-color': [
+                        'step', ['get', 'point_count'],
+                        '#51bbd6', 3, // Ít hơn 3 sẽ là màu xanh
+                        '#FFD93D', 5, // Ít hơn 5 sẽ là màu vàng
+                        '#f28cb1'     // Còn lại là màu hồng
+                    ],
+                    'circle-radius': [
+                        'step', ['get', 'point_count'], 15, 2, 20, 4, 25
+                    ]
+                }
+            });
+
+            // Hiển thị số lượng điểm trong 1 cluster
+            this.map.addLayer({
+                id: 'LocationMarker-cluster-count',
+                type: 'symbol',
+                source: 'CombinedLocation', // ID của cái source ở trên
+                filter: ['has', 'point_count'],
+                layout: {
+                    'text-field': ['get', 'point_count_abbreviated'],
+                    'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                    'text-size': 12
+                }
+            });
+        })
+
+    },
+
+
+    // ====== Xử lý sự kiện Lọc các Địa điểm QC và Địa điểm BC
     filterHandler: function () {
         document.querySelector('#filter-switch-ad').onclick = function () {
             if (this.checked) {
-                let markers = document.getElementsByClassName("ad-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "visible";
-                }
+                trangchu.map.setLayoutProperty('AdMarker-circle', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('AdMarker-text', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'visible');
             } else {
-                let markers = document.getElementsByClassName("ad-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "hidden";
-                }
+                trangchu.map.setLayoutProperty('AdMarker-circle', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('AdMarker-text', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'none');
             }
         }
 
         document.querySelector('#filter-switch-report').onclick = function () {
             if (this.checked) {
-                let markers = document.getElementsByClassName("report-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "visible";
-                }
+                trangchu.map.setLayoutProperty('ReportMarker-circle', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-tgsp', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dknd', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dgyk', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-gdtm', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'visible');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'visible');                
             } else {
-                let markers = document.getElementsByClassName("report-marker");
-                for (let i = 0; i < markers.length; i++) {
-                    markers[i].style.visibility = "hidden";
-                }
+                trangchu.map.setLayoutProperty('ReportMarker-circle', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-tgsp', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dknd', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-dgyk', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('ReportMarker-icon-gdtm', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster', 'visibility', 'none');
+                trangchu.map.setLayoutProperty('LocationMarker-cluster-count', 'visibility', 'none');
             }
         }
     },
 
 
-    clusteringMarkers: function () {
-
-
-
-    },
-
-
-    // Xử lý khi người dùng nhấn 2 lần vào điểm bất kì trên bản đồ
+    // ====== Xử lý khi người dùng nhấn 2 lần vào điểm bất kì trên bản đồ
     geocodingRandomPosotion: function () {
         this.map.on('dblclick', (e) => {
             var coordinates = e.lngLat.toArray();
@@ -156,7 +237,7 @@ const trangchu = {
 
         // Function to perform reverse geocoding
         function reverseGeocode(coordinates) {
-            var url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=${mapboxgl.accessToken}`;
+            var url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates[0]},${coordinates[1]}.json?access_token=pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ`;
 
             fetch(url)
                 .then(response => response.json())
@@ -186,14 +267,15 @@ const trangchu = {
 
     },
 
-
-    start: function () {
+    start: async function () {
         this.init();
-        this.fetchReportMarkers();
-        this.fetchAdMarkers();
         this.renderHomePage();
+
+        await this.fetchAdMarkers();
+        await this.fetchReportMarkers();
+        this.renderMarkers();
+
         this.filterHandler();
-        this.clusteringMarkers();
         this.geocodingRandomPosotion();
     }
 }

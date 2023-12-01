@@ -3,13 +3,26 @@ import StatusTag from '../tag/StatusTag.js'
 
 export default function DetailReportModal(detailReportInfo) {
 
+
+    // Close modal handler
+    function CloseDetailReportModal() {
+        document.querySelector('.modal-root').innerHTML = '';
+    }
+    window.CloseDetailReportModal = CloseDetailReportModal;
+
+    function PreventCloseDetailReportModal(e) {
+        e.stopPropagation();
+    }
+    window.PreventCloseDetailReportModal = PreventCloseDetailReportModal;
+
+    
     return `
-        <div class="detail-report-modal-container">
-            <div class="detail-report-modal">
+        <div class="detail-report-modal-container" onclick="CloseDetailReportModal()">
+            <div class="detail-report-modal" onclick="PreventCloseDetailReportModal(event)">
                 
                 <div class="detail-report-modal__title">
                     <h1>${detailReportInfo.name}</h1>
-                    <button type="button" onclick="document.querySelector('.modal-root').innerHTML = ''">
+                    <button type="button"  onclick="CloseDetailReportModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
