@@ -1,9 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const passport = require('../../config/passportConfig');
 
-const controller = require("../../controllers/general/loginController");
-//hiện tại đang general, phải ../ 2 lần để về root là thư mục chứa index, sau đó đên controllers, 
-router.get("/",controller.show);
-router.post("/",controller.submit);
+const controller = require('../../controllers/general/loginController');
+
+router.get('/', controller.show);
+
+router.post('/', controller.submit);
 
 module.exports = router;
