@@ -18,7 +18,11 @@
     "express-session": "^1.17.3",
     "firebase": "^10.6.0",
     "firebase-admin": "^11.11.1",
+<<<<<<< HEAD
+    "passport": "^0.7.0",
+=======
     "nodemon": "^3.0.1",
+>>>>>>> 3d6db582fe38a14d8451fe30f51a2e12672dbaab
     "passport-local": "^1.0.0"
   }
 }

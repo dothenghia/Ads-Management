@@ -11,9 +11,10 @@
 // các thư mục đều đã có file mẫu nên dựa theo đó để làm
 const express = require('express'); //Khai báo các thứ cần thiết
 const session = require('express-session');
-const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
-const authMiddleware = require('./controllers/authMiddleware');
+const passport = require('passport');
+
+app.use(passport.initialize());
 const helpers = {
     // Chung
     "mathOps": require("./functions/canbo/mathOps"),
@@ -31,9 +32,8 @@ const app = express();
 
 app.use(express.static(__dirname + "/html"));
 //! điều này sẽ khiến khi import các CSS ở trong cái hbs Thì chỉ cần ghi css/....
-// Use body-parser middleware to parse form data
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
 
 
 // Configure Handlebars as the view engine
