@@ -48,13 +48,13 @@
             </thead>
             <tbody>
                 {{!-- Pass data vào --}}
-                {{#createGlobal 'adIndex' 1}}{{/createGlobal}}
+                {{createGlobal 'adIndex' 1}}
                 {{#each adLocation}}
                     {{#each adList}}
                         <tr>
                             <td scope="col"  style="padding-top: 1em;">
-                                <span class="reportTableData fs-6">{{#getGlobal 'adIndex'}}{{/getGlobal}}</span>
-                                {{#incrementGlobal 'adIndex'}}{{/incrementGlobal}}
+                                <span class="reportTableData fs-6">{{getGlobal 'adIndex'}}</span>
+                                {{incrementGlobal 'adIndex'}}
                             </td>
                             {{#each (getAdInfo ../../ad adId)}}
                                 <td scope="col" style="padding-top: 1em;">{{name}}</td>
@@ -85,6 +85,7 @@
                         </tr>
                     {{/each}}
                 {{/each}}
+                {{removeGlobal 'adIndex' 1}}
         </table>
     </div>
 </div>

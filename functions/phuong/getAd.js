@@ -178,7 +178,6 @@ function getLocation(adLocation, id, resultType) {
 
 function getAdInfo(ad, id) {
     let obj = ad.filter(loc => loc.adId == id);
-    console.log(obj);
     return obj;
 }
 
