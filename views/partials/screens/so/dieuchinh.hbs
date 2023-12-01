@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="/css/table.css">
+<div class="container-fluid d-flex flex-column px-1 h-100">
+    
+    {{!-- Title và filter --}}
+    <div class="row" style="padding: 1.5em;">
+        <span class="fs-2 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:40%;">Báo Cáo</span>
+        <div class="d-flex flex-row mt-2 justify-content-around" style="width: 55%; height: 65%;" >
+            {{!-- Đơn vị gửi yêu cầu --}}
+            <div class="border border-2 rounded-3 px-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Đơn Vị</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+            </div>
+            {{!-- Tình trạng yêu cầu --}}
+            <div class="border border-2 rounded-3 px-1">
+                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Tình Trạng Xử Lý</span>
+                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
+            </div>
+            {{!-- Nút thêm --}}
+            <div class="rounded-3 px-3" style="background-color: 	
+rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
+                <span class="fs-6 fw-semibold" style="color: white;">Thêm Yêu Cầu</span>
+            </div>
+            {{!-- Nút Sửa --}}
+            <div class="rounded-3 px-3" style="background-color: 	
+rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
+                <span class="fs-6 fw-semibold" style="color: white;">Sửa Yêu Cầu</span>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Table --}}
+    <div class="row" style="padding: 1.5em;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Đơn Vị Gửi Yêu Cầu</th>
+                    <th scope="col">Thời Điểm</th>
+                    <th scope="col">Vị Trí Điều Chỉnh</th>
+                    <th scope="col">Tình Trạng Xử Lý</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- Pass data vào --}}
+                {{#each changeReq }}
+                <tr>
+                    <td scope="col"  style="padding-top: 1em;">
+                        <span class="reportTableData fs-6">{{@index}}</span>
+                    </td>
+                    <td scope="col" style="padding-top: 1em;">
+                        <span class="reportTableData fs-6">Cán Bộ {{getAgentRole senderRole}}</span>
+                    </td>
+                    <td scope="col" style="padding-top: 1em;" >
+                        <span class="reportTableData fs-6">{{date}}</span>
+                    </td>
+                    <td scope="col" style="padding-top: 1em; max-width: 10em;">
+                        <span class="reportTableData fs-6">
+                            {{getReportLocation ../adLocation locationId}}</span>
+                    </td>
+                    <td scope="col" style="padding-top: 0.5em;">
+                        {{!-- Từ Chối --}}
+                        {{#if (getReportStatus status 0) }}
+                            <div class="w-100 text-center py-2 " style="border-radius: 20px;  background-color: rgb(251,191,191); max-width: 12em;">
+                                <span class="fw-semibold fs-6 " style="color: rgb(220,53,69);">Từ Chối</span>
+                            </div>
+                        {{/if}}
+                        {{!-- Đang Xử Lý --}}
+                        {{#if (getReportStatus status 1) }}
+                            <div class="w-100 text-center py-2 " style="border-radius: 20px;  background-color: rgb(255,196,163); max-width: 12em;">
+                                <span class="fw-semibold fs-6 " style="color: rgb(255,100,0);">Đang Xử Lý</span>
+                            </div>
+                        {{/if}}
+                        {{!-- Đã Xử Lý --}}
+                        {{#if (getReportStatus status 2) }}
+                            <div class="w-100 text-center py-2 " style="border-radius: 20px;  background-color: rgb(199,237,217); max-width: 12em;">
+                                <span class="fw-semibold fs-6 " style="color: rgb(65,175,121);">Đã Xử Lý</span>
+                            </div>
+                        {{/if}}
+                    </td>
+                    <td scope="col" style="padding-top: 1em;">
+                        <img src="/assets/icon/detail_ic.svg" alt="detail report">
+                    </td>
+                </tr>
+                {{/each}}
+</div>
