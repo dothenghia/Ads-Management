@@ -1,21 +1,33 @@
 
-import ReportFormModal from "./ReportFormModal.js";
 
 export default function DetailAdModal(detailAdInfo) {
 
     function openReportFormModal_DetailAdModal() {
-        document.querySelector('.modal-root').innerHTML = ReportFormModal();
+        document.querySelector('.report-form-modal-root').classList.remove('hide');
     }
 
     window.openReportFormModal_DetailAdModal = openReportFormModal_DetailAdModal;
 
+    
+    // Close modal handler
+    function CloseDetailAdModal() {
+        document.querySelector('.modal-root').innerHTML = '';
+    }
+    window.CloseDetailAdModal = CloseDetailAdModal;
+
+    function PreventCloseDetailAdModal(e) {
+        e.stopPropagation();
+    }
+    window.PreventCloseDetailAdModal = PreventCloseDetailAdModal;
+
+    
     return `
-        <div class="detail-ad-modal-container">
-            <div class="detail-ad-modal">
+        <div class="detail-ad-modal-container" onclick="CloseDetailAdModal()">
+            <div class="detail-ad-modal" onclick="PreventCloseDetailAdModal(event)">
                 
                 <div class="detail-ad-modal__title">
                     <h1>Thông tin chi tiết</h1>
-                    <button type="button" onclick="document.querySelector('.modal-root').innerHTML = ''">
+                    <button type="button" onclick="CloseDetailAdModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>

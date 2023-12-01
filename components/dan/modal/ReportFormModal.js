@@ -3,24 +3,69 @@ import CaptchaBox from "../captcha/CaptchaBox.js";
 
 export default function ReportFormModal() {
 
-
-    // function submitReportForm() {
-    // }
-    // window.submitReportForm = submitReportForm;
-
-    function ShowCaptchaBox() {
+    function ShowCaptchaBox(e) {
+        e.preventDefault();
         document.querySelector('.captcha-box-root').innerHTML = CaptchaBox();
     }
-
     window.ShowCaptchaBox = ShowCaptchaBox;
 
+
+    // Upload file handler
+    function InputUploadFile(e) {
+        const files = e.target.files;
+        console.log(files);
+
+        let list = '';
+        for (let i = 0; i < files.length; i++) {
+            if (i >= 2) break;
+            list += `
+                <div class="report-form-modal__file-item item-${i}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    <div>
+                        <p>${files[i].name}</p>
+                        <span>${files[i].size} B</span>
+                    </div>
+                </div>
+            `
+        }
+        document.querySelector('.report-form-modal__file-list').innerHTML = list;
+        document.querySelector('.report-form-modal__files-area label').style.display = 'none';
+        document.querySelector('.report-form-modal__files-area button').style.display = 'block';
+    }
+    window.InputUploadFile = InputUploadFile;
+
+    function ClearUploadFile() {
+        document.querySelector('.report-form-modal__file-list').innerHTML = `
+            <label for="report-form-modal__files">
+                <img src='/assets/dan/uploadfile.png' alt='upload file'>
+            </label>
+        `;
+        document.getElementById('report-form-modal__files').value = '';
+        document.querySelector('.report-form-modal__files-area label').style.display = 'block';
+        document.querySelector('.report-form-modal__files-area button').style.display = 'none';
+    }
+    window.ClearUploadFile = ClearUploadFile;
+
+
+    // Close modal handler
+    function CloseReportFormModal() {
+        document.querySelector('.report-form-modal-root').classList.add('hide');
+    }
+    window.CloseReportFormModal = CloseReportFormModal;
+
+    function PreventCloseReportFormModal(e) {
+        e.stopPropagation();
+    }
+    window.PreventCloseReportFormModal = PreventCloseReportFormModal;
+
+
     return `
-        <div class="report-form-modal-container">
-            <div class="report-form-modal">
+        <div class="report-form-modal-container" onclick="CloseReportFormModal()">
+            <div class="report-form-modal" onclick="PreventCloseReportFormModal(event)">
 
                 <div class="report-form-modal__title">
                     <h1>Đơn phản hồi thông tin</h1>
-                    <button type="button" onclick="document.querySelector('.modal-root').innerHTML = ''">
+                    <button type="button" onclick="CloseReportFormModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
@@ -28,7 +73,8 @@ export default function ReportFormModal() {
 
                 <form
                     action=""
-                    onsubmit="event.preventDefault(); ShowCaptchaBox()"
+                    onsubmit="ShowCaptchaBox(event)"
+                    novalidate
                     class="report-form-modal__form"
                 >
                     <div class="report-form-modal__row">
@@ -86,33 +132,44 @@ export default function ReportFormModal() {
 
 
                     <div class="report-form-modal__fluid">
-                        <label for="content">Nội dung báo cáo <span class="text-danger">*</span></label>
+                        <label for="report-form-modal__content">Nội dung báo cáo <span class="text-danger">*</span></label>
                         <textarea
-                            id="content"
-                            name="content"
-                            aria-label="content"
+                            id="report-form-modal__content"
+                            class="report-form-modal__content"
+                            name="report-form-modal__content"
                             placeholder="Nhập nội dung báo cáo"
-                            row="3"
-                            cols="50"
                             required
                         ></textarea>
                     </div>
 
 
                     <div class="report-form-modal__fluid">
-                        <label for="files">Hình ảnh đính kèm (Tối đa 2 hình)</label>
+                        <label for="report-form-modal__files">Hình ảnh đính kèm (Tối đa 2 hình)</label>
                         
-                        <div class="report-form-modal__drop-area">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                            <p>Kéo thả file vào đây hoặc</p>
-                            <label for="files">Chọn ảnh</label> 
+                        <div class="report-form-modal__file-list">
+                            <label for="report-form-modal__files">
+                                <img src='/assets/dan/uploadfile.png' alt='upload file'>
+                            </label>
+                        </div>
+                    
+                        <div class="report-form-modal__files-area">
+                            <label for="report-form-modal__files">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                Tải ảnh lên
+                            </label>
+
+                            <button type="button" onclick="ClearUploadFile()" class="btn btn-outline-danger custom-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                Gỡ tất cả file
+                            </button>
+
                             <input
                                 type="file"
-                                id="files"
+                                id="report-form-modal__files"
                                 name="FileInput"
                                 multiple
+                                onchange="InputUploadFile(event)"
                             >
-                            
                         </div>
                     </div>
 

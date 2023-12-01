@@ -3,7 +3,7 @@
 }
 
 .mapboxgl-ctrl.mapboxgl-ctrl-group {
-    z-index: 5;
+    z-index: 20;
     position: fixed;
     bottom: 92px;
     right: calc(28px + ((40px - 32px) / 2));
@@ -21,7 +21,7 @@
 
 
 .mapboxgl-ctrl.mapboxgl-ctrl-group > .mapboxgl-ctrl-geolocate {
-    z-index: 5;
+    z-index: 20;
     position: fixed;
     bottom: 168px;
     right: 0px;

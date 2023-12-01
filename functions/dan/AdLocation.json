@@ -1,0 +1,60 @@
+{
+    "type": "AdCollection",
+    "features": [
+        {
+            "type": "Ad",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.681622,10.765123 ]
+            },
+            "properties": {
+                "locationId": 2,
+                "quyhoach": true
+            }
+        },
+        {
+            "type": "Ad",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.679085,10.762585 ]
+            },
+            "properties": {
+                "locationId": 1,
+                "quyhoach": false
+            }
+        },
+        {
+            "type": "Ad",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.686656,10.762573 ]
+            },
+            "properties": {
+                "locationId": 4,
+                "quyhoach": true
+            }
+        },
+        {
+            "type": "Ad",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.689628,10.761667 ]
+            },
+            "properties": {
+                "locationId": 5,
+                "quyhoach": false
+            }
+        },
+        {
+            "type": "Ad",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 106.683218,10.761180 ]
+            },
+            "properties": {
+                "locationId": 3,
+                "quyhoach": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/css/navbar.css">
+<a id="logo" href="/phuong"><img src="/assets/img/logo.svg" alt=""></a>
+<div id="side-bar" class="d-flex flex-column justify-content-between">
+    <ul>
+        <li {{#if (equalNumber current 0)}}class="sidebar-active"{{else}}{{#onclickRedirect 'thongtinquangcao'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/thongtinquangcao_icon.svg">
+            Thông tin quảng cáo
+        </li>
+        <li {{#if (equalNumber current 1)}}class="sidebar-active"{{else}}{{#onclickRedirect 'baocao'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/report_ic_a.svg">
+            Báo Cáo
+        </li>
+        <li {{#if (equalNumber current 2)}}class="sidebar-active"{{else}}{{#onclickRedirect 'nhansu'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/employee_ic_n.svg">
+            Nhân Sự
+        </li>
+        <li {{#if (equalNumber current 3)}}class="sidebar-active"{{else}}{{#onclickRedirect 'thongke'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/satistic_ic_n.svg">
+            Thống Kê
+        </li>
+        <li {{#if (equalNumber current 4)}}class="sidebar-active"{{else}}{{#onclickRedirect 'capphep'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/permit_ic_n.svg">
+            Cấp Phép
+        </li>
+        <li {{#if (equalNumber current 5)}}class="sidebar-active"{{else}}{{#onclickRedirect 'dieuchinh'}}{{/onclickRedirect}}{{/if}}>
+            <img src="/assets/icon/adjust_ic_n.svg">
+            Điều Chỉnh
+        </li>
+    </ul>
+    <ul>
+        <li><img src="/assets/icon/personalInfo_ic_n.svg">Thông tin cá nhân</li>
+        <li><img src="/assets/icon/logOut_ic_n.svg">Đăng xuất</li>
+    </ul>
+</div>

@@ -3,8 +3,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const jwt = require('jsonwebtoken');
-const db = require('./path-to-your-firestore-configuration');
-
+const admin = require('/config/firebaseAdmin');
+const db = admin.firestore();
 const users = db.collection('accounts');
 
 // Local strategy for username and password login
@@ -32,12 +32,11 @@ passport.use(
   )
 );
 
-// JWT strategy for token authentication
 passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'your-secret-key', // Change this to a secure secret
+      secretOrKey: 'suffering', 
     },
     (jwtPayload, done) => {
       return done(null, jwtPayload.user);
@@ -45,9 +44,8 @@ passport.use(
   )
 );
 
-// Function to generate JWT token
 const generateToken = (user) => {
-  return jwt.sign({ user }, 'sufferingPassport', { expiresIn: '1h' });
+  return jwt.sign({ user }, 'suffering', { expiresIn: '1h' });
 };
 
 module.exports = { passport, generateToken };
