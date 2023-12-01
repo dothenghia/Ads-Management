@@ -12,12 +12,17 @@
 const express = require('express'); //Khai báo các thứ cần thiết
 const expressHbs = require('express-handlebars');
 const helpers = {
+    // Chung
+    "mathOps": require("./functions/canbo/mathOps"),
+    "httpFuncs": require("./functions/canbo/httpFuncs"),
+
+    // Sở
     "reportTrans": require("./functions/so/translateReportType"),
     "reportLocation": require("./functions/so/getReportLocation"),
     "reportStatus": require("./functions/so/getReportStatus"),
+
+    // Phường
     "getAd": require("./functions/phuong/getAd"),
-    "mathOps": require("./functions/canbo/mathOps"),
-    "httpFuncs": require("./functions/canbo/httpFuncs")
 }
 const app = express();
 app.use(passport.initialize());
@@ -43,6 +48,10 @@ app.engine('hbs', expressHbs.engine({
         addNumber: helpers.mathOps.addNumber,
         onclickAction: helpers.httpFuncs.onclickAction,
         onclickRedirect: helpers.httpFuncs.onclickRedirect,
+        createGlobal: helpers.httpFuncs.createGlobal,
+        getGlobal: helpers.httpFuncs.getGlobal,
+        removeGlobal: helpers.httpFuncs.removeGlobal,
+        incrementGlobal: helpers.httpFuncs.incrementGlobal,
         fromJSON: helpers.httpFuncs.fromJSON,
         toJSON: helpers.httpFuncs.toJSON,
         arrayLength: helpers.httpFuncs.arrayLength,
