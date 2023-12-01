@@ -17,6 +17,7 @@
     "express-session": "^1.17.3",
     "firebase": "^10.6.0",
     "firebase-admin": "^11.11.1",
+    "passport": "^0.7.0",
     "passport-local": "^1.0.0"
   }
 }
