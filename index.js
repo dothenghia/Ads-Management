@@ -24,6 +24,17 @@ const helpers = {
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
+    // Chung
+    "mathOps": require("./functions/canbo/mathOps"),
+    "httpFuncs": require("./functions/canbo/httpFuncs"),
+
+    // Sở
+    "reportTrans": require("./functions/so/translateReportType"),
+    "reportLocation": require("./functions/so/getReportLocation"),
+    "reportStatus": require("./functions/so/getReportStatus"),
+
+    // Phường
+    "getAd": require("./functions/phuong/getAd"),
 }
 const app = express();
 app.use(express.static(__dirname + "/html"));
@@ -64,6 +75,27 @@ app.engine('hbs', expressHbs.engine({
 
         // Phường
         getLocation: helpers.getAd.getLocation,
+        getAdInfo: helpers.getAd.getAdInfo,
+        // Chung
+        equalNumber: helpers.mathOps.equalNumber,
+        addNumber: helpers.mathOps.addNumber,
+        onclickAction: helpers.httpFuncs.onclickAction,
+        onclickRedirect: helpers.httpFuncs.onclickRedirect,
+        createGlobal: helpers.httpFuncs.createGlobal,
+        getGlobal: helpers.httpFuncs.getGlobal,
+        removeGlobal: helpers.httpFuncs.removeGlobal,
+        incrementGlobal: helpers.httpFuncs.incrementGlobal,
+        fromJSON: helpers.httpFuncs.fromJSON,
+        toJSON: helpers.httpFuncs.toJSON,
+        arrayLength: helpers.httpFuncs.arrayLength,
+
+        // Sở
+        translateReportType: helpers.reportTrans.translateReportType,
+        getReportLocation: helpers.reportLocation.getReportLocation,
+        getReportStatus: helpers.reportStatus.getReportStatus,
+
+        // Phường
+        getLocation: helpers.getAd.getLocation,
         getAdInfo: helpers.getAd.getAdInfo
     }
 }));
@@ -79,13 +111,23 @@ app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
 // app.post("/create", async (req, res) => {
 //     try {
 //       const id = req.body.email; // Change res.body to req.body
+// app.post("/create", async (req, res) => {
+//     try {
+//       const id = req.body.email; // Change res.body to req.body
   
 //       const userJson = {
 //         email: req.body.email,
 //         firstName: req.body.firstName,
 //         lastName: req.body.lastName,
 //       };
+//       const userJson = {
+//         email: req.body.email,
+//         firstName: req.body.firstName,
+//         lastName: req.body.lastName,
+//       };
   
+//       // Wait for the Firestore operation to complete
+//       await db.collection("accounts").doc(id).set(userJson);
 //       // Wait for the Firestore operation to complete
 //       await db.collection("accounts").doc(id).set(userJson);
   
@@ -95,9 +137,17 @@ app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
 //       res.status(500).send("Internal Server Error");
 //     }
 //   });
+//       res.send("User created successfully");
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send("Internal Server Error");
+//     }
+//   });
 
 //! Viết code bọn bay tiếp theo dưới này
 app.use('/phuong', require("./routes/user/phuongRoute"));
+
+app.use('/so', require("./routes/user/soRoute"))
 
 app.use('/so', require("./routes/user/soRoute"))
 
