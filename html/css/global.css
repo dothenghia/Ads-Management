@@ -1,4 +1,5 @@
 :root {
+    /* ============== COLOR ============== */
     --white-color: #fff;
     --black-color: #000;
     --primary-color : #0D6EFD;
@@ -30,8 +31,21 @@
     --tuchoi-color : #DC3545;
     --tuchoi-color-subtle : #FBBFBF;
 
-    --navbar-width-1 : 76px;
-    --navbar-width-2 : 296px;
+    /* ============== SIZE ============== */
+    --navbar-width-1 : 4.4rem;
+    --navbar-width-2 : 16rem;
+
+
+
+
+    /* ============== TEXT ============== */
+    --text-xs : 0.8rem;
+    --text-sm : 0.9rem;
+    --text-base : 1rem;
+    --text-lg : 1.1rem;
+    --text-xl : 1.2rem;
+    --text-2xl : 1.3rem;
+    --text-3xl : 1.4rem;
 }
 
 * {

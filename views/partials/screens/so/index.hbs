@@ -4,13 +4,18 @@
         height: 100vh;
         display: flex;
     }
+
     .so-navbar {
         width: var(--navbar-width-1);
     }
+
     .so-content {
         width: calc(100vw - var(--navbar-width-1));
-        background-color: salmon;
+        height: 100vh;
+
+        overflow-y: scroll;
     }
+
 </style>
 
 <div class="so-main" id="main">
@@ -23,8 +28,7 @@
 
     {{!-- CONTENT SECTION --}}
     <div class="so-content" id="content">
-        {{!-- {{> (body)}} --}}
-        123123 213 132 1 Content
+        {{> (body)}}
     </div>
 
 </div>

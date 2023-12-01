@@ -36,7 +36,7 @@ const Report = [
         latitude: "",  // Sẽ được lấy từ locationId
 
         reportForm: 'Giải đáp thắc mắc',
-        status: 'Đang xử lý',
+        status: 'Đã xử lý',
         time: '18/10/2023',
 
         fullname: 'Sinh tố dâu',
@@ -57,8 +57,8 @@ const Report = [
         longitude: 106.685008,
         latitude: 10.764479,
 
-        reportForm: 'Tố giác sai phạm',
-        status: 'Đang xử lý',
+        reportForm: 'Đăng ký nội dung',
+        status: 'Từ chối',
         time: '21/10/2023 - 21:10:23',
 
         fullname: 'Thế Giới',
