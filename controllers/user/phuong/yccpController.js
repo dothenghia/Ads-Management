@@ -1,9 +1,14 @@
 const controller = {}
-
 const currentPage = 4;
 
-controller.show = (req,res) => {
-    res.render("partials/screens/phuong/index", {"current": currentPage,
+let {PermissionReq} = require("../../../html/assets/request");
+let {AdLocation} = require("../../../html/assets/data");
+
+controller.show = (req, res) => {
+    res.render("partials/screens/phuong/index", {
+        "current": currentPage,
+        "permissionReq": PermissionReq,
+        "adLocation": AdLocation,
         body: function() {
             return "screens/phuong/yeucaucapphep";
         }

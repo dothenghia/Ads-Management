@@ -28,3 +28,7 @@ const PermissionReq = [
         content: "Sơn tường MTP"
     }
 ]
+
+module.exports = {
+    PermissionReq: PermissionReq
+}
