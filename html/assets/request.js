@@ -29,6 +29,18 @@ const PermissionReq = [
     }
 ]
 
+const ChangeReq = [
+    {
+        changeReqId: 1,
+        locationId: 1,
+        newLocationId: 2,
+        date: "02/04/2024",
+        reason: "Không phù hợp",
+        status: 0
+    }
+]
+
 module.exports = {
-    PermissionReq: PermissionReq
+    PermissionReq,
+    ChangeReq
 }
