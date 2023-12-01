@@ -9,13 +9,29 @@ controller.show = (req, res) => {
 controller.submit = (req, res, next) => {
     passport.authenticate('local', { session: false }, (err, user) => {
         if (err || !user) {
-            res.render('./general/login', { layout: 'layout_general', error: 'Sai tên đăng nhập hoặc mật khẩu.' });
+            return res.render('./general/login', { layout: 'layout_general', error: 'Sai tên đăng nhập hoặc mật khẩu.' });
         }
+
         const token = generateToken(user);
-        return res.json({ token });
-    })
-    (req, res, next); //  immediately invoked function expression (IIFE) 
+
+        res.cookie('jwtToken', token, { httpOnly: true });
+
+        switch (user.role) {
+            case '1':
+                res.redirect('/phuong/bando');
+                break;
+            case '2':
+                res.redirect('/quan/bando');
+                break;
+            case '3':
+                res.redirect('/so');
+                break;
+            default:
+                res.redirect('/');
+        }
+    })(req, res, next); // IIFE Immediately Invoked Function Expression
 };
+
 
 
 controller.initiateGoogleSignIn = passport.authenticate('google', { scope: ['profile', 'email'] });
@@ -25,7 +41,22 @@ controller.googleSignInCallback = (req, res, next) => {
             return res.render('./general/login', { layout: 'layout_general', error: 'Đăng nhập bằng Google đã bị lỗi. Vui lòng kiểm tra lại!' });
         }
         const token = generateToken(user);
-        return res.json({ token });
+
+        res.cookie('jwtToken', token, { httpOnly: true });
+
+        switch (user.role) {
+            case '1':
+                res.redirect('/phuong/bando');
+                break;
+            case '2':
+                res.redirect('/quan');
+                break;
+            case '3':
+                res.redirect('/so');
+                break;
+            default:
+                res.redirect('/');
+        }
     })(req, res, next); // IIFE
 };
 module.exports = controller;

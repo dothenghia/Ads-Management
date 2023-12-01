@@ -1,7 +1,8 @@
 const express = require('express'); //Khai báo các thứ cần thiết
-const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
 const passport = require('./config/passportConfig').passport;
+const checkAuthenticated = require('./routes/middleware/authenticateJWT');
+const cookieParser = require('cookie-parser');
 const helpers = {
     // Chung
     "mathOps": require("./functions/canbo/mathOps"),
@@ -20,6 +21,7 @@ app.use(express.static(__dirname + "/html"));
 // Use body-parser middleware to parse form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(passport.initialize());
 
 // Configure Handlebars as the view engine
@@ -57,21 +59,15 @@ app.engine('hbs', expressHbs.engine({
     }
 }));
 app.set('view engine', 'hbs');
-
-//! get sẽ là method mà bọn mày sử dụng nhiều nhất, chỉ khi submit form như đăng nhập đổi mật khẩu thì thì mới xài post
 // Route: Login Page
 app.use('/',require("./routes/general/loginRoute"));
-app.use('/login', require("./routes/general/loginRoute")); //! nếu muốn sử dụng layout khác với default thì chỉnh layout trong này 
+app.use('/login', require("./routes/general/loginRoute")); 
 app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
-app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
-//! Viết code bọn bay tiếp theo dưới này
-app.use('/phuong', require("./routes/user/phuongRoute"));
+app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"));
+app.use('/phuong',  require("./routes/user/phuongRoute"));
 app.use('/so', require("./routes/user/soRoute"));
-
-
-
-//! PORT 3000, đừng thay PORT KHÁC NẾU NHƯ LÀ 1 THẰNG ĐÀN ÔNG
+app.use('/logout',require("./routes/general/logoutRoute"));
 // Start the server on port 3000
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
