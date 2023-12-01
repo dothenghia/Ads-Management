@@ -1,3 +1,19 @@
+globalVars = {}
+function createGlobal(name, value) {
+    globalVars[name] = value;
+}
+function getGlobal(globalName) {
+    return globalVars[globalName];
+}
+function removeGlobal(globalName) {
+    if (globalVars.hasOwnProperty(globalName))
+        delete globalVars[globalName];
+}
+function incrementGlobal(globalName) {
+    if (globalName in globalVars)
+        globalVars[globalName] += 1;
+}
+
 function onclickAction(htmlAction) {
     return `onclick="${htmlAction}"`;
 }
@@ -19,6 +35,11 @@ function arrayLength(array) {
 }
 
 module.exports = {
+    createGlobal: createGlobal,
+    getGlobal: getGlobal,
+    incrementGlobal: incrementGlobal,
+    removeGlobal: removeGlobal,
+
     onclickAction: onclickAction,
     onclickRedirect: onclickRedirect,
     toJSON: toJSON,

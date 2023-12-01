@@ -36,8 +36,10 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
                     <th scope="col">Địa Điểm</th>
                     <th scope="col">Loại quảng cáo</th>
+                    <th scope="col">Kích thước</th>
                     <th scope="col">Số lượng</th>
                     <th scope="col">Hình thức</th>
                     <th scope="col">Loại vị trí</th>
@@ -46,54 +48,43 @@
             </thead>
             <tbody>
                 {{!-- Pass data vào --}}
+                {{#createGlobal 'adIndex' 1}}{{/createGlobal}}
                 {{#each adLocation}}
-                <tr>
-                    <td scope="col"  style="padding-top: 1em;">
-                        <span class="reportTableData fs-6">{{#addNumber @index 1}}{{/addNumber}}</span>
-                    </td>
-                    <td scope="col text-center" style="padding-top: 1em; max-width:15em;" >
-                        <span class="reportTableData fs-6" >
-                            {{getLocation ../adLocation locationId 2}}
-                        </span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;">
-                        <span class="reportTableData fs-6">{{type}}</span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;" >
-                        <span class="reportTableData fs-6">{{quantity}}</span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;" >
-                        <span class="reportTableData fs-6">{{form}}</span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;" >
-                        <span class="reportTableData fs-6">{{locationType}}</span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;">
-                        <img src="/assets/icon/detail_ic.svg" alt="Ad location detail">
-                    </td>
-                </tr>
-                <tr style="display: none">
-                    <td><table>
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">Kích thước</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each adList}}
-                                <tr scope="col">{{#addNumber @index 1}}{{/addNumber}}</tr>
-                                {{#with (lookup ../ad 'adId')}}
-                                    <tr scope="col">{{name}}</tr>
-                                    <tr scope="col">{{size}}</tr>
-                                {{/with}}
+                    {{#each adList}}
+                        <tr>
+                            <td scope="col"  style="padding-top: 1em;">
+                                <span class="reportTableData fs-6">{{#getGlobal 'adIndex'}}{{/getGlobal}}</span>
+                                {{#incrementGlobal 'adIndex'}}{{/incrementGlobal}}
+                            </td>
+                            {{#each (getAdInfo ../../ad adId)}}
+                                <td scope="col" style="padding-top: 1em;">{{name}}</td>
                             {{/each}}
-                        </tbody>
-                    </table></td>
-                </tr>
+                            <td scope="col text-center" style="padding-top: 1em; max-width:15em;" >
+                                <span class="reportTableData fs-6" >
+                                    {{getLocation ../../adLocation ../locationId 2}}
+                                </span>
+                            </td>
+                            <td scope="col" style="padding-top: 1em;">
+                                <span class="reportTableData fs-6">{{../type}}</span>
+                            </td>
+                            {{#each (getAdInfo ../../ad adId)}}
+                                <td scope="col" style="padding-top: 1em;">{{size}}</td>
+                            {{/each}}
+                            <td scope="col" style="padding-top: 1em;" >
+                                <span class="reportTableData fs-6">{{../quantity}}</span>
+                            </td>
+                            <td scope="col" style="padding-top: 1em;" >
+                                <span class="reportTableData fs-6">{{../form}}</span>
+                            </td>
+                            <td scope="col" style="padding-top: 1em;" >
+                                <span class="reportTableData fs-6">{{../locationType}}</span>
+                            </td>
+                            <td scope="col" style="padding-top: 1em;">
+                                <img src="/assets/icon/detail_ic.svg" alt="Ad location detail">
+                            </td>
+                        </tr>
+                    {{/each}}
                 {{/each}}
-            </tbody>
         </table>
     </div>
 </div>
