@@ -177,8 +177,105 @@ const AdLocation = [
     },
 ]
 
+// LƯU THÌ SẼ LƯU NHƯ THẾ NÀY
+// NHƯNG KHI TRẢ DỮ LIỆU THÌ SẼ PHẢI GHÉP BẢNG/THAM CHIẾU NHÉ
+
+const Account = [
+    {
+        accountId: 1,
+        role: 1, // 1: Phường , 2: Quận, 3: Sở
+        
+        username: "",
+        password: "", // (bcrypt) 
+
+        idQuan: "5",   // Quận 5
+        idPhuong: "4", // Phường 4
+
+        fullname: "Khoa Meng",
+        dob: '31/12/2023',
+        email: 'test@gmail.com',
+        phone: '0123456789',
+    },
+    {
+        accountId: 2,
+        role: 2, // Cán bộ Quận
+
+        username: "",
+        password: "", // (bcrypt)
+
+        idQuan: "6",   // Quận 6
+        idPhuong: "",
+
+        fullname: "Khoa Meng",
+        dob: '31/12/2023',
+        email: 'test@gmail.com',
+        phone: '0123456789',
+    },
+    {
+        accountId: 3,
+        role: 3, // Cán bộ Sở
+
+        username: "",
+        password: "", // (bcrypt)
+
+        idQuan: "",
+        idPhuong: "",
+
+        fullname: "Khoa Meng",
+        dob: '31/12/2023',
+        email: 'test@gmail.com',
+        phone: '0123456789',
+    }
+]
+
+const PermissionReq = [
+    {
+        permissionReqId: 1,
+        name: "Trụ panel",
+        co: {
+            id: "vincom",
+            name: "Vin Cơm",
+            email: "vcome@gmail.com",
+            phone: "324932423"
+        },
+        locationId: 2,
+        startdate: "22/12/2023",
+        enddate: "22/12/2024",
+        content: "Sơn tường MTP"
+    },
+    {
+        permissionReqId: 2,
+        name: "Bảng quảng cáo 69",
+        co: {
+            id: "coopmart",
+            name: "Cốp Mắc",
+            email: "coopmart@gmail.com",
+            phone: "543643"
+        },
+        locationId: 2,
+        startdate: "24/10/2024",
+        enddate: "24/01/2025",
+        content: "Sơn tường MTP"
+    }
+]
+
+const ChangeReq = [
+    {
+        changeReqId: 1,
+        locationId: 1,
+        newLocationId: 2,
+        date: "02/04/2024",
+        reason: "Không phù hợp",
+        senderRole: 2,
+        status: 0
+    }
+]
+
 module.exports = { 
     Report,
     Ad, 
-    AdLocation
+    AdLocation,
+    Account,
+    PermissionReq,
+    ChangeReq
 };

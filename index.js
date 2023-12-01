@@ -21,7 +21,10 @@ const helpers = {
     "reportTrans": require("./functions/so/translateReportType"),
     "reportLocation": require("./functions/so/getReportLocation"),
     "reportStatus": require("./functions/so/getReportStatus"),
-
+    "translateAgentArea": require("./functions/so/translateAgentArea"),
+    "getAgentRole": require("./functions/so/getAgentRole"),
+    "isUdfNullBlank": require("./functions/so/isUdfNullBlank"), //? Đây là hàm để check null
+    
     // Phường
     "getAd": require("./functions/phuong/getAd"),
 }
@@ -61,6 +64,9 @@ app.engine('hbs', expressHbs.engine({
         translateReportType: helpers.reportTrans.translateReportType,
         getReportLocation: helpers.reportLocation.getReportLocation,
         getReportStatus: helpers.reportStatus.getReportStatus,
+        translateAgentArea: helpers.translateAgentArea.translateAgentArea,
+        getAgentRole: helpers.getAgentRole.getAgentRole,
+        isUdfNullBlank: helpers.isUdfNullBlank.isUdfNullBlank,
 
         // Phường
         getLocation: helpers.getAd.getLocation,
