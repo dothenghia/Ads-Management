@@ -72,6 +72,7 @@ app.engine('hbs', expressHbs.engine({
         getLocation: helpers.getAd.getLocation,
         getAdInfo: helpers.getAd.getAdInfo,
         getAdLocationInfo: helpers.getAd.getAdLocationInfo,
+        getReportInfo: helpers.getAd.getReportInfo,
     }
 }));
 app.set('view engine', 'hbs');

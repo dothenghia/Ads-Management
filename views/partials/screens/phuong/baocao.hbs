@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/phuong/shared.css">
+<link rel="stylesheet" href="/css/modal.css">
 
 
 <div class="shared-container">
@@ -54,7 +55,7 @@
 
             <tbody>
                 {{!-- Pass data vào --}}
-                {{#each report }}
+                {{#each report}}
                 <tr>
                     <td scope="col">{{addNumber @index 1}}</td>
                     <td scope="col">{{translateReportType reportType}}</td>
@@ -86,7 +87,7 @@
                     </td>
 
                     <td scope="col">
-                        <button class="table-detail-button">
+                        <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-info">
@@ -102,4 +103,82 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Report detail modal -->
+    <div class="modal fade" id="reportDetailModal" tabindex="-1" aria-labelledby="reportDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="reportDetailModalLabel">
+                        Thông tin chi tiết
+                    </h6>
+                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="reportDetailModalContent">
+                    <i class="bi bi-geo-alt" id="reportDetailAddress"></i>
+                    <div class="row" id="reportDetailCategoryRow">
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Hình thức báo cáo</h6>
+                            <h6 id="reportDetailForm"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Tình trạng xử lý</h6>
+                            <h6 id="reportDetailStatus"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Thời gian gửi</h6>
+                            <h6 id="reportDetailTime"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportDetailCategoryRow">
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Họ và tên</h6>
+                            <h6 id="reportDetailFullname"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Email</h6>
+                            <h6 id="reportDetailEmail"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Số điện thoại</h6>
+                            <h6 id="reportDetailPhone"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportDetailCategoryRow">
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Nội dung báo cáo</h6>
+                            <h6 id="reportDetailContent"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportDetailCategoryRow">
+                        <h6 id="reportDetailCategoryTitle">Hình ảnh quảng cáo</h6>
+                        <div class="row">
+                            <div id="reportDetailNoThumbnails" style="display: none">
+                                <h6>Không có hình ảnh để hiển thị</h6>
+                            </div>
+                            <div id="reportDetailThumbnails" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="..." alt="First slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="..." alt="Second slide">
+                                    </div>
+                                </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#reportDetailThumbnails" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#reportDetailThumbnails" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+{{!-- Custom JS script --}}
+<script src="/js/reportDetail.js"></script>

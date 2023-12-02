@@ -49,7 +49,7 @@ const PermissionReq = [
 const ChangeReq = [
     {
         changeReqId: 1,
-        locationId: 1,
+        locationId: 2,
         newLocationId: 2,
         senderRole: 2,
         date: "02/04/2024",

@@ -138,6 +138,7 @@
     }
 }
 
+
 /* permissionReqDetailModal */
 
 #permissionReqDetailModal {
@@ -165,6 +166,9 @@
 
         hr {
             margin: 0.5vh 0 2vh 0;
+        }
+        #permissionReqDetailCoName {
+            font-weight: 600;
         }
         #permissionReqDetailName {
             font-weight: 700;
@@ -194,6 +198,80 @@
             }
         }
         #permissionReqDetailNoThumbnails {
+            text-align: center;
+            font-weight: 200;
+            color: rgb(98, 97, 97);
+        }
+    }
+}
+
+
+/* ReportDetailModal */
+
+#reportDetailModal {
+    --bs-modal-width: 50vw;
+    
+    .modal-header {
+        padding: 2vh 1.2vw 0.8vh 1.2vw;
+
+        #reportDetailModalLabel {
+            font-weight: 800;
+            font-size: 18px;
+
+            br {
+                display: block;
+                margin: 0.1em 0;
+            }
+            i {
+                color: #0065FF;
+            }
+        }
+    }
+
+    .modal-body {
+        padding: 0.8vh 1.2vw 4vh 1.2vw;
+        font-size: 18px;
+
+        hr {
+            margin: 0.5vh 0 2vh 0;
+        }
+        #reportDetailAddress {
+            color: #0065FF;
+            font-size: 16px;
+            font-weight: 700;
+            font-style: normal;
+        }
+        #reportDetailName {
+            font-weight: 700;
+            margin-bottom: 2vh;
+        }
+        #reportDetailCategoryRow {
+            margin-top: 1vh;
+        }
+        #reportDetailCategoryRow:first {
+            margin-top: 4vh;
+        }
+        h6#reportDetailCategoryTitle {
+            font-weight: bold;
+            color: rgb(81, 80, 80);
+            margin-bottom: 3px;
+        }
+        h6:not(#reportDetailCategoryTitle) {
+            color: rgb(81, 80, 80);
+            font-weight: 500;
+        }
+        #reportDetailThumbnails {
+            margin-top: 1vh;
+
+            .carousel-item img {
+                border: 1px solid white;
+                border-radius: 20px;
+                width: 60% !important;
+                height: auto;
+                margin: auto;
+            }
+        }
+        #reportDetailNoThumbnails {
             text-align: center;
             font-weight: 200;
             color: rgb(98, 97, 97);
