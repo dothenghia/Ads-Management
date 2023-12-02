@@ -70,7 +70,8 @@ app.engine('hbs', expressHbs.engine({
 
         // Phường
         getLocation: helpers.getAd.getLocation,
-        getAdInfo: helpers.getAd.getAdInfo
+        getAdInfo: helpers.getAd.getAdInfo,
+        getAdLocationInfo: helpers.getAd.getAdLocationInfo,
     }
 }));
 app.set('view engine', 'hbs');

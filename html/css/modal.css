@@ -2,73 +2,141 @@
 
 #adDetailModal {
     --bs-modal-width: 50vw;
+    
+    .modal-header {
+        padding: 2vh 1.2vw 0.8vh 1.2vw;
+
+        #adDetailModalLabel {
+            font-weight: 600;
+
+            br {
+                display: block;
+                margin: 0.1em 0;
+            }
+            i {
+                color: #0065FF;
+            }
+        }
+    }
+
+    .modal-body {
+        padding: 0.8vh 1.2vw 4vh 1.2vw;
+        font-size: 18px;
+
+        hr {
+            margin: 0.5vh 0 2vh 0;
+        }
+        #adDetailName {
+            font-weight: 700;
+            margin-bottom: 2vh;
+        }
+        #adDetailCategoryRow {
+            margin-top: 1vh;
+        }
+        h6#adDetailCategoryTitle {
+            font-weight: bold;
+            color: rgb(81, 80, 80);
+            margin-bottom: 3px;
+        }
+        h6:not(#adDetailCategoryTitle) {
+            color: rgb(81, 80, 80);
+            font-weight: 500;
+        }
+        #adDetailThumbnails {
+            margin-top: 1vh;
+
+            .carousel-item img {
+                border: 1px solid white;
+                border-radius: 20px;
+                width: 60% !important;
+                height: auto;
+                margin: auto;
+            }
+        }
+        #adDetailNoThumbnails {
+            text-align: center;
+            font-weight: 200;
+            color: rgb(98, 97, 97);
+        }
+    }
 }
 
-#adDetailModal .modal-header {
-    padding: 2vh 1.2vw 0.8vh 1.2vw;
+/* changeReqDetailModal */
+
+#changeReqDetailModal {
+    --bs-modal-width: 60vw;
+
+    .modal-content {
+        background-color: rgba(0, 0, 0, 0);
+        border: 0;
+        border-radius: 12px !important;
+
+        .modal-header {
+            background-color: white; 
+            border: solid rgba(43, 119, 208, 0.67);
+            border-width: 4px 4px 0 4px;
+            border-radius: 12px 12px 0 0 !important;
+            padding: 2vh 1.2vw 1.2vh 1.2vw;
+            color: #0065FF;
+        }
+        .modal-body {
+            background-color: white; 
+            border: solid rgba(43, 119, 208, 0.67);
+            border-width: 0 4px 4px 4px;
+            border-radius: 0 0 12px 12px !important;
+            padding: 1.2vh 3vw 1vh 3vw;
+            font-size: 18px;
+
+            #changeReqDetailTable{
+                table {
+                    --bs-table-bg: white;
+                    text-align: start;
+                    border-color: #DEE2E6;
+
+                    > :not(caption) > * > * {
+                        padding: 1rem 1rem;
+                    }
+                    th {
+                        text-align: start;
+                        color: #0065FF;
+                        font-weight: 600;
+                        font-size: 18px;
+                        padding-left: 2vw !important;
+                    }
+                    td {
+                        text-align: start;
+                        padding-left: 2vw !important;
+                    }
+                    thead th:not(:last-of-type), tbody th, tbody th + td {
+                        border-width: 0 1px 0 0;
+                    }
+                }
+            }
+        }
+        #changeReqDetailChoice {
+            padding: 3vh 1vw 0 0;
+
+            button {
+                margin-left: 2vw;
+                border-radius: 20px;
+                box-shadow: none;
+                padding: 1vh 0;
+                font-weight: 600;
+                width: 14%;
+            }
+            button:nth-of-type(1) {
+                border: 1px solid #FBBFBF;
+                background-color: #FBBFBF;
+                color: #DC3545;
+            }
+            button:nth-of-type(2) {
+                border: 1px solid #C7EDD9;
+                background-color: #C7EDD9;
+                color: #41AF79;
+            }
+        }
+    }
 }
-
-#adDetailModal .modal-header #adDetailModalLabel {
-    font-weight: 600;
-}
-
-#adDetailModal .modal-header #adDetailModalLabel br {
-    display: block;
-    margin: 0.1em 0;
-}
-
-#adDetailModal .modal-header #adDetailModalLabel i {
-    color: #0065FF;
-}
-
-#adDetailModal .modal-body {
-    padding: 0.8vh 1.2vw 4vh 1.2vw;
-    font-size: 18px;
-}
-
-#adDetailModal .modal-body hr {
-    margin: 0.5vh 0 2vh 0;
-}
-
-#adDetailModal .modal-body #adDetailName {
-    font-weight: 700;
-    margin-bottom: 2vh;
-}
-
-#adDetailModal .modal-body #adDetailCategoryRow {
-    margin-top: 1vh;
-}
-
-#adDetailModal .modal-body h6#adDetailCategoryTitle {
-    font-weight: bold;
-    color: rgb(81, 80, 80);
-    margin-bottom: 3px;
-}
-
-#adDetailModal .modal-body h6:not(#adDetailCategoryTitle) {
-    color: rgb(81, 80, 80);
-    font-weight: 500;
-}
-
-#adDetailModal .modal-body #adDetailThumbnails {
-    margin-top: 1vh;
-}
-
-#adDetailModal .modal-body #adDetailThumbnails .carousel-item img {
-    border: 1px solid white;
-    border-radius: 20px;
-    width: 60% !important;
-    height: auto;
-    margin: auto;
-}
-
-#adDetailModal .modal-body #adDetailNoThumbnails {
-    text-align: center;
-    font-weight: 200;
-    color: rgb(98, 97, 97);
-}
-
-
 
 /* permissionReqModal */
 

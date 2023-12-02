@@ -76,7 +76,7 @@
                         </td>
                         
                         <td scope="col">
-                            <button class="table-detail-button">
+                            <button class="table-detail-button" data-ad-old-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-new-location-details="{{toJSON (getAdLocationInfo ../adLocation newLocationId)}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -97,42 +97,60 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="changeReqDetailModalLabel">
-                        Thông tin chi tiết
-                        <br>
-                        <i class="bi bi-geo-alt" id="changeReqDetailAddress"></i>
-                    </h6>
+                    <h5 class="modal-title">Địa điểm & Bảng QC</h5>
                     <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="changeReqDetailContent">
-                    <h5 class="row justify-content-center" id="changeReqDetailName"></h5>
-                    <div class="row" id="changeReqDetailCategoryRow">
-                        <div class="col">
-                            <h6 id="changeReqDetailCategoryTitle">Loại bảng quảng cáo</h6>
-                            <h6 id="changeReqDetailType"></h6>
+                    <div class="row justify-content-center" id="changeReqDetailTable">
+                        <div class="table">
+                            <table class="table table-primary">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"> </th>
+                                        <th scope="col">Thông tin cũ</th>
+                                        <th scope="col">Thông tin mới</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Địa chỉ</th>
+                                        <td id="changeReqDetailOldAddr"></td>
+                                        <td id="changeReqDetailNewAddr"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Kích thước</th>
+                                        <td id="changeReqDetailOldSize"></td>
+                                        <td id="changeReqDetailNewSize"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">SL trụ</th>
+                                        <td id="changeReqDetailOldCnt"></td>
+                                        <td id="changeReqDetailNewCnt"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Hình thức</th>
+                                        <td id="changeReqDetailOldForm"></td>
+                                        <td id="changeReqDetailNewForm"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Phân loại</th>
+                                        <td id="changeReqDetailOldLocationType"></td>
+                                        <td id="changeReqDetailNewLocationType"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col">
-                            <h6 id="changeReqDetailCategoryTitle">Hình thức quảng cáo</h6>
-                            <h6 id="changeReqDetailForm"></h6>
-                        </div>
-                        <div class="col">
-                            <h6 id="changeReqDetailCategoryTitle">Loại vị trí</h6>
-                            <h6 id="changeReqDetailLocationType"></h6>
-                        </div>
+                        
                     </div>
-                    <div class="row" id="changeReqDetailCategoryRow">
-                        <div class="col">
-                            <h6 id="changeReqDetailCategoryTitle">Thời hạn hợp đồng</h6>
-                            <h6 id="changeReqDetailContractDate"></h6>
-                        </div>
-                        <div class="col">
-                            <h6 id="changeReqDetailCategoryTitle">Kích thước</h6>
-                            <h6 id="changeReqDetailSize"></h6>
-                        </div>
-                        <div class="col"> </div>
-                    </div>
+                </div>
+                <div class="row justify-content-end" id="changeReqDetailChoice">
+                    <button class="col-2">Từ chối</button>
+                    <button class="col-2">Chấp thuận</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{{!-- Custom JS script --}}
+<script src="/js/changeReqDetail.js"></script>

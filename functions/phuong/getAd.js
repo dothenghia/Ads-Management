@@ -181,7 +181,13 @@ function getAdInfo(ad, id) {
     return obj;
 }
 
+function getAdLocationInfo(adLocation, id) {
+    let obj = adLocation.filter(loc => loc.locationId == id);
+    return obj;
+}
+
 module.exports = {
     getLocation: getLocation,
-    getAdInfo: getAdInfo
+    getAdInfo: getAdInfo,
+    getAdLocationInfo: getAdLocationInfo
 }
