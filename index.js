@@ -120,7 +120,7 @@ app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
 
 //! Viết code bọn bay tiếp theo dưới này
 app.use('/phuong', require("./routes/user/phuongRoute"));
-
+app.use('/quan', require("./routes/user/quanRoute"));
 app.use('/so', require("./routes/user/soRoute"))
 
 

@@ -1,0 +1,34 @@
+<style>
+    .quan-main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+    }
+
+    .quan-navbar {
+        width: var(--navbar-width-1);
+    }
+
+    .quan-content {
+        width: calc(100vw - var(--navbar-width-1));
+        height: 100vh;
+
+        overflow-y: scroll;
+    }
+
+</style>
+
+<div class="quan-main" id="main">
+
+    {{!-- NAVIGATION BAR --}}
+    <div class="quan-navbar" id="nav">
+        {{>quan/navbar current=current}}
+    </div>
+
+
+    {{!-- CONTENT SECTION --}}
+    <div class="quan-content" id="content">
+        {{> (body)}}
+    </div>
+
+</div>
