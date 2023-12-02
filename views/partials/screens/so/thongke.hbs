@@ -1,0 +1,55 @@
+<!-- Include Chart.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+<!-- Include your stylesheets -->
+<link rel="stylesheet" href="/css/custom-btn.css">
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/so/thongke.css">
+
+<!-- Your Handlebars template content -->
+<div class="thongke-container">
+    <canvas id="thongkeChart"></canvas>
+</div>
+
+<!-- Your script to initialize the chart -->
+<script>
+    let myChart = document.getElementById('thongkeChart').getContext('2d');
+
+    let barChart = new Chart(myChart, {
+            type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data: {
+                labels: ['Boston', 'StringField'],
+                datasets: [{
+                    label: 'Population',
+                    data: [
+                        617594,
+                        181045,
+                    ],
+                    backgroundColor: [
+                        'green',
+                        'red',
+                    ],
+                }]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        left: 350,
+                        right: 20,
+                        top: 100,
+                        bottom: 20
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Population Chart', // Your desired title here
+                        font: {
+                            size: 24 // Adjust the font size as needed
+                        }, // Adjust the font size as needed
+                    }
+                }
+            }
+        });
+    
+</script>

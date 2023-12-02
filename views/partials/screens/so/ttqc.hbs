@@ -1,86 +1,95 @@
+<link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
-<div class="container-fluid d-flex flex-column px-1 h-100">
-    
-    {{!-- Title và filter --}}
-    <div class="row" style="padding: 1.5em;">
-        <span class="fs-2 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:18%;">Quảng Cáo</span>
-        <div class="d-flex flex-row mt-2 justify-content-around" style="width: 75%; height: 65%;" >
-            {{!-- Hình thức báo cáo --}}
-            <div class="border border-2 rounded-3 px-1">
-                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Hình Thức Quảng Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
-            </div>
-            {{!-- Loại báo cáo --}}
-            <div class="border border-2 rounded-3 px-1">
-                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Loại Quảng Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
-            </div>
-            {{!-- Số Lượng --}}
-            <div class="border border-2 rounded-3 px-1">
-                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Số Lượng</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
-            </div>
-            {{!-- Loại Vị Trí --}}
-            <div class="border border-2 rounded-3 px-1">
-                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Loại Vị Trí</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
-            </div>
-            {{!-- Nút thêm --}}
-            <div class="rounded-3 px-3" style="background-color: 	
-rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
-                <span class="fs-6 fw-semibold" style="color: white;">Thêm Quảng Cáo</span>
-            </div>
-            {{!-- Nút Sửa --}}
-            <div class="rounded-3 px-3" style="background-color: 	
-rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
-                <span class="fs-6 fw-semibold" style="color: white;">Sửa Quảng Cáo</span>
-            </div>
+<link rel="stylesheet" href="/css/so/ttqc.css">
+
+
+<div class="ttqc-container">
+
+    {{!-- Header--}}
+    <div class="ttqc-header">
+        <h1>Thông tin quảng cáo</h1>
+
+        <div class="d-flex">
+            <button class="btn btn-outline-primary custom-btn">Thêm quảng cáo</button>
+
+            <button class="btn btn-outline-primary custom-btn mx-3 ">Sửa quảng cáo</button>
         </div>
     </div>
 
+
     {{!-- Table --}}
-    <div class="row" style="padding: 1.5em;">
+    <div class="ttqc-table-container">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Loại Quảng Cáo</th>
-                    <th scope="col">Hình Thức Quảng Cáo</th>
-                    <th scope="col">Địa Điểm</th>
-                    <th scope="col">Số Lượng</th>
-                    <th scope="col">Loại Vị Trí</th>
-                    <th scope="col"></th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="Loại quảng cáo">Loại quảng cáo</option>
+                            <option value="Trụ bảng hiflex">Trụ bảng hiflex</option>
+                            <option value="Trụ màn hình điện tử LED">Trụ màn hình điện tử LED</option>
+                            <option value="Trụ hộp đèn">Trụ hộp đèn</option>
+                            <option value="Bảng hiflex ốp tường">Bảng hiflex ốp tường</option>
+                            <option value="Màn hình điện tử ốp tường">Màn hình điện tử ốp tường</option>
+                            <option value="Trụ treo băng rôn dọc">Trụ treo băng rôn dọc</option>
+                            <option value="Trụ treo băng rôn ngang">Trụ treo băng rôn ngang</option>
+                            <option value="Trụ/Cụm pano">Trụ/Cụm pano</option>
+                            <option value="Cổng chào">Cổng chào</option>
+                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                        </select>
+                    </th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="Hình thức quảng cáo">Hình thức quảng cáo</option>
+                            <option value="Cổ động chính trị">Cổ động chính trị</option>
+                            <option value="Quảng cáo thương mại">Quảng cáo thương mại</option>
+                            <option value="Xã hội hoá">Xã hội hoá</option>
+                        </select>
+                    </th>
+                    <th scope="col">Địa điểm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="Loại vị trí">Loại vị trí</option>
+                            <option value="Đất công">Đất công</option>
+                            <option value="Công viên">Công viên</option>
+                            <option value="Hành lang an toàn giao thông">Hành lang an toàn giao thông</option>
+                            <option value="Đất tư nhân/Nhà ở riêng lẻ">Đất tư nhân/Nhà ở riêng lẻ</option>
+                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                            <option value="Chợ">Chợ</option>
+                            <option value="Cây xăng">Cây xăng</option>
+                            <option value="Nhà chờ xe buýt">Nhà chờ xe buýt</option>
+                        </select>
+                    </th>
+                    <th scope="col">Chi tiết</th>
                 </tr>
             </thead>
+
             <tbody>
                 {{!-- Pass data vào --}}
                 {{#each adLocation }}
                 <tr>
-                    <td scope="col"  style="padding-top: 1em;">
-                        <span class="reportTableData fs-6">{{@index}}</span>
+                    <td scope="col">{{@index}}</td>
+                    <td scope="col">{{type}}</td>
+                    <td scope="col">{{form}}</td>
+                    <td scope="col">{{getReportLocation ../adLocation locationId}}</td>
+                    <td scope="col">{{quantity}}</td>
+                    <td scope="col">{{locationType}}</td>
+                    <td scope="col">
+                        <button class="table-detail-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-info">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </button>
                     </td>
-                    <td scope="col" style="padding-top: 1em;">
-                        <span class="reportTableData fs-6">{{type}}</span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;" >
-                        <span class="reportTableData fs-6">{{form}}</span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;">
-                        <span class="reportTableData fs-6">{{getReportLocation ../adLocation locationId}}</span>
-                    </td>
-                    <td scope="col text-center" style="padding-top: 1em;" >
-                        <span class="reportTableData fs-6" >
-                            {{quantity}}
-                        </span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;">
-                        <span class="reportTableData fs-6" >
-                            {{locationType}}
-                        </span>
-                    </td>
-                    <td scope="col" style="padding-top: 1em;">
-                        <img src="/assets/icon/detail_ic.svg" alt="detail report" id="adDetailBtn">
-                    </td>
+
                 </tr>
                 {{/each}}
+            </tbody>
+        </table>
+    </div>
 </div>

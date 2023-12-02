@@ -11,7 +11,8 @@ const PermissionReq = [
         locationId: 2,
         startdate: "22/12/2023",
         enddate: "22/12/2024",
-        content: "Sơn tường MTP"
+        content: "Sơn tường MTP",
+        status: 0,
     },
     {
         permissionReqId: 2,
@@ -25,7 +26,8 @@ const PermissionReq = [
         locationId: 2,
         startdate: "24/10/2024",
         enddate: "24/01/2025",
-        content: "Sơn tường MTP"
+        content: "Sơn tường MTP",
+        status: 1,
     }
 ]
 

@@ -1,16 +1,17 @@
 const controller = {}
-const currentPage = 5;
+const currentPage = 1;
 
-let {ChangeReq, AdLocation} = require("../../../html/assets/data");
+let {Report, Ad, AdLocation} = require("../../../html/assets/data");
 
 // console.log(AdLocation);
 controller.show = (req, res) => {
     res.render("partials/screens/so/index", {
         "current": currentPage,
-        "changeReq": ChangeReq,
+        "report": Report,
+        "ad": Ad,
         "adLocation": AdLocation,
         body: function() {
-            return "screens/so/dieuchinh";
+            return "screens/so/thongke";
         }
     });
 }
