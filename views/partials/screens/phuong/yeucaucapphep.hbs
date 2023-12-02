@@ -27,7 +27,13 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Công ty</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="all">Công ty</option>
+                            <option value="vincom">Vin Cơm</option>
+                            <option value="coopmart">Cốp Mắc</option>
+                        </select>
+                    </th>
                     <th scope="col">Email</th>
                     <th scope="col">SĐT</th>
                     <th scope="col">Địa điểm yêu cầu cấp phép</th>
@@ -48,19 +54,63 @@
                         {{/with}}
                         <td scope="col">{{getLocation ../adLocation locationId 2}}</td>
                         <td scope="col"> </td>
-                        <td scope="col" style="padding-top: 1em;">
-                            <img src="/assets/icon/detail_ic.svg" alt="Ad location detail">
+                        <td scope="col">
+                            <button class="table-detail-button" data-permission-req-details="{{toJSON ../permissionReq}}" data-ad-location-details="{{toJSON ../adLocation}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-info">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                            </button>
                         </td>
                     </tr>
                 {{/each}}
             </tbody>
         </table>
     </div>
+    
+    <!-- Permission request detail modal -->
+    <div class="modal fade" id="permissionReqDetailModal" tabindex="-1" aria-labelledby="permissionReqDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="permissionReqDetailModalLabel">
+                        Thông tin chi tiết
+                        <br>
+                        <i class="bi bi-geo-alt" id="permissionReqDetailAddress"></i>
+                    </h6>
+                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="permissionReqDetailContent">
+                    <div class="row">
+                        <div class="col-5"></div>
+                        <div class="col-7">
+                            <h5 id="permissionReqDetailName"></h5>
+                            <div class="row">
+                                <span>Công ty: </span>
+                                <h5 id="permissionReqDetailCoName"></h5>
+                            </div>
+                            <div class="row">
+                                <span>SĐT: </span>
+                                <h5 id="permissionReqDetailCoPhone"></h5>
+                            </div>
+                            <div class="row">
+                                <span>Email: </span>
+                                <h5 id="permissionReqDetailCoEmail"></h5>
+                            </div>
+                            <div class="row">
+                                <span>Địa điểm: </span>
+                                <h5 id="permissionReqDetailCoEmail"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script>
-    function setDropdownFilterValue(currentElement, value) {
-        let associatedFilterButton = currentElement.parentElement.attributes["aria-labelledby"].nodeValue;
-        document.querySelector("#" + associatedFilterButton).innerHTML = value;
-    }
-</script>
+{{!-- Custom JS script --}}
+<script src="/js/permissionReqDetail.js"></script>

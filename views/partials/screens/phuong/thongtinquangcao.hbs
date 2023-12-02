@@ -28,11 +28,31 @@
                     <th scope="col">STT</th>
                     <th scope="col">Tên</th>
                     <th scope="col">Địa Điểm</th>
-                    <th scope="col">Loại quảng cáo</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="all">Loại quảng cáo</option>
+                            <option value="1">Trụ bảng hiflex</option>
+                            <option value="2">Màn hình điện tử ốp tường</option>
+                            <option value="3">Trụ treo băng rôn ngang</option>
+                            <option value="4">Cổng chào</option>
+                        </select>
+                    </th>
                     <th scope="col">Kích thước</th>
                     <th scope="col">Số lượng</th>
-                    <th scope="col">Hình thức</th>
-                    <th scope="col">Loại vị trí</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="all">Hình thức</option>
+                            <option value="1">Cổ động chính trị</option>
+                            <option value="2">Quảng cáo thương mại</option>
+                        </select>
+                    </th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="all">Loại vị trí</option>
+                            <option value="1">Công viên</option>
+                            <option value="2">Đất tư nhân</option>
+                        </select>
+                    </th>
                     <th scope="col">Chi tiết</th>
                 </tr>
             </thead>
@@ -148,9 +168,3 @@
 
 {{!-- Custom JS script --}}
 <script src="/js/adDetail.js"></script>
-<script>
-    function setDropdownFilterValue(currentElement, value) {
-        let associatedFilterButton = currentElement.parentElement.attributes["aria-labelledby"].nodeValue;
-        document.querySelector("#" + associatedFilterButton).innerHTML = value;
-    }
-</script>
