@@ -55,7 +55,7 @@
                         <td scope="col">{{getLocation ../adLocation locationId 2}}</td>
                         <td scope="col"> </td>
                         <td scope="col">
-                            <button class="table-detail-button" data-permission-req-details="{{toJSON ../permissionReq}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}">
+                            <button class="table-detail-button" data-permission-req-details="{{toJSON ../permissionReq}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}" data-ad-address="{{getLocation ../adLocation locationId 0}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">

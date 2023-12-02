@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Parse the string into a JavaScript object
         var adOldLocationDetails = JSON.parse(button.dataset.adOldLocationDetails)[0];
+        var adOldAddress = button.dataset.adOldAddress;
         var adNewLocationDetails = JSON.parse(button.dataset.adNewLocationDetails)[0];
+        var adNewAddress = button.dataset.adNewAddress;
 
         // Update the modal content with the specific data
-        $i('changeReqDetailOldAddr').textContent = adOldLocationDetails.idDuong + ", " + adOldLocationDetails.idPhuong + ", " + adOldLocationDetails.idQuan;
-        $i('changeReqDetailNewAddr').textContent = adNewLocationDetails.idDuong + ", " + adNewLocationDetails.idPhuong + ", " + adNewLocationDetails.idQuan;
+        $i('changeReqDetailOldAddr').textContent = adOldAddress;
+        $i('changeReqDetailNewAddr').textContent = adNewAddress;
         $i('changeReqDetailOldSize').textContent = adOldLocationDetails.size;
         $i('changeReqDetailNewSize').textContent = adNewLocationDetails.size;
         $i('changeReqDetailOldCnt').textContent = adOldLocationDetails.quantity;

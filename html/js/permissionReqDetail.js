@@ -13,9 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
         var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails)[0];
         var adDetails = JSON.parse(button.dataset.adDetails)[0];
         var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
+        var adAddress = button.dataset.adAddress;
 
         // Update the modal content with the specific data
-        $i('permissionReqDetailAddress').textContent = adLocationDetails.idDuong + ", " + adLocationDetails.idPhuong + ", " + adLocationDetails.idQuan;
+        $i('permissionReqDetailAddress').textContent = adAddress;
         $i('permissionReqDetailCoName').textContent = "Công ty " + permissionReqDetails.co.name;
         $i('permissionReqDetailCoPhone').textContent = permissionReqDetails.co.phone;
         $i('permissionReqDetailCoEmail').textContent = permissionReqDetails.co.email;

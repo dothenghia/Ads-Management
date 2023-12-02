@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Parse the string into a JavaScript object
         var adDetails = JSON.parse(button.dataset.adDetails)[0];
         var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
+        var adAddress = button.dataset.adAddress;
 
         // Update the modal content with the specific data
-        $i('adDetailAddress').textContent = adLocationDetails.idDuong + ", " + adLocationDetails.idPhuong + ", " + adLocationDetails.idQuan;
+        $i('adDetailAddress').textContent = adAddress
         $i('adDetailName').textContent = adDetails.name;
         $i('adDetailType').textContent = adLocationDetails.type;
         $i('adDetailForm').textContent = adLocationDetails.form;
