@@ -13,14 +13,17 @@
     <div class="OTPValidate-content">
         <h1>Nhập mã khôi phục</h1>
         <h2>Mã OTP đã được gửi đến địa chỉ email của bạn</h2>
+        {{#if command}}
+        <h2 class="text-info"><i>OTP đã được gửi lại, vui lòng kiểm tra</i></h2>
+        {{/if}} 
     </div>
 
     <form action="/OTPValidate" method="post" id="OTPValidate-form" class="OTPValidate-form">
         <div class="OTPValidate-form-row">
             <input type="number" id="OTP" name="OTP" placeholder="Nhập mã OTP" />
-            <button type="button" class="btn btn-outline-primary">Gửi lại OTP</button>
+            <a href="/OTPValidate?command=resendOTP" class="btn btn-outline-primary">Gửi lại OTP</a>
         </div>
-
+        
         <h5 id="wrongOTP">{{wrongOTP}}</h5>
 
         <button type="submit" class="btn btn-primary custom-btn w-100 validateOTP" id="">

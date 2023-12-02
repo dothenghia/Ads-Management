@@ -6,11 +6,11 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const jwt = require('jsonwebtoken');
 const admin = require('./firebaseAdmin');
 const jwtSecret = 'suffering';
-
+const db = admin.firestore()
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const userSnapshot = await admin.firestore().collection('accounts').where('username', '==', username).get();
+      const userSnapshot = await db.collection('accounts').where('username', '==', username).get();
 
       if (userSnapshot.empty) {
         return done(null, false);
@@ -36,7 +36,7 @@ const opts = {
 
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
   try {
-    const user = await admin.firestore().collection('accounts').where('id', '==', jwt_payload.sub).get();
+    const user = await db.collection('accounts').where('id', '==', jwt_payload.sub).get();
     if (!user.exists) {
       return done(null, false);
     }
@@ -60,7 +60,7 @@ passport.use(new GoogleStrategy({
 },
   async (accessToken, refreshToken, profile, cb) => {
     try {
-      const userSnapshot = await admin.firestore().collection('accounts').where('email', '==', profile.emails[0].value).get();
+      const userSnapshot = await db.collection('accounts').where('email', '==', profile.emails[0].value).get();
 
       if (userSnapshot.empty) {
         // If the user is not found in the Firestore collection, you can choose to create a new account or handle it as needed.

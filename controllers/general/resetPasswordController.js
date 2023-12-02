@@ -1,23 +1,36 @@
 const controller = {}
-
+const admin = require('../../config/firebaseAdmin');
+const db = admin.firestore();
 controller.show = (req, res) => {
-
     res.render('general/resetPassword', {
         layout: 'layout_general',
     });
 };
 
-controller.submit = (req,res) => {
+controller.submit = async (req,res) => {
     const { password, confirmPassword } = req.body;
-
+    const storedEmail = req.session.email;
     if (password === confirmPassword) {
-        // Passwords match, redirect to the login page or handle as needed
-        res.render('/login',{layout: 'layout_general'});
+        try {
+            const userSnapshot = await db.collection('accounts').where('email', '==', storedEmail).get();
+            if (!userSnapshot.empty) {
+                const userDocRef = userSnapshot.docs[0].ref;
+                await userDocRef.update({ password: password });
+                res.redirect('/login');
+            } else {
+                res.render('general/resetPassword', {
+                    layout: 'layout_general',
+                    error: 'Người dùng không tồn tại.',
+                });
+            }
+        } catch (error) {
+            //console.error('Error updating password:', error);
+            res.status(500).send('Internal Server Error');
+        }
     } else {
-        // Passwords do not match, handle accordingly (e.g., show an error)
         res.render('general/resetPassword', {
             layout: 'layout_general',
-            error: 'Mật khẩu và xác nhận mật khẩu không khớp.',
+            error: 'Mật khẩu không trùng khớp, vui lòng thử lại.',
         });
     }
 }
