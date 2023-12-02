@@ -26,19 +26,24 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(adDetails.thumbnails[0]);
             adThumbnails.querySelector(".carousel-item.active img").src = adDetails.thumbnails[0].url;
 
-            let inactiveSlide = adThumbnails.querySelector(".carousel-item:not(.active)");
+            let templateSlide = adThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
+
+            // Destroy all old slides
+            adThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
+                slide.parentElement.removeChild(slide);
+            })
+
             if (adDetails.thumbnails.length > 1) {
                 let i = 0;
                 adDetails.thumbnails.forEach((thumbnail) => {
                     if (i > 0) {
-                        let slideClone = inactiveSlide.cloneNode(true);
+                        let slideClone = templateSlide.cloneNode(true);
                         slideClone.querySelector("img").src = thumbnail.url;
                         adThumbnails.appendChild(slideClone);
                     }
                     i++;
                 });
             }
-            inactiveSlide.hidden = true
         }
         else {
             adThumbnails.style.display = "none";
