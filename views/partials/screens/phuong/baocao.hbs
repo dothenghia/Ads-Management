@@ -17,6 +17,7 @@
     </div>
 
 
+
     {{!-- Table --}}
     <div class="shared-table-container">
         <table class="table table-hover">
@@ -51,11 +52,41 @@
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="Loại báo cáo">Loại báo cáo</option>
+                            <option value="Quảng cáo">Quảng cáo</option>
+                            <option value="Địa điểm Quảng cáo">Địa điểm Quảng cáo</option>
+                            <option value="Địa điểm Bất kỳ">Địa điểm Bất kỳ</option>
+                        </select>
+                    </th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="Hình thức báo cáo">Hình thức báo cáo</option>
+                            <option value="Tố giác sai phạm">Tố giác sai phạm</option>
+                            <option value="Đăng ký nội dung">Đăng ký nội dung</option>
+                            <option value="Đóng góp ý kiến">Đóng góp ý kiến</option>
+                            <option value="Giải đáp thắc mắc">Giải đáp thắc mắc</option>
+                        </select>
+                    </th>
+                    <th scope="col">Thời gian</th>
+                    <th scope="col">Địa điểm</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="Tình trạng xử lý">Tình trạng xử lý</option>
+                            <option value="Đang xử lý">Đang xử lý</option>
+                            <option value="Đã xử lý">Đã xử lý</option>
+                            <option value="Từ chối">Từ chối</option>
+                        </select>
+                    </th>
+                    <th scope="col">Chi tiết</th>
                 </tr>
             </thead>
 
+
             <tbody>
                 {{!-- Pass data vào --}}
+                {{#each report }}
                 {{#each report }}
                 <tr>
                     <td scope="col">{{addNumber @index 1}}</td>
