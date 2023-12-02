@@ -1,0 +1,23 @@
+.thongke-container {
+    width: 75%;
+    height: 100%;
+}
+
+.thongke-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+.thongke-header h1 {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--title-color);
+    margin-right: 16px;
+    margin-bottom: 0;
+}
+
+.thongke-table-container {
+    padding: 0 0.8rem;
+}
