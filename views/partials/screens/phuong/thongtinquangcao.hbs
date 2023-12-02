@@ -1,38 +1,27 @@
+<link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/phuong/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
-<div class="container-fluid d-flex flex-column px-1 h-100">
-    {{!-- Title và filter --}}
-    <div class="row" style="padding: 1.5em;">
-        <span class="fs-2 fw-semibold" style="color: rgb(93,102,121); margin-right: 2em; width:18%;">Báo Cáo</span>
-        <div class="d-flex flex-row mt-2 justify-content-around" style="width: 75%; height: 65%;" >
-            {{!-- Hình thức báo cáo --}}
-            <div class="border border-2 rounded-3 px-1">
-                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Hình Thức Báo Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
-            </div>
-            {{!-- Loại báo cáo --}}
-            <div class="border border-2 rounded-3 px-1">
-                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Loại Báo Cáo</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
-            </div>
-            {{!-- Tình trạng báo cáo --}}
-            <div class="border border-2 rounded-3 px-1">
-                <span class="fs-6 fw-semibold ms-1" style="color: rgb(93,102,121);">Tình Trạng Xử Lý</span>
-                <img src="/assets/icon/arrowdown_ic_n.svg" class="mb-1 mx-1">
-            </div>
-            {{!-- Nút thêm --}}
-            <div class="rounded-3 px-3" style="background-color: rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
-                <span class="fs-6 fw-semibold" style="color: white;">Thêm Báo Cáo</span>
-            </div>
-            {{!-- Nút Sửa --}}
-            <div class="rounded-3 px-3" style="background-color: rgb(0,101,255); border: rgb(0,101,255); padding-top: 0.2em;">
-                <span class="fs-6 fw-semibold" style="color: white;">Sửa Báo Cáo</span>
-            </div>
-        </div>
+
+<style>
+    .shared-header {
+        padding: 1.5rem 2rem;
+    }
+    table tbody tr td {
+        padding: calc(.5rem + 6px) calc(.5rem + 12px) !important;
+    }
+</style>
+
+<div class="shared-container">
+
+    {{!-- Header--}}
+    <div class="shared-header">
+        <h1>Thông tin quảng cáo</h1>
     </div>
 
+
     {{!-- Table --}}
-    <div class="row" style="padding: 1.5em;">
+    <div class="shared-table-container">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -44,51 +33,46 @@
                     <th scope="col">Số lượng</th>
                     <th scope="col">Hình thức</th>
                     <th scope="col">Loại vị trí</th>
-                    <th scope="col"> </th>
+                    <th scope="col">Chi tiết</th>
                 </tr>
             </thead>
+
             <tbody>
                 {{!-- Pass data vào --}}
                 {{createGlobal 'adIndex' 1}}
                 {{#each adLocation}}
                     {{#each adList}}
                         <tr>
-                            <td scope="col"  style="padding-top: 1em;">
-                                <span class="reportTableData fs-6">{{getGlobal 'adIndex'}}</span>
-                                {{incrementGlobal 'adIndex'}}
-                            </td>
+                            <td scope="col">{{getGlobal 'adIndex'}}</td>
                             {{#each (getAdInfo ../../ad adId)}}
-                                <td scope="col" style="padding-top: 1em;">{{name}}</td>
+                                <td scope="col">{{name}}</td>
                             {{/each}}
-                            <td scope="col text-center" style="padding-top: 1em; max-width:15em;" >
-                                <span class="reportTableData fs-6" >
-                                    {{getLocation ../../adLocation ../locationId 2}}
-                                </span>
-                            </td>
-                            <td scope="col" style="padding-top: 1em;">
-                                <span class="reportTableData fs-6">{{../type}}</span>
-                            </td>
+                            <td scope="col"> {{getLocation ../../adLocation ../locationId 2}}</td>
+                            <td scope="col">{{../type}}</td>
                             {{#each (getAdInfo ../../ad adId)}}
-                                <td scope="col" style="padding-top: 1em;">{{size}}</td>
+                                <td scope="col">{{size}}</td>
                             {{/each}}
-                            <td scope="col" style="padding-top: 1em;" >
-                                <span class="reportTableData fs-6">{{../quantity}}</span>
-                            </td>
-                            <td scope="col" style="padding-top: 1em;" >
-                                <span class="reportTableData fs-6">{{../form}}</span>
-                            </td>
-                            <td scope="col" style="padding-top: 1em;" >
-                                <span class="reportTableData fs-6">{{../locationType}}</span>
-                            </td>
-                            <td scope="col" style="padding-top: 1em;">
-                                <button class="adDetailBtn" data-ad-location-details="{{toJSON ../../adLocation}}" data-ad-details="{{toJSON (getAdInfo ../../ad adId)}}">
-                                    <img src="/assets/icon/detail_ic.svg" alt="Ad location detail">
+                            <td scope="col">{{../quantity}}</td>
+                            <td scope="col">{{../form}}</td>
+                            <td scope="col">{{../locationType}}</td>
+                            
+                            <td scope="col">
+                                <button class="table-detail-button" data-ad-location-details="{{toJSON ../../adLocation}}" data-ad-details="{{toJSON (getAdInfo ../../ad adId)}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-info">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                    </svg>
                                 </button>
                             </td>
                         </tr>
+                        {{incrementGlobal 'adIndex'}}
                     {{/each}}
                 {{/each}}
                 {{removeGlobal 'adIndex' 1}}
+            </tbody>
         </table>
     </div>
 

@@ -2,7 +2,7 @@ const $i = document.getElementById.bind(document);
 
 document.addEventListener("DOMContentLoaded", function () {
     // Get all elements with class 'adDetailBtn'
-    var adDetailButtons = document.querySelectorAll('.adDetailBtn');
+    var adDetailButtons = document.querySelectorAll('.table-detail-button');
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     i++;
                 });
             }
-            inactiveSlide.parentElement.removeChild(inactiveSlide)
+            inactiveSlide.hidden = true
         }
         else {
             adThumbnails.style.display = "none";
