@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/so/ttqc.css">
-
+<link rel="stylesheet" href="/css/modal.css">
 
 <div class="ttqc-container">
 
@@ -23,42 +23,31 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Địa Điểm</th>
                     <th scope="col">
                         <select id="" name="">
-                            <option value="Loại quảng cáo">Loại quảng cáo</option>
-                            <option value="Trụ bảng hiflex">Trụ bảng hiflex</option>
-                            <option value="Trụ màn hình điện tử LED">Trụ màn hình điện tử LED</option>
-                            <option value="Trụ hộp đèn">Trụ hộp đèn</option>
-                            <option value="Bảng hiflex ốp tường">Bảng hiflex ốp tường</option>
-                            <option value="Màn hình điện tử ốp tường">Màn hình điện tử ốp tường</option>
-                            <option value="Trụ treo băng rôn dọc">Trụ treo băng rôn dọc</option>
-                            <option value="Trụ treo băng rôn ngang">Trụ treo băng rôn ngang</option>
-                            <option value="Trụ/Cụm pano">Trụ/Cụm pano</option>
-                            <option value="Cổng chào">Cổng chào</option>
-                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                            <option value="all">Loại quảng cáo</option>
+                            <option value="1">Trụ bảng hiflex</option>
+                            <option value="2">Màn hình điện tử ốp tường</option>
+                            <option value="3">Trụ treo băng rôn ngang</option>
+                            <option value="4">Cổng chào</option>
                         </select>
                     </th>
-                    <th scope="col">
-                        <select id="" name="">
-                            <option value="Hình thức quảng cáo">Hình thức quảng cáo</option>
-                            <option value="Cổ động chính trị">Cổ động chính trị</option>
-                            <option value="Quảng cáo thương mại">Quảng cáo thương mại</option>
-                            <option value="Xã hội hoá">Xã hội hoá</option>
-                        </select>
-                    </th>
-                    <th scope="col">Địa điểm</th>
+                    <th scope="col">Kích thước</th>
                     <th scope="col">Số lượng</th>
                     <th scope="col">
                         <select id="" name="">
-                            <option value="Loại vị trí">Loại vị trí</option>
-                            <option value="Đất công">Đất công</option>
-                            <option value="Công viên">Công viên</option>
-                            <option value="Hành lang an toàn giao thông">Hành lang an toàn giao thông</option>
-                            <option value="Đất tư nhân/Nhà ở riêng lẻ">Đất tư nhân/Nhà ở riêng lẻ</option>
-                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
-                            <option value="Chợ">Chợ</option>
-                            <option value="Cây xăng">Cây xăng</option>
-                            <option value="Nhà chờ xe buýt">Nhà chờ xe buýt</option>
+                            <option value="all">Hình thức</option>
+                            <option value="1">Cổ động chính trị</option>
+                            <option value="2">Quảng cáo thương mại</option>
+                        </select>
+                    </th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="all">Loại vị trí</option>
+                            <option value="1">Công viên</option>
+                            <option value="2">Đất tư nhân</option>
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
@@ -67,29 +56,113 @@
 
             <tbody>
                 {{!-- Pass data vào --}}
-                {{#each adLocation }}
-                <tr>
-                    <td scope="col">{{@index}}</td>
-                    <td scope="col">{{type}}</td>
-                    <td scope="col">{{form}}</td>
-                    <td scope="col">{{getReportLocation ../adLocation locationId}}</td>
-                    <td scope="col">{{quantity}}</td>
-                    <td scope="col">{{locationType}}</td>
-                    <td scope="col">
-                        <button class="table-detail-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-info">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            </svg>
-                        </button>
-                    </td>
-
-                </tr>
+                {{createGlobal 'adIndex' 1}}
+                {{#each adLocation}}
+                    {{#each adList}}
+                        <tr>
+                            <td scope="col">{{getGlobal 'adIndex'}}</td>
+                            {{#each (getAdInfo ../../ad adId)}}
+                                <td scope="col">{{name}}</td>
+                            {{/each}}
+                            <td scope="col"> {{getLocation ../../adLocation ../locationId 2}}</td>
+                            <td scope="col">{{../type}}</td>
+                            {{#each (getAdInfo ../../ad adId)}}
+                                <td scope="col">{{size}}</td>
+                            {{/each}}
+                            <td scope="col">{{../quantity}}</td>
+                            <td scope="col">{{../form}}</td>
+                            <td scope="col">{{../locationType}}</td>
+                            
+                            <td scope="col">
+                                <button class="table-detail-button" data-ad-location-details="{{toJSON ../../adLocation}}" data-ad-address="{{getLocation ../../adLocation ../locationId 0}}" data-ad-details="{{toJSON (getAdInfo ../../ad adId)}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-info">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        {{incrementGlobal 'adIndex'}}
+                    {{/each}}
                 {{/each}}
+                {{removeGlobal 'adIndex' 1}}
             </tbody>
         </table>
     </div>
+
+
+    <!-- Ad detail modal -->
+    <div class="modal fade" id="adDetailModal" tabindex="-1" aria-labelledby="adDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="adDetailModalLabel">
+                        Thông tin chi tiết
+                        <br>
+                        <i class="bi bi-geo-alt" id="adDetailAddress"></i>
+                    </h6>
+                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="adDetailContent">
+                    <h5 class="row justify-content-center" id="adDetailName"></h5>
+                    <div class="row" id="adDetailCategoryRow">
+                        <div class="col">
+                            <h6 id="adDetailCategoryTitle">Loại bảng quảng cáo</h6>
+                            <h6 id="adDetailType"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="adDetailCategoryTitle">Hình thức quảng cáo</h6>
+                            <h6 id="adDetailForm"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="adDetailCategoryTitle">Loại vị trí</h6>
+                            <h6 id="adDetailLocationType"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="adDetailCategoryRow">
+                        <div class="col">
+                            <h6 id="adDetailCategoryTitle">Thời hạn hợp đồng</h6>
+                            <h6 id="adDetailContractDate"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="adDetailCategoryTitle">Kích thước</h6>
+                            <h6 id="adDetailSize"></h6>
+                        </div>
+                        <div class="col"> </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h6 id="adDetailCategoryTitle">Hình ảnh quảng cáo</h6>
+                        <div class="row">
+                            <div id="adDetailNoThumbnails" style="display: none">
+                                <h6>Không có hình ảnh để hiển thị</h6>
+                            </div>
+                            <div id="adDetailThumbnails" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="..." alt="First slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="..." alt="Second slide">
+                                    </div>
+                                </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#adDetailThumbnails" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#adDetailThumbnails" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+{{!-- Custom JS script --}}
+<script src="/js/adDetail.js"></script>

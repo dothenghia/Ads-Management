@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/so/dieuchinh.css">
+<link rel="stylesheet" href="/css/modal.css">
 
 
 <div class="dieuchinh-container">
@@ -34,6 +35,13 @@
                     <th scope="col">Vị trí điều chỉnh</th>
                     <th scope="col">
                         <select id="" name="">
+                            <option value="all">Lý do chỉnh sửa</option>
+                            <option value="1">Không phù hợp</option>
+                            <option value="2">Đổi mới</option>
+                        </select>
+                    </th>
+                    <th scope="col">
+                        <select id="" name="">
                             <option value="Tình trạng xử lý">Tình trạng xử lý</option>
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Đã xử lý">Đã xử lý</option>
@@ -48,11 +56,11 @@
                 {{!-- Pass data vào --}}
                 {{#each changeReq }}
                 <tr>
-                    <td scope="col">{{@index}}</td>
+                    <td scope="col">{{addNumber @index 1}}</td>
                     <td scope="col">Cán bộ {{getAgentRole senderRole}}</td>
                     <td scope="col">{{date}}</td>
                     <td scope="col">{{getReportLocation ../adLocation locationId}}</td>
-
+                    <td scope="col">{{reason}}</td>
                     <td scope="col">
                         {{#if (getReportStatus status 1) }}
                         <div class="status-tag status-tag-dangxuly">
@@ -77,7 +85,7 @@
                     </td>
 
                     <td scope="col">
-                        <button class="table-detail-button">
+                        <button class="table-detail-button" data-ad-old-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-old-address="{{getLocation ../adLocation locationId 0}}" data-ad-new-location-details="{{toJSON (getAdLocationInfo ../adLocation newLocationId)}}" data-ad-new-address="{{getLocation ../adLocation newLocationId 0}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-info">
@@ -93,4 +101,68 @@
             </tbody>
         </table>
     </div>
+
+
+    <!-- Change request detail modal -->
+    <div class="modal fade" id="changeReqDetailModal" tabindex="-1" aria-labelledby="changeReqDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Địa điểm & Bảng QC</h5>
+                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="changeReqDetailContent">
+                    <div class="row justify-content-center" id="changeReqDetailTable">
+                        <div class="table">
+                            <table class="table table-primary">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"> </th>
+                                        <th scope="col">Thông tin cũ</th>
+                                        <th scope="col">Thông tin mới</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Địa chỉ</th>
+                                        <td id="changeReqDetailOldAddr"></td>
+                                        <td id="changeReqDetailNewAddr"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Kích thước</th>
+                                        <td id="changeReqDetailOldSize"></td>
+                                        <td id="changeReqDetailNewSize"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">SL trụ</th>
+                                        <td id="changeReqDetailOldCnt"></td>
+                                        <td id="changeReqDetailNewCnt"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Hình thức</th>
+                                        <td id="changeReqDetailOldForm"></td>
+                                        <td id="changeReqDetailNewForm"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Phân loại</th>
+                                        <td id="changeReqDetailOldLocationType"></td>
+                                        <td id="changeReqDetailNewLocationType"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row justify-content-end" id="changeReqDetailChoice">
+                    <button class="col-2">Từ chối</button>
+                    <button class="col-2">Chấp thuận</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+{{!-- Custom JS script --}}
+<script src="/js/changeReqDetail.js"></script>
