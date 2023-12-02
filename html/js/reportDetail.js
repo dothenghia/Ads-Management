@@ -45,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('reportDetailContent').textContent = reportDetails.content;
         let reportThumbnails = $i('reportDetailThumbnails').querySelector(".carousel-inner");
         if (adLocationDetails && adLocationDetails.thumbnails.length > 0) {
+            reportThumbnails.style.display = "block";
+            $i("reportDetailNoThumbnails").style.display = "none"
+            
             reportThumbnails.querySelector(".carousel-item.active img").src = adLocationDetails.thumbnails[0].url;
 
             let templateSlide = reportThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);

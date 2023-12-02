@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('adDetailSize').textContent = adDetails.size;
         let adThumbnails = $i('adDetailThumbnails').querySelector(".carousel-inner");
         if (adDetails.thumbnails.length > 0) {
+            adThumbnails.style.display = "block";
+            $i("adDetailNoThumbnails").style.display = "none"
+
             adThumbnails.querySelector(".carousel-item.active img").src = adDetails.thumbnails[0].url;
 
             let templateSlide = adThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);

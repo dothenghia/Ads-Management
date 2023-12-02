@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('permissionReqDetailContent').textContent = permissionReqDetails.content;
         let permissionReqThumbnails = $i('permissionReqDetailThumbnails').querySelector(".carousel-inner");
         if (adLocationDetails.thumbnails.length > 0) {
+            permissionReqThumbnails.style.display = "block";
+            $i("permissionReqDetailNoThumbnails").style.display = "none"
+
             permissionReqThumbnails.querySelector(".carousel-item.active img").src = adLocationDetails.thumbnails[0].url;
 
             let templateSlide = permissionReqThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
