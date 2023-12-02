@@ -1,17 +1,9 @@
-//! TRƯỚC KHI CHẠY FILE: Vì tao đã git ignore node_module (ĐIỀU GẦN NHƯ PHẢI LÀM) NÓ NẶNG NHƯ 
-//! NÊN PHẢI CHẠY: npm ci hoặc npm install (ci = đúng version, install = mới nhất để tải package có trong file package)
-
-//! CÁC TỆP TĨNH (HTML CSS) thì bỏ vào thư mục html, """"NHỚ ĐỔI SRC TRONG HBS (tốt nhất là từ ROOT: / để khỏi bị lỗi)"""
-//! CHUYỂN DẦN CÁC FILE QUA MVC (MODELS, VIEWS, CONTROLLERS)
-//! MODELS SẼ CHỨA CÁC HÀM GỌI DATABASE,
-//! VIEWS SẼ CHỨA CÁC TRANG HBS
-//! CONTROLLERS SẼ CHỨA CÁC HÀM XỬ LÍ REQUEST CỦA USER
-//! Routes sẽ chứa các request của user sau đó đưa đến controller 
-
-// các thư mục đều đã có file mẫu nên dựa theo đó để làm
 const express = require('express'); //Khai báo các thứ cần thiết
-const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
+const passport = require('./config/passportConfig').passport;
+const checkAuthenticated = require('./routes/middleware/authenticateJWT');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const helpers = {
     // Chung
     "mathOps": require("./functions/canbo/mathOps"),
@@ -30,11 +22,16 @@ const helpers = {
 }
 const app = express();
 app.use(express.static(__dirname + "/html"));
-//! điều này sẽ khiến khi import các CSS ở trong cái hbs Thì chỉ cần ghi css/....
 // Use body-parser middleware to parse form data
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(session({
+    secret: 'suffering',
+    resave: false,
+    saveUninitialized: false,
+  }));
+app.use(cookieParser());
+app.use(passport.initialize());
 
 // Configure Handlebars as the view engine
 app.engine('hbs', expressHbs.engine({
@@ -76,57 +73,15 @@ app.engine('hbs', expressHbs.engine({
     }
 }));
 app.set('view engine', 'hbs');
-
-//! get sẽ là method mà bọn mày sử dụng nhiều nhất, chỉ khi submit form như đăng nhập đổi mật khẩu thì thì mới xài post
 // Route: Login Page
 app.use('/',require("./routes/general/loginRoute"));
-app.use('/login', require("./routes/general/loginRoute")); //! nếu muốn sử dụng layout khác với default thì chỉnh layout trong này 
+app.use('/login', require("./routes/general/loginRoute")); 
 app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
-app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
-// app.post("/create", async (req, res) => {
-//     try {
-//       const id = req.body.email; // Change res.body to req.body
-// app.post("/create", async (req, res) => {
-//     try {
-//       const id = req.body.email; // Change res.body to req.body
-  
-//       const userJson = {
-//         email: req.body.email,
-//         firstName: req.body.firstName,
-//         lastName: req.body.lastName,
-//       };
-//       const userJson = {
-//         email: req.body.email,
-//         firstName: req.body.firstName,
-//         lastName: req.body.lastName,
-//       };
-  
-//       // Wait for the Firestore operation to complete
-//       await db.collection("accounts").doc(id).set(userJson);
-//       // Wait for the Firestore operation to complete
-//       await db.collection("accounts").doc(id).set(userJson);
-  
-//       res.send("User created successfully");
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send("Internal Server Error");
-//     }
-//   });
-//       res.send("User created successfully");
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send("Internal Server Error");
-//     }
-//   });
-
-//! Viết code bọn bay tiếp theo dưới này
-app.use('/phuong', require("./routes/user/phuongRoute"));
-app.use('/quan', require("./routes/user/quanRoute"));
-app.use('/so', require("./routes/user/soRoute"))
-
-
-//! PORT 3000, đừng thay PORT KHÁC NẾU NHƯ LÀ 1 THẰNG ĐÀN ÔNG
+app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"));
+app.use('/phuong',  require("./routes/user/phuongRoute"));
+app.use('/so', require("./routes/user/soRoute"));
+app.use('/logout',require("./routes/general/logoutRoute"));
 // Start the server on port 3000
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

@@ -1,30 +1,62 @@
+const { passport, generateToken } = require('../../config/passportConfig');
+
 const controller = {};
-const users = [
-    { username: 'so@gmail.com', password: '123', accountType: '3' },
-    { username: 'quan@gmail.com', password: '123', accountType: '2' },
-    { username: 'phuong@gmail.com', password: '123', accountType: '1' },
-];
-controller.show = (req,res) =>{
-    res.render("general/login",{layout: "layout_general"});
-}
 
-//! RENDER = Tạo trang # REDIRECT = điều hướng
-// Route: Handle login form submission //!POST
-controller.submit = (req,res) => {
-    const { username, password } = req.body;
-  
-    // Find the user in the simulated user database
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        // Set the user's account type in the session
-        req.session.accountType = user.accountType;
-        // Redirect to the home page after successful login
-        res.redirect('/');
-    } else {
-        // Display an error message for invalid username or password
-        res.render('./general/login', { layout: 'layout_general', error: 'Sai tên đăng nhập hoặc mật khẩu.'}); //! t có thể sửa một element trong hbs
-        //việc render sẽ thực hiện ở views, do đó đến được general/login
-    }
-}
+controller.show = (req, res) => {
+    res.render('general/login', { layout: 'layout_general' });
+};
 
+controller.submit = (req, res, next) => {
+    passport.authenticate('local', { session: false }, (err, user) => {
+        if (err || !user) {
+            return res.render('./general/login', { layout: 'layout_general', error: 'Sai tên đăng nhập hoặc mật khẩu.' });
+        }
+
+        const token = generateToken(user);
+
+        res.cookie('jwtToken', token, { httpOnly: true });
+
+        switch (user.role) {
+            case '1':
+                res.redirect('/phuong/bando');
+                break;
+            case '2':
+                res.redirect('/quan/');
+                break;
+            case '3':
+                res.redirect('/so');
+                break;
+            default:
+                res.redirect('/');
+        }
+    })(req, res, next); // IIFE Immediately Invoked Function Expression
+};
+
+
+
+controller.initiateGoogleSignIn = passport.authenticate('google', { scope: ['profile', 'email'] });
+controller.googleSignInCallback = (req, res, next) => {
+    passport.authenticate('google', { failureRedirect: '/login' }, (err, user) => {
+        if (err || !user) {
+            return res.render('./general/login', { layout: 'layout_general', error: 'Đăng nhập bằng Google đã bị lỗi. Vui lòng kiểm tra lại!' });
+        }
+        const token = generateToken(user);
+
+        res.cookie('jwtToken', token, { httpOnly: true });
+
+        switch (user.role) {
+            case '1':
+                res.redirect('/phuong/bando');
+                break;
+            case '2':
+                res.redirect('/quan'); 
+                break;
+            case '3':
+                res.redirect('/so');
+                break;
+            default:
+                res.redirect('/');
+        }
+    })(req, res, next); // IIFE
+};
 module.exports = controller;

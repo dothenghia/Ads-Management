@@ -1,10 +1,10 @@
-<link rel="stylesheet" type="text/css" href="css/general/login.css">
+<link rel="stylesheet" type="text/css" href="/css/general/login.css">
 
 <main class="login-screen">
 
     <div class="login-screen-form-container">
         <h1 class="login-screen-title">AdsMap</h1>
-        {{!-- <p class="login-screen-message disabled" id="LoiDangNhap">123{{error}}</p> --}}
+        <p class="login-screen-message disabled text-danger" id="LoiDangNhap">{{error}}</p>
 
         <form action="/login" class="login-form" id="loginForm" method="post">
             <!-- Email input-->
@@ -16,13 +16,14 @@
             <input type="password" id="Password" name="password" placeholder="Nhập mật khẩu" required />
 
             <div class="login-form-forget-password">
-                <a href="forgotPassword" type="button" id="forgetPassword">Quên mật khẩu?</a>
+                <a href="/forgotPassword" type="button" id="forgetPassword">Quên
+                    mật khẩu?</a>
             </div>
 
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary custom-btn w-100">Đăng nhập</button>
+            <button type="submit" class="btn btn-primary custom-btn w-100">Đăng
+                nhập</button>
         </form>
-
 
         <div class="login-divider">
             <div> </div>
@@ -31,22 +32,21 @@
         </div>
 
         <div class="login-other" id="otherLogin">
-            <a href="/auth/google">
-                <img src="/img/icon/google.png" alt="">
+            <a href="/auth/google" onclick="googleSignIn()">
+                <img src="/img/icon/google.png" alt>
             </a>
             <a href="/auth/facebook">
-                <img src="/img/icon/facebook.png" alt="">
+                <img src="/img/icon/facebook.png" alt>
             </a>
             <a href="/auth/microsoft">
-                <img src="/img/icon/microsoft.png" alt="">
+                <img src="/img/icon/microsoft.png" alt>
             </a>
         </div>
 
     </div>
 
     <div class="login-screen-illustration">
-        <img src="/img/illustration/login.png" alt="">
+        <img src="/img/illustration/login.png" alt>
     </div>
-
 
 </main>
