@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
-<link rel="stylesheet" href="/css/phuong/shared.css">
+<link rel="stylesheet" href="/css/quan/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
 
 <style>
@@ -36,7 +36,15 @@
                     </th>
                     <th scope="col">Email</th>
                     <th scope="col">SĐT</th>
-                    <th scope="col">Địa điểm yêu cầu cấp phép</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="all">Địa điểm yêu cầu cấp phép</option>
+                            <option value="1">Phường 1</option>
+                            <option value="2">Phường 2</option>
+                            <option value="3">Phường 3</option>
+                            <option value="4">Phường 4</option>
+                        </select>
+                    </th>
                     <th scope="col"> </th>
                     <th scope="col">Chi tiết</th>
                 </tr>
@@ -52,7 +60,7 @@
                             <td scope="col">{{email}}</td>
                             <td scope="col">{{phone}}</td>
                         {{/with}}
-                        <td scope="col">{{getLocation ../adLocation locationId 2}}</td>
+                        <td scope="col">{{getLocation ../adLocation locationId 1}}</td>
                         <td scope="col"> </td>
                         <td scope="col">
                             <button class="table-detail-button" data-permission-req-details="{{toJSON ../permissionReq}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}" data-ad-address="{{getLocation ../adLocation locationId 0}}">

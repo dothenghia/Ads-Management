@@ -70,7 +70,9 @@ app.engine('hbs', expressHbs.engine({
 
         // Phường
         getLocation: helpers.getAd.getLocation,
-        getAdInfo: helpers.getAd.getAdInfo
+        getAdInfo: helpers.getAd.getAdInfo,
+        getAdLocationInfo: helpers.getAd.getAdLocationInfo,
+        getReportInfo: helpers.getAd.getReportInfo,
     }
 }));
 app.set('view engine', 'hbs');
@@ -120,7 +122,7 @@ app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"))
 
 //! Viết code bọn bay tiếp theo dưới này
 app.use('/phuong', require("./routes/user/phuongRoute"));
-
+app.use('/quan', require("./routes/user/quanRoute"));
 app.use('/so', require("./routes/user/soRoute"))
 
 

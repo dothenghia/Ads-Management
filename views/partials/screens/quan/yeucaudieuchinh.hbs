@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
-<link rel="stylesheet" href="/css/phuong/shared.css">
+<link rel="stylesheet" href="/css/quan/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
 
 <style>
@@ -23,7 +23,15 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Địa điểm quảng cáo</th>
+                    <th scope="col">
+                        <select id="" name="">
+                            <option value="all">Địa điểm quảng cáo</option>
+                            <option value="1">Phường 1</option>
+                            <option value="2">Phường 2</option>
+                            <option value="3">Phường 3</option>
+                            <option value="4">Phường 4</option>
+                        </select>
+                    </th>
                     <th scope="col">Thời điểm gửi yêu cầu</th>
                     <th scope="col">
                         <select id="" name="">
@@ -48,7 +56,7 @@
                 {{#each changeReq}}
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">{{getLocation ../adLocation locationId 2}}</td>
+                        <td scope="col">{{getLocation ../adLocation locationId 1}}</td>
                         <td scope="col">{{date}}</td>
                         <td scope="col">{{reason}}</td>
 

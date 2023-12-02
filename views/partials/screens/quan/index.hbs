@@ -1,15 +1,15 @@
 <style>
-    .phuong-main {
+    .quan-main {
         width: 100vw;
         height: 100vh;
         display: flex;
     }
 
-    .phuong-navbar {
+    .quan-navbar {
         width: var(--navbar-width-1);
     }
 
-    .phuong-content {
+    .quan-content {
         width: calc(100vw - var(--navbar-width-1));
         height: 100vh;
 
@@ -18,16 +18,16 @@
 
 </style>
 
-<div class="phuong-main" id="main">
+<div class="quan-main" id="main">
 
     {{!-- NAVIGATION BAR --}}
-    <div class="phuong-navbar" id="nav">
-        {{>phuong/navbar current=current}}
+    <div class="quan-navbar" id="nav">
+        {{>quan/navbar current=current}}
     </div>
 
 
     {{!-- CONTENT SECTION --}}
-    <div class="phuong-content" id="content">
+    <div class="quan-content" id="content">
         {{> (body)}}
     </div>
 

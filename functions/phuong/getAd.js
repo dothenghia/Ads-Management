@@ -176,12 +176,24 @@ function getLocation(adLocation, id, resultType) {
     }
 }
 
-function getAdInfo(ad, id) {
-    let obj = ad.filter(loc => loc.adId == id);
+function getAdInfo(ad, adId) {
+    let obj = ad.filter(loc => loc.adId == adId);
+    return obj;
+}
+
+function getAdLocationInfo(adLocation, locationId) {
+    let obj = adLocation.filter(loc => loc.locationId == locationId);
+    return obj;
+}
+
+function getReportInfo(report, reportId) {
+    let obj = report.filter(rep => rep.reportId == reportId);
     return obj;
 }
 
 module.exports = {
     getLocation: getLocation,
-    getAdInfo: getAdInfo
+    getAdInfo: getAdInfo,
+    getAdLocationInfo: getAdLocationInfo,
+    getReportInfo: getReportInfo
 }

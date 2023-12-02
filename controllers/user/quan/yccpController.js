@@ -5,13 +5,13 @@ let {PermissionReq} = require("../../../html/assets/request");
 let {Ad, AdLocation} = require("../../../html/assets/data");
 
 controller.show = (req, res) => {
-    res.render("partials/screens/phuong/index", {
+    res.render("partials/screens/quan/index", {
         "current": currentPage,
         "permissionReq": PermissionReq,
         "ad": Ad,
         "adLocation": AdLocation,
         body: function() {
-            return "screens/phuong/yeucaucapphep";
+            return "screens/quan/yeucaucapphep";
         }
     });
 }
