@@ -9,6 +9,7 @@ const PermissionReq = [
             phone: "324932423"
         },
         locationId: 2,
+        adId: 1,
         startdate: "22/12/2023",
         enddate: "22/12/2024",
         content: "Sơn tường MTP"
@@ -23,6 +24,7 @@ const PermissionReq = [
             phone: "543643"
         },
         locationId: 2,
+        adId: 3,
         startdate: "24/10/2024",
         enddate: "24/01/2025",
         content: "Sơn tường MTP"
@@ -37,6 +39,7 @@ const PermissionReq = [
             phone: "543643"
         },
         locationId: 2,
+        adId: 1,
         startdate: "24/10/2024",
         enddate: "24/01/2025",
         content: "Sơn tường MTP"

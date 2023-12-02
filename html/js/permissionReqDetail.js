@@ -10,44 +10,42 @@ document.addEventListener("DOMContentLoaded", function () {
         // Get the data-ad-details attribute containing the specific data as a string
 
         // Parse the string into a JavaScript object
-        console.log(button.dataset.permissionReqDetails);
         var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails)[0];
+        var adDetails = JSON.parse(button.dataset.adDetails)[0];
         var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
 
         // Update the modal content with the specific data
         $i('permissionReqDetailAddress').textContent = adLocationDetails.idDuong + ", " + adLocationDetails.idPhuong + ", " + adLocationDetails.idQuan;
-        $i('permissionReqDetailName').textContent = adDetails.name;
-        $i('permissionReqDetailType').textContent = adLocationDetails.type;
-        $i('permissionReqDetailForm').textContent = adLocationDetails.form;
-        $i('permissionReqDetailLocationType').textContent = adLocationDetails.locationType;
-        $i('permissionReqDetailContractDate').textContent = "Làm sao làm cái này???";
+        $i('permissionReqDetailCoPhone').textContent = permissionReqDetails.co.phone;
+        $i('permissionReqDetailCoEmail').textContent = permissionReqDetails.co.email;
         $i('permissionReqDetailSize').textContent = adDetails.size;
-        let adThumbnails = $i('permissionReqDetailThumbnails').querySelector(".carousel-inner");
-        if (adDetails.thumbnails.length > 0) {
-            console.log(adDetails.thumbnails[0]);
-            adThumbnails.querySelector(".carousel-item.active img").src = adDetails.thumbnails[0].url;
+        $i('permissionReqDetailContractDate').textContent = "Làm sao làm cái này???";
+        $i('permissionReqDetailContent').textContent = permissionReqDetails.content;
+        let permissionReqThumbnails = $i('permissionReqDetailThumbnails').querySelector(".carousel-inner");
+        if (adLocationDetails.thumbnails.length > 0) {
+            permissionReqThumbnails.querySelector(".carousel-item.active img").src = adLocationDetails.thumbnails[0].url;
 
-            let templateSlide = adThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
+            let templateSlide = permissionReqThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
 
             // Destroy all old slides
-            adThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
+            permissionReqThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
                 slide.parentElement.removeChild(slide);
             })
 
-            if (adDetails.thumbnails.length > 1) {
+            if (adLocationDetails.thumbnails.length > 1) {
                 let i = 0;
-                adDetails.thumbnails.forEach((thumbnail) => {
+                adLocationDetails.thumbnails.forEach((thumbnail) => {
                     if (i > 0) {
                         let slideClone = templateSlide.cloneNode(true);
                         slideClone.querySelector("img").src = thumbnail.url;
-                        adThumbnails.appendChild(slideClone);
+                        permissionReqThumbnails.appendChild(slideClone);
                     }
                     i++;
                 });
             }
         }
         else {
-            adThumbnails.style.display = "none";
+            permissionReqThumbnails.style.display = "none";
             $i("permissionReqDetailNoThumbnails").style.display = "block"
         }
 

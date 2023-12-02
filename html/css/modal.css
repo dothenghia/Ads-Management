@@ -138,72 +138,65 @@
     }
 }
 
-/* permissionReqModal */
+/* permissionReqDetailModal */
 
-#permissionReqModal {
+#permissionReqDetailModal {
     --bs-modal-width: 50vw;
-}
+    
+    .modal-header {
+        padding: 2vh 1.2vw 0.8vh 1.2vw;
 
-#permissionReqModal .modal-header {
-    padding: 2vh 1.2vw 0.8vh 1.2vw;
-}
+        #permissionReqDetailModalLabel {
+            font-weight: 600;
 
-#permissionReqModal .modal-header #permissionReqModalLabel {
-    font-weight: 600;
-}
+            br {
+                display: block;
+                margin: 0.1em 0;
+            }
+            i {
+                color: #0065FF;
+            }
+        }
+    }
 
-#permissionReqModal .modal-header #permissionReqModalLabel br {
-    display: block;
-    margin: 0.1em 0;
-}
+    .modal-body {
+        padding: 0.8vh 1.2vw 4vh 1.2vw;
+        font-size: 18px;
 
-#permissionReqModal .modal-header #permissionReqModalLabel i {
-    color: #0065FF;
-}
+        hr {
+            margin: 0.5vh 0 2vh 0;
+        }
+        #permissionReqDetailName {
+            font-weight: 700;
+            margin-bottom: 2vh;
+        }
+        #permissionReqDetailCategoryRow {
+            margin-top: 1vh;
+        }
+        h6#permissionReqDetailCategoryTitle {
+            font-weight: bold;
+            color: rgb(81, 80, 80);
+            margin-bottom: 3px;
+        }
+        h6:not(#permissionReqDetailCategoryTitle) {
+            color: rgb(81, 80, 80);
+            font-weight: 500;
+        }
+        #permissionReqDetailThumbnails {
+            margin-top: 1vh;
 
-#permissionReqModal .modal-body {
-    padding: 0.8vh 1.2vw 4vh 1.2vw;
-    font-size: 18px;
-}
-
-#permissionReqModal .modal-body hr {
-    margin: 0.5vh 0 2vh 0;
-}
-
-#permissionReqModal .modal-body #permissionReqName {
-    font-weight: 700;
-    margin-bottom: 2vh;
-}
-
-#permissionReqModal .modal-body #permissionReqCategoryRow {
-    margin-top: 1vh;
-}
-
-#permissionReqModal .modal-body h6#permissionReqCategoryTitle {
-    font-weight: bold;
-    color: rgb(81, 80, 80);
-    margin-bottom: 3px;
-}
-
-#permissionReqModal .modal-body h6:not(#permissionReqCategoryTitle) {
-    color: rgb(81, 80, 80);
-    font-weight: 500;
-}
-
-#permissionReqModal .modal-body #permissionReqThumbnails {
-    margin-top: 1vh;
-}
-
-#permissionReqModal .modal-body #permissionReqThumbnails .carousel-item img {
-    border: 1px solid white;
-    border-radius: 20px;
-    width: 60% !important;
-    height: auto;
-    margin: auto;
-}
-
-#permissionReqModal .modal-body #permissionReqNoThumbnails {
-    text-align: center;
-    font-weight: 200;
-    color: rgb(98, 97, 97);
+            .carousel-item img {
+                border: 1px solid white;
+                border-radius: 20px;
+                width: 60% !important;
+                height: auto;
+                margin: auto;
+            }
+        }
+        #permissionReqDetailNoThumbnails {
+            text-align: center;
+            font-weight: 200;
+            color: rgb(98, 97, 97);
+        }
+    }
 }
