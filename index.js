@@ -2,6 +2,7 @@ const express = require('express'); //Khai báo các thứ cần thiết
 const expressHbs = require('express-handlebars');
 const passport = require('./config/passportConfig').passport;
 const checkAuthenticated = require('./routes/middleware/authenticateJWT');
+const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const helpers = {
     // Chung
@@ -24,6 +25,11 @@ app.use(express.static(__dirname + "/html"));
 // Use body-parser middleware to parse form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(session({
+    secret: 'suffering',
+    resave: false,
+    saveUninitialized: false,
+  }));
 app.use(cookieParser());
 app.use(passport.initialize());
 

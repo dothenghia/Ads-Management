@@ -2,7 +2,7 @@
 
 <main class="OTPValidate-screen">
 
-    <a href="forgotPassword" id="backButton" class="OTPValidate-back">
+    <a href="/forgotPassword" id="backButton" class="OTPValidate-back">
         <i class="bi bi-arrow-left-short"></i>
     </a>
 
@@ -15,13 +15,13 @@
         <h2>Mã OTP đã được gửi đến địa chỉ email của bạn</h2>
     </div>
 
-    <form action="#" method="post" id="OTPValidate-form" class="OTPValidate-form">
+    <form action="/OTPValidate" method="post" id="OTPValidate-form" class="OTPValidate-form">
         <div class="OTPValidate-form-row">
             <input type="number" id="OTP" name="OTP" placeholder="Nhập mã OTP" />
             <button type="button" class="btn btn-outline-primary">Gửi lại OTP</button>
         </div>
 
-        <h5 id="wrongOTP"></h5>
+        <h5 id="wrongOTP">{{wrongOTP}}</h5>
 
         <button type="submit" class="btn btn-primary custom-btn w-100 validateOTP" id="">
             Xác thực OTP

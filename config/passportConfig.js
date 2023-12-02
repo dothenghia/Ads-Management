@@ -17,7 +17,7 @@ passport.use(
       }
 
       const user = userSnapshot.docs[0].data();
-      
+
       if (user.password !== password) {
         return done(null, false);
       }
@@ -37,11 +37,10 @@ const opts = {
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
   try {
     const user = await admin.firestore().collection('accounts').where('id', '==', jwt_payload.sub).get();
-    console.log(user);
     if (!user.exists) {
       return done(null, false);
     }
-    
+
     return done(null, user.data());
   } catch (error) {
     return done(error);
@@ -50,7 +49,7 @@ passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
 
 const generateToken = (user) => {
   return jwt.sign({ sub: user.id, accountType: user.role }, jwtSecret, {
-      expiresIn: '1h', // Token expiration time
+    expiresIn: '1h', // Token expiration time
   });
 };
 //https://www.passportjs.org/packages/passport-google-oauth20/
@@ -76,4 +75,4 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-module.exports = {passport,generateToken};
+module.exports = { passport, generateToken };
