@@ -1,5 +1,6 @@
 const controller = {}
 const admin = require('../../config/firebaseAdmin');
+const bcryptConfig = require('../../config/bcryptConfig');
 const db = admin.firestore();
 controller.show = (req, res) => {
     res.render('general/resetPassword', {
@@ -15,7 +16,7 @@ controller.submit = async (req,res) => {
             const userSnapshot = await db.collection('accounts').where('email', '==', storedEmail).get();
             if (!userSnapshot.empty) {
                 const userDocRef = userSnapshot.docs[0].ref;
-                await userDocRef.update({ password: password });
+                await userDocRef.update({ hashedpassword: await bcryptConfig.hashPassword(password) });
                 res.redirect('/login');
             } else {
                 res.render('general/resetPassword', {
@@ -24,7 +25,7 @@ controller.submit = async (req,res) => {
                 });
             }
         } catch (error) {
-            //console.error('Error updating password:', error);
+            console.error('Error updating password:', error);
             res.status(500).send('Internal Server Error');
         }
     } else {
