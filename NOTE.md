@@ -1,5 +1,10 @@
 API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
+1. Đổi màu logo /
+2. Thêm đồ vào Navbar (Avatar , Tên cán bộ, Nút chỉnh sửa thông tin cá nhân)
+3. Sửa icon Navbar
+4. Style Modal, Bando (Trừ trang thongke)
+
 
 PHÂN CÔNG :
 
