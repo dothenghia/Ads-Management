@@ -55,3 +55,34 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
+@keyframes navbar-item-appear {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    50% {
+        opacity: 0.5;
+        display: block;
+    }
+
+    100% {
+        opacity: 1;
+        display: block;
+    }
+}
+
+@keyframes navbar-item-disappear {
+    0% {
+        opacity: 1;
+        display: block;
+    }
+    50% {
+        opacity: 0.5;
+        display: none;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}

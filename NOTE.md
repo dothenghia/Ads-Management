@@ -1,8 +1,10 @@
 API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
-1. Đổi màu logo /
-2. Thêm đồ vào Navbar (Avatar , Tên cán bộ, Nút chỉnh sửa thông tin cá nhân)
-3. Sửa icon Navbar
++ Sửa cái Dropdown trang Nhân sự (so)
++ Icon thì lấy trên trang Feather icon cho nó đẹp, Bỏ dô nguyên cái <svg> lun
+
+
+- Clean code file css trước
 4. Style Modal, Bando (Trừ trang thongke)
 
 

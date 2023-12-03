@@ -1,3 +1,4 @@
+/* FILE NÀY DÙNG CHUNG CHO 3 PHÂN HỆ CÁN BỘ */
 
 .navbar-container {
     height: 100vh;
@@ -23,6 +24,7 @@
 }
 
 
+/* =================== LOGO =================== */
 .navbar-logo {
     height: 2rem;
     width: var(--navbar-width-2);
@@ -51,8 +53,40 @@
 }
 
 
+/* =================== AVATAR =================== */
+.navbar-avatar {
+    height: 2rem;
+    width: var(--navbar-width-2);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 1.2rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    border-bottom: 1;
+}
+.navbar-avatar img {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    object-fit: contain;
+}
+.navbar-avatar span {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+.navbar-container:hover .navbar-avatar span {
+    opacity: 1;
+}
 
 
+
+/* =================== BUTTON LIST =================== */
 .navbar-list {
     height: max-content;
     width: var(--navbar-width-2);
@@ -97,6 +131,7 @@
 
 
 
+/* =================== LOGOUT SECTION =================== */
 .navbar-logout {
     width: var(--navbar-width-2);
     padding: 0 0.6rem;
