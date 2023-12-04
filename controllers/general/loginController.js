@@ -24,7 +24,7 @@ controller.submit = (req, res, next) => {
                 res.redirect('/quan/');
                 break;
             case '3':
-                res.redirect('/so');
+                res.redirect('/so/thongtinquangcao');
                 break;
             default:
                 res.redirect('/');

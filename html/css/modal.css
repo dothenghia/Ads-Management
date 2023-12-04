@@ -83,8 +83,6 @@
 
 #changeReqDetailModal .modal-content .modal-header {
     background-color: white; 
-    border: solid rgba(43, 119, 208, 0.67);
-    border-width: 4px 4px 0 4px;
     border-radius: 12px 12px 0 0 !important;
     padding: 2vh 1.2vw 1.2vh 1.2vw;
     color: #0065FF;
@@ -92,8 +90,6 @@
 
 #changeReqDetailModal .modal-content .modal-body {
     background-color: white; 
-    border: solid rgba(43, 119, 208, 0.67);
-    border-width: 0 4px 4px 4px;
     border-radius: 0 0 12px 12px !important;
     padding: 1.2vh 3vw 1vh 3vw;
     font-size: 18px;
