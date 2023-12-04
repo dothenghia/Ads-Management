@@ -37,7 +37,7 @@ export default function ReportFormModal() {
     function ClearUploadFile() {
         document.querySelector('.report-form-modal__file-list').innerHTML = `
             <label for="report-form-modal__files">
-                <img src='/assets/dan/uploadfile.png' alt='upload file'>
+                <img src='/assets/dan/illustration/uploadfile.png' alt='upload file'>
             </label>
         `;
         document.getElementById('report-form-modal__files').value = '';
@@ -148,7 +148,7 @@ export default function ReportFormModal() {
                         
                         <div class="report-form-modal__file-list">
                             <label for="report-form-modal__files">
-                                <img src='/assets/dan/uploadfile.png' alt='upload file'>
+                                <img src='/assets/dan/illustration/uploadfile.png' alt='upload file'>
                             </label>
                         </div>
                     

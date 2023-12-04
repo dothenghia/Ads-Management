@@ -23,7 +23,7 @@ export default function RandomPopup(map, data) {
     return `
     <div class="random-popup">
         <div class="random-popup__image">
-            <img src="/assets/dan/city.png" alt="city"/>
+            <img src="/assets/dan/img/city.png" alt="city"/>
         </div>
 
         <div class="random-popup__info">

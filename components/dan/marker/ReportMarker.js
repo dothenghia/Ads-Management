@@ -34,7 +34,7 @@ export default function ReportMarker(map) {
         }
     });
 
-    map.loadImage('/assets/dan/TGSP.png', (error, image) => {
+    map.loadImage('/assets/dan/icon/baocao_TGSP.png', (error, image) => {
         if (error) throw error;
         map.addImage('tgsp-icon', image);
 
@@ -57,7 +57,7 @@ export default function ReportMarker(map) {
         });
     });
 
-    map.loadImage('/assets/dan/DKND.png', (error, image) => {
+    map.loadImage('/assets/dan/icon/baocao_DKND.png', (error, image) => {
         if (error) throw error;
         map.addImage('dknd-icon', image);
 
@@ -80,7 +80,7 @@ export default function ReportMarker(map) {
         });
     });
 
-    map.loadImage('/assets/dan/DGYK.png', (error, image) => {
+    map.loadImage('/assets/dan/icon/baocao_DGYK.png', (error, image) => {
         if (error) throw error;
         map.addImage('dgyk-icon', image);
 
@@ -103,7 +103,7 @@ export default function ReportMarker(map) {
         });
     });
 
-    map.loadImage('/assets/dan/GDTM.png', (error, image) => {
+    map.loadImage('/assets/dan/icon/baocao_GDTM.png', (error, image) => {
         if (error) throw error;
         map.addImage('gdtm-icon', image);
 

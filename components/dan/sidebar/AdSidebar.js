@@ -14,7 +14,7 @@ function AdSidebar_Thumbnail(adLocationData) {
             <div class="ad-sidebar__tag">
                 ${StatusTag(adLocationData.reportStatus)}
             </div>
-            <img src='/assets/dan/CQH_illustration.png' alt='Chua quy hoach'>
+            <img src='/assets/dan/illustration/CQH_illustration.png' alt='Chua quy hoach'>
         </div>
         `
     }

@@ -6,7 +6,7 @@ export default function RandomMarker(map, data) {
     mk.id = `random-marker`;
 
     mk.innerHTML = `
-        <img src="/assets/dan/pin.png" alt="pin"/>
+        <img src="/assets/dan/img/pin.png" alt="pin"/>
     `
 
     var marker = new mapboxgl.Marker(mk)
