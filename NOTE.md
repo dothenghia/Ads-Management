@@ -1,134 +1,38 @@
 API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
-+ Sửa cái Dropdown trang Nhân sự (so)
-+ Icon thì lấy trên trang Feather icon cho nó đẹp, Bỏ dô nguyên cái <svg> lun
+- Icon thì lấy trên trang Feather icon cho nó đẹp, Bỏ dô nguyên cái <svg> lun
+- Clean code file css trước (Xài AI)
 
 
-- Clean code file css trước
-4. Style Modal, Bando (Trừ trang thongke)
-
-
-PHÂN CÔNG :
+### ====== PHÂN CÔNG ======
 
 Nghĩa :
-+ Chốt Schema của từng Bảng Của Người Dân
-+ Xác định những phương thức CRUD Của Người dân + Cái dạng dữ liệu cần trả về
+    Dân :
+    - Viết trong functions => fetch API thẳng từ FireBase
+    - Local Storage Lưu thông tin báo cáo đã gửi của ng dân
+    => Khi ng dân báo cáo thì sẽ lưu ID báo cáo lại
+    Khi bấm nút Danh sách BC thì sẽ fetch lại các thông tin theo của cái ID đã lưu
+
 
 Khoa :
-+ Tiếp tục chuyển đổi Handlebars Phường + Quận
+    Phường + Quận :
+    => Bản đồ mở rộng giới hạn view (tạo layer viền khu vực đó - nếu rảnh)
+    => Trang bando : Nút xem danh sách báo cáo + Sidebar khi click vào điểm QC
+    + Nhập thông tin cấp phép => Chọn Quận -> Phường -> Nhập đường
+    + Yêu cầu chỉnh sửa -> Là chỉnh sửa Quảng cáo (Tên, Kích thước, Hình)
+
+    + Xử lý báo cáo -> Có hình Cây bút , bấm dô hiện lên thông tin báo cáo và Có cáo ô để điền phương thức xử lý , Có thêm 2 nút là Từ chối và Gửi xử lí => Thay đổi cái tình trạng xử lý bên ngoài và mất đi hình cây bút
 
 Bảo :
-+ Tiếp tục hoàn thiện UI
-+ Tiếp tục chuyển đổi Handlebars Sở
+    => Sửa cái Dropdown trang Nhân sự (so) => Theo layout CRUD của cô
+    + Sửa lại UI thêm cái nút hình cây bút
+    Cán bộ chung :
+    + Tạo trang chỉnh sửa thông tin cá nhân (Bao gồm cả thông tin và Đổi password)
+    => Bổ sung route Quận vào file index.js ở root
+    + thongtinquangcao của Phường, Quận, Sở bỏ đi cột Số lượng + Kích thước 
 
 Hải :
-+ Những chức năng chung của cán bộ
-
-
-[+ Chốt Schema của từng Bảng Của Cán bộ] (Th nào code Hbs thì để ý Data cho từng trang)
-[+ Xác định những phương thức CRUD của Cán bộ]
-
-
-
-
-
-
-<details>
-    <summary>Cấu trúc thư mục</summary>
-
-    ```
-    Thư mục gốc
-    │
-    ├── assets : Thư mục chứa Media, Image, Fonts của từng Phân hệ tương ứng
-    │   ├── chung : Chứa những file phương tiện dùng chung như Logo, Font, ...
-    │   │   └── ...
-    │   │
-    │   ├── dan
-    │   │   └── ...
-    │   │
-    │   ├── phuong
-    │   │   └── ...
-    │   │
-    │   ├── quan
-    │   │   └── ...
-    │   │
-    │   └── so
-    │       └── ...
-    │
-    ├── components : Thư mục chứa các Component tương ứng cho từng role
-    │   │            (Component là mấy cái thành phần UI nhỏ, thường sẽ tái sử dụng, lặp lại nhìu lần
-    │   │             Như là Nút, Slide, Header, Search bar...)
-    │   ├── chung
-    │   │   ├── Button.js
-    │   │   └── Header.js
-    │   │
-    │   ├── dan
-    │   │   └── ...
-    │   │
-    │   ├── phuong
-    │   │   └── ...
-    │   │
-    │   ├── quan
-    │   │   └── ...
-    │   │
-    │   └── so
-    │       └── ...
-    │
-    ├── functions : Thư mục chứa các phương thức xử lý với dữ liệu
-    │   │        
-    │   ├── dan
-    │   │   ├── getMap.js
-    │   │   ├── getReportList.js
-    │   │   └── sendReportList.js
-    │   │
-    │   ├── canbo
-    │   │   ├── sendLogin.js
-    │   │   └── sendSignup.js
-    │   │
-    │   ├── phuong
-    │   │   ├── get...
-    │   │   └── ...
-    │   │
-    │   ├── quan
-    │   │   ├── get...
-    │   │   └── ...
-    │   │
-    │   └── so
-    │       ├── get...
-    │       └── ...
-    │
-    ├── screens : Thư mục chứa các UI screens
-    │   │        (Mỗi phân hệ chia theo các Trang Chức Năng)
-    │   ├── dan
-    │   │   ├── trangchu.html
-    │   │   ├── trangchu.js
-    │   │   └── ...
-    │   │
-    │   ├── canbo
-    │   │   ├── dangnhap
-    │   │   │   ├── dangnhap.html
-    │   │   │   ├── dangnhap.css
-    │   │   │   └── dangnhap.js
-    │   │   │
-    │   │   ├── dangky
-    │   │   │   ├── dangky.html
-    │   │   │   ├── dangky.css
-    │   │   │   └── dangky.js
-    │   │   └── ...
-    │   │
-    │   ├── phuong
-    │   │   └── ...
-    │   │
-    │   ├── quan
-    │   │   └── ...
-    │   │
-    │   └── so
-    │       └── ...
-    │ 
-    │ 
-    ├── global.css : File CSS chung, chứa những thuộc tính global như là font, color,...
-    ├── main.js : Tạo ra chơi thoi chứ chưa biết có dùng hong
-    └── index.html : 
-    ```
-
-</details>
+    + JWT
+    - Viết mẫu Database
+    - Viết mẫu mấy cái fetch API cho người dân (Tạo file example.js trong functions/dan)
+    - Phụ những phần khác

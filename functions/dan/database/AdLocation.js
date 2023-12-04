@@ -19,11 +19,10 @@ const AdLocation = [
 
         idQuan: "5",   // Trả về mấy cái id
         idPhuong: "4", // Bên client sẽ có file json để
-        idDuong: "nvc",// lấy tên quận, phường, đường
+        address: "227 Nguyễn Văn Cừ",// lấy tên quận, phường, đường
 
         type: 'Trụ bảng hiflex', // Loại bảng quảng cáo
         form: 'Cổ động chính trị', // Hình thức quảng cáo
-        quantity: '1 trụ/bảng', // Số lượng
         locationType: 'Công viên', // Loại vị trí
 
         adList: [
@@ -44,11 +43,10 @@ const AdLocation = [
 
         idQuan: "5",   // Quận 5
         idPhuong: "4", // Phường 4
-        idDuong: "tp",// Trần Phú
+        address: "123 Trần Phú",// Trần Phú
 
         type: 'Trụ/Cụm pano', // Loại bảng quảng cáo
         form: 'Cổ động chính trị', // Hình thức quảng cáo
-        quantity: '2 trụ/bảng', // Số lượng
         locationType: 'Đất công', // Loại vị trí
 
         adList: [],

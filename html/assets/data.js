@@ -1,3 +1,4 @@
+// ======================== FILE DỮ LIỆU MẪU ========================
 // LƯU THÌ SẼ LƯU NHƯ THẾ NÀY
 // NHƯNG KHI TRẢ DỮ LIỆU THÌ SẼ PHẢI GHÉP BẢNG/THAM CHIẾU NHÉ
 
@@ -90,7 +91,6 @@ const Ad = [
         ],
         
         reportId: "", // CÓ CÁI REPORT ID ĐỂ BIẾT XEM CÁI QC NÀY ĐÃ BỊ TỐ CÁO CHƯA
-        // reportStatus: '', // Cái này sẽ lấy từ reportId
     },
     {
         adId: 2,
@@ -101,7 +101,6 @@ const Ad = [
         thumbnails: [], // KHÔNG CÓ HÌNH
         
         reportId: "",
-        // reportStatus: '',
     },
     {
         adId: 3,
@@ -115,7 +114,6 @@ const Ad = [
         ],
         
         reportId: 1, // CÁI NÀY ĐÃ BỊ BÁO CÁO NÈ
-        // reportStatus: 'Đang xử lý',
     },
 ]
 
@@ -131,7 +129,6 @@ const AdLocation = [
         latitude: 10.765123,
 
         reportId: "",// CÓ CÁI REPORT ID ĐỂ BIẾT XEM CÁI ĐiaDiem NÀY ĐÃ BỊ TỐ CÁO CHƯA
-        // reportStatus: '', Sẽ lấy từ reportId
 
         thumbnails: [
             { url: "/assets/dan/thumbnail3.jpg" },
@@ -141,11 +138,11 @@ const AdLocation = [
 
         idQuan: "5",   // Trả về mấy cái id
         idPhuong: "4", // Bên client sẽ có file json để
-        idDuong: "nvc",// lấy tên quận, phường, đường
+        address: "227 Nguyên Văn Cừ",// lấy tên quận, phường, đường
 
         type: 'Trụ bảng hiflex', // Loại bảng quảng cáo
         form: 'Cổ động chính trị', // Hình thức quảng cáo
-        quantity: '1 trụ/bảng', // Số lượng
+        quantity: '1', // adList.length
         locationType: 'Công viên', // Loại vị trí
 
         adList: [
@@ -160,13 +157,12 @@ const AdLocation = [
         latitude: 10.762585,
 
         reportId: "", // Nếu khác "" thì tất là nó bị report
-        // reportStatus: '',
 
         thumbnails: [],
 
         idQuan: "5",   // Quận 5
         idPhuong: "4", // Phường 4
-        idDuong: "tp",// Trần Phú
+        address: "123 Trần Phú",// Trần Phú
 
         type: 'Trụ/Cụm pano', // Loại bảng quảng cáo
         form: 'Cổ động chính trị', // Hình thức quảng cáo
@@ -239,9 +235,11 @@ const PermissionReq = [
             phone: "324932423"
         },
         locationId: 2,
+        adId: 1,
         startdate: "22/12/2023",
         enddate: "22/12/2024",
-        content: "Sơn tường MTP"
+        content: "Sơn tường MTP",
+        status: 0,
     },
     {
         permissionReqId: 2,
@@ -253,21 +251,57 @@ const PermissionReq = [
             phone: "543643"
         },
         locationId: 2,
+        adId: 3,
         startdate: "24/10/2024",
         enddate: "24/01/2025",
-        content: "Sơn tường MTP"
+        content: "Sơn tường MTP",
+        status: 2,
+    },
+    {
+        permissionReqId: 3,
+        name: "Bảng quảng cáo 69",
+        co: {
+            id: "coopmart",
+            name: "Cốp Mắc",
+            email: "coopmart@gmail.com",
+            phone: "543643"
+        },
+        locationId: 2,
+        adId: 1,
+        startdate: "24/10/2024",
+        enddate: "24/01/2025",
+        content: "Sơn tường MTP",
+        status: 1,
     }
 ]
 
 const ChangeReq = [
     {
         changeReqId: 1,
-        locationId: 1,
+        locationId: 2,
         newLocationId: 2,
+        senderRole: 2,
         date: "02/04/2024",
         reason: "Không phù hợp",
-        senderRole: 2,
         status: 0
+    },
+    {
+        changeReqId: 2,
+        locationId: 1,
+        newLocationId: 2,
+        senderRole: 2,
+        date: "02/04/2024",
+        reason: "Không phù hợp",
+        status: 1
+    },
+    {
+        changeReqId: 3,
+        locationId: 1,
+        newLocationId: 2,
+        senderRole: 2,
+        date: "02/04/2024",
+        reason: "Không phù hợp",
+        status: 2
     }
 ]
 
