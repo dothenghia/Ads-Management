@@ -305,11 +305,37 @@ const ChangeReq = [
     }
 ]
 
+function changeId(dataType, id){
+    switch (dataType) {
+        case 'report':
+            Report.find(report => report.reportId == id).reportId = -1;
+            module.exports.Report = Report;
+            break;
+        case 'adlocation':
+        AdLocation.find(AdLocation => AdLocation.locationId == id).locationId = -1;
+        break;
+        case 'ad':
+            Ad.find(ad => ad.adId == id).adId = -1;
+            break;
+        case 'account':
+            Account.find(account => account.accountId == id).accountId = -1;
+            break;
+        case 'permissionreq':
+            PermissionReq.find(permissionReq => permissionReq.permissionReqId == id).permissionReqId = -1;
+            break;
+        case 'changereq':
+            ChangeReq.find(changeReq => changeReq.changeReqId == id).changeReqId = -1;
+            break;
+        
+    }
+}
+
 module.exports = { 
     Report,
     Ad, 
     AdLocation,
     Account,
     PermissionReq,
-    ChangeReq
+    ChangeReq,
+    changeId
 };

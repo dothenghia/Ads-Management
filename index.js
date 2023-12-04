@@ -9,6 +9,7 @@ const helpers = {
     // Chung
     "mathOps": require("./functions/canbo/mathOps"),
     "httpFuncs": require("./functions/canbo/httpFuncs"),
+    "checkIDValidate": require("./functions/canbo/checkIdValidate"),
 
     // Sở
     "reportTrans": require("./functions/so/translateReportType"),
@@ -46,6 +47,9 @@ app.engine('hbs', expressHbs.engine({
         __dirname + '/views/partials/components',
         __dirname + '/views/partials/screens/'
     ],
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+    },
     helpers: {
         // Chung
         equalNumber: helpers.mathOps.equalNumber,
@@ -59,6 +63,7 @@ app.engine('hbs', expressHbs.engine({
         fromJSON: helpers.httpFuncs.fromJSON,
         toJSON: helpers.httpFuncs.toJSON,
         arrayLength: helpers.httpFuncs.arrayLength,
+        checkIDValidate: helpers.checkIDValidate.checkIDValidate,
 
         // Sở
         translateReportType: helpers.reportTrans.translateReportType,
