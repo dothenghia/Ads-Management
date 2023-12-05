@@ -1,7 +1,7 @@
 // getBaocao.js"
 //nhớ add type module vào <script type="module" src="getBaocao.js" ></script>
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs,query,where } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
 
 // Initialize Firebase 
@@ -63,3 +63,28 @@ async function getAllDocuments() {
 
 // Call the function to get all documents
 getAllDocuments();
+
+
+// Function to get documents based on collection name and field name
+async function getDocumentsByField(collectionName, fieldName, value) {
+  // Reference to the specified collection
+  const specifiedCollection = collection(db, collectionName);
+
+  try {
+    // Create a query to filter documents based on the specified field
+    const q = query(specifiedCollection, where(fieldName, "==", value));
+
+    // Get documents that match the query
+    const querySnapshot = await getDocs(q);
+
+    // Process each document
+    querySnapshot.forEach((doc) => {
+      // Log the document data
+      console.log("Document ID:", doc.id);
+      console.log("Document Data:", doc.data());
+    });
+  } catch (error) {
+    console.error("Error getting documents: ", error);
+  }
+}
+//call the function
