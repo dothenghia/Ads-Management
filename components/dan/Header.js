@@ -5,6 +5,7 @@ export default function Header() {
         <nav class="navbar navbar-expand-sm navbar-dark container">
             <div class="container">
                 <h1 class="header__name">
+                    <img src="/assets/chung/logo.png" alt="logo">
                     AdsMap
                 </h1>
                 
