@@ -24,4 +24,6 @@ async function deleteReport(id) {
     let res = await fetch(`/so/baocao/${id}`, {
         method: "DELETE",
     });
+
+    location.reload();
 }
