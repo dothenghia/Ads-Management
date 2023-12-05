@@ -4,6 +4,7 @@ const passport = require('./config/passportConfig').passport;
 const checkAuthenticated = require('./routes/middleware/authenticateJWT');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+
 const helpers = {
     // Chung
     "mathOps": require("./functions/canbo/mathOps"),
@@ -17,10 +18,11 @@ const helpers = {
     "translateAgentArea": require("./functions/so/translateAgentArea"),
     "getAgentRole": require("./functions/so/getAgentRole"),
     "isUdfNullBlank": require("./functions/so/isUdfNullBlank"), //? Đây là hàm để check null
-    
+
     // Phường
     "getAd": require("./functions/phuong/getAd"),
 }
+
 const app = express();
 app.use(express.static(__dirname + "/html"));
 // Use body-parser middleware to parse form data
@@ -33,6 +35,7 @@ app.use(session({
 }));
 app.use(cookieParser());
 app.use(passport.initialize());
+
 
 // Configure Handlebars as the view engine
 app.engine('hbs', expressHbs.engine({
@@ -78,15 +81,19 @@ app.engine('hbs', expressHbs.engine({
     }
 }));
 app.set('view engine', 'hbs');
+
+
 // Route: Login Page
-app.use('/',require("./routes/general/loginRoute"));
-app.use('/login', require("./routes/general/loginRoute")); 
+app.use('/', require("./routes/general/loginRoute"));
+app.use('/login', require("./routes/general/loginRoute"));
 app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
-app.use('/OTPValidate',require("./routes/general/OTPValidateRoute"));
-app.use('/phuong',  require("./routes/user/phuongRoute"));
+app.use('/OTPValidate', require("./routes/general/OTPValidateRoute"));
+app.use('/phuong', require("./routes/user/phuongRoute"));
 app.use('/so', require("./routes/user/soRoute"));
-app.use('/logout',require("./routes/general/logoutRoute"));
+app.use('/logout', require("./routes/general/logoutRoute"));
+
+
 // Start the server on port 3000
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
