@@ -20,36 +20,41 @@ const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
-// Function to get all documents from the "baocao" collection
+// Function to get all documents from the "testCollection" collection
 async function getAllDocuments() {
-  // Reference to the "baocao" collection
-  const baocaoCollection = collection(db, "testCollection");
+  // Reference to the "testCollection" collection
+  //Thay tên collection ở đây
+  const testCollection = collection(db, "testCollection");
 
   try {
     // Get all documents in the collection
-    const querySnapshot = await getDocs(baocaoCollection);
+    const querySnapshot = await getDocs(testCollection);
 
     // Process each document
     querySnapshot.forEach(async (doc) => {
+      // Log the entire document data
+      console.log("Document ID:", doc.id);
+      console.log("Document Data:", doc.data());
+
+      //Phần bên dưới này để xuất ra image, tuy nhiên bên trên đã có rồi nên không cần
       // Access the "image" array field and extract image URLs
       const imageUrls = doc.data().image || [];
 
       // Log or process the document ID
-      console.log("Document ID:", doc.id);
-      console.log("Image URLs:");
+      // console.log("Image URLs:");
 
       // Iterate over each image URL and get the download URL
-      for (const imageUrl of imageUrls) {
-        try {
-          // Convert image URL to a Storage reference
-          const storageRef = ref(storage, imageUrl);
-          // Get the download URL
-          const downloadURL = await getDownloadURL(storageRef);
-          console.log(downloadURL);
-        } catch (error) {
-          console.error("Error getting download URL for image:", error);
-        }
-      }
+        // for (const imageUrl of imageUrls) {
+        //   try {
+        //     // Convert image URL to a Storage reference
+        //     const storageRef = ref(storage, imageUrl);
+        //     // Get the download URL
+        //     const downloadURL = await getDownloadURL(storageRef);
+        //     console.log(downloadURL);
+        //   } catch (error) {
+        //     console.error("Error getting download URL for image:", error);
+        //   }
+        // }
     });
   } catch (error) {
     console.error("Error getting documents: ", error);
