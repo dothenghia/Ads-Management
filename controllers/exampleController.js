@@ -45,7 +45,10 @@ app.get("/get-all", async (req, res) => {
 app.get("/get/:id", async (req, res) => {
   try {
     const id = req.params.id;
+    //biết ID document
     const docRef = db.collection("accounts").doc(id);
+    //ko biết ID document, biết 1 attributes trong document
+    const docRef2 = db.collection("accounts").where("id", "==", id);
     const doc = await docRef.get();
 
     if (!doc.exists) {
@@ -64,7 +67,8 @@ app.put("/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const userRef = db.collection("accounts").doc(id);
-
+    //tương tự bên trên
+    const docRef2 = db.collection("accounts").where("id", "==", id);
     const updateData = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -84,8 +88,9 @@ app.put("/update/:id", async (req, res) => {
 app.delete("/delete/:id", async (req, res) => {
   try {
     const id = req.params.id;
+    //tương tự bên trên
     const userRef = db.collection("accounts").doc(id);
-
+    const docRef2 = db.collection("accounts").where("id", "==", id);
     await userRef.delete();
 
     res.send("Document deleted successfully");
