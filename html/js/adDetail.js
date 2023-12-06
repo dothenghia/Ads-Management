@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Update the modal content with the specific data
         $i('adDetailAddress').textContent = adAddress
         $i('adDetailName').textContent = adDetails.name;
-        $i('adDetailType').textContent = adLocationDetails.type;
-        $i('adDetailForm').textContent = adLocationDetails.form;
+        $i('adDetailType').textContent = adLocationDetails.adType;
+        $i('adDetailForm').textContent = adLocationDetails.adForm;
         $i('adDetailLocationType').textContent = adLocationDetails.locationType;
         $i('adDetailContractDate').textContent = "Làm sao làm cái này???";
         $i('adDetailSize').textContent = adDetails.size;

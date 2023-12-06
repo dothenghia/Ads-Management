@@ -38,7 +38,6 @@
                         </select>
                     </th>
                     <th scope="col">Kích thước</th>
-                    <th scope="col">Số lượng</th>
                     <th scope="col">
                         <select id="" name="">
                             <option value="all">Hình thức</option>
@@ -68,12 +67,11 @@
                                 <td scope="col">{{name}}</td>
                             {{/each}}
                             <td scope="col"> {{getLocation ../../adLocation ../locationId 2}}</td>
-                            <td scope="col">{{../type}}</td>
+                            <td scope="col">{{../adType}}</td>
                             {{#each (getAdInfo ../../ad adId)}}
                                 <td scope="col">{{size}}</td>
                             {{/each}}
-                            <td scope="col">{{../quantity}}</td>
-                            <td scope="col">{{../form}}</td>
+                            <td scope="col">{{../adForm}}</td>
                             <td scope="col">{{../locationType}}</td>
                             
                             <td scope="col">

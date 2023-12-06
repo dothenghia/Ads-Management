@@ -1,14 +1,14 @@
 document.querySelectorAll(".report-delete-button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
         let id = btn.dataset.id;
-        console.log(btn.dataset.id);
+        let accountRole = btn.dataset.accountRole;
 
         const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
         modal.show();
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
             console.log("OK");
-            deleteReport(id);
+            deleteReport(accountRole, id);
             modal.hide();
         });
 
@@ -19,9 +19,9 @@ document.querySelectorAll(".report-delete-button").forEach((btn) => {
     });
 });
 
-async function deleteReport(id) {
+async function deleteReport(accountRole, id) {
     console.log("im in");
-    let res = await fetch(`/so/baocao/${id}`, {
+    let res = await fetch(`/${accountRole}/baocao/${id}`, {
         method: "DELETE",
     });
 
