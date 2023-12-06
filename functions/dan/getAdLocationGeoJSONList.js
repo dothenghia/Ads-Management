@@ -1,7 +1,8 @@
-// !!! Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON ##########
+// @ Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON ##########
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import mappingRegion from "./mappingRegion.js";
 
 // ========== Firebase configuration
 const firebaseConfig = {
@@ -20,6 +21,8 @@ const db = getFirestore(firebaseApp);
 
 // Hàm chuyển đổi dữ liệu Ad thành GeoJSON
 function convertToGeoJSON(adLocation) {
+    let {quan, phuong} = mappingRegion(adLocation.idQuan, adLocation.idPhuong);
+    
     return {
         type: 'Feature',
         geometry: {
@@ -33,6 +36,12 @@ function convertToGeoJSON(adLocation) {
             idQuan: adLocation.idQuan,
             idPhuong: adLocation.idPhuong,
             adType: adLocation.adType,
+            numberOfAds: adLocation.adList.length,
+            locationType: adLocation.locationType,
+            quan,
+            phuong,
+
+            numberOfReports: adLocation.numberOfReports,
 
             markerType: 'Ad' // Thêm cái này để filter marker trên map
         }
@@ -78,12 +87,9 @@ async function getAdLocationGeoJSONList() {
         let results = await Promise.all(adLocationPromises);
         
         // Chuyển đổi toàn bộ dữ liệu về định dạng JSON
-        let adLocationGeoJSONList = {
-            type: 'FeatureCollection',
-            features: results.map(ad => convertToGeoJSON(ad))
-        };
+        let adLocationGeoJSONList = results.map(ad => convertToGeoJSON(ad))
+        // console.log(adLocationGeoJSONList);
         
-        console.log(adLocationGeoJSONList);
         return adLocationGeoJSONList;
     }
     catch (error) {

@@ -1,4 +1,4 @@
-// !!! Hàm lấy danh sách các địa điểm bị báo cáo và chuyền về dạng GeoJSON ##########
+// @ Hàm lấy danh sách các địa điểm bị báo cáo và chuyền về dạng GeoJSON ##########
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
@@ -59,19 +59,16 @@ async function getReportGeoJSONList() {
         let reportDocs = await getDocs(reportQuery);
 
         // Chuyển đổi toàn bộ dữ liệu về định dạng JSON
-        const reportLocationGeoJSONList = {
-            type: 'FeatureCollection',
-            features: []
-        };
+        const reportLocationGeoJSONList = []
 
         for (const reportDoc of reportDocs.docs) {
             const reportData = reportDoc.data();
             const geoJSON = await convertToGeoJSON(reportData);
 
-            geoJSON && reportLocationGeoJSONList.features.push(geoJSON);
+            geoJSON && reportLocationGeoJSONList.push(geoJSON);
         }
 
-        console.log(reportLocationGeoJSONList);
+        // console.log(reportLocationGeoJSONList);
         return reportLocationGeoJSONList;
     }
     catch (error) {

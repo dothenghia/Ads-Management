@@ -10,7 +10,7 @@ let reportColorSubtle = '#e8828e';
 
 import AdPopup from '/components/dan/popup/AdPopup.js';
 import AdSidebar from '/components/dan/sidebar/AdSidebar.js';
-import { getAdLocationInfoById } from '/functions/dan/getAdLocationInfo.js';
+import getAdLocationInfoById from '/functions/dan/getAdLocationInfoById.js';
 
 export default function AdMarker(map) {
 
@@ -27,32 +27,31 @@ export default function AdMarker(map) {
         paint: {
             'circle-color': [
                 'case',
-                // ['==', ['get', 'isReported'], true], reportColor, // Màu xanh nhạt khi quyhoach là false
-                ['==', ['get', 'quyhoach'], true], primaryColor, // Màu xanh khi quyhoach là true
-                ['==', ['get', 'quyhoach'], false], chuaqhColor, // Màu xanh nhạt khi quyhoach là false
+                ['==', ['get', 'planning'], true], primaryColor, // Màu xanh khi planning là true
+                ['==', ['get', 'planning'], false], chuaqhColor, // Màu xanh nhạt khi planning là false
                 '#000000'
             ],
             'circle-radius': 11,
             'circle-stroke-width': 3,
             'circle-stroke-color': [
                 'case',
-                ['==', ['get', 'isReported'], true], reportColor, // Màu xanh khi quyhoach là true
-                ['==', ['get', 'quyhoach'], true], primaryColorSubtle, // Màu xanh khi quyhoach là true
-                ['==', ['get', 'quyhoach'], false], chuaqhColorSubtle, // Màu xanh khi quyhoach là true
+                ['>', ['get', 'numberOfReports'], 0], reportColor, // Màu đỏ khi có báo cáo
+                ['==', ['get', 'planning'], true], primaryColorSubtle, // Màu xanh khi planning là true
+                ['==', ['get', 'planning'], false], chuaqhColorSubtle, // Màu xanh khi planning là true
                 '#FF6400'
             ]
         }
     });
 
-    // Tạo layer hiển thị chữ QC khi quyhoach là true
+    // Tạo layer hiển thị chữ QC khi planning là true
     map.addLayer({
         id: 'AdMarker-text',
         type: 'symbol',
         source: 'CombinedLocation',
         filter: ['all',
-            ['!', ['has', 'point_count']], // Loại bỏ những điểm là cluster và quyhoach là false
-            ['==', ['get', 'quyhoach'], true], // Loại bỏ những điểm là cluster và quyhoach là false
-            ['==', ['get', 'markerType'], 'Ad'] // Chỉ hiển thị dữ liệu có markerType là 'Ad'
+            ['!', ['has', 'point_count']], // Loại bỏ những điểm là cluster và planning là false
+            ['==', ['get', 'markerType'], 'Ad'], // Chỉ hiển thị dữ liệu có markerType là 'Ad'
+            ['==', ['get', 'planning'], true], // Loại bỏ những điểm là cluster và planning là false
         ],
         layout: {
             'text-field': 'QC',
