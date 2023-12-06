@@ -1,7 +1,7 @@
-// ########## Hàm lấy danh sách các quảng cáo có dạng GeoJSON ##########
+// !!! Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON ##########
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, getDocs, getDoc, query, where, doc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 // ========== Firebase configuration
 const firebaseConfig = {
@@ -21,7 +21,7 @@ const db = getFirestore(firebaseApp);
 // Hàm chuyển đổi dữ liệu Ad thành GeoJSON
 function convertToGeoJSON(adLocation) {
     return {
-        type: 'Ad',
+        type: 'Feature',
         geometry: {
             type: 'Point',
             coordinates: [adLocation.longitude, adLocation.latitude]
@@ -33,6 +33,8 @@ function convertToGeoJSON(adLocation) {
             idQuan: adLocation.idQuan,
             idPhuong: adLocation.idPhuong,
             adType: adLocation.adType,
+
+            markerType: 'Ad' // Thêm cái này để filter marker trên map
         }
     };
 }
@@ -62,34 +64,26 @@ async function getAdLocationGeoJSONList() {
 
                     let adQuery = query(adsCollection, where("adId", "==", ad.adId));
                     let adDocs = await getDocs(adQuery);
-
+                    
                     // Nếu reportId != "" thì tăng numberOfReports
-                    adDocs.forEach((adDoc) => {
-                        const adData = adDoc.data();
-                        if (adData.reportId != "") {
-                            numberOfReports++;
-                        }
-                    });
+                    numberOfReports += adDocs.docs.some(adDoc => adDoc.data().reportId !== "") ? 1 : 0;
                 });
 
                 await Promise.all(adPromises);
             }
 
-            return {
-                ...adLocationData,
-                numberOfReports
-            };
+            return { ...adLocationData, numberOfReports };
         });
 
         let results = await Promise.all(adLocationPromises);
         
         // Chuyển đổi toàn bộ dữ liệu về định dạng JSON
         let adLocationGeoJSONList = {
-            type: 'AdCollection',
+            type: 'FeatureCollection',
             features: results.map(ad => convertToGeoJSON(ad))
         };
+        
         console.log(adLocationGeoJSONList);
-
         return adLocationGeoJSONList;
     }
     catch (error) {
