@@ -6,25 +6,23 @@ const Report = [
     {
         reportId: 1,
         reportType: 'qc', // 'qc' || 'ddqc' || 'ddbk'
-        
+
         locationId: 2,
         adId: 3,
-        longitude: "", // Sẽ được lấy từ locationId và adId
-        latitude: "",  // Sẽ được lấy từ locationId và adId
-        // Đồng thời Khi trả dữ liệu cho Người dân
-        // thì lấy thêm name, address và region từ locationId và adId
+        longitude: "",
+        latitude: "",
 
         reportForm: 'Tố giác sai phạm', // 'Tố giác sai phạm' || 'Giải đáp thắc mắc' || 'Đóng góp ý kiến' || 'Giải đáp thắc mắc'
         status: 'Đang xử lý', // 'Đang xử lý' || 'Đã xử lý' || 'Từ chối'
         time: '10/01/2023',
 
         fullname: 'Thế Nghĩa',
-        email: 'thenghia@nhom7.com',
+        email: 'dtnghia21@clc.fitus.edu.vn',
         phone: '0123456789',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quam atque, ex nulla ab perferendis incidunt magni in eum, corporis enim sapiente architecto odio. Officiis ut perferendis molestias labore quos illum atque reprehenderit sit doloremque reiciendis?',
         images: [
-            {url: "/assets/dan/thumbnail1.jpeg"},
-            {url: "/assets/dan/thumbnail3.jpg"},
+            { url: "/assets/dan/thumbnail1.jpeg" },
+            { url: "/assets/dan/thumbnail3.jpg" },
         ],
     },
     {
@@ -33,8 +31,8 @@ const Report = [
 
         locationId: 3,
         adId: "",
-        longitude: "", // Sẽ được lấy từ locationId
-        latitude: "",  // Sẽ được lấy từ locationId
+        longitude: "",
+        latitude: "",
 
         reportForm: 'Giải đáp thắc mắc',
         status: 'Đã xử lý',
@@ -45,12 +43,56 @@ const Report = [
         phone: '6667778889',
         content: 'Nội dung tố cáo Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quam atque, ex nulla ab perferendis incidunt magni in eum, corporis enim sapiente architecto odio. Officiis ut perferendis molestias labore quos illum atque reprehenderit sit doloremque reiciendis?',
         images: [
-            {url: "/assets/dan/thumbnail4.jpg"},
-            {url: "/assets/dan/thumbnail5.jpg"},
+            { url: "/assets/dan/thumbnail4.jpg" },
+            { url: "/assets/dan/thumbnail5.jpg" },
         ],
     },
     {
         reportId: 3,
+        reportType: 'ddqc',
+
+        locationId: 5,
+        adId: "",
+        longitude: "",
+        latitude: "",
+
+        reportForm: 'Tố giác sai phạm',
+        status: 'Đã xử lý',
+        time: '04/06/2023',
+
+        fullname: 'Thế Giới',
+        email: 'thenghia@nhom7.com',
+        phone: '6667778889',
+        content: 'Tôi muốn tố giác về bảng quảng cáo này về việc nó không đúng với quy hoạch của thành phố. Tôi muốn tố giác về bảng quảng cáo này về việc nó không đúng với quy hoạch của thành phố. Tôi muốn tố giác về bảng quảng cáo này về việc nó không đúng với quy hoạch của thành phố.',
+        images: [
+            { url: "/assets/dan/thumbnail3.jpg" },
+            { url: "/assets/dan/thumbnail6.jpg" },
+        ],
+    },
+    {
+        reportId: 4,
+        reportType: 'ddbk', // ĐỊA ĐIỂM BẤT KỲ
+
+        locationId: "",
+        adId: "",
+        longitude: 106.683838,
+        latitude: 10.764617,
+
+        reportForm: 'Tố giác sai phạm',
+        status: 'Đang xử lý',
+        time: '21/10/2023',
+
+        fullname: 'Hello world',
+        email: 'thenghia@nhom7.com',
+        phone: '6667778889',
+        content: 'Xin chào Thế giới nhé',
+        images: [
+            { url: "/assets/dan/thumbnail3.jpg" },
+            { url: "/assets/dan/thumbnail6.jpg" },
+        ],
+    },
+    {
+        reportId: 5,
         reportType: 'ddbk', // ĐỊA ĐIỂM BẤT KỲ
 
         locationId: "",
@@ -60,26 +102,68 @@ const Report = [
 
         reportForm: 'Đăng ký nội dung',
         status: 'Từ chối',
-        time: '21/10/2023 - 21:10:23',
+        time: '21/10/2023',
 
-        fullname: 'Thế Giới',
-        email: 'thenghia@nhom7.com',
+        fullname: 'Mì tôm thanh long',
+        email: 'landautien@nhom7.com',
         phone: '6667778889',
-        content: 'Xin chào Thế giới nhé',
+        content: 'Tôi muốn đăng ký nội dung ở địa điểm này',
         images: [
-            {url: "/assets/dan/thumbnail3.jpg"},
-            {url: "/assets/dan/thumbnail6.jpg"},
+            { url: "/assets/dan/thumbnail1.jpeg" },
+        ],
+    },
+    {
+        reportId: 6,
+        reportType: 'ddbk', // ĐỊA ĐIỂM BẤT KỲ
+
+        locationId: "",
+        adId: "",
+        longitude: 106.686322,
+        latitude: 10.764507,
+
+        reportForm: 'Đóng góp ý kiến',
+        status: 'Đã xử lý',
+        time: '21/10/2023',
+
+        fullname: 'Bánh đồng xu phô mai',
+        email: 'banhdongxuphomai@nhom7.com',
+        phone: '6667778889',
+        content: 'Tôi muốn đóng góp ý kiến về địa điểm này',
+        images: [
+            { url: "/assets/dan/thumbnail5.jpg" },
+        ],
+    },
+    {
+        reportId: 7,
+        reportType: 'ddbk', // ĐỊA ĐIỂM BẤT KỲ
+
+        locationId: "",
+        adId: "",
+        longitude: 106.687931,
+        latitude: 10.764055,
+
+        reportForm: 'Giải đáp thắc mắc',
+        status: 'Đã xử lý',
+        time: '21/10/2023',
+
+        fullname: 'Trà chanh giã tay',
+        email: 'trachang@giatay.com',
+        phone: '6667778889',
+        content: 'Tôi muốn được giải đáp thắc mắc về địa điểm này',
+        images: [
+            { url: "/assets/dan/thumbnail2.jpg" },
         ],
     }
 ]
 
 
-// LƯU THÌ SẼ LƯU NHƯ THẾ NÀY
-// NHƯNG KHI TRẢ DỮ LIỆU THÌ SẼ PHẢI GHÉP BẢNG/THAM CHIẾU NHÉ
+
 
 const Ad = [
     {
         adId: 1,
+        reportId: "", // CÓ CÁI REPORT ID ĐỂ BIẾT XEM CÁI QC NÀY ĐÃ BỊ TỐ CÁO CHƯA
+
         name: 'Bảng quảng cáo 1',
         size: '2.5m x 10m',
         contractStartDate: 'Ngày 10 tháng 01 năm 2023',
@@ -89,21 +173,25 @@ const Ad = [
             { url: "/assets/dan/thumbnail5.jpg" },
             { url: "/assets/dan/thumbnail6.jpg" },
         ],
-        
-        reportId: "", // CÓ CÁI REPORT ID ĐỂ BIẾT XEM CÁI QC NÀY ĐÃ BỊ TỐ CÁO CHƯA
     },
     {
         adId: 2,
+        reportId: "",
+
         name: 'Bảng quảng cáo 2',
         size: '5m x 5m',
         contractStartDate: 'Ngày 10 tháng 01 năm 2023',
         contractEndDate: 'Ngày 31 tháng 12 năm 2023',
-        thumbnails: [], // KHÔNG CÓ HÌNH
-        
-        reportId: "",
+        thumbnails: [
+            { url: "/assets/dan/thumbnail5.jpg" },
+            { url: "/assets/dan/thumbnail4.jpg" },
+            { url: "/assets/dan/thumbnail6.jpg" },
+        ],
     },
     {
         adId: 3,
+        reportId: 1, // CÁI NÀY ĐÃ BỊ BÁO CÁO NÈ
+
         name: 'Bảng quảng cáo 3',
         size: '6m x 6m',
         contractStartDate: 'Ngày 01 tháng 01 năm 2023',
@@ -112,23 +200,61 @@ const Ad = [
             { url: "/assets/dan/thumbnail6.jpg" },
             { url: "/assets/dan/thumbnail4.jpg" },
         ],
-        
-        reportId: 1, // CÁI NÀY ĐÃ BỊ BÁO CÁO NÈ
+
+    },
+    {
+        adId: 4,
+        reportId: "",
+
+        name: 'Bảng quảng cáo 4',
+        size: '4m x 2m',
+        contractStartDate: 'Ngày 31 tháng 01 năm 2023',
+        contractEndDate: 'Ngày 30 tháng 04 năm 2024',
+        thumbnails: [
+            { url: "/assets/dan/thumbnail3.jpg" },
+            { url: "/assets/dan/thumbnail5.jpg" },
+        ]
     },
 ]
 
 
-// LƯU THÌ SẼ LƯU NHƯ THẾ NÀY
-// NHƯNG KHI TRẢ DỮ LIỆU THÌ SẼ PHẢI GHÉP BẢNG/THAM CHIẾU NHÉ
+
 
 const AdLocation = [
     {
+        locationId: 1,
+        planning: true,
+        longitude: 106.679085,
+        latitude: 10.762585,
+
+        reportId: "", // CÓ CÁI REPORT ID ĐỂ BIẾT XEM CÁI ĐiaDiem NÀY ĐÃ BỊ TỐ CÁO CHƯA
+
+        thumbnails: [
+            { url: "/assets/dan/thumbnail1.jpeg" },
+            { url: "/assets/dan/thumbnail2.jpg" },
+            { url: "/assets/dan/thumbnail3.jpg" },
+        ],
+
+        idQuan: "quan_5",
+        idPhuong: "phuong_04",
+        address: "Trần Phú - Trần Bình Trọng",
+
+        adType: 'Trụ/Cụm pano', // Loại bảng quảng cáo
+        adForm: 'Cổ động chính trị', // Hình thức quảng cáo
+        locationType: 'Đất công', // Loại vị trí
+
+        adList: [ // Danh sách quảng cáo tại địa điểm này
+            { adId: 1 },
+            { adId: 2 },
+        ],
+    },
+    {
         locationId: 2,
-        quyhoach: true,
+        planning: true,
         longitude: 106.681622,
         latitude: 10.765123,
 
-        reportId: "",// CÓ CÁI REPORT ID ĐỂ BIẾT XEM CÁI ĐiaDiem NÀY ĐÃ BỊ TỐ CÁO CHƯA
+        reportId: "",
 
         thumbnails: [
             { url: "/assets/dan/thumbnail3.jpg" },
@@ -136,51 +262,92 @@ const AdLocation = [
             { url: "/assets/dan/thumbnail1.jpeg" },
         ],
 
-        idQuan: "5",   // Trả về mấy cái id
-        idPhuong: "4", // Bên client sẽ có file json để
-        address: "227 Nguyên Văn Cừ",// lấy tên quận, phường, đường
+        idQuan: "quan_5",
+        idPhuong: "phuong_04",
+        address: "227 Nguyên Văn Cừ",
 
-        type: 'Trụ bảng hiflex', // Loại bảng quảng cáo
-        form: 'Cổ động chính trị', // Hình thức quảng cáo
-        quantity: '1', // adList.length
-        locationType: 'Công viên', // Loại vị trí
+        adType: 'Trụ bảng hiflex',
+        adForm: 'Cổ động chính trị',
+        locationType: 'Công viên',
 
         adList: [
-            {adId : 1},
-            {adId : 3},
+            { adId: 3 },
         ],
     },
     {
-        locationId: 1,
-        quyhoach: false,
-        longitude: 106.679085,
-        latitude: 10.762585,
+        locationId: 3,
+        planning: true,
+        longitude: 106.683218,
+        latitude: 10.761180,
 
-        reportId: "", // Nếu khác "" thì tất là nó bị report
+        reportId: 2,
+
+        thumbnails: [
+            { url: "/assets/dan/thumbnail2.jpg" },
+            { url: "/assets/dan/thumbnail1.jpeg" },
+        ],
+
+        idQuan: "quan_5",
+        idPhuong: "phuong_04",
+        address: "Nguyễn Văn Cừ - An Dương Vương",
+
+        adType: 'Màn hình điện tử ốp tường',
+        adForm: 'Xã hội hoá',
+        locationType: 'Nhà chờ xe buýt',
+
+        adList: [
+            { adId: 4 }
+        ],
+    },
+    {
+        locationId: 4,
+        planning: false,
+        longitude: 106.686656,
+        latitude: 10.762573,
+
+        reportId: "",
 
         thumbnails: [],
 
-        idQuan: "5",   // Quận 5
-        idPhuong: "4", // Phường 4
-        address: "123 Trần Phú",// Trần Phú
+        idQuan: "quan_1",
+        idPhuong: "phuong_nguyen_cu_trinh",
+        address: "Nguyễn Trãi - Nguyễn Cư Trinh",
 
-        type: 'Trụ/Cụm pano', // Loại bảng quảng cáo
-        form: 'Cổ động chính trị', // Hình thức quảng cáo
-        quantity: '2 trụ/bảng', // Số lượng
-        locationType: 'Đất công', // Loại vị trí
+        adType: 'Trụ màn hình điện tử LED',
+        adForm: 'Quảng cáo thương mại',
+        locationType: 'Trung tâm thương mại',
+
+        adList: [],
+    },
+    {
+        locationId: 5,
+        planning: false,
+        longitude: 106.689628,
+        latitude: 10.761667,
+
+        reportId: 3,
+
+        thumbnails: [],
+
+        idQuan: "quan_1",
+        idPhuong: "phuong_nguyen_cu_trinh",
+        address: "Trần Đình Xu - Trần Hưng Đạo",
+
+        adType: 'Trụ treo băng rôn dọc',
+        adForm: 'Xã hội hoá',
+        locationType: 'Nhà ở riêng lẻ',
 
         adList: [],
     },
 ]
 
-// LƯU THÌ SẼ LƯU NHƯ THẾ NÀY
-// NHƯNG KHI TRẢ DỮ LIỆU THÌ SẼ PHẢI GHÉP BẢNG/THAM CHIẾU NHÉ
+
 
 const Account = [
     {
         accountId: 1,
         role: 1, // 1: Phường , 2: Quận, 3: Sở
-        
+
         username: "",
         password: "", // (bcrypt) 
 
@@ -305,15 +472,15 @@ const ChangeReq = [
     }
 ]
 
-function changeId(dataType, id){
+function changeId(dataType, id) {
     switch (dataType) {
         case 'report':
             Report.find(report => report.reportId == id).reportId = -1;
             module.exports.Report = Report;
             break;
         case 'adlocation':
-        AdLocation.find(AdLocation => AdLocation.locationId == id).locationId = -1;
-        break;
+            AdLocation.find(AdLocation => AdLocation.locationId == id).locationId = -1;
+            break;
         case 'ad':
             Ad.find(ad => ad.adId == id).adId = -1;
             break;
@@ -326,13 +493,13 @@ function changeId(dataType, id){
         case 'changereq':
             ChangeReq.find(changeReq => changeReq.changeReqId == id).changeReqId = -1;
             break;
-        
+
     }
 }
 
-module.exports = { 
+module.exports = {
     Report,
-    Ad, 
+    Ad,
     AdLocation,
     Account,
     PermissionReq,
