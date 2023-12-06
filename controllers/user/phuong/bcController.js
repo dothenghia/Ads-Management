@@ -38,10 +38,10 @@ controller.show = async (req, res) => {
                 return "screens/phuong/baocao";
             }
         });
-      } catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
-      }
+    }
 }
 
 module.exports = controller;
