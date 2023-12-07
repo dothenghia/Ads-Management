@@ -30,8 +30,9 @@
                     <th scope="col">
                         <select id="" name="">
                             <option value="all">Công ty</option>
-                            <option value="vincom">Vin Cơm</option>
-                            <option value="coopmart">Cốp Mắc</option>
+                            {{#each company}}
+                                <option value="{{id}}">{{name}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">Email</th>
