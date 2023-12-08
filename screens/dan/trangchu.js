@@ -108,7 +108,7 @@ const trangchu = {
                     ...this.reportLocationList
                 ]
             };
-            console.log(combinedData)
+            // console.log(combinedData)
 
 
             // ====== 1. THÊM SOURCE VÀO MAP ======

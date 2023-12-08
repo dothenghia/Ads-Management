@@ -55,6 +55,7 @@ export default function AdCard(adInfo, adLocationData) {
         size: adInfo.size,
         thumbnails: adInfo.thumbnails,
         adStatus: adInfo.adStatus,
+        reportId: adInfo.reportId,
     }
 
     function openDetailAdModal_AdCard(ad) {
