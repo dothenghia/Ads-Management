@@ -78,4 +78,40 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#reportDetailModal').modal('show');
       });
     });
+
+    // Change filter buttons to match current filters
+    let urlParams = (new URL(window.location.href)).searchParams;
+    if (urlParams.has("reportTypeId"))
+        document.querySelector('#reportTypeFilter').value = urlParams.get("reportTypeId");
+    if (urlParams.has("reportFormId"))
+        document.querySelector('#reportFormFilter').value = urlParams.get("reportFormId");
+    if (urlParams.has("statusId"))
+        document.querySelector('#statusFilter').value = urlParams.get("statusId");
 });
+
+// Filter functions
+const filters = (new URL(window.location.href)).searchParams;
+
+function reportTypeFilter(reportTypeId) {
+    if (reportTypeId != "all")
+        filters.set("reportTypeId", reportTypeId);
+    else
+        filters.delete("reportTypeId");
+    window.location.href = "?" + filters.toString();
+}
+
+function reportFormFilter(reportFormId) {
+    if (reportFormId != "all")
+        filters.set("reportFormId", reportFormId);
+    else
+        filters.delete("reportFormId");
+    window.location.href = "?" + filters.toString();
+}
+
+function statusFilter(statusId) {
+    if (statusId != "all")
+        filters.set("statusId", statusId);
+    else
+        filters.delete("statusId");
+    window.location.href = "?" + filters.toString();
+}

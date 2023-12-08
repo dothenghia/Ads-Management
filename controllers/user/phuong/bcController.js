@@ -16,21 +16,54 @@ controller.show = async (req, res) => {
         const adLocationSnapshot = await adLocationRef.get();
         
         // Extract data from retrieved snapshots
-        const Report = [];
+        let ReportType = []; let ReportForm = []; let Status = [];
+        let reportTypeId = []; let reportFormId = []; let statusId = [];
+        let Report = [];
         reportSnapshot.forEach((doc) => {
-            Report.push(doc.data());
+            let data = doc.data();
+
+            if (!reportTypeId.includes(data.reportType)) {
+                reportTypeId.push(data.reportType);
+                ReportType.push({value: data.reportType});
+            }
+    
+            if (!reportFormId.includes(data.reportForm)) {
+                reportFormId.push(data.reportForm);
+                ReportForm.push({value: data.reportForm});
+            }
+    
+            if (!statusId.includes(data.status)) {
+                statusId.push(data.status);
+                Status.push({value: data.status});
+            }
+
+            Report.push(data);
         });
-        const Ad = [];
+        let Ad = [];
         adSnapshot.forEach((doc) => {
             Ad.push(doc.data());
         });
-        const AdLocation = [];
+        let AdLocation = [];
         adLocationSnapshot.forEach((doc) => {
             AdLocation.push(doc.data());
         });
 
+        // Filters
+        let filterReportTypeId = req.query.reportTypeId;
+        if (filterReportTypeId)
+            Report = Report.filter((loc) => loc.reportType == filterReportTypeId);
+        let filterReportFormId = req.query.reportFormId;
+        if (filterReportFormId)
+            Report = Report.filter((loc) => loc.reportForm == filterReportFormId);
+        let filterStatusId = req.query.statusId;
+        if (filterStatusId)
+            Report = Report.filter((loc) => loc.status == filterStatusId);
+
         res.render("partials/screens/phuong/index", {
             "current": currentPage,
+            "reportType": ReportType,
+            "reportForm": ReportForm,
+            "status": Status,
             "report": Report,
             "ad": Ad,
             "adLocation": AdLocation,
