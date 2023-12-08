@@ -16,9 +16,9 @@ controller.show = async (req, res) => {
         const adLocationSnapshot = await adLocationRef.get();
         
         // Extract data from retrieved snapshots
-        const Company = [];
+        let Company = [];
         let companyId = [];
-        const PermissionReq = [];
+        let PermissionReq = [];
         permissionReqSnapshot.forEach((doc) => {
             let data = doc.data();
 
@@ -29,14 +29,19 @@ controller.show = async (req, res) => {
 
             PermissionReq.push(data);
         });
-        const Ad = [];
+        let Ad = [];
         adSnapshot.forEach((doc) => {
             Ad.push(doc.data());
         });
-        const AdLocation = [];
+        let AdLocation = [];
         adLocationSnapshot.forEach((doc) => {
             AdLocation.push(doc.data());
         });
+
+        // Filters
+        let filterCoId = req.query.coId;
+        if (filterCoId)
+            PermissionReq = PermissionReq.filter((req) => req.co.id == filterCoId);
 
         res.render("partials/screens/phuong/index", {
             "current": currentPage,

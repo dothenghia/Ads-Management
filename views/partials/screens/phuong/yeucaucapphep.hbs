@@ -28,10 +28,10 @@
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Công ty</option>
+                        <select id="coFilter" name="">
+                            <option value="all" onclick="coFilter('all')">Công ty</option>
                             {{#each company}}
-                                <option value="{{id}}">{{name}}</option>
+                                <option value="{{id}}" onclick="coFilter('{{id}}')">{{name}}</option>
                             {{/each}}
                         </select>
                     </th>

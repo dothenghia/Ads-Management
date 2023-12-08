@@ -147,6 +147,24 @@
     color: #41AF79;
 }
 
+#changeReqDetailModal .modal-body #changeReqDetailOldThumbnails, #changeReqDetailModal .modal-body #changeReqDetailNewThumbnails {
+    margin-top: 1vh;
+}
+
+#changeReqDetailModal .modal-body #changeReqDetailOldThumbnails .carousel-item img, #changeReqDetailModal .modal-body #changeReqDetailNewThumbnails .carousel-item img {
+    border: 1px solid white;
+    border-radius: 20px;
+    width: 40% !important;
+    height: auto;
+    margin: auto;
+}
+
+#changeReqDetailModal .modal-body #changeReqDetailOldNoThumbnails, #changeReqDetailModal .modal-body #changeReqDetailNewNoThumbnails {
+    text-align: center;
+    font-weight: 200;
+    color: rgb(98, 97, 97);
+}
+
 
 /* permissionReqDetailModal */
 
