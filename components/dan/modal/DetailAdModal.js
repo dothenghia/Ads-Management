@@ -35,7 +35,7 @@ export default function DetailAdModal(detailAdInfo) {
 
                 <div class="detail-ad-modal__address">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                    <h1>${detailAdInfo.address}, ${detailAdInfo.region}</h1>
+                    <h1>${detailAdInfo.address}, ${detailAdInfo.phuong}, ${detailAdInfo.quan}</h1>
                 </div>
 
 
@@ -48,11 +48,11 @@ export default function DetailAdModal(detailAdInfo) {
                     <div class="detail-ad-modal__info-row">
                         <div class="detail-ad-modal__info-col">
                             <h2>Loại bảng quảng cáo</h2>
-                            <p>${detailAdInfo.type}</p>
+                            <p>${detailAdInfo.adType}</p>
                         </div>
                         <div class="detail-ad-modal__info-col">
                             <h2>Hình thức quảng cáo</h2>
-                            <p>${detailAdInfo.form}</p>
+                            <p>${detailAdInfo.adForm}</p>
                         </div>
                         <div class="detail-ad-modal__info-col">
                             <h2>Loại vị trí</h2>
@@ -81,10 +81,20 @@ export default function DetailAdModal(detailAdInfo) {
                         </div>
                         <div class="detail-ad-modal__info-col">
                             <h2 style="margin-bottom: 4px;">Phản hồi thông tin</h2>
-                            <button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal_DetailAdModal()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                Phản hồi
-                            </button>
+                            ${
+                                (detailAdInfo.adStatus == '') ?
+                                `<button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal_DetailAdModal()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                    Phản hồi
+                                </button>`
+                                :
+                                `
+                                <p style="margin-bottom: 4px;">${detailAdInfo.adStatus}</p>
+                                <button class="custom-btn custom-btn-fade" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                    Xem lại phản hồi
+                                </button>`
+                            }
                         </div>
                     </div>
                 </div>

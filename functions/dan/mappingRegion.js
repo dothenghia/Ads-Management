@@ -183,22 +183,22 @@ const hochiminh = [
                 "idPhuong": "phuong_10"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
@@ -218,7 +218,7 @@ const hochiminh = [
                 "idPhuong": "phuong_11"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             }
@@ -260,12 +260,12 @@ const hochiminh = [
                 "idPhuong": "phuong_25"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
@@ -275,7 +275,7 @@ const hochiminh = [
                 "idPhuong": "phuong_24"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             },
@@ -290,17 +290,17 @@ const hochiminh = [
                 "idPhuong": "phuong_15"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
@@ -337,12 +337,12 @@ const hochiminh = [
         "idQuan": "quan_tan_binh",
         "wards": [
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
@@ -357,12 +357,12 @@ const hochiminh = [
                 "idPhuong": "phuong_13"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
@@ -372,12 +372,12 @@ const hochiminh = [
                 "idPhuong": "phuong_11"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
@@ -387,17 +387,17 @@ const hochiminh = [
                 "idPhuong": "phuong_10"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             },
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
@@ -481,42 +481,42 @@ const hochiminh = [
         "idQuan": "quan_phu_nhuan",
         "wards": [
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
@@ -755,7 +755,7 @@ const hochiminh = [
                 "idPhuong": "phuong_vo_thi_sau"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
@@ -765,27 +765,27 @@ const hochiminh = [
                 "idPhuong": "phuong_10"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             }
@@ -827,42 +827,42 @@ const hochiminh = [
                 "idPhuong": "phuong_10"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             }
@@ -879,7 +879,7 @@ const hochiminh = [
                 "idPhuong": "phuong_15"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
@@ -894,7 +894,7 @@ const hochiminh = [
                 "idPhuong": "phuong_11"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
@@ -909,12 +909,12 @@ const hochiminh = [
                 "idPhuong": "phuong_13"
             },
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
@@ -924,27 +924,27 @@ const hochiminh = [
                 "idPhuong": "phuong_12"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
@@ -966,17 +966,17 @@ const hochiminh = [
                 "idPhuong": "phuong_13"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             },
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
@@ -996,12 +996,12 @@ const hochiminh = [
                 "idPhuong": "phuong_14"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
@@ -1011,7 +1011,7 @@ const hochiminh = [
                 "idPhuong": "phuong_16"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
@@ -1021,7 +1021,7 @@ const hochiminh = [
                 "idPhuong": "phuong_15"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             }
@@ -1033,17 +1033,17 @@ const hochiminh = [
         "idQuan": "quan_5",
         "wards": [
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
@@ -1053,22 +1053,22 @@ const hochiminh = [
                 "idPhuong": "phuong_12"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
@@ -1083,12 +1083,12 @@ const hochiminh = [
                 "idPhuong": "phuong_14"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             },
@@ -1120,12 +1120,12 @@ const hochiminh = [
                 "idPhuong": "phuong_13"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             },
@@ -1135,7 +1135,7 @@ const hochiminh = [
                 "idPhuong": "phuong_12"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
@@ -1145,32 +1145,32 @@ const hochiminh = [
                 "idPhuong": "phuong_11"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             },
@@ -1187,22 +1187,22 @@ const hochiminh = [
         "idQuan": "quan_8",
         "wards": [
             {
-                "name": "Phường 08",
+                "name": "Phường 8",
                 "division_type": "3",
                 "idPhuong": "phuong_08"
             },
             {
-                "name": "Phường 02",
+                "name": "Phường 2",
                 "division_type": "3",
                 "idPhuong": "phuong_02"
             },
             {
-                "name": "Phường 01",
+                "name": "Phường 1",
                 "division_type": "3",
                 "idPhuong": "phuong_01"
             },
             {
-                "name": "Phường 03",
+                "name": "Phường 3",
                 "division_type": "3",
                 "idPhuong": "phuong_03"
             },
@@ -1212,7 +1212,7 @@ const hochiminh = [
                 "idPhuong": "phuong_11"
             },
             {
-                "name": "Phường 09",
+                "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"
             },
@@ -1222,7 +1222,7 @@ const hochiminh = [
                 "idPhuong": "phuong_10"
             },
             {
-                "name": "Phường 04",
+                "name": "Phường 4",
                 "division_type": "3",
                 "idPhuong": "phuong_04"
             },
@@ -1237,7 +1237,7 @@ const hochiminh = [
                 "idPhuong": "phuong_12"
             },
             {
-                "name": "Phường 05",
+                "name": "Phường 5",
                 "division_type": "3",
                 "idPhuong": "phuong_05"
             },
@@ -1247,7 +1247,7 @@ const hochiminh = [
                 "idPhuong": "phuong_14"
             },
             {
-                "name": "Phường 06",
+                "name": "Phường 6",
                 "division_type": "3",
                 "idPhuong": "phuong_06"
             },
@@ -1262,7 +1262,7 @@ const hochiminh = [
                 "idPhuong": "phuong_16"
             },
             {
-                "name": "Phường 07",
+                "name": "Phường 7",
                 "division_type": "3",
                 "idPhuong": "phuong_07"
             }
