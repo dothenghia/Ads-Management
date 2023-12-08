@@ -14,18 +14,51 @@ controller.show = async (req, res) => {
     const adLocationSnapshot = await adLocationRef.get();
     
     // Extract data from retrieved snapshots
-    const Ad = [];
+    let Ad = [];
     adSnapshot.forEach((doc) => {
         Ad.push(doc.data());
     });
-    const AdLocation = [];
+    let AdType = []; let AdForm = []; let LocationType = [];
+    let adTypeId = []; let adFormId = []; let locationTypeId = [];
+    let AdLocation = [];
     adLocationSnapshot.forEach((doc) => {
-        AdLocation.push(doc.data());
+        let data = doc.data();
+
+        if (!locationTypeId.includes(data.locationType)) {
+            locationTypeId.push(data.locationType);
+            LocationType.push({value: data.locationType});
+        }
+
+        if (!adFormId.includes(data.adForm)) {
+            adFormId.push(data.adForm);
+            AdForm.push({value: data.adForm});
+        }
+
+        if (!adTypeId.includes(data.adType)) {
+            adTypeId.push(data.adType);
+            AdType.push({value: data.adType});
+        }
+
+        AdLocation.push(data);
     });
+
+    // Filters
+    let filterAdFormId = req.query.adFormId;
+    if (filterAdFormId)
+        AdLocation = AdLocation.filter((loc) => loc.adForm == filterAdFormId);
+    let filterAdTypeId = req.query.adTypeId;
+    if (filterAdTypeId)
+        AdLocation = AdLocation.filter((loc) => loc.adType == filterAdTypeId);
+    let filterLocationTypeId = req.query.locationTypeId;
+    if (filterLocationTypeId)
+        AdLocation = AdLocation.filter((loc) => loc.locationType == filterLocationTypeId);
 
     res.render("partials/screens/phuong/index", {
         "current": currentPage,
         "ad": Ad,
+        "adType": AdType,
+        "adForm": AdForm,
+        "locationType": LocationType,
         "adLocation": AdLocation,
         body: function() {
             return "screens/phuong/thongtinquangcao";

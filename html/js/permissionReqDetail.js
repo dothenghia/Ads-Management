@@ -65,10 +65,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#coFilter').value = urlParams.get("coId");
 });
 
+// Filter functions
+const filters = (new URL(window.location.href)).searchParams;
+
 function coFilter(coId) {
-    if (coId != "all") {
-        const filters = new URLSearchParams({coId: coId}).toString();
-        window.location.href = "?" + filters;
-    }
-    else window.location.href = "?";
+    if (coId != "all")
+        filters.set("coId", coId);
+    else
+        filters.delete("coId");
+    window.location.href = "?" + filters.toString();
 }

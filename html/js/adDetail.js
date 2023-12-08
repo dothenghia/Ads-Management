@@ -57,4 +57,40 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#adDetailModal').modal('show');
       });
     });
+
+    // Change filter buttons to match current filters
+    let urlParams = (new URL(window.location.href)).searchParams;
+    if (urlParams.has("adTypeId"))
+        document.querySelector('#adTypeFilter').value = urlParams.get("adTypeId");
+    if (urlParams.has("adFormId"))
+        document.querySelector('#adFormFilter').value = urlParams.get("adFormId");
+    if (urlParams.has("locationTypeId"))
+        document.querySelector('#locationTypeFilter').value = urlParams.get("locationTypeId");
 });
+
+// Filter functions
+const filters = (new URL(window.location.href)).searchParams;
+
+function adTypeFilter(adTypeId) {
+    if (adTypeId != "all")
+        filters.set("adTypeId", adTypeId);
+    else
+        filters.delete("adTypeId");
+    window.location.href = "?" + filters.toString();
+}
+
+function adFormFilter(adFormId) {
+    if (adFormId != "all")
+        filters.set("adFormId", adFormId);
+    else
+        filters.delete("adFormId");
+    window.location.href = "?" + filters.toString();
+}
+
+function locationTypeFilter(locationTypeId) {
+    if (locationTypeId != "all")
+        filters.set("locationTypeId", locationTypeId);
+    else
+        filters.delete("locationTypeId");
+    window.location.href = "?" + filters.toString();
+}
