@@ -68,11 +68,12 @@ export default function AdMarker(map) {
 
     // Xử lý sự kiện click vào marker
     map.on('click', 'AdMarker-circle', (e) => {
-        let infomationOfMarker = e.features[0];
-        // console.log(infomationOfMarker.properties);
+        let markerInfo = e.features[0];
+        // console.log(markerInfo.properties);
 
-        getAdLocationInfoById(infomationOfMarker.properties.locationId).then(adInfo => {
-            document.querySelector('.sidebar-root').innerHTML = AdSidebar(adInfo)
+        getAdLocationInfoById(markerInfo.properties.locationId).then(adLocationInfo => {
+            // console.log(adLocationInfo)
+            document.querySelector('.sidebar-root').innerHTML = AdSidebar(adLocationInfo)
         })
     });
 
@@ -87,8 +88,8 @@ export default function AdMarker(map) {
     map.on('mouseenter', 'AdMarker-circle', (e) => {
         map.getCanvas().style.cursor = 'pointer';
 
-        let infomationOfMarker = e.features[0];
-        // console.log(infomationOfMarker.properties);
+        let markerInfo = e.features[0];
+        // console.log(markerInfo.properties);
         const coordinates = e.features[0].geometry.coordinates.slice();
 
         // Đảm bảo rằng nếu bản đồ được thu nhỏ sao cho có thể nhìn thấy nhiều bản sao của đối tượng địa lý thì cửa sổ bật lên sẽ xuất hiện trên bản sao được trỏ tới.
@@ -97,7 +98,7 @@ export default function AdMarker(map) {
         // Show popup
         popup.setLngLat(coordinates)
             .setHTML(
-                `${AdPopup(infomationOfMarker.properties)}`
+                `${AdPopup(markerInfo.properties)}`
             )
             .addTo(map);
     });

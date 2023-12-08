@@ -1,7 +1,7 @@
 
 import DetailAdModal from "../modal/DetailAdModal.js";
 import DetailReportModal from "../modal/DetailReportModal.js";
-import { getDetailReportInfoOfAd } from '/functions/dan/getReportLocationInfo.js';
+import getReportInfoById from '/functions/dan/getReportInfoById.js';
 
 import StatusTag from '../tag/StatusTag.js'
 
@@ -43,15 +43,17 @@ export default function AdCard(adInfo, adLocationData) {
         adId: adInfo.adId,
         locationId: adLocationData.locationId,
         address: adLocationData.address,
-        region: adLocationData.region,
+        quan: adLocationData.quan,
+        phuong: adLocationData.phuong,
         name: adInfo.name,
-        type: adLocationData.type,
-        form: adLocationData.form,
+        adType: adLocationData.adType,
+        adForm: adLocationData.adForm,
         locationType: adLocationData.locationType,
         contractStartDate: adInfo.contractStartDate,
         contractEndDate: adInfo.contractEndDate,
         size: adInfo.size,
         thumbnails: adInfo.thumbnails,
+        adStatus: adInfo.adStatus,
     }
     let reportId = {
         locationId: adLocationData.locationId,
@@ -72,7 +74,7 @@ export default function AdCard(adInfo, adLocationData) {
     function openDetailReportModal_AdCard(id) {
         let {adId, locationId} = JSON.parse(decodeURIComponent(id));
 
-        getDetailReportInfoOfAd(locationId, adId).then(detailReportInfo => {
+        getReportInfoById(locationId, adId).then(detailReportInfo => {
             console.log(detailReportInfo);
 
             document.querySelector('.modal-root').innerHTML = DetailReportModal(detailReportInfo);
@@ -93,7 +95,7 @@ export default function AdCard(adInfo, adLocationData) {
 
         <div class="ad-card__info">
             <div class="ad-card__info-tag">
-                ${StatusTag(adInfo.reportStatus)}
+                ${StatusTag(adInfo.adStatus)}
             </div>
 
 
@@ -130,7 +132,7 @@ export default function AdCard(adInfo, adLocationData) {
             </button>
 
             ${
-                (adInfo.reportStatus == '') ?
+                (adInfo.adStatus == '') ?
                 `<button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal_AdCard()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     Phản hồi
