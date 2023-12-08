@@ -146,7 +146,7 @@ const trangchu = {
                         '#f28cb1'     // Còn lại là màu hồng
                     ],
                     'circle-radius': [
-                        'step', ['get', 'point_count'], 15, 2, 20, 4, 25
+                        'step', ['get', 'point_count'], 15, 3, 20, 5, 25
                     ]
                 }
             });
