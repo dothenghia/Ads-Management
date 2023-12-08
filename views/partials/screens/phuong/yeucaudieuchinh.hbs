@@ -26,18 +26,19 @@
                     <th scope="col">Địa điểm quảng cáo</th>
                     <th scope="col">Thời điểm gửi yêu cầu</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Lý do chỉnh sửa</option>
-                            <option value="1">Không phù hợp</option>
-                            <option value="2">Đổi mới</option>
+                        <select id="reasonFilter" name="">
+                            <option value="all" onclick="reasonFilter('all')">Lý do chỉnh sửa</option>
+                            {{#each reason}}
+                                <option value="{{value}}" onclick="reasonFilter('{{value}}')">{{value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Tình trạng xử lý</option>
-                            <option value="0">Đang xử lý</option>
-                            <option value="1">Đã xử lý</option>
-                            <option value="2">Từ chối</option>
+                        <select id="statusFilter" name="">
+                            <option value="all" onclick="statusFilter('all')">Tình trạng xử lý</option>
+                            <option value="0" onclick="statusFilter(0)">Đang xử lý</option>
+                            <option value="1" onclick="statusFilter(1)">Đã xử lý</option>
+                            <option value="2" onclick="statusFilter(2)">Từ chối</option>
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>

@@ -14,19 +14,41 @@ controller.show = async (req, res) => {
         const adSnapshot = await adRef.get();
         
         // Extract data from retrieved snapshots
-        const ChangeReq = [];
+        let Reason = []; let Status = [];
+        let reasonId = []; let statusId = [];
+        let ChangeReq = [];
         changeReqSnapshot.forEach((doc) => {
             let data = doc.data();
 
+            if (!reasonId.includes(data.reason)) {
+                reasonId.push(data.reason);
+                Reason.push({value: data.reason});
+            }
+
+            if (!statusId.includes(data.status)) {
+                statusId.push(data.status);
+                Status.push({value: data.status});
+            }
+
             ChangeReq.push(data);
         });
-        const Ad = [];
+        let Ad = [];
         adSnapshot.forEach((doc) => {
             Ad.push(doc.data());
         });
 
+        // Filters
+        let filterReasonId = req.query.reasonId;
+        if (filterReasonId)
+            ChangeReq = ChangeReq.filter((req) => req.reason == filterReasonId);
+        let filterStatusId = req.query.statusId;
+        if (filterStatusId)
+            ChangeReq = ChangeReq.filter((req) => req.status == filterStatusId);
+
         res.render("partials/screens/phuong/index", {
             "current": currentPage,
+            "reason": Reason,
+            "status": Status,
             "changeReq": ChangeReq,
             "ad": Ad,
             body: function() {

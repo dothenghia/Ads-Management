@@ -96,6 +96,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#changeReqDetailModal').modal('show');
       });
     });
+
+    // Change filter buttons to match current filters
+    let urlParams = (new URL(window.location.href)).searchParams;
+    if (urlParams.has("reasonId"))
+        document.querySelector('#reasonFilter').value = urlParams.get("reasonId");
+    if (urlParams.has("statusId"))
+        document.querySelector('#statusFilter').value = urlParams.get("statusId");
 });
 
 async function acceptChange(accountRole, id) {
@@ -120,4 +127,23 @@ async function denyChange(accountRole, id) {
     });
     
     location.reload();
+}
+
+// Filter functions
+const filters = (new URL(window.location.href)).searchParams;
+
+function reasonFilter(reasonId) {
+    if (reasonId != "all")
+        filters.set("reasonId", reasonId);
+    else
+        filters.delete("reasonId");
+    window.location.href = "?" + filters.toString();
+}
+
+function statusFilter(statusId) {
+    if (statusId != "all")
+        filters.set("statusId", statusId);
+    else
+        filters.delete("statusId");
+    window.location.href = "?" + filters.toString();
 }
