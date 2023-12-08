@@ -22,30 +22,34 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('changeReqDetailNewSize').textContent = adNewDetails.size;
 
         let changeReqDetailOldThumbnails = $i('changeReqDetailOldThumbnails').querySelector(".carousel-inner");
+        // Destroy old children first
+        if (changeReqDetailOldThumbnails.childNodes)
+            changeReqDetailOldThumbnails.childNodes.forEach((child) => {child.remove()})
+        // Add new children
         if (adOldDetails.thumbnails.length > 0) {
             changeReqDetailOldThumbnails.style.display = "block";
-            $i("changeReqDetailOldNoThumbnails").style.display = "none"
+            $i("changeReqDetailOldNoThumbnails").style.display = "none";
 
-            changeReqDetailOldThumbnails.querySelector(".carousel-item.active img").src = adOldDetails.thumbnails[0].url;
+            let i = 0;
+            adOldDetails.thumbnails.forEach((thumbnail) => {
+                let slide = document.createElement("div");
+                slide.remove()
+                if (i == 0) {
+                    slide.classList.add("carousel-item", "active");
+                }
+                else {
+                    slide.classList.add("carousel-item");
+                }
 
-            let templateSlide = changeReqDetailOldThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
+                let slideImg = document.createElement("img");
+                slideImg.classList.add("d-block");
+                slideImg.src = adOldDetails.thumbnails[i].url;
+                slide.appendChild(slideImg);
 
-            // Destroy all old slides
-            changeReqDetailOldThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
-                slide.parentElement.removeChild(slide);
-            })
+                changeReqDetailOldThumbnails.appendChild(slide);
 
-            if (adOldDetails.thumbnails.length > 1) {
-                let i = 0;
-                adOldDetails.thumbnails.forEach((thumbnail) => {
-                    if (i > 0) {
-                        let slideClone = templateSlide.cloneNode(true);
-                        slideClone.querySelector("img").src = thumbnail.url;
-                        changeReqDetailOldThumbnails.appendChild(slideClone);
-                    }
-                    i++;
-                });
-            }
+                i++;
+            });
         }
         else {
             changeReqDetailOldThumbnails.style.display = "none";
@@ -53,30 +57,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         let changeReqDetailNewThumbnails = $i('changeReqDetailNewThumbnails').querySelector(".carousel-inner");
+        // Destroy old children first
+        if (changeReqDetailNewThumbnails.childNodes)
+            changeReqDetailNewThumbnails.childNodes.forEach((child) => {child.remove()})
+        // Add new children
         if (adNewDetails.thumbnails.length > 0) {
             changeReqDetailNewThumbnails.style.display = "block";
-            $i("changeReqDetailNewNoThumbnails").style.display = "none"
+            $i("changeReqDetailNewNoThumbnails").style.display = "none";
 
-            changeReqDetailNewThumbnails.querySelector(".carousel-item.active img").src = adNewDetails.thumbnails[0].url;
+            let i = 0;
+            adNewDetails.thumbnails.forEach((thumbnail) => {
+                let slide = document.createElement("div");
+                slide.remove()
+                if (i == 0) {
+                    slide.classList.add("carousel-item", "active");
+                }
+                else {
+                    slide.classList.add("carousel-item");
+                }
 
-            let templateSlide = changeReqDetailNewThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
+                let slideImg = document.createElement("img");
+                slideImg.classList.add("d-block");
+                slideImg.src = adNewDetails.thumbnails[i].url;
+                slide.appendChild(slideImg);
 
-            // Destroy all old slides
-            changeReqDetailNewThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
-                slide.parentElement.removeChild(slide);
-            })
+                changeReqDetailNewThumbnails.appendChild(slide);
 
-            if (adNewDetails.thumbnails.length > 1) {
-                let i = 0;
-                adNewDetails.thumbnails.forEach((thumbnail) => {
-                    if (i > 0) {
-                        let slideClone = templateSlide.cloneNode(true);
-                        slideClone.querySelector("img").src = thumbnail.url;
-                        changeReqDetailNewThumbnails.appendChild(slideClone);
-                    }
-                    i++;
-                });
-            }
+                i++;
+            });
         }
         else {
             changeReqDetailNewThumbnails.style.display = "none";
