@@ -1,14 +1,13 @@
 const $i = document.getElementById.bind(document);
 
 document.addEventListener("DOMContentLoaded", function () {
+    /* View permission request detail button */
     // Get all elements with class 'adDetailBtn'
     var adDetailButtons = document.querySelectorAll('.table-detail-button');
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
       button.addEventListener('click', function () {
-        // Get the data-ad-details attribute containing the specific data as a string
-
         // Parse the string into a JavaScript object
         var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails)[0];
         var adDetails = JSON.parse(button.dataset.adDetails)[0];
@@ -20,34 +19,38 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('permissionReqDetailCoName').textContent = "Công ty " + permissionReqDetails.co.name;
         $i('permissionReqDetailCoPhone').textContent = permissionReqDetails.co.phone;
         $i('permissionReqDetailCoEmail').textContent = permissionReqDetails.co.email;
+        $i('permissionReqDetailName').textContent = adDetails.name;
         $i('permissionReqDetailSize').textContent = adDetails.size;
         $i('permissionReqDetailContractDate').textContent = "Làm sao làm cái này???";
         $i('permissionReqDetailContent').textContent = permissionReqDetails.content;
         let permissionReqThumbnails = $i('permissionReqDetailThumbnails').querySelector(".carousel-inner");
-        if (adLocationDetails.thumbnails.length > 0) {
+        // Destroy old children first
+        while (permissionReqThumbnails.firstChild) {
+            permissionReqThumbnails.removeChild(permissionReqThumbnails.lastChild);
+        }
+        if (adLocationDetails.thumbnails.length > 0 && adLocationDetails.thumbnails[0].url != "") {
             permissionReqThumbnails.style.display = "block";
             $i("permissionReqDetailNoThumbnails").style.display = "none"
 
-            permissionReqThumbnails.querySelector(".carousel-item.active img").src = adLocationDetails.thumbnails[0].url;
+            let i = 0;
+            adLocationDetails.thumbnails.forEach((thumbnail) => {
+                let slide = document.createElement("div");
+                if (i == 0) {
+                    slide.classList.add("carousel-item", "active");
+                }
+                else {
+                    slide.classList.add("carousel-item");
+                }
 
-            let templateSlide = permissionReqThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
+                let slideImg = document.createElement("img");
+                slideImg.classList.add("d-block");
+                slideImg.src = thumbnail.url;
+                slide.appendChild(slideImg);
 
-            // Destroy all old slides
-            permissionReqThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
-                slide.parentElement.removeChild(slide);
-            })
+                permissionReqThumbnails.appendChild(slide);
 
-            if (adLocationDetails.thumbnails.length > 1) {
-                let i = 0;
-                adLocationDetails.thumbnails.forEach((thumbnail) => {
-                    if (i > 0) {
-                        let slideClone = templateSlide.cloneNode(true);
-                        slideClone.querySelector("img").src = thumbnail.url;
-                        permissionReqThumbnails.appendChild(slideClone);
-                    }
-                    i++;
-                });
-            }
+                i++;
+            });
         }
         else {
             permissionReqThumbnails.style.display = "none";
@@ -57,6 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // Show the modal
         $('#permissionReqDetailModal').modal('show');
       });
+    });
+
+    /* View permission request detail button */
+    let newPermissionReqButton = document.querySelector('#newPermissionReqButton');
+    newPermissionReqButton.addEventListener('click', function() {
+        // Show the modal
+        $('#newPermissionReqModal').modal('show');
     });
 
     // Change filter buttons to match current filters

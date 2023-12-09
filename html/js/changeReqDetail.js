@@ -23,17 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let changeReqDetailOldThumbnails = $i('changeReqDetailOldThumbnails').querySelector(".carousel-inner");
         // Destroy old children first
-        if (changeReqDetailOldThumbnails.childNodes)
-            changeReqDetailOldThumbnails.childNodes.forEach((child) => {child.remove()})
+        while (changeReqDetailOldThumbnails.firstChild) {
+            changeReqDetailOldThumbnails.removeChild(changeReqDetailOldThumbnails.lastChild);
+        }
         // Add new children
-        if (adOldDetails.thumbnails.length > 0) {
+        if (adOldDetails.thumbnails.length > 0 && adOldDetails.thumbnails[0].url != "") {
             changeReqDetailOldThumbnails.style.display = "block";
             $i("changeReqDetailOldNoThumbnails").style.display = "none";
 
             let i = 0;
             adOldDetails.thumbnails.forEach((thumbnail) => {
                 let slide = document.createElement("div");
-                slide.remove()
                 if (i == 0) {
                     slide.classList.add("carousel-item", "active");
                 }
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 let slideImg = document.createElement("img");
                 slideImg.classList.add("d-block");
-                slideImg.src = adOldDetails.thumbnails[i].url;
+                slideImg.src = thumbnail.url;
                 slide.appendChild(slideImg);
 
                 changeReqDetailOldThumbnails.appendChild(slide);
@@ -58,17 +58,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let changeReqDetailNewThumbnails = $i('changeReqDetailNewThumbnails').querySelector(".carousel-inner");
         // Destroy old children first
-        if (changeReqDetailNewThumbnails.childNodes)
-            changeReqDetailNewThumbnails.childNodes.forEach((child) => {child.remove()})
+        while (changeReqDetailNewThumbnails.firstChild) {
+            changeReqDetailNewThumbnails.removeChild(changeReqDetailNewThumbnails.lastChild);
+        }
         // Add new children
-        if (adNewDetails.thumbnails.length > 0) {
+        if (adNewDetails.thumbnails.length > 0 && adNewDetails.thumbnails[0].url != "") {
             changeReqDetailNewThumbnails.style.display = "block";
             $i("changeReqDetailNewNoThumbnails").style.display = "none";
 
             let i = 0;
             adNewDetails.thumbnails.forEach((thumbnail) => {
                 let slide = document.createElement("div");
-                slide.remove()
                 if (i == 0) {
                     slide.classList.add("carousel-item", "active");
                 }
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 let slideImg = document.createElement("img");
                 slideImg.classList.add("d-block");
-                slideImg.src = adNewDetails.thumbnails[i].url;
+                slideImg.src = thumbnail.url;
                 slide.appendChild(slideImg);
 
                 changeReqDetailNewThumbnails.appendChild(slide);

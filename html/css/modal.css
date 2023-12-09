@@ -241,6 +241,133 @@
 }
 
 
+/* newPermissionReqModal */
+
+#newPermissionReqModal {
+    --bs-modal-width: 50vw;
+}
+
+#newPermissionReqModal .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 12px !important;
+}
+
+#newPermissionReqModal .modal-content .modal-header {
+    background-color: white; 
+    border-radius: 12px 12px 0 0 !important;
+    padding: 2vh 1.2vw 1.2vh 1.2vw;
+    color: #0065FF;
+}
+
+#newPermissionReqModal .modal-header {
+    padding: 2vh 1.2vw 0.8vh 1.2vw;
+}
+
+#newPermissionReqModal .modal-header #newPermissionReqModalLabel {
+    font-weight: 600;
+}
+
+#newPermissionReqModal .modal-header #newPermissionReqModalLabel br {
+    display: block;
+    margin: 0.1em 0;
+}
+
+#newPermissionReqModal .modal-header #newPermissionReqModalLabel i {
+    color: #0065FF;
+}
+
+#newPermissionReqModal .modal-body {
+    background-color: white; 
+    border-radius: 0 0 12px 12px !important;
+    padding: 0.8vh 1.2vw 4vh 1.2vw;
+    font-size: 18px;
+}
+
+#newPermissionReqModal .modal-body hr {
+    margin: 0.5vh 0 2vh 0;
+}
+
+#newPermissionReqModal .modal-body #newPermissionReqCoName {
+    font-weight: 600;
+}
+
+#newPermissionReqModal .modal-body #newPermissionReqName {
+    font-weight: 700;
+    margin-bottom: 2vh;
+}
+
+#newPermissionReqModal .modal-body #newPermissionReqCategoryRow {
+    margin-top: 1vh;
+}
+
+#newPermissionReqModal .modal-body h6#newPermissionReqCategoryTitle {
+    font-weight: bold;
+    color: rgb(81, 80, 80);
+    margin-bottom: 3px;
+}
+
+#newPermissionReqModal .modal-body h6:not(#newPermissionReqCategoryTitle) {
+    color: rgb(81, 80, 80);
+    font-weight: 500;
+}
+
+#newPermissionReqModal .modal-body input {
+    padding-left: 2px;
+    border: 2px solid #0066ffa4;
+    box-shadow: none;
+    border-radius: 10px;
+}
+
+#newPermissionReqModal .modal-body textarea#newPermissionReqContent {
+    resize: none;
+    width: 100%;
+    height: 10vh;
+    margin: 1vh 0 2vh 0;
+    padding: 3px 8px;
+    border: 2px solid #0066ffa4;
+    box-shadow: none;
+    border-radius: 20px;
+}
+
+#newPermissionReqModal .modal-content #newPermissionReqChoice {
+    padding: 3vh 1vw 0 0;
+}
+
+#newPermissionReqModal .modal-content #newPermissionReqChoice button {
+    margin-left: 2vw;
+    border-radius: 20px;
+    box-shadow: none;
+    padding: 1vh 0;
+    font-weight: 600;
+    width: 20%;
+}
+
+#newPermissionReqModal .modal-content #newPermissionReqChoice button:nth-of-type(1) {
+    border: 1px solid #C7EDD9;
+    background-color: #C7EDD9;
+    color: #41AF79;
+}
+
+#newPermissionReqModal .modal-body #newPermissionReqThumbnails {
+    margin-top: 1vh;
+}
+
+#newPermissionReqModal .modal-body #newPermissionReqThumbnails .carousel-item img {
+    border: 1px solid white;
+    border-radius: 20px;
+    width: 20vw !important;
+    height: 30vh;
+    margin: auto;
+}
+
+#newPermissionReqModal .modal-body #newPermissionReqNoThumbnails {
+    text-align: center;
+    font-weight: 200;
+    color: rgb(98, 97, 97);
+}
+
+
 /* ReportDetailModal */
 
 #reportDetailModal {

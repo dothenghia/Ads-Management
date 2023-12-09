@@ -80,4 +80,8 @@ controller.deletePermissionReq = async (req, res) => {
     }
 }
 
+controller.createPermissionReq = async (req, res) => {
+    console.log(req.body)
+}
+
 module.exports = controller;

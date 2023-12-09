@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
     button.addEventListener('click', function () {
-        // Get the data-ad-details attribute containing the specific data as a string
-
+        // View report detail button
         if (button.id != "reportUpdateButton") {
             // Parse the string into a JavaScript object
             var reportDetails = JSON.parse(button.dataset.reportDetails)[0];
@@ -45,30 +44,33 @@ document.addEventListener("DOMContentLoaded", function () {
             $i('reportDetailPhone').textContent = reportDetails.phone;
             $i('reportDetailContent').textContent = reportDetails.content;
             let reportThumbnails = $i('reportDetailThumbnails').querySelector(".carousel-inner");
+            // Destroy old children first
+            while (reportThumbnails.firstChild) {
+                reportThumbnails.removeChild(reportThumbnails.lastChild);
+            }
             if (adLocationDetails && adLocationDetails.thumbnails.length > 0) {
                 reportThumbnails.style.display = "block";
                 $i("reportDetailNoThumbnails").style.display = "none"
                 
-                reportThumbnails.querySelector(".carousel-item.active img").src = adLocationDetails.thumbnails[0].url;
-    
-                let templateSlide = reportThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
-    
-                // Destroy all old slides
-                reportThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
-                    slide.parentElement.removeChild(slide);
-                })
-    
-                if (adLocationDetails.thumbnails.length > 1) {
-                    let i = 0;
-                    adLocationDetails.thumbnails.forEach((thumbnail) => {
-                        if (i > 0) {
-                            let slideClone = templateSlide.cloneNode(true);
-                            slideClone.querySelector("img").src = thumbnail.url;
-                            reportThumbnails.appendChild(slideClone);
-                        }
-                        i++;
-                    });
-                }
+                let i = 0;
+                adLocationDetails.thumbnails.forEach((thumbnail) => {
+                    let slide = document.createElement("div");
+                    if (i == 0) {
+                        slide.classList.add("carousel-item", "active");
+                    }
+                    else {
+                        slide.classList.add("carousel-item");
+                    }
+
+                    let slideImg = document.createElement("img");
+                    slideImg.classList.add("d-block");
+                    slideImg.src = thumbnail.url;
+                    slide.appendChild(slideImg);
+
+                    reportThumbnails.appendChild(slide);
+
+                    i++;
+                });
             }
             else {
                 reportThumbnails.style.display = "none";
@@ -78,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show the modal
             $('#reportDetailModal').modal('show');
         }
+        // Update report detail button
         else {
             // Parse the string into a JavaScript object
             var reportDetails = JSON.parse(button.dataset.reportDetails)[0];
@@ -114,30 +117,33 @@ document.addEventListener("DOMContentLoaded", function () {
             $i('reportUpdatePhone').textContent = reportDetails.phone;
             $i('reportUpdateContent').textContent = reportDetails.content;
             let reportThumbnails = $i('reportUpdateThumbnails').querySelector(".carousel-inner");
+            // Destroy old children first
+            while (reportThumbnails.firstChild) {
+                reportThumbnails.removeChild(reportThumbnails.lastChild);
+            }
             if (adLocationDetails && adLocationDetails.thumbnails.length > 0) {
                 reportThumbnails.style.display = "block";
                 $i("reportUpdateNoThumbnails").style.display = "none"
                 
-                reportThumbnails.querySelector(".carousel-item.active img").src = adLocationDetails.thumbnails[0].url;
-    
-                let templateSlide = reportThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
-    
-                // Destroy all old slides
-                reportThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
-                    slide.parentElement.removeChild(slide);
-                })
-    
-                if (adLocationDetails.thumbnails.length > 1) {
-                    let i = 0;
-                    adLocationDetails.thumbnails.forEach((thumbnail) => {
-                        if (i > 0) {
-                            let slideClone = templateSlide.cloneNode(true);
-                            slideClone.querySelector("img").src = thumbnail.url;
-                            reportThumbnails.appendChild(slideClone);
-                        }
-                        i++;
-                    });
-                }
+                let i = 0;
+                adLocationDetails.thumbnails.forEach((thumbnail) => {
+                    let slide = document.createElement("div");
+                    if (i == 0) {
+                        slide.classList.add("carousel-item", "active");
+                    }
+                    else {
+                        slide.classList.add("carousel-item");
+                    }
+
+                    let slideImg = document.createElement("img");
+                    slideImg.classList.add("d-block");
+                    slideImg.src = thumbnail.url;
+                    slide.appendChild(slideImg);
+
+                    reportThumbnails.appendChild(slide);
+
+                    i++;
+                });
             }
             else {
                 reportThumbnails.style.display = "none";
