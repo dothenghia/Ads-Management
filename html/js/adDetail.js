@@ -20,34 +20,36 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('adDetailType').textContent = adLocationDetails.adType;
         $i('adDetailForm').textContent = adLocationDetails.adForm;
         $i('adDetailLocationType').textContent = adLocationDetails.locationType;
-        $i('adDetailContractDate').querySelector('#adDetailContractDateStart').textContent = adDetails.contractStartDate;
-        $i('adDetailContractDate').querySelector('#adDetailContractDateEnd').textContent = adDetails.contractEndDate;
+        $i('adDetailContractDate').textContent = "Làm sao làm cái này???";
         $i('adDetailSize').textContent = adDetails.size;
         let adThumbnails = $i('adDetailThumbnails').querySelector(".carousel-inner");
-        if (adDetails.thumbnails.length > 0) {
+        // Destroy old children first
+        while (adThumbnails.firstChild) {
+            adThumbnails.removeChild(adThumbnails.lastChild);
+        }
+        if (adDetails.thumbnails.length > 0 && adDetails.thumbnails[0].url != "") {
             adThumbnails.style.display = "block";
             $i("adDetailNoThumbnails").style.display = "none"
 
-            adThumbnails.querySelector(".carousel-item.active img").src = adDetails.thumbnails[0].url;
+            let i = 0;
+            adDetails.thumbnails.forEach((thumbnail) => {
+                let slide = document.createElement("div");
+                if (i == 0) {
+                    slide.classList.add("carousel-item", "active");
+                }
+                else {
+                    slide.classList.add("carousel-item");
+                }
 
-            let templateSlide = adThumbnails.querySelector(".carousel-item:not(.active)").cloneNode(true);
+                let slideImg = document.createElement("img");
+                slideImg.classList.add("d-block");
+                slideImg.src = thumbnail.url;
+                slide.appendChild(slideImg);
 
-            // Destroy all old slides
-            adThumbnails.querySelectorAll(".carousel-item:not(.active)").forEach((slide) => {
-                slide.parentElement.removeChild(slide);
-            })
+                adThumbnails.appendChild(slide);
 
-            if (adDetails.thumbnails.length > 1) {
-                let i = 0;
-                adDetails.thumbnails.forEach((thumbnail) => {
-                    if (i > 0) {
-                        let slideClone = templateSlide.cloneNode(true);
-                        slideClone.querySelector("img").src = thumbnail.url;
-                        adThumbnails.appendChild(slideClone);
-                    }
-                    i++;
-                });
-            }
+                i++;
+            });
         }
         else {
             adThumbnails.style.display = "none";
