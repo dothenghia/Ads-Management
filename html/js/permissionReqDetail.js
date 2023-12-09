@@ -58,4 +58,20 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#permissionReqDetailModal').modal('show');
       });
     });
+
+    // Change filter buttons to match current filters
+    let urlParams = (new URL(window.location.href)).searchParams;
+    if (urlParams.has("coId"))
+        document.querySelector('#coFilter').value = urlParams.get("coId");
 });
+
+// Filter functions
+const filters = (new URL(window.location.href)).searchParams;
+
+function coFilter(coId) {
+    if (coId != "all")
+        filters.set("coId", coId);
+    else
+        filters.delete("coId");
+    window.location.href = "?" + filters.toString();
+}

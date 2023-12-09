@@ -26,18 +26,19 @@
                     <th scope="col">Địa điểm quảng cáo</th>
                     <th scope="col">Thời điểm gửi yêu cầu</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Lý do chỉnh sửa</option>
-                            <option value="1">Không phù hợp</option>
-                            <option value="2">Đổi mới</option>
+                        <select id="reasonFilter" name="">
+                            <option value="all" onclick="reasonFilter('all')">Lý do chỉnh sửa</option>
+                            {{#each reason}}
+                                <option value="{{value}}" onclick="reasonFilter('{{value}}')">{{value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Tình trạng xử lý</option>
-                            <option value="0">Đang xử lý</option>
-                            <option value="1">Đã xử lý</option>
-                            <option value="2">Từ chối</option>
+                        <select id="statusFilter" name="">
+                            <option value="all" onclick="statusFilter('all')">Tình trạng xử lý</option>
+                            <option value="0" onclick="statusFilter(0)">Đang xử lý</option>
+                            <option value="1" onclick="statusFilter(1)">Đã xử lý</option>
+                            <option value="2" onclick="statusFilter(2)">Từ chối</option>
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
@@ -48,7 +49,7 @@
                 {{#each changeReq}}
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">{{getLocation ../adLocation locationId 2}}</td>
+                        <td scope="col">jytk</td>
                         <td scope="col">{{date}}</td>
                         <td scope="col">{{reason}}</td>
 
@@ -76,7 +77,7 @@
                         </td>
                         
                         <td scope="col">
-                            <button class="table-detail-button" data-ad-old-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-old-address="{{getLocation ../adLocation locationId 0}}" data-ad-new-location-details="{{toJSON (getAdLocationInfo ../adLocation newLocationId)}}" data-ad-new-address="{{getLocation ../adLocation newLocationId 0}}">
+                            <button class="table-detail-button" data-ad-old-details="{{toJSON (getAdInfo ../ad oldAdId)}}" data-ad-new-details="{{toJSON new}}" data-change-req-id={{changeReqId}} data-account-role="phuong" data-status={{status}}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -113,9 +114,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Địa chỉ</th>
-                                        <td id="changeReqDetailOldAddr"></td>
-                                        <td id="changeReqDetailNewAddr"></td>
+                                        <th scope="row">Tên</th>
+                                        <td id="changeReqDetailOldName"></td>
+                                        <td id="changeReqDetailNewName"></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Kích thước</th>
@@ -123,19 +124,35 @@
                                         <td id="changeReqDetailNewSize"></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">SL trụ</th>
-                                        <td id="changeReqDetailOldCnt"></td>
-                                        <td id="changeReqDetailNewCnt"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Hình thức</th>
-                                        <td id="changeReqDetailOldForm"></td>
-                                        <td id="changeReqDetailNewForm"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Phân loại</th>
-                                        <td id="changeReqDetailOldLocationType"></td>
-                                        <td id="changeReqDetailNewLocationType"></td>
+                                        <th scope="row">Hình ảnh</th>
+                                        <td>
+                                            <div id="changeReqDetailOldNoThumbnails" style="display: none">
+                                                <h6>Không có hình ảnh để hiển thị</h6>
+                                            </div>
+                                            <div id="changeReqDetailOldThumbnails" class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner"></div>
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div id="changeReqDetailNewNoThumbnails" style="display: none">
+                                                <h6>Không có hình ảnh để hiển thị</h6>
+                                            </div>
+                                            <div id="changeReqDetailNewThumbnails" class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner"></div>
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -144,8 +161,8 @@
                     </div>
                 </div>
                 <div class="row justify-content-end" id="changeReqDetailChoice">
-                    <button class="col-2">Từ chối</button>
-                    <button class="col-2">Chấp thuận</button>
+                    <button id="changeReqDetailChoiceDeny" onclick="" class="col-2">Từ chối</button>
+                    <button id="changeReqDetailChoiceAccept" onclick="" class="col-2">Chấp thuận</button>
                 </div>
             </div>
         </div>

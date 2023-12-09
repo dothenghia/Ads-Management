@@ -2,6 +2,7 @@ const controller = {}
 const currentPage = 1;
 
 let {Report, Ad, AdLocation} = require("../../../html/assets/data");
+let {changeId} = require("../../../html/assets/data");
 
 // console.log(AdLocation);
 controller.show = (req, res) => {
@@ -15,5 +16,12 @@ controller.show = (req, res) => {
         }
     });
 }
+
+controller.delete = (req, res) => {
+    let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+    changeId('report', id);
+    res.send("Deleted");
+}
+
 
 module.exports = controller;

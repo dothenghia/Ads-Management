@@ -29,28 +29,28 @@
                     <th scope="col">Tên</th>
                     <th scope="col">Địa Điểm</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Loại quảng cáo</option>
-                            <option value="1">Trụ bảng hiflex</option>
-                            <option value="2">Màn hình điện tử ốp tường</option>
-                            <option value="3">Trụ treo băng rôn ngang</option>
-                            <option value="4">Cổng chào</option>
+                        <select id="adTypeFilter" name="">
+                            <option value="all" onclick="adTypeFilter('all')">Loại quảng cáo</option>
+                            {{#each adType}}
+                                <option value="{{value}}" onclick="adTypeFilter('{{value}}')">{{value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">Kích thước</th>
-                    <th scope="col">Số lượng</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Hình thức</option>
-                            <option value="1">Cổ động chính trị</option>
-                            <option value="2">Quảng cáo thương mại</option>
+                        <select id="adFormFilter" name="">
+                            <option value="all" onclick="adFormFilter('all')">Hình thức</option>
+                            {{#each adForm}}
+                                <option value="{{value}}" onclick="adFormFilter('{{value}}')">{{value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Loại vị trí</option>
-                            <option value="1">Công viên</option>
-                            <option value="2">Đất tư nhân</option>
+                        <select id="locationTypeFilter" name="">
+                            <option value="all" onclick="locationTypeFilter('all')">Loại vị trí</option>
+                            {{#each locationType}}
+                                <option value="{{value}}" onclick="locationTypeFilter('{{value}}')">{{value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
@@ -68,12 +68,11 @@
                                 <td scope="col">{{name}}</td>
                             {{/each}}
                             <td scope="col"> {{getLocation ../../adLocation ../locationId 2}}</td>
-                            <td scope="col">{{../type}}</td>
+                            <td scope="col">{{../adType}}</td>
                             {{#each (getAdInfo ../../ad adId)}}
                                 <td scope="col">{{size}}</td>
                             {{/each}}
-                            <td scope="col">{{../quantity}}</td>
-                            <td scope="col">{{../form}}</td>
+                            <td scope="col">{{../adForm}}</td>
                             <td scope="col">{{../locationType}}</td>
                             
                             <td scope="col">
@@ -151,12 +150,12 @@
                                         <img class="d-block w-100" src="..." alt="Second slide">
                                     </div>
                                 </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#adDetailThumbnails" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#adDetailThumbnails" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    </button>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#adDetailThumbnails" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#adDetailThumbnails" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                </button>
                             </div>
                         </div>
                     </div>

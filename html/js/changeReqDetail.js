@@ -8,27 +8,150 @@ document.addEventListener("DOMContentLoaded", function () {
     adDetailButtons.forEach(function (button) {
       button.addEventListener('click', function () {
         // Get the data-ad-details attribute containing the specific data as a string
-
         // Parse the string into a JavaScript object
-        var adOldLocationDetails = JSON.parse(button.dataset.adOldLocationDetails)[0];
-        var adOldAddress = button.dataset.adOldAddress;
-        var adNewLocationDetails = JSON.parse(button.dataset.adNewLocationDetails)[0];
-        var adNewAddress = button.dataset.adNewAddress;
+        var adOldDetails = JSON.parse(button.dataset.adOldDetails)[0];
+        var adNewDetails = JSON.parse(button.dataset.adNewDetails);
+        var changeReqId = button.dataset.changeReqId;
+        var accountRole = button.dataset.accountRole;
+        var status = button.dataset.status;
 
         // Update the modal content with the specific data
-        $i('changeReqDetailOldAddr').textContent = adOldAddress;
-        $i('changeReqDetailNewAddr').textContent = adNewAddress;
-        $i('changeReqDetailOldSize').textContent = adOldLocationDetails.size;
-        $i('changeReqDetailNewSize').textContent = adNewLocationDetails.size;
-        $i('changeReqDetailOldCnt').textContent = adOldLocationDetails.quantity;
-        $i('changeReqDetailNewCnt').textContent = adNewLocationDetails.quantity;
-        $i('changeReqDetailOldForm').textContent = adOldLocationDetails.form;
-        $i('changeReqDetailNewForm').textContent = adNewLocationDetails.form;
-        $i('changeReqDetailOldLocationType').textContent = adOldLocationDetails.locationType;
-        $i('changeReqDetailNewLocationType').textContent = adNewLocationDetails.locationType;
+        $i('changeReqDetailOldName').textContent = adOldDetails.name;
+        $i('changeReqDetailNewName').textContent = adNewDetails.name;
+        $i('changeReqDetailOldSize').textContent = adOldDetails.size;
+        $i('changeReqDetailNewSize').textContent = adNewDetails.size;
+
+        let changeReqDetailOldThumbnails = $i('changeReqDetailOldThumbnails').querySelector(".carousel-inner");
+        // Destroy old children first
+        if (changeReqDetailOldThumbnails.childNodes)
+            changeReqDetailOldThumbnails.childNodes.forEach((child) => {child.remove()})
+        // Add new children
+        if (adOldDetails.thumbnails.length > 0) {
+            changeReqDetailOldThumbnails.style.display = "block";
+            $i("changeReqDetailOldNoThumbnails").style.display = "none";
+
+            let i = 0;
+            adOldDetails.thumbnails.forEach((thumbnail) => {
+                let slide = document.createElement("div");
+                slide.remove()
+                if (i == 0) {
+                    slide.classList.add("carousel-item", "active");
+                }
+                else {
+                    slide.classList.add("carousel-item");
+                }
+
+                let slideImg = document.createElement("img");
+                slideImg.classList.add("d-block");
+                slideImg.src = adOldDetails.thumbnails[i].url;
+                slide.appendChild(slideImg);
+
+                changeReqDetailOldThumbnails.appendChild(slide);
+
+                i++;
+            });
+        }
+        else {
+            changeReqDetailOldThumbnails.style.display = "none";
+            $i("changeReqDetailOldNoThumbnails").style.display = "block"
+        }
+
+        let changeReqDetailNewThumbnails = $i('changeReqDetailNewThumbnails').querySelector(".carousel-inner");
+        // Destroy old children first
+        if (changeReqDetailNewThumbnails.childNodes)
+            changeReqDetailNewThumbnails.childNodes.forEach((child) => {child.remove()})
+        // Add new children
+        if (adNewDetails.thumbnails.length > 0) {
+            changeReqDetailNewThumbnails.style.display = "block";
+            $i("changeReqDetailNewNoThumbnails").style.display = "none";
+
+            let i = 0;
+            adNewDetails.thumbnails.forEach((thumbnail) => {
+                let slide = document.createElement("div");
+                slide.remove()
+                if (i == 0) {
+                    slide.classList.add("carousel-item", "active");
+                }
+                else {
+                    slide.classList.add("carousel-item");
+                }
+
+                let slideImg = document.createElement("img");
+                slideImg.classList.add("d-block");
+                slideImg.src = adNewDetails.thumbnails[i].url;
+                slide.appendChild(slideImg);
+
+                changeReqDetailNewThumbnails.appendChild(slide);
+
+                i++;
+            });
+        }
+        else {
+            changeReqDetailNewThumbnails.style.display = "none";
+            $i("changeReqDetailNewNoThumbnails").style.display = "block"
+        }
+
+        if (status != 0) {
+            $i('changeReqDetailChoiceAccept').style.display = 'none';
+            $i('changeReqDetailChoiceDeny').style.display = 'none';
+        }
+        else {
+            $i('changeReqDetailChoiceAccept').addEventListener("click", () => { acceptChange(accountRole, changeReqId) } );
+            $i('changeReqDetailChoiceDeny').addEventListener("click", () => { denyChange(accountRole, changeReqId) } );
+        }
 
         // Show the modal
         $('#changeReqDetailModal').modal('show');
       });
     });
+
+    // Change filter buttons to match current filters
+    let urlParams = (new URL(window.location.href)).searchParams;
+    if (urlParams.has("reasonId"))
+        document.querySelector('#reasonFilter').value = urlParams.get("reasonId");
+    if (urlParams.has("statusId"))
+        document.querySelector('#statusFilter').value = urlParams.get("statusId");
 });
+
+async function acceptChange(accountRole, id) {
+    let res = await fetch(`/${accountRole}/yeucaudieuchinh/chapnhan/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+    });
+    
+    location.reload();
+}
+
+async function denyChange(accountRole, id) {
+    let res = await fetch(`/${accountRole}/yeucaudieuchinh/tuchoi/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+    });
+    
+    location.reload();
+}
+
+// Filter functions
+const filters = (new URL(window.location.href)).searchParams;
+
+function reasonFilter(reasonId) {
+    if (reasonId != "all")
+        filters.set("reasonId", reasonId);
+    else
+        filters.delete("reasonId");
+    window.location.href = "?" + filters.toString();
+}
+
+function statusFilter(statusId) {
+    if (statusId != "all")
+        filters.set("statusId", statusId);
+    else
+        filters.delete("statusId");
+    window.location.href = "?" + filters.toString();
+}

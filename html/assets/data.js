@@ -473,25 +473,27 @@ const ChangeReq = [
 ]
 
 function changeId(dataType, id) {
+
     switch (dataType) {
         case 'report':
             Report.find(report => report.reportId == id).reportId = -1;
             module.exports.Report = Report;
             break;
         case 'adlocation':
-            AdLocation.find(AdLocation => AdLocation.locationId == id).locationId = -1;
-            break;
-        case 'ad':
-            Ad.find(ad => ad.adId == id).adId = -1;
+            AdLocation.find(AdLocation => AdLocation.locationId == id[0]).adList.find(Ad => Ad.adId == id[1]).adId = -1;
+            module.exports.AdLocation = AdLocation;
             break;
         case 'account':
             Account.find(account => account.accountId == id).accountId = -1;
+            module.exports.Account = Account;
             break;
         case 'permissionreq':
             PermissionReq.find(permissionReq => permissionReq.permissionReqId == id).permissionReqId = -1;
+            module.exports.PermissionReq = PermissionReq;
             break;
         case 'changereq':
             ChangeReq.find(changeReq => changeReq.changeReqId == id).changeReqId = -1;
+            module.exports.ChangeReq = ChangeReq;
             break;
 
     }
