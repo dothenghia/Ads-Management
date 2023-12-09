@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
+    button.addEventListener('click', function () {
         // Get the data-ad-details attribute containing the specific data as a string
 
         // Parse the string into a JavaScript object
@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('adDetailType').textContent = adLocationDetails.adType;
         $i('adDetailForm').textContent = adLocationDetails.adForm;
         $i('adDetailLocationType').textContent = adLocationDetails.locationType;
-        $i('adDetailContractDate').textContent = "Làm sao làm cái này???";
+        $i('adDetailContractDate').querySelector('#adDetailContractDateStart').textContent = adDetails.contractStartDate;
+        $i('adDetailContractDate').querySelector('#adDetailContractDateEnd').textContent = adDetails.contractEndDate;
         $i('adDetailSize').textContent = adDetails.size;
         let adThumbnails = $i('adDetailThumbnails').querySelector(".carousel-inner");
         // Destroy old children first
