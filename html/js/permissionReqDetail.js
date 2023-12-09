@@ -73,6 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let urlParams = (new URL(window.location.href)).searchParams;
     if (urlParams.has("coId"))
         document.querySelector('#coFilter').value = urlParams.get("coId");
+    if (urlParams.has("statusId"))
+        document.querySelector('#statusFilter').value = urlParams.get("statusId");
 });
 
 // Filter functions
@@ -83,5 +85,13 @@ function coFilter(coId) {
         filters.set("coId", coId);
     else
         filters.delete("coId");
+    window.location.href = "?" + filters.toString();
+}
+
+function statusFilter(statusId) {
+    if (statusId != "all")
+        filters.set("statusId", statusId);
+    else
+        filters.delete("statusId");
     window.location.href = "?" + filters.toString();
 }

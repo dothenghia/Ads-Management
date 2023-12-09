@@ -16,15 +16,20 @@ controller.show = async (req, res) => {
         const adLocationSnapshot = await adLocationRef.get();
         
         // Extract data from retrieved snapshots
-        let Company = [];
-        let companyId = [];
+        let Company = []; let Status = [];
+        let companyId = []; let statusId = [];
         let PermissionReq = [];
         permissionReqSnapshot.forEach((doc) => {
             let data = doc.data();
 
-            if (!companyId.includes(data.co.id)) {
-                companyId.push(data.co.id);
+            if (!companyId.includes(data.co.name)) {
+                companyId.push(data.co.name);
                 Company.push(data.co);
+            }
+
+            if (!statusId.includes(data.status)) {
+                statusId.push(data.status);
+                Status.push({value: data.status});
             }
 
             PermissionReq.push(data);
@@ -41,11 +46,15 @@ controller.show = async (req, res) => {
         // Filters
         let filterCoId = req.query.coId;
         if (filterCoId)
-            PermissionReq = PermissionReq.filter((req) => req.co.id == filterCoId);
+            PermissionReq = PermissionReq.filter((req) => req.co.name == filterCoId);
+        let filterStatusId = req.query.statusId;
+        if (filterStatusId)
+            PermissionReq = PermissionReq.filter((req) => req.status == filterStatusId);
 
         res.render("partials/screens/phuong/index", {
             "current": currentPage,
             "company": Company,
+            "status": Status,
             "permissionReq": PermissionReq,
             "ad": Ad,
             "adLocation": AdLocation,

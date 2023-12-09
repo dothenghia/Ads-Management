@@ -25,14 +25,21 @@
                         <select id="coFilter" name="">
                             <option value="all" onclick="coFilter('all')">Công ty</option>
                             {{#each company}}
-                                <option value="{{id}}" onclick="coFilter('{{id}}')">{{name}}</option>
+                                <option value="{{name}}" onclick="coFilter('{{name}}')">{{name}}</option>
                             {{/each}}
                         </select>
                     </th>
                     <th scope="col">Email</th>
                     <th scope="col">SĐT</th>
                     <th scope="col">Địa điểm yêu cầu cấp phép</th>
-                    <th scope="col">Tình trạng xử lý</th>
+                    <th scope="col">
+                        <select id="statusFilter" name="">
+                            <option value="all" onclick="statusFilter('all')">Tình trạng xử lý</option>
+                            <option value="0" onclick="statusFilter(0)">Đang xử lý</option>
+                            <option value="1" onclick="statusFilter(1)">Đã xử lý</option>
+                            <option value="2" onclick="statusFilter(2)">Từ chối</option>
+                        </select>
+                    </th>
                     <th scope="col">Chi tiết</th>
                     <th scope="col">Xoá</th>
                 </tr>
