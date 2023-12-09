@@ -12,7 +12,6 @@
         <div class="d-flex">
             <button class="btn btn-outline-primary custom-btn">Thêm nhân sự</button>
 
-            <button class="btn btn-outline-primary custom-btn mx-3 ">Sửa nhân sự</button>
         </div>
     </div>
 
@@ -44,16 +43,20 @@
             <tbody>
                 {{!-- Pass data vào --}}
                 {{#each account }}
-                {{#if (checkIDValidate accountId)}}
+                {{#if (checkIDValidate id)}}
                     <tr>
                         <td scope="col">{{@index}}</td>
-                        <td scope="col">{{fullname}}</td>
+                        <td scope="col">{{name}}</td>
                         <td scope="col">{{phone}}</td>
                         <td scope="col">
                             Cán Bộ {{getAgentRole role}}
                         </td>
                         <td scope="col">
-                            {{translateAgentArea idQuan idPhuong}}
+                            {{#if (translateAgentArea quan_id phuong_id)}}
+                                {{translateAgentArea quan_id phuong_id}}
+                                {{else}}
+                                No data
+                            {{/if}}
                         </td>
                         <td scope="col">{{isUdfNullBlank username}}</td>
                         <td scope="col">{{isUdfNullBlank password}}</td>

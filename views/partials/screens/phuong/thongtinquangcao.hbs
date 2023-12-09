@@ -86,6 +86,7 @@
                                     </svg>
                                 </button>
                             </td>
+                            
                         </tr>
                         {{incrementGlobal 'adIndex'}}
                     {{/each}}
@@ -126,7 +127,13 @@
                     <div class="row" id="adDetailCategoryRow">
                         <div class="col">
                             <h6 id="adDetailCategoryTitle">Thời hạn hợp đồng</h6>
-                            <h6 id="adDetailContractDate"></h6>
+                            <div id="adDetailContractDate" class="d-flex flex-row text-primary">
+                                <img src="/assets/icon/LineDate.svg" alt="Date Raange Icon" class="mb-2 me-1">
+                                <div class="d-flex flex-column" id="adDetailContractDateContainer">
+                                    <h6 id="adDetailContractDateStart" ></h6>
+                                    <h6 id="adDetailContractDateEnd"></h6>
+                                </div>      
+                            </div>
                         </div>
                         <div class="col">
                             <h6 id="adDetailCategoryTitle">Kích thước</h6>
@@ -156,6 +163,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 {{!-- Custom JS script --}}

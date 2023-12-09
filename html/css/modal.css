@@ -49,6 +49,16 @@
     font-weight: 500;
 }
 
+#adDetailModal .modal-body h6#adDetailContractDateStart {
+    color: #0065FF;
+    font-weight: 500;
+}
+
+#adDetailModal .modal-body h6#adDetailContractDateEnd {
+    color: #0065FF;
+    font-weight: 500;
+}
+
 #adDetailModal .modal-body #adDetailThumbnails {
     margin-top: 1vh;
 }

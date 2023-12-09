@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
+    button.addEventListener('click', function () {
         // Get the data-ad-details attribute containing the specific data as a string
         // Parse the string into a JavaScript object
         var adOldDetails = JSON.parse(button.dataset.adOldDetails)[0];
