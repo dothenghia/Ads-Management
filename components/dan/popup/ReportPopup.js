@@ -8,11 +8,11 @@ export default function ReportPopup(reportInfo) {
     <div class="report-popup">
         <div class="report-popup__title">
             <h1>
-                ${reportInfo.form}
+                ${reportInfo.reportForm}
             </h1>
         </div>
         <div class="report-popup__info">
-            <h2>${reportInfo.address} (Sở Văn hóa - Thể thao), ${reportInfo.region}</h2>
+            <h2>Địa điểm: ${reportInfo.name} (${reportInfo.phuong}, ${reportInfo.quan})</h2>
         </div>
         <div class="report-popup__status ">
             ${StatusTag(reportInfo.status)}

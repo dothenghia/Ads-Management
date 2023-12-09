@@ -10,7 +10,7 @@ let reportColorSubtle = '#e8828e';
 
 import AdPopup from '/components/dan/popup/AdPopup.js';
 import AdSidebar from '/components/dan/sidebar/AdSidebar.js';
-import { getAdLocationInfoById } from '/functions/dan/getAdLocationInfo.js';
+import getAdLocationInfoById from '/functions/dan/getAdLocationInfoById.js';
 
 export default function AdMarker(map) {
 
@@ -27,32 +27,31 @@ export default function AdMarker(map) {
         paint: {
             'circle-color': [
                 'case',
-                // ['==', ['get', 'isReported'], true], reportColor, // Màu xanh nhạt khi quyhoach là false
-                ['==', ['get', 'quyhoach'], true], primaryColor, // Màu xanh khi quyhoach là true
-                ['==', ['get', 'quyhoach'], false], chuaqhColor, // Màu xanh nhạt khi quyhoach là false
+                ['==', ['get', 'planning'], true], primaryColor, // Màu xanh khi planning là true
+                ['==', ['get', 'planning'], false], chuaqhColor, // Màu xanh nhạt khi planning là false
                 '#000000'
             ],
             'circle-radius': 11,
             'circle-stroke-width': 3,
             'circle-stroke-color': [
                 'case',
-                ['==', ['get', 'isReported'], true], reportColor, // Màu xanh khi quyhoach là true
-                ['==', ['get', 'quyhoach'], true], primaryColorSubtle, // Màu xanh khi quyhoach là true
-                ['==', ['get', 'quyhoach'], false], chuaqhColorSubtle, // Màu xanh khi quyhoach là true
+                ['>', ['get', 'numberOfReports'], 0], reportColor, // Màu đỏ khi có báo cáo
+                ['==', ['get', 'planning'], true], primaryColorSubtle, // Màu xanh khi planning là true
+                ['==', ['get', 'planning'], false], chuaqhColorSubtle, // Màu xanh khi planning là true
                 '#FF6400'
             ]
         }
     });
 
-    // Tạo layer hiển thị chữ QC khi quyhoach là true
+    // Tạo layer hiển thị chữ QC khi planning là true
     map.addLayer({
         id: 'AdMarker-text',
         type: 'symbol',
         source: 'CombinedLocation',
         filter: ['all',
-            ['!', ['has', 'point_count']], // Loại bỏ những điểm là cluster và quyhoach là false
-            ['==', ['get', 'quyhoach'], true], // Loại bỏ những điểm là cluster và quyhoach là false
-            ['==', ['get', 'markerType'], 'Ad'] // Chỉ hiển thị dữ liệu có markerType là 'Ad'
+            ['!', ['has', 'point_count']], // Loại bỏ những điểm là cluster và planning là false
+            ['==', ['get', 'markerType'], 'Ad'], // Chỉ hiển thị dữ liệu có markerType là 'Ad'
+            ['==', ['get', 'planning'], true], // Loại bỏ những điểm là cluster và planning là false
         ],
         layout: {
             'text-field': 'QC',
@@ -69,11 +68,12 @@ export default function AdMarker(map) {
 
     // Xử lý sự kiện click vào marker
     map.on('click', 'AdMarker-circle', (e) => {
-        let infomationOfMarker = e.features[0];
-        // console.log(infomationOfMarker.properties);
+        let markerInfo = e.features[0];
+        // console.log(markerInfo.properties);
 
-        getAdLocationInfoById(infomationOfMarker.properties.locationId).then(adInfo => {
-            document.querySelector('.sidebar-root').innerHTML = AdSidebar(adInfo)
+        getAdLocationInfoById(markerInfo.properties.locationId).then(adLocationInfo => {
+            // console.log(adLocationInfo)
+            document.querySelector('.sidebar-root').innerHTML = AdSidebar(adLocationInfo)
         })
     });
 
@@ -88,8 +88,8 @@ export default function AdMarker(map) {
     map.on('mouseenter', 'AdMarker-circle', (e) => {
         map.getCanvas().style.cursor = 'pointer';
 
-        let infomationOfMarker = e.features[0];
-        // console.log(infomationOfMarker.properties);
+        let markerInfo = e.features[0];
+        // console.log(markerInfo.properties);
         const coordinates = e.features[0].geometry.coordinates.slice();
 
         // Đảm bảo rằng nếu bản đồ được thu nhỏ sao cho có thể nhìn thấy nhiều bản sao của đối tượng địa lý thì cửa sổ bật lên sẽ xuất hiện trên bản sao được trỏ tới.
@@ -98,7 +98,7 @@ export default function AdMarker(map) {
         // Show popup
         popup.setLngLat(coordinates)
             .setHTML(
-                `${AdPopup(infomationOfMarker.properties)}`
+                `${AdPopup(markerInfo.properties)}`
             )
             .addTo(map);
     });

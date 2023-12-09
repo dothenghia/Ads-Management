@@ -12,8 +12,8 @@ import RandomPopup from '/components/dan/popup/RandomPopup.js';
 import ReportFormModal from '/components/dan/modal/ReportFormModal.js';
 
 // Import Functions
-import { getAllAdList } from '/functions/dan/getAdLocationInfo.js';
-import { getAllReportList } from '/functions/dan/getReportLocationInfo.js';
+import getAdLocationGeoJSONList from '/functions/dan/getAdLocationGeoJSONList.js';
+import getReportGeoJSONList from '/functions/dan/getReportGeoJSONList.js';
 
 // MapBox Initialization
 var mylongitude = 106.682667;
@@ -87,40 +87,25 @@ const trangchu = {
 
     // ====== Fetch dữ liệu các Địa điểm QC và Địa điểm BC
     fetchAdMarkers: async function () {
-        this.adLocationList = await getAllAdList();
+        this.adLocationList = await getAdLocationGeoJSONList();
+        // console.log(this.adLocationList)
     },
     fetchReportMarkers: async function () {
-        this.reportLocationList = await getAllReportList();
+        this.reportLocationList = await getReportGeoJSONList();
+        // console.log(this.reportLocationList)
     },
 
     // ====== Hiển thị và Gom nhóm các Địa điểm QC và Địa điểm BC
     renderMarkers: function () {
 
-        this.map.on('load', () => {
-
-            // Phải loại bỏ các Báo cáo 'qc' và 'ddqc' để không gom nhóm trùng
-            let filteredReportList = this.reportLocationList.features.filter(feature => feature.properties.type !== 'qc' && feature.properties.type !== 'ddqc');
-            
+        if (this.map) {
             // ====== 0. TẠO DỮ LIỆU CHUNG ======
             // Tạo bộ data chung bao gồm cả QC và BC (PHẢI VẬY MỚI GOM NHÓM ĐƯỢC)
-            // Và thêm thuộc tính 'markerType' để phân biệt QC và BC
             let combinedData = {
                 type: 'FeatureCollection',
                 features: [
-                    ...this.adLocationList.features.map(feature => ({
-                        ...feature,
-                        properties: {
-                            ...feature.properties,
-                            markerType: 'Ad'
-                        }
-                    })),
-                    ...filteredReportList.map(feature => ({
-                        ...feature,
-                        properties: {
-                            ...feature.properties,
-                            markerType: 'Report'
-                        }
-                    }))
+                    ...this.adLocationList,
+                    ...this.reportLocationList
                 ]
             };
             // console.log(combinedData)
@@ -161,7 +146,7 @@ const trangchu = {
                         '#f28cb1'     // Còn lại là màu hồng
                     ],
                     'circle-radius': [
-                        'step', ['get', 'point_count'], 15, 2, 20, 4, 25
+                        'step', ['get', 'point_count'], 15, 3, 20, 5, 25
                     ]
                 }
             });
@@ -178,7 +163,7 @@ const trangchu = {
                     'text-size': 12
                 }
             });
-        })
+        }
 
     },
 

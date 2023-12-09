@@ -1,7 +1,7 @@
 
 import DetailAdModal from "../modal/DetailAdModal.js";
 import DetailReportModal from "../modal/DetailReportModal.js";
-import { getDetailReportInfoOfAd } from '/functions/dan/getReportLocationInfo.js';
+import getReportInfoById from '/functions/dan/getReportInfoById.js';
 
 import StatusTag from '../tag/StatusTag.js'
 
@@ -38,24 +38,24 @@ function AdCard_Thumbnail(adInfo) {
 
 
 export default function AdCard(adInfo, adLocationData) {
+    // console.log(adInfo);
     
     let extractData = {
         adId: adInfo.adId,
         locationId: adLocationData.locationId,
         address: adLocationData.address,
-        region: adLocationData.region,
+        quan: adLocationData.quan,
+        phuong: adLocationData.phuong,
         name: adInfo.name,
-        type: adLocationData.type,
-        form: adLocationData.form,
+        adType: adLocationData.adType,
+        adForm: adLocationData.adForm,
         locationType: adLocationData.locationType,
         contractStartDate: adInfo.contractStartDate,
         contractEndDate: adInfo.contractEndDate,
         size: adInfo.size,
         thumbnails: adInfo.thumbnails,
-    }
-    let reportId = {
-        locationId: adLocationData.locationId,
-        adId: adInfo.adId,
+        adStatus: adInfo.adStatus,
+        reportId: adInfo.reportId,
     }
 
     function openDetailAdModal_AdCard(ad) {
@@ -70,10 +70,8 @@ export default function AdCard(adInfo, adLocationData) {
     }
 
     function openDetailReportModal_AdCard(id) {
-        let {adId, locationId} = JSON.parse(decodeURIComponent(id));
-
-        getDetailReportInfoOfAd(locationId, adId).then(detailReportInfo => {
-            console.log(detailReportInfo);
+        getReportInfoById(id).then(detailReportInfo => {
+            // console.log(detailReportInfo);
 
             document.querySelector('.modal-root').innerHTML = DetailReportModal(detailReportInfo);
         })
@@ -93,7 +91,7 @@ export default function AdCard(adInfo, adLocationData) {
 
         <div class="ad-card__info">
             <div class="ad-card__info-tag">
-                ${StatusTag(adInfo.reportStatus)}
+                ${StatusTag(adInfo.adStatus)}
             </div>
 
 
@@ -130,13 +128,13 @@ export default function AdCard(adInfo, adLocationData) {
             </button>
 
             ${
-                (adInfo.reportStatus == '') ?
+                (adInfo.adStatus == '') ?
                 `<button class="btn btn-outline-primary custom-btn" onclick="openReportFormModal_AdCard()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     Phản hồi
                 </button>`
                 :
-                `<button class="custom-btn custom-btn-fade" onclick="openDetailReportModal_AdCard('${encodeURIComponent(JSON.stringify(reportId))}')">
+                `<button class="custom-btn custom-btn-fade" onclick="openDetailReportModal_AdCard(${adInfo.reportId})">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     Xem lại phản hồi
                 </button>`

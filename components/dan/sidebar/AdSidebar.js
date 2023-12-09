@@ -3,16 +3,16 @@ import AdCard from "../card/AdCard.js"
 import StatusTag from '../tag/StatusTag.js'
 
 import DetailReportModal from "../modal/DetailReportModal.js";
-import { getDetailReportInfoOfAdLocation } from '/functions/dan/getReportLocationInfo.js';
+import getReportInfoById from '/functions/dan/getReportInfoById.js';
 
 
 function AdSidebar_Thumbnail(adLocationData) {
 
-    if (adLocationData.quyhoach == false) {
+    if (adLocationData.planning == false) {
         return `
         <div class="ad-sidebar__thumbnail chuaquyhoach">
             <div class="ad-sidebar__tag">
-                ${StatusTag(adLocationData.reportStatus)}
+                ${StatusTag(adLocationData.locationStatus)}
             </div>
             <img src='/assets/dan/illustration/CQH_illustration.png' alt='Chua quy hoach'>
         </div>
@@ -23,15 +23,14 @@ function AdSidebar_Thumbnail(adLocationData) {
     <div class="ad-sidebar__thumbnail">
 
         <div class="ad-sidebar__tag">
-            ${StatusTag(adLocationData.reportStatus)}
+            ${StatusTag(adLocationData.locationStatus)}
         </div>
 
         <div id="ad-sidebar__carousel-${adLocationData.locationId}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
-                ${
-                    adLocationData.thumbnails.map((thumbnail, index) => {
-                        return `
-                        <div class="carousel-item rounded-3 ${index==0 && 'active'}">
+                ${adLocationData.thumbnails.map((thumbnail, index) => {
+                    return `
+                        <div class="carousel-item rounded-3 ${index == 0 && 'active'}">
                             <img src=${thumbnail.url} class="rounded-3" alt=${thumbnail.url}>
                         </div>
                         `
@@ -59,8 +58,9 @@ function AdSidebar_Info(adLocationData) {
     window.openReportFormModal_AdSidebar = openReportFormModal_AdSidebar;
 
 
-    function openDetailReportModal_AdSidebar(locationId) {
-        getDetailReportInfoOfAdLocation(locationId).then(reportInfo => {
+    function openDetailReportModal_AdSidebar(reportId) {
+        getReportInfoById(reportId).then(reportInfo => {
+            // console.log(reportInfo);
             document.querySelector('.modal-root').innerHTML = DetailReportModal(reportInfo);
         })
     }
@@ -73,26 +73,25 @@ function AdSidebar_Info(adLocationData) {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             <div>
                 <h1>${adLocationData.address}</h1>
-                <h2>${adLocationData.region}</h2>
+                <h2>${adLocationData.phuong}, ${adLocationData.quan}</h2>
             </div>
         </div>
         
         <div class="ad-sidebar__info-location">
-            <h1>${adLocationData.type}</h1>
+            <h1>${adLocationData.adType}</h1>
 
             <h2>Hình thức quảng cáo</h2>
-            <p>${adLocationData.form}</p>
+            <p>${adLocationData.adForm}</p>
 
             <h2>Số lượng</h2>
-            <p>${adLocationData.quantity}</p>
+            <p>${adLocationData.adList.length} ${adLocationData.adList.length == 0 ? '' : 'Trụ/bảng'}</p>
 
             <h2>Loại vị trí</h2>
             <p>${adLocationData.locationType}</p>
         </div>
 
-        ${
-            (adLocationData.isReported == true && adLocationData.reportStatus != '') ?
-            `<button class="custom-btn custom-btn-fade w-100" onclick="openDetailReportModal_AdSidebar(${adLocationData.locationId})">
+        ${(adLocationData.locationStatus != '') ?
+            `<button class="custom-btn custom-btn-fade w-100" onclick="openDetailReportModal_AdSidebar(${adLocationData.reportId})">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 Xem lại phản hồi địa điểm này
             </button>`
@@ -109,7 +108,7 @@ function AdSidebar_Info(adLocationData) {
 
 
 export default function AdSidebar(adLocationData) {
-
+    // console.log(adLocationData);
 
     // Close sidebar handler
     function CloseAdSidebar() {
@@ -143,7 +142,7 @@ export default function AdSidebar(adLocationData) {
                 
 
                 <div class="ad-sidebar__adlist">
-                    ${ adLocationData.adList.map(ad => AdCard(ad, adLocationData)).join('') }
+                    ${adLocationData.adList.map(ad => AdCard(ad, adLocationData)).join('')}
                 </div>
 
             </div>

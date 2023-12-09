@@ -6,7 +6,7 @@ let gdtmColor = '#9747FF';
 
 import ReportPopup from '../popup/ReportPopup.js';
 import DetailReportModal from "../modal/DetailReportModal.js";
-import { getReportInfoById } from '/functions/dan/getReportLocationInfo.js';
+import getReportInfoById from '/functions/dan/getReportInfoById.js';
 
 export default function ReportMarker(map) {
 
@@ -18,16 +18,15 @@ export default function ReportMarker(map) {
         filter: [
             'all',
             ['!', ['has', 'point_count']],
-            ['==', ['get', 'type'], 'ddbk'], // Chỉ hiển thị điểm có type là 'ddbk'
-            ['==', ['get', 'markerType'], 'Report'] // Chỉ hiển thị dữ liệu có markerType là 'Ad'
+            ['==', ['get', 'markerType'], 'Report'], // Chỉ hiển thị dữ liệu có markerType là 'Ad'
         ],
         paint: {
             'circle-color': [
                 'case',
-                ['==', ['get', 'form'], 'Tố giác sai phạm'], tgspColor, // Màu của tgsp
-                ['==', ['get', 'form'], 'Đăng ký nội dung'], dkndColor, // Màu của dknd
-                ['==', ['get', 'form'], 'Đóng góp ý kiến'], dgykColor, // Màu của dgyk
-                ['==', ['get', 'form'], 'Giải đáp thắc mắc'], gdtmColor, // Màu của gdtm
+                ['==', ['get', 'reportForm'], 'Tố giác sai phạm'], tgspColor, // Màu của tgsp
+                ['==', ['get', 'reportForm'], 'Đăng ký nội dung'], dkndColor, // Màu của dknd
+                ['==', ['get', 'reportForm'], 'Đóng góp ý kiến'], dgykColor, // Màu của dgyk
+                ['==', ['get', 'reportForm'], 'Giải đáp thắc mắc'], gdtmColor, // Màu của gdtm
                 '#000000' // Màu mặc định
             ],
             'circle-radius': 14,
@@ -45,8 +44,7 @@ export default function ReportMarker(map) {
             filter: [
                 'all',
                 ['!', ['has', 'point_count']],
-                ['==', ['get', 'type'], 'ddbk'],
-                ['==', ['get', 'form'], 'Tố giác sai phạm'],
+                ['==', ['get', 'reportForm'], 'Tố giác sai phạm'],
                 ['==', ['get', 'markerType'], 'Report']
             ],
             layout: {
@@ -68,8 +66,7 @@ export default function ReportMarker(map) {
             filter: [
                 'all',
                 ['!', ['has', 'point_count']],
-                ['==', ['get', 'type'], 'ddbk'],
-                ['==', ['get', 'form'], 'Đăng ký nội dung'],
+                ['==', ['get', 'reportForm'], 'Đăng ký nội dung'],
                 ['==', ['get', 'markerType'], 'Report']
             ],
             layout: {
@@ -91,8 +88,7 @@ export default function ReportMarker(map) {
             filter: [
                 'all',
                 ['!', ['has', 'point_count']],
-                ['==', ['get', 'type'], 'ddbk'],
-                ['==', ['get', 'form'], 'Đóng góp ý kiến'],
+                ['==', ['get', 'reportForm'], 'Đóng góp ý kiến'],
                 ['==', ['get', 'markerType'], 'Report']
             ],
             layout: {
@@ -114,8 +110,7 @@ export default function ReportMarker(map) {
             filter: [
                 'all',
                 ['!', ['has', 'point_count']],
-                ['==', ['get', 'type'], 'ddbk'],
-                ['==', ['get', 'form'], 'Giải đáp thắc mắc'],
+                ['==', ['get', 'reportForm'], 'Giải đáp thắc mắc'],
                 ['==', ['get', 'markerType'], 'Report']
             ],
             layout: {

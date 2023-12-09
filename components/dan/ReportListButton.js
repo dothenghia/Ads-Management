@@ -1,6 +1,7 @@
 
 import ReportSidebar from './sidebar/ReportSidebar.js';
-import { getNormalList } from "/functions/dan/getReportLocationInfo.js";
+import getReportList from "/functions/dan/getReportList.js";
+import getReportLength from "/functions/dan/getReportLength.js";
 
 export default function ReportListButton() {
 
@@ -15,16 +16,15 @@ export default function ReportListButton() {
 
     document.querySelector('.report-list-button-root').appendChild(button);
 
-    getNormalList().then(data => {
-        document.querySelector('.report-list-button__length').innerHTML = data.length;
+    getReportLength().then(data => {
+        document.querySelector('.report-list-button__length').innerHTML = data;
     })
 
 
     button.onclick = function () {
-        const fetchData = async () => {
-            var data = await getNormalList();
+        getReportList().then(data => {
+            console.log(data);
             document.querySelector('.sidebar-root').innerHTML = ReportSidebar(data)
-        }
-        fetchData();
+        })
     }
 }
