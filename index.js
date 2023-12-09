@@ -63,6 +63,7 @@ app.engine('hbs', expressHbs.engine({
         fromJSON: helpers.httpFuncs.fromJSON,
         toJSON: helpers.httpFuncs.toJSON,
         arrayLength: helpers.httpFuncs.arrayLength,
+        arrayIndex: helpers.httpFuncs.arrayIndex,
         checkIDValidate: helpers.checkIDValidate.checkIDValidate,
 
         // Sở

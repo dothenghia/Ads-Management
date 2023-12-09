@@ -81,7 +81,62 @@ controller.deletePermissionReq = async (req, res) => {
 }
 
 controller.createPermissionReq = async (req, res) => {
-    console.log(req.body)
+    const permissionReqRef = db.collection("permissionReqs");
+    const permissionReqSnapshot = await permissionReqRef.get();
+    let permissionReqCnt = permissionReqSnapshot.size;
+
+    let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
+    let i = 0;
+    let extension;
+
+    async function pushData(req, thumbnails) {
+        let newData = {
+            co: {
+                email: req.body.newPermissionReqEmail,
+                name: req.body.newPermissionReqCoName,
+                phone: req.body.newPermissionReqPhone
+            },
+            content: req.body.newPermissionReqContent,
+            enddate: null,
+            locationId: null,
+            name: req.body.newPermissionReqAdName,
+            permissionReqId: permissionReqCnt + 1,
+            size: req.body.newPermissionReqSize,
+            startdate: null,
+            status: 0,
+            thumbnails: thumbnails
+        }
+    
+        await permissionReqRef.add(newData);
+        res.redirect("/phuong/yeucaucapphep")
+    }
+
+    try {
+        let thumbnails = Array();
+        let i = 0;
+        let n = req.files.length;
+        await req.files.forEach(async (file) => {
+            if (file.mimetype.endsWith("png"))
+                extension = "png";
+            else if (file.mimetype.endsWith("jpeg"))
+                extension = "jpeg";
+            else
+                extension = "jpg";
+            // Upload the thumbnails to storage
+            let temp = bucket.file("yeucaucapphep/" + (permissionReqCnt + 1) + "/thumbnail" + i + "." + extension);
+            await temp.save(file.buffer, {contentType: file.mimetype});
+            
+            let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
+            thumbnails.push({url: signedURL});
+            
+            i++;
+            if (i == n) pushData(req, thumbnails);
+        })
+    }
+    catch (error) {
+        console.log(error)
+        res.send("Create error");
+    }
 }
 
 module.exports = controller;

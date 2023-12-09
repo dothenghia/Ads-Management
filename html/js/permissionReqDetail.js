@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
     adDetailButtons.forEach(function (button) {
       button.addEventListener('click', function () {
         // Parse the string into a JavaScript object
-        var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails)[0];
-        var adDetails = JSON.parse(button.dataset.adDetails)[0];
+        console.log(button.dataset.permissionReqDetails);
+        var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails);
         var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
         var adAddress = button.dataset.adAddress;
 
@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('permissionReqDetailCoName').textContent = "Công ty " + permissionReqDetails.co.name;
         $i('permissionReqDetailCoPhone').textContent = permissionReqDetails.co.phone;
         $i('permissionReqDetailCoEmail').textContent = permissionReqDetails.co.email;
-        $i('permissionReqDetailName').textContent = adDetails.name;
-        $i('permissionReqDetailSize').textContent = adDetails.size;
+        $i('permissionReqDetailName').textContent = permissionReqDetails.name;
+        $i('permissionReqDetailSize').textContent = permissionReqDetails.size;
         $i('permissionReqDetailContractDate').textContent = "Làm sao làm cái này???";
         $i('permissionReqDetailContent').textContent = permissionReqDetails.content;
         let permissionReqThumbnails = $i('permissionReqDetailThumbnails').querySelector(".carousel-inner");
@@ -28,12 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
         while (permissionReqThumbnails.firstChild) {
             permissionReqThumbnails.removeChild(permissionReqThumbnails.lastChild);
         }
-        if (adLocationDetails.thumbnails.length > 0 && adLocationDetails.thumbnails[0].url != "") {
+        if (permissionReqDetails.thumbnails.length > 0 && permissionReqDetails.thumbnails[0].url != "") {
             permissionReqThumbnails.style.display = "block";
             $i("permissionReqDetailNoThumbnails").style.display = "none"
 
             let i = 0;
-            adLocationDetails.thumbnails.forEach((thumbnail) => {
+            permissionReqDetails.thumbnails.forEach((thumbnail) => {
                 let slide = document.createElement("div");
                 if (i == 0) {
                     slide.classList.add("carousel-item", "active");

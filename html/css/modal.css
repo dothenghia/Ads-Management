@@ -292,6 +292,11 @@
     font-weight: 600;
 }
 
+#newPermissionReqModal .modal-body #newPermissionReqCoName input {
+    margin: 0 1.2vw;
+    width: calc(100% - 1.2vw * 2);
+}
+
 #newPermissionReqModal .modal-body #newPermissionReqName {
     font-weight: 700;
     margin-bottom: 2vh;

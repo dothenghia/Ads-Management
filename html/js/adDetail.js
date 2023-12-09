@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Parse the string into a JavaScript object
         var adDetails = JSON.parse(button.dataset.adDetails)[0];
-        var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
+        var adLocationDetails = JSON.parse(button.dataset.adLocationDetails);
         var adAddress = button.dataset.adAddress;
 
         // Update the modal content with the specific data

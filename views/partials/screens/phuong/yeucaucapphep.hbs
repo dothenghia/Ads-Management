@@ -3,12 +3,6 @@
 <link rel="stylesheet" href="/css/phuong/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
 
-<style>
-    table tbody tr td {
-        padding: calc(.5rem + 6px) calc(.5rem + 12px) !important;
-    }
-</style>
-
 <div class="shared-container">
 
     {{!-- Header--}}
@@ -80,7 +74,7 @@
 
                         {{!-- Chi tiết --}}
                         <td scope="col">
-                            <button class="table-detail-button" data-permission-req-details="{{toJSON ../permissionReq}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}" data-ad-address="{{getLocation ../adLocation locationId 0}}">
+                            <button class="table-detail-button" data-permission-req-details="{{toJSON (arrayIndex ../permissionReq @index)}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}" data-ad-address="{{getLocation ../adLocation locationId 0}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -195,7 +189,7 @@
     <div class="modal fade" id="newPermissionReqModal" tabindex="-1" aria-labelledby="newPermissionReqModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="./yeucaucapphep/taomoi" method="POST">
+                <form action="./yeucaucapphep/taomoi" method="POST" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h6 class="modal-title" id="newPermissionReqModalLabel">
                             Thông tin chi tiết
@@ -205,7 +199,10 @@
                         <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="newPermissionReqModalContent">
-                        <div class="row"><h5 id="newPermissionReqCoName"></h5></div>
+                        <div class="row" id="newPermissionReqCoName">
+                            <h5>Công ty</h5>
+                            <input type="text" name="newPermissionReqCoName" required>
+                        </div>
                         <div class="row" id="newPermissionReqCategoryRow">
                             <div class="col">
                                 <h6 id="newPermissionReqCategoryTitle">Số điện thoại liên lạc</h6>
@@ -213,7 +210,7 @@
                             </div>
                             <div class="col">
                                 <h6 id="newPermissionReqCategoryTitle">Email</h6>
-                                <input type="text" id="newPermissionReqEmail" name="newPermissionReqEmail" required>
+                                <input type="email" id="newPermissionReqEmail" name="newPermissionReqEmail" required>
                             </div>
                             <div class="col">
                                 <h6 id="newPermissionReqCategoryTitle">Tên quảng cáo</h6>
@@ -258,7 +255,6 @@
 
 {{!-- Custom JS script --}}
 <script src="/js/permissionReqDetail.js"></script>
-<script src="/js/newPermissionReqModal.js"></script>
 
 {{!-- Custom Delete Btn --}}
 <script src="/js/deleteMethod.js"></script>
