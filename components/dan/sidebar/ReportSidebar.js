@@ -3,8 +3,8 @@ import ReportCard from "../card/ReportCard.js"
 
 export default function ReportSidebar(reportData) {
 
-    const qcReports = reportData.filter(report => report.type === 'qc');
-    const ddReports = reportData.filter(report => report.type === 'ddqc' || report.type === 'ddbk');
+    const qcReports = reportData.filter(report => report.reportType === 'qc');
+    const ddReports = reportData.filter(report => report.reportType === 'ddqc' || report.reportType === 'ddbk');
 
     function switchTab_ReportSidebar(tabType) {
         const tabs = document.querySelectorAll('.report-sidebar__tab');
