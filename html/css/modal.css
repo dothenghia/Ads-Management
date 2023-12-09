@@ -448,3 +448,34 @@
     font-weight: 200;
     color: rgb(98, 97, 97);
 }
+
+/* Confirmation modal */
+#confirmationModal .modal-header {
+    border: 0;
+}
+
+#confirmationModal .modal-footer {
+    border: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#confirmationModal .modal-footer #confirmDeleteBtn {
+    width: 5vw;
+    background-color: #0065FF;
+    border: 0;
+}
+
+#confirmationModal .modal-footer #confirmDeleteBtn:hover {
+    background-color: rgb(5, 83, 200);
+}
+
+#confirmationModal .modal-footer #cancelDeleteBtn {
+    width: 5vw;
+    background-color: grey;
+    border: 0;
+}
+
+#confirmationModal .modal-footer #cancelDeleteBtn:hover {
+    background-color: rgb(85, 84, 84);
+}

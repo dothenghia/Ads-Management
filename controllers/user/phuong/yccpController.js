@@ -59,4 +59,25 @@ controller.show = async (req, res) => {
     }
 }
 
+controller.deletePermissionReq = async (req, res) => {
+    let id = req.params.id;
+
+    // Initialize an array to store promises for each update operation
+    const deletePromises = [];
+    const permissionReqRef = await db.collection("permissionReqs").where("permissionReqId", "==", parseInt(id)).get();
+    permissionReqRef.forEach((doc) => {
+        deletePromises.push(doc.ref.delete());
+    })
+    
+    try {
+        // Wait for all delete operations to complete
+        await Promise.all(deletePromises);
+    
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
+}
+
 module.exports = controller;
