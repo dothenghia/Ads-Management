@@ -3,7 +3,14 @@ const { passport, generateToken } = require('../../config/passportConfig');
 const controller = {};
 
 controller.show = (req, res) => {
-    res.render('general/login', { layout: 'layout_general' });
+    const statusCode = req.query.status || 200;
+    if (statusCode == '500'){
+        res.render('general/login', { layout: 'layout_general',error: 'Lỗi hệ thống, vui lòng thử lại.' });
+    }
+    else if (statusCode == '401'){
+        res.render('general/login', { layout: 'layout_general',error: 'Vui lòng đăng nhập vào đúng tài khoản.' });
+    }
+    else res.render('general/login', { layout: 'layout_general' });
 };
 
 controller.submit = (req, res, next) => {
@@ -21,7 +28,7 @@ controller.submit = (req, res, next) => {
                 res.redirect('/phuong/bando');
                 break;
             case '2':
-                res.redirect('/quan/');
+                res.redirect('/quan/bando');
                 break;
             case '3':
                 res.redirect('/so/thongtinquangcao');
@@ -86,33 +93,5 @@ controller.facebookSignInCallback = (req, res, next) => {
     })(req, res, next); // IIFE
 };
 
-controller.initiateMicrosoftSignIn = passport.authenticate('microsoft', { prompt: 'select_account', scope: ['openid', 'email'] });
-
-controller.microsoftSignInCallback = (req, res, next) => {
-  passport.authenticate('microsoft', { failureRedirect: '/login' }, (err, user) => {
-    if (err || !user) {
-        console.log('error: ' + err);
-        console.log(user)
-      return res.render('./general/login', { layout: 'layout_general', error: 'Đăng nhập bằng Microsoft đã bị lỗi. Vui lòng kiểm tra lại!' });
-    }
-    const token = generateToken(user);
-
-    res.cookie('jwtToken', token, { httpOnly: true });
-
-    switch (user.role) {
-      case '1':
-        res.redirect('/phuong/bando');
-        break;
-      case '2':
-        res.redirect('/quan'); 
-        break;
-      case '3':
-        res.redirect('/so');
-        break;
-      default:
-        res.redirect('/');
-    }
-  })(req, res, next); // IIFE
-};
 
 module.exports = controller;
