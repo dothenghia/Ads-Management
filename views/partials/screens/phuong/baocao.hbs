@@ -3,16 +3,17 @@
 <link rel="stylesheet" href="/css/phuong/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
 
+<style>
+    .shared-header {
+        padding: 1.5rem 2rem;
+    }
+</style>
 
 <div class="shared-container">
 
     {{!-- Header--}}
     <div class="shared-header">
         <h1>Báo Cáo</h1>
-
-        <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn mx-3 ">Sửa báo cáo</button>
-        </div>
     </div>
 
 
@@ -50,6 +51,7 @@
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
+                    <th scope="col">Chỉnh sửa</th>
                 </tr>
             </thead>
 
@@ -99,12 +101,20 @@
                             </button>
                         </td>
                         
-                        {{!-- Xóa --}}
-                        <td scope="col">
-                            <button class="report-delete-button" data-id="{{reportId}}" data-account-role="phuong"> 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                            </button>
-                        </td>
+                        {{!-- Sửa --}}
+                        {{#if (getReportStatus status "Đang xử lý")}}
+                            <td scope="col">
+                                <button type="button" class="table-detail-button" id="reportUpdateButton" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-id="{{reportId}}" data-account-role="phuong">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" stroke="#0065FF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/></svg>
+                                </button>
+                            </td>
+                            {{else}}
+                            <td scope="col">
+                                <button type="button" class="table-detail-button" id="reportUpdateButton" disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16 "stroke="#abaaa7" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/></svg>
+                                </button>
+                            </td>
+                        {{/if}}
                     </tr>
                 {{/if}}
                 {{/each}}
@@ -187,23 +197,81 @@
         </div>
     </div>
 
-    <!-- The Report Delete Modal -->
-    <div class="modal fade" id="confirmationModal">
-        <div class="modal-dialog">
+    <!-- Report update modal -->
+    <div class="modal fade" id="reportUpdateModal" tabindex="-1" aria-labelledby="reportUpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-
-                <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure?</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h6 class="modal-title" id="reportUpdateModalLabel">
+                        Thông tin chi tiết
+                    </h6>
+                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">No</button>
+                <div class="modal-body" id="reportUpdateModalContent">
+                    <i class="bi bi-geo-alt" id="reportUpdateAddress"></i>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Hình thức báo cáo</h6>
+                            <h6 id="reportUpdateForm"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Tình trạng xử lý</h6>
+                            <h6 id="reportUpdateStatus"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Thời gian gửi</h6>
+                            <h6 id="reportUpdateTime"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Họ và tên</h6>
+                            <h6 id="reportUpdateFullname"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Email</h6>
+                            <h6 id="reportUpdateEmail"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Số điện thoại</h6>
+                            <h6 id="reportUpdatePhone"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Nội dung báo cáo</h6>
+                            <h6 id="reportUpdateContent"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Phương thức xử lý</h6>
+                            <textarea type="text" id="reportUpdateSolution"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <h6 id="reportUpdateCategoryTitle">Hình ảnh quảng cáo</h6>
+                        <div class="row">
+                            <div id="reportUpdateNoThumbnails" style="display: none">
+                                <h6>Không có hình ảnh để hiển thị</h6>
+                            </div>
+                            <div id="reportUpdateThumbnails" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner"></div>
+                                </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#reportUpdateThumbnails" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#reportUpdateThumbnails" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+                <div class="row justify-content-end" id="reportUpdateChoice">
+                    <button id="reportUpdateChoiceDeny" onclick="" class="col-2">Từ chối</button>
+                    <button id="reportUpdateChoiceAccept" onclick="" class="col-2">Gửi xử lý</button>
+                </div>
             </div>
         </div>
     </div>

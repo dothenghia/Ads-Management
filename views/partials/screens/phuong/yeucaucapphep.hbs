@@ -3,12 +3,6 @@
 <link rel="stylesheet" href="/css/phuong/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
 
-<style>
-    table tbody tr td {
-        padding: calc(.5rem + 6px) calc(.5rem + 12px) !important;
-    }
-</style>
-
 <div class="shared-container">
 
     {{!-- Header--}}
@@ -16,7 +10,7 @@
         <h1>Yêu cầu cấp phép</h1>
 
         <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn">Thêm yêu cầu cấp phép</button>
+            <button class="btn btn-outline-primary custom-btn" id="newPermissionReqButton">Thêm yêu cầu cấp phép</button>
         </div>
     </div>
 
@@ -31,15 +25,23 @@
                         <select id="coFilter" name="">
                             <option value="all" onclick="coFilter('all')">Công ty</option>
                             {{#each company}}
-                                <option value="{{id}}" onclick="coFilter('{{id}}')">{{name}}</option>
+                                <option value="{{name}}" onclick="coFilter('{{name}}')">{{name}}</option>
                             {{/each}}
                         </select>
                     </th>
                     <th scope="col">Email</th>
                     <th scope="col">SĐT</th>
                     <th scope="col">Địa điểm yêu cầu cấp phép</th>
-                    <th scope="col"> </th>
+                    <th scope="col">
+                        <select id="statusFilter" name="">
+                            <option value="all" onclick="statusFilter('all')">Tình trạng xử lý</option>
+                            <option value="0" onclick="statusFilter(0)">Đang xử lý</option>
+                            <option value="1" onclick="statusFilter(1)">Đã xử lý</option>
+                            <option value="2" onclick="statusFilter(2)">Từ chối</option>
+                        </select>
+                    </th>
                     <th scope="col">Chi tiết</th>
+                    <th scope="col">Xoá</th>
                 </tr>
             </thead>
 
@@ -54,9 +56,32 @@
                             <td scope="col">{{phone}}</td>
                         {{/with}}
                         <td scope="col">{{getLocation ../adLocation locationId 2}}</td>
-                        <td scope="col"> </td>
                         <td scope="col">
-                            <button class="table-detail-button" data-permission-req-details="{{toJSON ../permissionReq}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}" data-ad-address="{{getLocation ../adLocation locationId 0}}">
+                            {{#if (equalNumber status 0) }}
+                            <div class="status-tag status-tag-dangxuly">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
+                                <span class='status-tag__title'>Đang xử lý</span>
+                            </div>
+                            {{/if}}
+
+                            {{#if (equalNumber status 1) }}
+                            <div class="status-tag status-tag-daxuly">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path> <polyline points="22 4 12 14.01 9 11.01"></polyline> </svg>
+                                <span class='status-tag__title'>Đã xử lý</span>
+                            </div>
+                            {{/if}}
+
+                            {{#if (equalNumber status 2) }}
+                            <div class="status-tag status-tag-tuchoi">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"> <circle cx="12" cy="12" r="10"></circle> <line x1="15" y1="9" x2="9" y2="15"></line> <line x1="9" y1="9" x2="15" y2="15"></line> </svg>
+                                <span class='status-tag__title'>Từ chối</span>
+                            </div>
+                            {{/if}}
+                        </td>
+
+                        {{!-- Chi tiết --}}
+                        <td scope="col">
+                            <button class="table-detail-button" data-permission-req-details="{{toJSON (arrayIndex ../permissionReq @index)}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}" data-ad-address="{{getLocation ../adLocation locationId 0}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -64,6 +89,13 @@
                                     <line x1="12" y1="16" x2="12" y2="12"></line>
                                     <line x1="12" y1="8" x2="12.01" y2="8"></line>
                                 </svg>
+                            </button>
+                        </td>
+
+                        {{!-- Xóa --}}
+                        <td scope="col">
+                            <button class="delete-button" data-id="{{permissionReqId}}" data-account-role="phuong" data-page="yeucaucapphep"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                             </button>
                         </td>
                     </tr>
@@ -96,8 +128,8 @@
                             <h6 id="permissionReqDetailCoEmail"></h6>
                         </div>
                         <div class="col">
-                            <h6 id="permissionReqDetailCategoryTitle">Kích thước</h6>
-                            <h6 id="permissionReqDetailSize"></h6>
+                            <h6 id="permissionReqDetailCategoryTitle">Tên quảng cáo</h6>
+                            <h6 id="permissionReqDetailName"></h6>
                         </div>
                     </div>
                     <div class="row" id="permissionReqDetailCategoryRow">
@@ -105,7 +137,13 @@
                             <h6 id="permissionReqDetailCategoryTitle">Thời hạn hợp đồng</h6>
                             <h6 id="permissionReqDetailContractDate"></h6>
                         </div>
-                        <div class="col-8">
+                        <div class="col-4">
+                            <h6 id="permissionReqDetailCategoryTitle">Kích thước</h6>
+                            <h6 id="permissionReqDetailSize"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="permissionReqDetailCategoryRow">
+                        <div class="col">
                             <h6 id="permissionReqDetailCategoryTitle">Nội dung</h6>
                             <h6 id="permissionReqDetailContent"></h6>
                         </div>
@@ -118,14 +156,7 @@
                                 <h6>Không có hình ảnh để hiển thị</h6>
                             </div>
                             <div id="permissionReqDetailThumbnails" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100" src="" alt="First slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="" alt="Second slide">
-                                    </div>
-                                </div>
+                                <div class="carousel-inner"></div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#permissionReqDetailThumbnails" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     </button>
@@ -139,7 +170,98 @@
             </div>
         </div>
     </div>
+
+    <!-- The Report Delete Modal -->
+    <div class="modal fade" id="confirmationModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h6 class="modal-title">Bạn có muốn xoá yêu cầu cấp phép này không</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">No</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Create new permission request modal -->
+    <div class="modal fade" id="newPermissionReqModal" tabindex="-1" aria-labelledby="newPermissionReqModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="./yeucaucapphep/taomoi" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="newPermissionReqModalLabel">
+                            Thông tin chi tiết
+                            <br>
+                            <i class="bi bi-geo-alt" id="newPermissionReqAddress"></i>
+                        </h6>
+                        <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="newPermissionReqModalContent">
+                        <div class="row" id="newPermissionReqCoName">
+                            <h5>Công ty</h5>
+                            <input type="text" name="newPermissionReqCoName" required>
+                        </div>
+                        <div class="row" id="newPermissionReqCategoryRow">
+                            <div class="col">
+                                <h6 id="newPermissionReqCategoryTitle">Số điện thoại liên lạc</h6>
+                                <input type="text" id="newPermissionReqPhone" name="newPermissionReqPhone" required>
+                            </div>
+                            <div class="col">
+                                <h6 id="newPermissionReqCategoryTitle">Email</h6>
+                                <input type="email" id="newPermissionReqEmail" name="newPermissionReqEmail" required>
+                            </div>
+                            <div class="col">
+                                <h6 id="newPermissionReqCategoryTitle">Tên quảng cáo</h6>
+                                <input type="text" id="newPermissionReqAdName" name="newPermissionReqAdName" required>
+                            </div>
+                        </div>
+                        <div class="row" id="newPermissionReqCategoryRow">
+                            <div class="col-4">
+                                <h6 id="newPermissionReqCategoryTitle">Thời hạn hợp đồng</h6>
+                                <h6 id="newPermissionReqContractDate"></h6>
+                            </div>
+                            <div class="col-4">
+                                <h6 id="newPermissionReqCategoryTitle">Kích thước</h6>
+                                <input type="text" id="newPermissionReqSize" name="newPermissionReqSize" required>
+                            </div>
+                        </div>
+                        <div class="row" id="newPermissionReqCategoryRow">
+                            <div class="col">
+                                <h6 id="newPermissionReqCategoryTitle">Nội dung</h6>
+                                <textarea name="newPermissionReqContent" id="newPermissionReqContent" required></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <h6 id="newPermissionReqCategoryTitle">Hình ảnh quảng cáo</h6>
+                            <div class="row">
+                                <div id="newPermissionReqThumbnails" class="carousel slide" data-ride="carousel">
+                                    <input type="file" name="newPermissionReqThumbnailsUpdate" id="newPermissionReqThumbnailsUpdate" accept="image/png, image/jpeg" multiple required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-end" id="newPermissionReqChoice">
+                        <button type="submit" id="newPermissionReqChoiceCreate" onclick="" class="col-2">Tạo yêu cầu mới</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 {{!-- Custom JS script --}}
 <script src="/js/permissionReqDetail.js"></script>
+
+{{!-- Custom Delete Btn --}}
+<script src="/js/deleteMethod.js"></script>

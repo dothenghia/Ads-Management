@@ -12,8 +12,6 @@
 
         <div class="d-flex">
             <button class="btn btn-outline-primary custom-btn">Thêm báo cáo</button>
-
-            <button class="btn btn-outline-primary custom-btn mx-3 ">Sửa báo cáo</button>
         </div>
     </div>
 
@@ -89,7 +87,8 @@
                             </div>
                             {{/if}}
                         </td>
-
+                            
+                        {{!-- Chi tiết --}}
                         <td scope="col">
                             <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

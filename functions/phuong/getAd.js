@@ -5,79 +5,12 @@ function getLocation(adLocation, id, resultType) {
     if (obj.length == 0) {
         return "Không tìm thấy";
     } else {
-    var address = "";
-    switch (obj[0].idDuong) {
-        case "nvc":
-            address += "Nguyễn Văn Cừ";
-            break;
-        case "tp":
-            address += "Trần Phú";
-            break;
-        case "nt":
-            address += "Nguyễn Trãi";
-            break;
-        case "ltb":
-            address += "Lê Thị Bạch Cát";
-            break;
-        case "ltt":
-            address += "Lê Thị Tấn";
-            break;
-        case "lt":
-            address += "Lê Thánh Tôn";
-            break;
-        case "lq":
-            address += "Lê Quý Đôn";
-            break;
-        case "lq2":
-            address += "Lê Quang Định";
-            break;
-        case "ltb2":
-            address += "Lê Thị Bạch Cát";
-            break;
-        case "ltt2":
-            address += "Lê Thị Tấn";
-            break;
-        case "lt2":
-            address += "Lê Thánh Tôn";
-            break;
-        case "lq2":
-            address += "Lê Quý Đôn";
-            break;
-        case "lq3":
-            address += "Lê Quang Định";
-            break;
-        case "ltb3":
-            address += "Lê Thị Bạch Cát";
-            break;
-        case "ltt3":
-            address += "Lê Thị Tấn";
-            break;
-        case "lt3":
-            address += "Lê Thánh Tôn";
-            break;
-        case "lq3":
-            address += "Lê Quý Đôn";
-            break;
-        case "lq4":
-            address += "Lê Quang Định";
-            break;
-        case "ltb4":
-            address += "Lê Thị Bạch Cát";
-            break;
-        case "ltt4":
-            address += "Lê Thị Tấn";
-            break;
-        case "lt4":
-            address += "Lê Thánh Tôn";
-            break;
-        case "lq4":
-            address += "Lê Quý Đôn";
-            break;
-    }
+
+    var address = obj[0].address;
     if (resultType == 2) return address;
 
     address += ", ";
-    switch (obj[0].idPhuong) {
+    switch (obj[0].idPhuong.split("_")[1]) {
         case "1":
             address += "Phường 1";
             break;

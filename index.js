@@ -63,6 +63,7 @@ app.engine('hbs', expressHbs.engine({
         fromJSON: helpers.httpFuncs.fromJSON,
         toJSON: helpers.httpFuncs.toJSON,
         arrayLength: helpers.httpFuncs.arrayLength,
+        arrayIndex: helpers.httpFuncs.arrayIndex,
         checkIDValidate: helpers.checkIDValidate.checkIDValidate,
 
         // Sở
@@ -90,6 +91,7 @@ app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
 app.use('/OTPValidate', require("./routes/general/OTPValidateRoute"));
 app.use('/phuong', require("./routes/user/phuongRoute"));
+app.use('/quan', require("./routes/user/quanRoute"));
 app.use('/so', require("./routes/user/soRoute"));
 app.use('/logout', require("./routes/general/logoutRoute"));
 

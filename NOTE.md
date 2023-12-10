@@ -35,6 +35,10 @@ Bảo :
     => Bổ sung route Quận vào file index.js ở root
     + thongtinquangcao của Phường, Quận, Sở bỏ đi cột Số lượng + Kích thước 
 
+    - thống nhất đặt id phường trong adlocation để chỉnh sửa trong getLocation
+    - Delete h sẽ k dùng được, chỉ có hiệu ứng hiển thị modal
+
+
 Hải :
     + JWT
     - Viết mẫu Database

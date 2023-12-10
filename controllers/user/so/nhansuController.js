@@ -1,8 +1,9 @@
 const controller = {}
 const currentPage = 2;
 
-let {Account} = require("../../../html/assets/data");
-let {changeId} = require("../../../html/assets/data");
+const admin = require("../../../config/firebaseAdmin");
+//https://firebase.google.com/docs/firestore/manage-data/add-data
+const db = admin.firestore();
 
 
 controller.delete = (req, res) => {
@@ -11,14 +12,30 @@ controller.delete = (req, res) => {
     res.send("Deleted");
 }
 
-controller.show = (req, res) => {
-    res.render("partials/screens/so/index", {
-        "current": currentPage,
-        "account": Account,
-        body: function() {
-            return "screens/so/nhansu";
-        }
-    });
+controller.show = async (req, res) => {
+    try {
+        const accountRef = db.collection("accounts");
+        const accountSnapshot = await accountRef.get();
+
+        let Account = [];
+        accountSnapshot.forEach((doc) => {
+            Account.push(doc.data());
+        });
+
+        res.render("partials/screens/so/index", {
+            "current": currentPage,
+            "account": Account,
+            body: function() {
+                return "screens/so/nhansu";
+            }
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+    
+    
 }
 
 module.exports = controller;

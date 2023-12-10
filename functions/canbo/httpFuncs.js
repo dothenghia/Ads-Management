@@ -34,6 +34,10 @@ function arrayLength(array) {
     return array.length;
 }
 
+function arrayIndex(array, index) {
+    return array[index];
+}
+
 module.exports = {
     createGlobal: createGlobal,
     getGlobal: getGlobal,
@@ -44,5 +48,6 @@ module.exports = {
     onclickRedirect: onclickRedirect,
     toJSON: toJSON,
     fromJSON: fromJSON,
-    arrayLength: arrayLength
+    arrayLength: arrayLength,
+    arrayIndex: arrayIndex
 };
