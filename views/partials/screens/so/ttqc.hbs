@@ -32,7 +32,7 @@
                         <select id="adTypeFilter" name="">
                             <option value="all" onclick="adTypeFilter('all')">Loại quảng cáo</option>
                             {{#each adType}}
-                                <option value="{{value}}" onclick="adTypeFilter('{{value}}')">{{value}}</option>
+                                <option value="{{value}}" onclick="adTypeFilter("{{value}}")">{{value}}</option>
                             {{/each}}
                         </select>
                     </th>

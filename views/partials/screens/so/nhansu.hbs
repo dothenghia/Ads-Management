@@ -25,7 +25,7 @@
                     <th scope="col">Họ tên</th>
                     <th scope="col">Thông tin liên lạc</th>
                     <th scope="col">
-                        <select id="" name="" class="rounded-3"> 
+                        <select id="" name="" class="rounded-3">
                             <option value="Chức vụ">Chức vụ</option>
                             <option value="Cán bộ phường">Cán bộ phường</option>
                             <option value="Cán bộ quận">Cán bộ quận</option>
@@ -44,31 +44,47 @@
                 {{!-- Pass data vào --}}
                 {{#each account }}
                 {{#if (checkIDValidate id)}}
-                    <tr>
-                        <td scope="col">{{@index}}</td>
-                        <td scope="col">{{name}}</td>
-                        <td scope="col">{{phone}}</td>
-                        <td scope="col">
-                            Cán Bộ {{getAgentRole role}}
-                        </td>
-                        <td scope="col">
-                            {{#if (translateAgentArea quan_id phuong_id)}}
-                                {{translateAgentArea quan_id phuong_id}}
-                                {{else}}
-                                No data
-                            {{/if}}
-                        </td>
-                        <td scope="col">{{isUdfNullBlank username}}</td>
-                        <td scope="col">{{isUdfNullBlank password}}</td>
-                        <td scope="col">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                        </td>
-                        <td scope="col">
-                            <button class="delete-button" data-id="{{accountId}}" data-account-role="so" data-page="nhansu"> 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                            </button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td scope="col">{{@index}}</td>
+                    <td scope="col">{{name}}</td>
+                    <td scope="col">{{phone}}</td>
+                    <td scope="col">
+                        Cán Bộ {{getAgentRole role}}
+                    </td>
+                    <td scope="col">
+                        {{#if (translateAgentArea quan_id phuong_id)}}
+                        {{translateAgentArea quan_id phuong_id}}
+                        {{else}}
+                        No data
+                        {{/if}}
+                    </td>
+                    <td scope="col">{{isUdfNullBlank username}}</td>
+                    <td scope="col">{{isUdfNullBlank password}}</td>
+                    <td scope="col">
+                        <button class="edit-button" data-id="{{id}}" data-name="{{name}}" data-phone="{{phone}}" data-role="{{role}}" data-area="{{wrapInObject quan_id phuong_id}}" data-user-name="{{username}}" data-password="{{password}}" data-account-role="so" data-page="nhansu">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-edit">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                    </td>
+                    <td scope="col">
+                        <button class="delete-button" data-id="{{accountId}}" data-account-role="so" data-page="nhansu">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-trash-2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path
+                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                </path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
                 {{/if}}
                 {{/each}}
             </tbody>
@@ -89,13 +105,87 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn"
+                        data-bs-dismiss="modal">No</button>
                 </div>
 
             </div>
+        </div>
+    </div>
+
+    <!-- The Edit Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="" id="editAccForm" onsubmit="editAcc(event)">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Chỉnh sửa nhân sự
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                                <label for="hotenEdit" class="form-label">Họ Tên</label>
+                                <input type="text" id="hotenEdit" name="name" class="form-control"
+                                    placeholder="Báo" required />
+                            </div>
+                            <div class="col mb-3">
+                                <label for="phoneEdit" class="form-label">Số Điện Thoại</label>
+                                <input type="text" id="phoneEdit" name="phone" class="form-control"
+                                    placeholder="12354" required />
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                                <label for="usernameEdit" class="form-label">Tài Khoản</label>
+                                <input type="text" id="usernameEdit" name="username" class="form-control"
+                                    placeholder="12354" required />
+                            </div>
+                            <div class="col mb-3">
+                                <label for="passwordEdit" class="form-label">Mật Khẩu</label>
+                                <input type="text" id="passwordEdit" name="password" class="form-control"
+                                    placeholder="123" />
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-3">
+                                <label for="roleEdit" class="form-label">Chức Vụ</label>
+                                <select id="roleEdit" name="role" class="rounded-3 form-select">
+                                    <option value="1">Cán bộ phường</option>
+                                    <option value="2">Cán bộ quận</option>
+                                    <option value="3">Cán bộ sở</option>
+                                </select>
+                            </div>
+                            <div class="col mb-3">
+                                <label for="areaEdit" class="form-label">Khu Vực</label>
+                                <input type="text" id="areaEdit" name="area" class="form-control"
+                                    placeholder="Quận 1" />
+                            </div>
+                        </div>
+                        <div class="text-center badge bg-label-danger" id="errorMessage"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="id" value="" />
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                            id="closeBtnEdit">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 {{!-- Custom Delete Btn --}}
 <script src="/js/deleteMethod.js"></script>
+
+<script src="/js/editMethod.js"></script>
+
+
+

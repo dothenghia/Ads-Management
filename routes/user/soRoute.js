@@ -10,6 +10,7 @@ router.use("/nhansu", require("./so/nhansuRoute"));
 router.use("/dieuchinh", require("./so/dieuchinhRoute"));
 router.use("/capphep", require("./so/capphepRoute"));
 router.use("/thongke", require("./so/thongkeRoute"));
+router.use("/thongtincanhan", require("./chung/thongtincanhanRoute"));
 
 // router.use("/yeucaudieuchinh", require("./phuong/ycdcRoute"));
 // router.use("/baocao", require("./phuong/bcRoute"));

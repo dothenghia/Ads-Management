@@ -18,6 +18,7 @@ const helpers = {
     "translateAgentArea": require("./functions/so/translateAgentArea"),
     "getAgentRole": require("./functions/so/getAgentRole"),
     "isUdfNullBlank": require("./functions/so/isUdfNullBlank"), //? Đây là hàm để check null
+    "wrapInObject": require("./functions/so/wrapInObject"), //? Đây là hàm để wrap nhiều tham số thành 1 object
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
@@ -73,6 +74,7 @@ app.engine('hbs', expressHbs.engine({
         translateAgentArea: helpers.translateAgentArea.translateAgentArea,
         getAgentRole: helpers.getAgentRole.getAgentRole,
         isUdfNullBlank: helpers.isUdfNullBlank.isUdfNullBlank,
+        wrapInObject: helpers.wrapInObject.wrapInObject,
 
         // Phường
         getLocation: helpers.getAd.getLocation,

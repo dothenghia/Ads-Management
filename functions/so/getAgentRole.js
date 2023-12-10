@@ -1,10 +1,10 @@
 function getAgentRole(role) {
     switch (role) {
-        case 1:
+        case "1":
             return "Phường";
-        case 2:
+        case "2":
             return "Quận";
-        case 3:
+        case "3":
             return "Sở";
         default:
             return "Không xác định";
