@@ -5,13 +5,25 @@ import DetailAdModal from "../modal/DetailAdModal.js";
 
 import getReportInfoById from "/functions/dan/getReportInfoById.js";
 import getAdInfoById from "/functions/dan/getAdInfoById.js";
+import flyToLocation from "/functions/dan/flyToLocation.js";
 
-export default function ReportCard(report) {
+export default function ReportCard(map, report) {
 
     let detailAdId = {
         locationId: report.locationId,
         adId: report.adId,
     }
+
+    let location = {
+        longitude: report.longitude,
+        latitude: report.latitude,
+    }
+
+    function moveToLocation_ReportCard(loca) {
+        let {longitude, latitude} = JSON.parse(decodeURIComponent(loca));
+        flyToLocation(map, longitude, latitude);
+    }
+    window.moveToLocation_ReportCard = moveToLocation_ReportCard;
 
     function openDetailReportModal_ReportCard(id) {
         getReportInfoById(id).then(detailReportInfo => {
@@ -40,16 +52,27 @@ export default function ReportCard(report) {
         <div class="report-card__info">
             ${
                 (report.address == "")
-                ? `
-                <h1>${report.phuong}, ${report.quan}</h1>
-                ${
-                    (report.reportType == 'ddqc') ? 
+                ? 
+                `
+                <h1>
+                    ${report.phuong}, ${report.quan}
+                    <button onclick="moveToLocation_ReportCard('${encodeURIComponent(JSON.stringify(location))}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V2c0-.55-.45-1-1-1s-1 .45-1 1v1.06A8.994 8.994 0 0 0 3.06 11H2c-.55 0-1 .45-1 1s.45 1 1 1h1.06A8.994 8.994 0 0 0 11 20.94V22c0 .55.45 1 1 1s1-.45 1-1v-1.06A8.994 8.994 0 0 0 20.94 13H22c.55 0 1-.45 1-1s-.45-1-1-1h-1.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
+                    </button>
+                </h1>
+                ${(report.reportType == 'ddqc') ? 
                     `<h3>Loại: Địa điểm Quảng cáo</h3>`
-                    : `<h3>Loại: Địa điểm Bất kỳ</h3>`
+                    :
+                    `<h3>Loại: Địa điểm Bất kỳ</h3>`
                 }
                 ` 
                 : `
-                <h1>${report.address}</h1>
+                <h1>
+                    ${report.address}
+                    <button onclick="moveToLocation_ReportCard('${encodeURIComponent(JSON.stringify(location))}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V2c0-.55-.45-1-1-1s-1 .45-1 1v1.06A8.994 8.994 0 0 0 3.06 11H2c-.55 0-1 .45-1 1s.45 1 1 1h1.06A8.994 8.994 0 0 0 11 20.94V22c0 .55.45 1 1 1s1-.45 1-1v-1.06A8.994 8.994 0 0 0 20.94 13H22c.55 0 1-.45 1-1s-.45-1-1-1h-1.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
+                    </button>
+                </h1>
                 <h3>${report.phuong}, ${report.quan}</h3>
                 `
             }
@@ -64,8 +87,6 @@ export default function ReportCard(report) {
             <p>${report.time}</p>
 
         </div>
-
-
 
         <div class="report-card__button">
 

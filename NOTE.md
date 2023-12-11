@@ -2,7 +2,7 @@ API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
 - Viết lại những phương thức trong getAdLocationInfo.js /
 - Viết lại những phương thức trong getReportLocationInfo.js /
-- Đổi theme bản đồ khác (bỏ mấy cái trạm xe bus, ...)
+- Đổi theme bản đồ khác (bỏ mấy cái trạm xe bus, ...) /
 - Geocoding Report Card
 - Geocoding Search bar
 - Send Report + LocalStorage

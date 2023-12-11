@@ -27,6 +27,8 @@ async function qcReportInfo(locationId, adId) {
         address: adLocationData.address,
         phuong: phuong,
         quan: quan,
+        longitude: adLocationData.longitude,
+        latitude: adLocationData.latitude,
     }
 }
 
@@ -46,6 +48,8 @@ async function ddqcReportInfo(locationId) {
         address: "",
         phuong: phuong,
         quan: quan,
+        longitude: adLocationData.longitude,
+        latitude: adLocationData.latitude,
     }
 }
 
