@@ -11,7 +11,7 @@ async function checkAuthenticated(req, res, next) {
     try {
         const decoded = await jwt.verify(token, jwtSecret);
         req.user = decoded;
-        const { accountType } = decoded;
+        const { accountType} = decoded;
 
         if (!accountType) {
             return res.redirect('/login');
@@ -19,7 +19,6 @@ async function checkAuthenticated(req, res, next) {
 
         // Ensure case sensitivity based on your requirements
         const path = req.originalUrl.toLowerCase();
-        console.log("path: " + path);
         switch (accountType) {
             case '1':
                 if (path.startsWith('/phuong')) {
@@ -33,6 +32,7 @@ async function checkAuthenticated(req, res, next) {
                 break;
             case '3':
                 if (path.startsWith('/so')) {
+                    
                     return next();
                 }
                 break;

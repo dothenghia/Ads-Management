@@ -40,6 +40,10 @@ Bảo :
     - Chốt những kiểu dữ liệu được lưu tren firebase
     - accounts chuyển từ hashed pass -> pass
     - Edit khu vực bên nhân sự có thể geocoding reverse?
+    - Thêm avat lên firebase?
+    - Khi đăng nhập vào rồi thì xác định id của mình, thêm session chứa id của tài khoản đang đăng nhập
+
+    Xóa báo cáo, Xóa thêm yêu cầu, xóa edit yêu cầu
 
 
 Hải :

@@ -13,17 +13,144 @@ document.querySelectorAll(".edit-button").forEach((btn) => {
         let accUsername = btn.dataset.userName;
         let accPassword = btn.dataset.password;
 
+        var areaDetail = accArea.split("-"); 
+        // Admin account
         document.getElementById("id").value = accId;
         document.getElementById("hotenEdit").value = accName;
         document.getElementById("phoneEdit").value = accPhone;
         document.getElementById("roleEdit").value = accRole;
-        document.getElementById("areaEdit").value = translateArea(accArea.param_1, accArea.param_2);
+        document.getElementById("areaEdit").value = translateArea(areaDetail[0], areaDetail[1]);
+        document.getElementById("quanID").value = areaDetail[0];
+        document.getElementById("phuongID").value = areaDetail[1];
         document.getElementById("usernameEdit").value = accUsername;
         document.getElementById("passwordEdit").value = accPassword;
 
         const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
         modal.show();
 
+        document.getElementById("roleEdit").addEventListener("change", (e) => {
+            let SelectedRole = document.getElementById("roleEdit").value;
+            
+            console.log(SelectedRole);
+            if (SelectedRole != "3") {
+                
+                var quanSelect = $("#quanID");
+
+                function dynamicPhuongSelect(){
+                    var SelectedQuan = document.getElementById("quanID").value;
+                    
+                    var phuongSelect = $("#phuongID");
+                    
+                    var phuong = {
+                        "1" : [
+                            {
+                                id: "bennghe",
+                                name: "Bến Nghé"
+                            },
+                            {
+                                id: "benthanh",
+                                name: "Bến Thành"
+                            },
+                            {
+                                id: "cogiang",
+                                name: "Cô Giang"
+                            },
+                            {
+                                id: "caukho",
+                                name: "Cầu Kho"
+                            },
+                            {
+                                id : "cauonglanh",
+                                name: "Cầu Ông Lãnh"
+                            },
+                            {
+                                id: "daKao",
+                                name: "Đa Kao"
+                            },
+                            {
+                                id: "nguyenthaibinh",
+                                name: "Nguyễn Thái Bình"
+                            },
+                            {
+                                id: "nguyenthaichin",
+                                name: "Nguyễn Thái Bình"
+                            },
+                            {
+                                id: "phamngulao",
+                                name: "Phạm Ngũ Lão"
+                            },
+                            {
+                                id: "tanDinh",
+                                name: "Tân Định"
+                            }
+                        ],
+                        "2" : [
+                            {
+                                id: 'ankhanh',
+                                name: 'An Khánh'
+                            },
+                            {
+                                id: 'anloiDong',
+                                name: 'An Lợi Đông'
+                            },
+                            {
+                                id: 'anphu',
+                                name: 'An Phú'
+                            },
+                            {
+                                id: 'binhan',
+                                name: 'Bình An'
+                            },
+                            {
+                                id: 'binhKhanh',
+                                name: 'Bình Khánh'
+                            },
+                            {
+                                id: 'binhTrungDong',
+                                name: 'Bình Trưng Đông'
+                            },
+                            {
+                                id: 'binhTrungTay',
+                                name: 'Bình Trưng Tây'
+                            },
+                            {
+                                id: 'catlai',
+                                name: 'Cát Lái'
+                            },
+                            {
+                                id: 'thaodien',
+                                name: 'Thảo Điền'
+                            },
+                            {
+                                id: 'thanhMyLoi',
+                                name: 'Thạnh Mỹ Lợi'
+                            },
+                            {
+                                id: 'thuthiem',
+                                name: 'Thủ Thiêm'
+                            }
+                        ],
+                    }
+
+                    // Clear existing options
+                    phuongSelect.empty();
+
+                    phuong[SelectedQuan].forEach(function (phuong) {
+                        phuongSelect.append($('<option></option>').attr('value', phuong.id).text(phuong.name));
+                    });
+
+                    phuongSelect.prop("hidden", false);
+                    phuongSelect.prop("disabled", false);
+                }
+                
+                quanSelect.change(dynamicPhuongSelect);
+                dynamicPhuongSelect();
+
+                quanSelect.prop("hidden", false);
+                $("areaEdit").prop("hidden", true);
+            }
+
+        });
     });
 });
 
@@ -46,9 +173,27 @@ async function editAcc(e) {
     location.reload();
 }
 
+async function accSettings(e) {
+    e.preventDefault()
+
+    const formData = new FormData(document.getElementById("formAccountSettings"))
+    const data = Object.fromEntries(formData.entries())
+
+    console.log(data)
+    let res = await fetch('/chung/thongtincanhan', {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    })
+
+    location.reload();
+}
+
 function translateArea(idQuan, idPhuong) {
     var address = "";
-
+    
     if (idPhuong == "" && idQuan == "") {
         address = "Sở Văn hóa và Thể thao TP.HCM";
         return address;
