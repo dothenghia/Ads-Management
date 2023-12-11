@@ -3,7 +3,7 @@ import ReportSidebar from './sidebar/ReportSidebar.js';
 import getReportList from "/functions/dan/getReportList.js";
 import getReportLength from "/functions/dan/getReportLength.js";
 
-export default function ReportListButton() {
+export default function ReportListButton(map) {
 
     const button = document.createElement('button');
     button.type = 'button';
@@ -23,8 +23,8 @@ export default function ReportListButton() {
 
     button.onclick = function () {
         getReportList().then(data => {
-            console.log(data);
-            document.querySelector('.sidebar-root').innerHTML = ReportSidebar(data)
+            // console.log(data);
+            document.querySelector('.sidebar-root').innerHTML = ReportSidebar(map, data)
         })
     }
 }

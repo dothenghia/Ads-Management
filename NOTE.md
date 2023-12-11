@@ -1,53 +1,77 @@
 API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
-- Viết lại những phương thức trong getAdLocationInfo.js /
-- Viết lại những phương thức trong getReportLocationInfo.js /
-- Đổi theme bản đồ khác (bỏ mấy cái trạm xe bus, ...)
-- Geocoding Report Card
-- Geocoding Search bar
-- Send Report + LocalStorage
+### ====== SEMINAR MAPBOX ======
+1. Hướng dẫn tạo tài khoản + Lấy Token
+2. Hướng init nhúng cái bản đồ dô file index.html
+3. Hướng dẫn tạo Marker bằng cách render layer từ data GeoJSON
+4. Hướng dẫn Clustering các marker 
+5. Nói về reverseGeocoding (Optional)
+6. Nói về Xử lí Hover, Click vào điểm marker
+
+Khoa : 1,3,4
+Nghĩa : 2,5,6
+=> Soạn cho mấy đứa mẫu giáo cũng đọc được lun
 
 
 ### ====== PHÂN CÔNG ======
 
 Nghĩa :
     Dân :
-    - Viết trong functions => fetch API thẳng từ FireBase
-    - Local Storage Lưu thông tin báo cáo đã gửi của ng dân
-    => Khi ng dân báo cáo thì sẽ lưu ID báo cáo lại
-    Khi bấm nút Danh sách BC thì sẽ fetch lại các thông tin theo của cái ID đã lưu
-
+        - Geocoding Search bar
+        - Send Report + LocalStorage (Hỏi xem send vào Collection nào ??)
+            => Gửi thăng rlên Collection 'reports'
+            => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý' & reportId đã gửi
+    Phường+Quận :
+        - Trang BanDo chưa làm xong
+            => Cần làm Sidebar
+            => Cần làm Nút danh sách báo cáo
+            => Bản đồ mở rộng giới hạn view (tạo layer viền khu vực đó - nếu rảnh)
 
 Khoa :
     Phường + Quận :
-    => Bản đồ mở rộng giới hạn view (tạo layer viền khu vực đó - nếu rảnh)
-    => Trang bando : Nút xem danh sách báo cáo + Sidebar khi click vào điểm QC
-    + Nhập thông tin cấp phép => Chọn Quận -> Phường -> Nhập đường
-    + Yêu cầu chỉnh sửa -> Là chỉnh sửa Quảng cáo (Tên, Kích thước, Hình)
-
-    + Xử lý báo cáo -> Có hình Cây bút , bấm dô hiện lên thông tin báo cáo và Có cáo ô để điền phương thức xử lý , Có thêm 2 nút là Từ chối và Gửi xử lí => Thay đổi cái tình trạng xử lý bên ngoài và mất đi hình cây bút
+        + Xử lý báo cáo -> Làm lại chỉn chu đẹp đẹp
+        - Trang Thông tin quảng cáo, Điều chỉnh, Báo cáo
+            => Fix bug Filter
+        - Trang Báo cáo :
+            => Địa chỉ, phường quận => reverseGeocoding
+            => Style lại (Phương thức xử lý bớt border-radius lại xíu)
+            Đổi cái Phương thức xử lý xún dưới + Thêm border phân ra
+        - Trang yêu cầu cấp phép :
+            => Style lại mấy ô input
+            => Vào collection 'adLocation' lọc ra danh sách các idQuan
+            Mỗi idQuan lọc ra danh sách idPhuong
+            VD :
+                quan_1 : [
+                    phuong_1,
+                    phuong_3,
+                ],
+                quan_5: [
+                    phuong_4: [
+                        duong: "Nguyễn Văn Cừ - An Dương Vương",
+                        duong: "Trần Phú - Trần Bình Trọng",
+                    ],
+                    phuong_6
+                ], ...
 
 Bảo :
-    => Sửa cái Dropdown trang Nhân sự (so) => Theo layout CRUD của cô
-    + Sửa lại UI thêm cái nút hình cây bút
-    Cán bộ chung :
-    + Tạo trang chỉnh sửa thông tin cá nhân (Bao gồm cả thông tin và Đổi password)
-    => Bổ sung route Quận vào file index.js ở root
-    + thongtinquangcao của Phường, Quận, Sở bỏ đi cột Số lượng + Kích thước 
-
     - thống nhất đặt id phường trong adlocation để chỉnh sửa trong getLocation
     - Delete h sẽ k dùng được, chỉ có hiệu ứng hiển thị modal
     - Chốt những kiểu dữ liệu được lưu tren firebase
     - accounts chuyển từ hashed pass -> pass
     - Edit khu vực bên nhân sự có thể geocoding reverse?
-    - Thêm avat lên firebase?
-    - Khi đăng nhập vào rồi thì xác định id của mình, thêm session chứa id của tài khoản đang đăng nhập
-
-    Xóa báo cáo, Xóa thêm yêu cầu, xóa edit yêu cầu
-
+    Sở :
+    - Thống kê
+    - Trang Cấp Phép, Điều Chỉnh -> Chỉ có Duyệt thoi
+    - Bỏ hết những cái nút Thêm (Trừ trang Nhân sự)
+    - Tạo thêm các nhân sự :
+        + 2 quận
+        + Mỗi quận thì 2 phường
 
 Hải :
-    + JWT
-    - Viết mẫu Database
-    - Viết mẫu mấy cái fetch API cho người dân (Tạo file example.js trong functions/dan)
-    - Phụ những phần khác
+    Cán bộ :
+    - Sort
+    - Check Đăng nhập cùng 1 tài khoản cùng lúc
+    Database :
+    - Collection 'reports' thêm 'solution' -> Phương thức xử lý
+    - Đổi lại hết những field 'time' thành dạng timestamp
+    - 

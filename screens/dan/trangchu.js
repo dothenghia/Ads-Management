@@ -25,7 +25,7 @@ const trangchu = {
     init: function () {
         this.map = new mapboxgl.Map({
             container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/light-v10', // style URL
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [mylongitude, mylatitude],
             accessToken: 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ',
             zoom: 16
@@ -81,7 +81,7 @@ const trangchu = {
             </div>
         `
 
-        ReportListButton()
+        ReportListButton(trangchu.map)
     },
 
 
