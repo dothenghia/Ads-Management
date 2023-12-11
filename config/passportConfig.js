@@ -103,27 +103,4 @@ passport.use(
   )
 );
 //https://www.passportjs.org/packages/passport-microsoft/
-passport.use(
-  new MicrosoftStrategy(
-    {
-      clientID: 'b2e27e9b-217c-4a4c-af51-a141250926c2',
-      //clientSecret: 'tB58Q~C-fjzIDSuNLHlxyvFDObIhnDGHdRvHVa_C',
-      callbackURL: 'http://localhost:3000/auth/microsoft/callback',
-    },
-    async (accessToken, refreshToken, profile, cb) => {
-      try {
-        console.log(profile);
-        const userSnapshot = await db.collection('accounts').where('microsoftEmail', '==', profile.emails[0].value).get();
-        if (userSnapshot.empty) {
-          return cb(null, false);
-        }
-
-        const user = userSnapshot.docs[0].data();
-        return cb(null, user);
-      } catch (error) {
-        return cb(error);
-      }
-    }
-  )
-);
 module.exports = { passport, generateToken };

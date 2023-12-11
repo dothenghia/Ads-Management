@@ -37,6 +37,9 @@ Bảo :
 
     - thống nhất đặt id phường trong adlocation để chỉnh sửa trong getLocation
     - Delete h sẽ k dùng được, chỉ có hiệu ứng hiển thị modal
+    - Chốt những kiểu dữ liệu được lưu tren firebase
+    - accounts chuyển từ hashed pass -> pass
+    - Edit khu vực bên nhân sự có thể geocoding reverse?
 
 
 Hải :

@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken');
 const jwtSecret = 'suffering';
 
-function checkAuthenticated(req, res, next) {
+async function checkAuthenticated(req, res, next) {
     const token = req.cookies.jwtToken;
-
+    
     if (!token) {
         return res.redirect('/login');
     }
 
     try {
-        const decoded = jwt.verify(token, jwtSecret);
+        const decoded = await jwt.verify(token, jwtSecret);
         req.user = decoded;
         const { accountType } = decoded;
 
@@ -18,8 +18,8 @@ function checkAuthenticated(req, res, next) {
         }
 
         // Ensure case sensitivity based on your requirements
-        const path = req.path.toLowerCase();
-
+        const path = req.originalUrl.toLowerCase();
+        console.log("path: " + path);
         switch (accountType) {
             case '1':
                 if (path.startsWith('/phuong')) {
@@ -40,9 +40,9 @@ function checkAuthenticated(req, res, next) {
                 break;
         }
 
-        return res.redirect('/login');
+        return res.redirect('/login?status=401');
     } catch (err) {
-        return res.redirect('/login');
+        return res.redirect('/login?status=500');
     }
 }
 

@@ -7,6 +7,8 @@
         <p class="login-screen-message disabled text-danger" id="LoiDangNhap">{{error}}</p>
 
         <form action="/login" class="login-form" id="loginForm" method="post">
+            
+
             <!-- Email input-->
             <label for="Email">Email</label>
             <input type="email" id="Email" name="username" placeholder="Nhập địa chỉ email" required>
@@ -19,6 +21,9 @@
                 <a href="/forgotPassword" type="button" id="forgetPassword">Quên
                     mật khẩu?</a>
             </div>
+            <!-- Remember me-->
+            {{!-- <label for="saveUsernameAndPassword">Lưu tài khoản và mật khẩu<label><br>
+            <input type="checkbox" id="saveUsernameAndPassword" name="rememberme" value="Bike"> --}}
 
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary custom-btn w-100">Đăng
@@ -37,9 +42,6 @@
             </a>
             <a href="/auth/facebook">
                 <img src="/img/icon/facebook.png" alt>
-            </a>
-            <a href="/auth/microsoft">
-                <img src="/img/icon/microsoft.png" alt>
             </a>
         </div>
 

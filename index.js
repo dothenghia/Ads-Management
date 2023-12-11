@@ -1,10 +1,9 @@
 const express = require('express'); //Khai báo các thứ cần thiết
 const expressHbs = require('express-handlebars');
 const passport = require('./config/passportConfig').passport;
-const checkAuthenticated = require('./routes/middleware/authenticateJWT');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
+const checkAuthenticated =  require("./controllers/middleware/authenticateJWT");
 const helpers = {
     // Chung
     "mathOps": require("./functions/canbo/mathOps"),
@@ -18,6 +17,7 @@ const helpers = {
     "translateAgentArea": require("./functions/so/translateAgentArea"),
     "getAgentRole": require("./functions/so/getAgentRole"),
     "isUdfNullBlank": require("./functions/so/isUdfNullBlank"), //? Đây là hàm để check null
+    "wrapInObject": require("./functions/so/wrapInObject"), //? Đây là hàm để wrap nhiều tham số thành 1 object
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
@@ -73,6 +73,7 @@ app.engine('hbs', expressHbs.engine({
         translateAgentArea: helpers.translateAgentArea.translateAgentArea,
         getAgentRole: helpers.getAgentRole.getAgentRole,
         isUdfNullBlank: helpers.isUdfNullBlank.isUdfNullBlank,
+        wrapInObject: helpers.wrapInObject.wrapInObject,
 
         // Phường
         getLocation: helpers.getAd.getLocation,
@@ -90,9 +91,9 @@ app.use('/login', require("./routes/general/loginRoute"));
 app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
 app.use('/OTPValidate', require("./routes/general/OTPValidateRoute"));
-app.use('/phuong', require("./routes/user/phuongRoute"));
-app.use('/quan', require("./routes/user/quanRoute"));
-app.use('/so', require("./routes/user/soRoute"));
+app.use('/phuong', checkAuthenticated, require("./routes/user/phuongRoute"));
+app.use('/quan', checkAuthenticated,require("./routes/user/quanRoute"));
+app.use('/so', checkAuthenticated, require("./routes/user/soRoute"));
 app.use('/logout', require("./routes/general/logoutRoute"));
 
 

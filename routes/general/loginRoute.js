@@ -11,8 +11,7 @@ router.get('/auth/google', controller.initiateGoogleSignIn);
 router.get('/auth/google/callback', controller.googleSignInCallback);
 router.get('/auth/facebook', controller.initiateFacebookSignIn);
 router.get('/auth/facebook/callback', controller.facebookSignInCallback);
-router.get('/auth/microsoft', controller.initiateMicrosoftSignIn);
-router.get('/auth/microsoft/callback', controller.microsoftSignInCallback);
+
 
 
 module.exports = router;
