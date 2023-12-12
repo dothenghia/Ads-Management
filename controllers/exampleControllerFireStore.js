@@ -80,28 +80,6 @@ app.get("/get/:id", async (req, res) => {
   }
 });
 
-
-//update
-// app.put("/update/:id", async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const userRef = db.collection("accounts").doc(id);
-//     //tương tự bên trên
-//     const updateData = {
-//       firstName: req.body.firstName,
-//       lastName: req.body.lastName,
-//       // Add other fields you want to update
-//     };
-
-//     await userRef.update(updateData);
-
-//     res.send("Document updated successfully");
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
-//update with document with know attributes
 app.put("/update/:id", async (req, res) => {
   try {
     const id = req.params.id;

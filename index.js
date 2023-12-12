@@ -1,6 +1,8 @@
 const express = require('express'); //Khai báo các thứ cần thiết
 const expressHbs = require('express-handlebars');
 const passport = require('./config/passportConfig').passport;
+const {connectToMongoDB,closeMongoDBConnection} = require('./config/mongodbConfig');
+const port = 3000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const checkAuthenticated =  require("./controllers/middleware/authenticateJWT");
@@ -98,6 +100,15 @@ app.use('/logout', require("./routes/general/logoutRoute"));
 
 
 // Start the server on port 3000
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+    connectToMongoDB();
+  });
+// Handle graceful shutdown (computer turned off by software function,)
+process.on('SIGINT', async () => {
+    console.log('Shutting down gracefully');
+    await closeMongoDBConnection();
+    process.exit(0);
 });
+  
