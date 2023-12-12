@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectId; // Import ObjectId from the MongoD
 const dbName = 'Ads-Management';
 
 'Bên mongoDB có 1 primary key là "_id", nó giống cái "id" mà mình xài ở firestore, do đó lúc tạo hay update thì kiểm tra = "_id"'
+'Date trong mongoDB có dạng: new Date("YYYY-mm-dd"), muốn đọc kĩ hơn thì vào: https://www.mongodb.com/docs/manual/reference/method/Date/'
 //Create with doc id
 app.post("/create", async (req, res) => {
   try {
