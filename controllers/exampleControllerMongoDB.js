@@ -4,6 +4,8 @@ const dbName = 'Ads-Management';
 
 'Bên mongoDB có 1 primary key là "_id", nó giống cái "id" mà mình xài ở firestore, do đó lúc tạo hay update thì kiểm tra = "_id"'
 'Date trong mongoDB có dạng: new Date("YYYY-mm-dd"), muốn đọc kĩ hơn thì vào: https://www.mongodb.com/docs/manual/reference/method/Date/'
+'Mọi cái ngày trong mongoDB tao đã chuyển qua dạng Date'
+'Trong cái collection của đứa nào mà ko xài field "id" để làm primary key thì vào collection trên mongoDB sửa, t convert từ firestore qua mongoDB thì chỉ chuyền từ "id" qua "_id" thôi'
 //Create with doc id
 app.post("/create", async (req, res) => {
   try {
