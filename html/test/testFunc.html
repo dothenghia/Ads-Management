@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Nested Selects Example</title>
+</head>
+
+<body>
+
+    <label for="country">Country:</label>
+    <select id="country">
+        <option value="usa">USA</option>
+        <option value="canada">Canada</option>
+    </select>
+
+    <label for="city">City:</label>
+    <select id="city" disabled>
+        <!-- Options will be populated dynamically using JavaScript -->
+    </select>
+
+    <script>
+        $(document).ready(function () {
+            // Map of cities for each country
+            var cities = {
+                usa: ["New York", "Los Angeles", "Chicago"],
+                canada: ["Toronto", "Vancouver", "Montreal"]
+            };
+
+            // Function to populate the city dropdown based on the selected country
+            function populateCities() {
+                var selectedCountry = $("#country").val();
+                var citySelect = $("#city");
+
+                // Clear existing options
+                citySelect.empty();
+
+                // Populate options based on the selected country
+                cities[selectedCountry].forEach(function (city) {
+                    citySelect.append("<option value='" + city + "'>" + city + "</option>");
+                });
+
+                // Enable the city dropdown
+                citySelect.prop("disabled", false);
+            }
+
+            // Event listener for the country dropdown change
+            $("#country").change(populateCities);
+
+            // Initial population of the city dropdown based on the default country
+            populateCities();
+        });
+    </script>
+
+</body>
+
+</html>
