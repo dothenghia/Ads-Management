@@ -1,0 +1,223 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        #drop-area.hover {
+            background-color: #f0f8ff; /* Light Blue */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId"
+        style="margin: 10px;">
+        Launch
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <form id="ReportForm">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
+                <div class="modal-content">
+                    <div class="modal-header d-flex flex-column">
+                        <div class="w-100 d-flex flex-row">
+                            <h5 class="modal-title w-100 fw-bold" id="modalTitleId">Đơn Phản hồi thông tin</h5>
+                            <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="container-fluid">
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="w-33 d-flex flex-column" style="min-width: 50%;">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Hình thức báo cáo <span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select class="form-select" id="inputGroupSelect01" name="HinhThuc">
+                                            <option selected>Hình thức báo cáo</option>
+                                            <option value="1">Tố giác sai phạm</option>
+                                            <option value="2">Đăng ký nội dung</option>
+                                            <option value="3">Đóng góp ý kiến</option>
+                                            <option value="4">Giải đáp thắc mắc</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="w-33 d-flex flex-column " style="min-width: 50%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Họ và Tên <span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="text" class="form-control" placeholder="Nhập Họ và Tên" aria-label="Username" name="UserName">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="w-33 d-flex flex-column" style="min-width: 50%;">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Email <span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 15%;">
+                                        <input type="text" class="form-control" placeholder="Nhập Địa Chỉ Email" aria-label="Email" name="Email">
+                                    </div>
+                                </div>
+
+                                <div class="w-33 d-flex flex-column " style="min-width: 50%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Số điện thoại <span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="text" class="form-control" placeholder="Nhập Số Điện Thoại" aria-label="PhoneNum" name="PhoneNum">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-33 d-flex flex-column w-100">
+                                <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Nội dung báo cáo <span class="text-danger">*</span></p>
+                                <div class="input-group mb-3">
+                                    <textarea class="form-control" placeholder="Nhập Nội Dung Báo Cáo" aria-label="ReportContent" style="min-height: 100px;" name="ReportContent"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 d-flex flex-column justify-content-center align-items-center" id="drop-area">
+                                <p class=" fs-6 fw-semibold m-0">
+                                    Drag & Drop files here or 
+                                    <span class="text-primary text-decoration-underline" 
+                                        id="click-span" style="cursor: pointer;">
+                                        click
+                                    </span> 
+                                    to select
+                                </p>
+                                <input type="file" id="fileInput" class="d-none" name="FileInput" multiple >
+                                <div class="w-100">
+                                    <ul id="file-list" class="d-none"></ul>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-outline-primary text-start" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                                </svg>    
+                                Gửi phản hồi
+                            </button>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#ReportForm').submit(function (e) {
+                e.preventDefault(); // prevent the default form submission
+    
+                // Create a FormData object to store form data, including files
+                var formData = new FormData(this);
+    
+                // Handle the dropped files
+                var files = document.getElementById('fileInput').files;
+                for (var i = 0; i < files.length; i++) {
+                    formData.append('files[]', files[i]); // append each file to the FormData
+                }
+    
+                // For example, you can use AJAX to submit the form data with files
+                $.ajax({
+                    type: 'POST',
+                    url: 'your-submit-url.php', // replace with your actual backend endpoint
+                    data: formData,
+                    contentType: false, // Don't set content type when sending FormData
+                    processData: false, // Don't process the data (let FormData handle it)
+                    success: function (response) {
+                        // Handle the success response
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        // Handle the error response
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+    
+
+    <script>
+        var fileStorage = [];
+        // JavaScript for handling drag-and-drop functionality
+        document.getElementById('drop-area').addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.classList.add('hover');
+        });
+    
+        document.getElementById('drop-area').addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+        });
+    
+        document.getElementById('drop-area').addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+    
+            var files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+    
+        // Handling file input change
+        document.getElementById('fileInput').addEventListener('change', function () {
+            var files = this.files;
+            handleFiles(files);
+        });
+
+        // Additional handling for clicking the drop area to trigger file input
+        document.getElementById('click-span').addEventListener('click', function () {
+            document.getElementById('fileInput').click();
+        });
+    
+        function handleFiles(files) {
+            var fileList = document.getElementById('file-list');
+            fileList.classList.remove('d-none');
+    
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = document.createElement('li');
+                listItem.className = 'file-item';
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+
+                fileStorage.push(file);
+            }
+            console.log(fileStorage);
+        }
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+    <script src="./test.js"></script>
+</body>
+
+</html>

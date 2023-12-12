@@ -1,7 +1,7 @@
 
 import ReportCard from "../card/ReportCard.js"
 
-export default function ReportSidebar(reportData) {
+export default function ReportSidebar(map, reportData) {
 
     const qcReports = reportData.filter(report => report.reportType === 'qc');
     const ddReports = reportData.filter(report => report.reportType === 'ddqc' || report.reportType === 'ddbk');
@@ -59,11 +59,11 @@ export default function ReportSidebar(reportData) {
                 </div>
                 
                 <div class="report-sidebar__content" data-type="qc">
-                    ${qcReports.map(rp => ReportCard(rp)).join('')}
+                    ${qcReports.map(rp => ReportCard(map, rp)).join('')}
                 </div>
                 
                 <div class="report-sidebar__content" data-type="dd" style="display: none;">
-                    ${ddReports.map(rp => ReportCard(rp)).join('')}
+                    ${ddReports.map(rp => ReportCard(map, rp)).join('')}
                 </div>
 
             </div>

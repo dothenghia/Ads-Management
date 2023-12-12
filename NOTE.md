@@ -1,49 +1,114 @@
-API Key : AIzaSyDorTHtdzjlwow2eDY0l3hsLQa-GjDgAns
 
-- Viết lại những phương thức trong getAdLocationInfo.js /
-- Viết lại những phương thức trong getReportLocationInfo.js /
-- Đổi theme bản đồ khác (bỏ mấy cái trạm xe bus, ...)
-- Geocoding Report Card
-- Geocoding Search bar
-- Send Report + LocalStorage
+### ====== SEMINAR MAPBOX ======
+0. Giới thiệu mở đầu
+1. Hướng dẫn tạo tài khoản + Lấy Token
+2. Hướng init nhúng cái bản đồ dô file index.html
+3. Hướng dẫn tạo Marker bằng cách render layer từ data GeoJSON
+4. Hướng dẫn Clustering các marker 
+5. Nói về Xử lí Hover, Click vào điểm marker
+6. Nói về reverseGeocoding
+
+Khoa : 1,3,4
+Nghĩa : 0,2,5,6
+=> Soạn cho mấy đứa mẫu giáo cũng đọc được lun
+
+
+### ====== [GẤP] ĐỔI DATABASE VỀ MONGODB ======
+1. Những phần có thể giữ nguyên bên Firebase :
+- Authentication
+- Storage
+- 
+
+2. Những phần sẽ chuyển sang Mongo :
+- FireStore -> MongoDB
+    + Có cách Export/Import mấy cái collection 'ads', 'adLocations', 'reports'... (Khoa)
+
+- Convert Code các hàm chức năng
+    + Chỉ đơn giản là thay đổi Cú pháp của Firebase thành cú pháp của Mongo (Nhờ ChatGPT hỗ trợ)
+
+3. PHÂN CÔNG :
+Hải : `GẤP PHẢI XONG TRONG HÔM NAY -> ĐỂ MẤY ĐỨA KIA MỚI CÓ THỂ LÀM TASK TỤI NÓ`
+- Setup MongoDB cho project (Tạo Database MongoDB)
+- Tạo các file example cho Cán bộ và Người dân (Liên kết Mongo dô lấy và ghi dữ liệu mẫu thử y chang lần trước)
+- Collection 'reports' thêm 'solution' -> là dạng string lưu Phương thức xử lý
+- Đổi lại hết những field 'time' thành dạng timestamp/date gì đó
+
+`TRONG LÚC CHỜ HẢI -> LÀM NHỮNG CÁI TASK KO DÍNH TỚI DATABASE: UI, STYLE, XỬ LÝ BUG, KỊCH BẢN SEMINAR`
+Nghĩa :
+- Chuyển đổi hàm chức năng sang cú pháp của MongoDB cho Người Dân
+
+Khoa :
+- Chuyển đổi hàm chức năng sang cú pháp của MongoDB cho Phường + Quận
+
+Bảo :
+- Chuyển đổi hàm chức năng sang cú pháp của MongoDB cho Sở
+
+CÁI NÀY ĐANG GẤP NHẤT -> NÊN LÀ BỎ HẾT NHỮNG CÁI ĐANG LÀM -> CHUYỂN SANG LÀM NÓ TRƯỚC NHE
+LÀM XONG HẾT THÌ MỚI TIẾP TỤC NHỮNG CÁI KIA NHA
+
 
 
 ### ====== PHÂN CÔNG ======
 
 Nghĩa :
     Dân :
-    - Viết trong functions => fetch API thẳng từ FireBase
-    - Local Storage Lưu thông tin báo cáo đã gửi của ng dân
-    => Khi ng dân báo cáo thì sẽ lưu ID báo cáo lại
-    Khi bấm nút Danh sách BC thì sẽ fetch lại các thông tin theo của cái ID đã lưu
-
+        - Geocoding Search bar
+        - Send Report + LocalStorage (Hỏi xem send vào Collection nào ??)
+            => Gửi thăng rlên Collection 'reports'
+            => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý' & reportId đã gửi
+        - Captcha Box
+    Phường+Quận :
+        - Trang BanDo chưa làm xong
+            => Cần làm Sidebar
+            => Cần làm Nút danh sách báo cáo
+            => Bản đồ mở rộng giới hạn view (tạo layer viền khu vực đó - nếu rảnh)
+        - Guide Marker (Optional)
 
 Khoa :
     Phường + Quận :
-    => Bản đồ mở rộng giới hạn view (tạo layer viền khu vực đó - nếu rảnh)
-    => Trang bando : Nút xem danh sách báo cáo + Sidebar khi click vào điểm QC
-    + Nhập thông tin cấp phép => Chọn Quận -> Phường -> Nhập đường
-    + Yêu cầu chỉnh sửa -> Là chỉnh sửa Quảng cáo (Tên, Kích thước, Hình)
-
-    + Xử lý báo cáo -> Có hình Cây bút , bấm dô hiện lên thông tin báo cáo và Có cáo ô để điền phương thức xử lý , Có thêm 2 nút là Từ chối và Gửi xử lí => Thay đổi cái tình trạng xử lý bên ngoài và mất đi hình cây bút
+        + Xử lý báo cáo -> Làm lại chỉn chu đẹp đẹp
+        - Trang Thông tin quảng cáo, Điều chỉnh, Báo cáo
+            => Fix bug Filter
+        - Trang Báo cáo :
+            => Địa chỉ, phường quận => reverseGeocoding
+            => Style lại (Phương thức xử lý bớt border-radius lại xíu)
+            Đổi cái Phương thức xử lý xún dưới + Thêm border phân ra
+        - Trang yêu cầu cấp phép :
+            => Style lại mấy ô input
+            => Vào collection 'adLocation' lọc ra danh sách các idQuan
+            Mỗi idQuan lọc ra danh sách idPhuong
+            VD :
+                quan_1 : [
+                    phuong_1,
+                    phuong_3,
+                ],
+                quan_5: [
+                    phuong_4: [
+                        duong: "Nguyễn Văn Cừ - An Dương Vương",
+                        duong: "Trần Phú - Trần Bình Trọng",
+                    ],
+                    phuong_6
+                ], ...
 
 Bảo :
-    => Sửa cái Dropdown trang Nhân sự (so) => Theo layout CRUD của cô
-    + Sửa lại UI thêm cái nút hình cây bút
-    Cán bộ chung :
-    + Tạo trang chỉnh sửa thông tin cá nhân (Bao gồm cả thông tin và Đổi password)
-    => Bổ sung route Quận vào file index.js ở root
-    + thongtinquangcao của Phường, Quận, Sở bỏ đi cột Số lượng + Kích thước 
-
     - thống nhất đặt id phường trong adlocation để chỉnh sửa trong getLocation
     - Delete h sẽ k dùng được, chỉ có hiệu ứng hiển thị modal
     - Chốt những kiểu dữ liệu được lưu tren firebase
     - accounts chuyển từ hashed pass -> pass
     - Edit khu vực bên nhân sự có thể geocoding reverse?
-
+    Sở :
+    - Thống kê
+    - Trang Cấp Phép, Điều Chỉnh -> Chỉ có Duyệt thoi
+    - Bỏ hết những cái nút Thêm (Trừ trang Nhân sự)
+    - Tạo thêm các nhân sự :
+        + 2 quận
+        + Mỗi quận thì 2 phường
 
 Hải :
-    + JWT
-    - Viết mẫu Database
-    - Viết mẫu mấy cái fetch API cho người dân (Tạo file example.js trong functions/dan)
-    - Phụ những phần khác
+    Cán bộ :
+    - Sort
+    - Check Đăng nhập cùng 1 tài khoản cùng lúc
+    Database :
+    - Collection 'reports' thêm 'solution' -> Phương thức xử lý
+    - Đổi lại hết những field 'time' thành dạng timestamp
+    - 

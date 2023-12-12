@@ -6,7 +6,7 @@ function wrapInObject(...params) {
     for (let i = 0; i < params.length - 1; i++) {
         obj[`param_${i + 1}`] = params[i];
     }
-
+    
     return obj;
 }
 

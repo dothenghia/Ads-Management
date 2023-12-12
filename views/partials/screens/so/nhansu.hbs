@@ -61,7 +61,7 @@
                     <td scope="col">{{isUdfNullBlank username}}</td>
                     <td scope="col">{{isUdfNullBlank password}}</td>
                     <td scope="col">
-                        <button class="edit-button" data-id="{{id}}" data-name="{{name}}" data-phone="{{phone}}" data-role="{{role}}" data-area="{{wrapInObject quan_id phuong_id}}" data-user-name="{{username}}" data-password="{{password}}" data-account-role="so" data-page="nhansu">
+                        <button class="edit-button" data-id="{{id}}" data-name="{{name}}" data-phone="{{phone}}" data-role="{{role}}" data-area="{{quan_id}}-{{phuong_id}}" data-user-name="{{username}}" data-password="{{password}}" data-account-role="so" data-page="nhansu">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="feather feather-edit">
@@ -162,6 +162,29 @@
                                 <label for="areaEdit" class="form-label">Khu Vực</label>
                                 <input type="text" id="areaEdit" name="area" class="form-control"
                                     placeholder="Quận 1" />
+                                <select id="quanID" name="quanID" class="rounded-3 form-select" hidden>
+                                    <option value="1">Quận 1</option>
+                                    <option value="2">Quận 2</option>
+                                    {{!-- <option value="3">Quận 3</option>
+                                    <option value="4">Quận 4</option>
+                                    <option value="5">Quận 5</option>
+                                    <option value="6">Quận 6</option>
+                                    <option value="7">Quận 7</option>
+                                    <option value="8">Quận 8</option>
+                                    <option value="9">Quận 9</option>
+                                    <option value="10">Quận 10</option>
+                                    <option value="11">Quận 11</option>
+                                    <option value="12">Quận 12</option>
+                                    <option value="13">Quận Bình Tân</option>
+                                    <option value="14">Quận Bình Thạnh</option>
+                                    <option value="15">Quận Gò Vấp</option>
+                                    <option value="16">Quận Phú Nhuận</option>
+                                    <option value="17">Quận Tân Bình</option>
+                                    <option value="18">Quận Tân Phú</option> --}}
+                                </select>
+                                <select id="phuongID" name="phuongID" class="rounded-3 form-select" hidden disabled>
+                                    
+                                </select>
                             </div>
                         </div>
                         <div class="text-center badge bg-label-danger" id="errorMessage"></div>

@@ -110,6 +110,8 @@
     border: none;
     border-radius: 8px;
     color: var(--primary-color);
+    text-decoration: none;
+
 }
 .navbar-item:hover {
     background-color: var(--primary-color-light);
