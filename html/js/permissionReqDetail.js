@@ -80,12 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
 // Filter functions
 const filters = (new URL(window.location.href)).searchParams;
 
-function coFilter(coId) {
+function coFilter() {
+    let coId = document.querySelector("#coFilter").value
     if (coId != "all")
         filters.set("coId", coId);
     else
         filters.delete("coId");
-    window.location.href = "?" + filters.toString();
+    console.log("fdsafsd");
+
+    return false;
 }
 
 function statusFilter(statusId) {

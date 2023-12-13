@@ -22,8 +22,8 @@
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">
-                        <select id="coFilter" name="">
-                            <option value="all" onclick="coFilter('all')">Công ty</option>
+                        <select id="coFilter" name="" onchange="coFilter()">
+                            <option value="all">Công ty</option>
                             {{#each company}}
                                 <option value="{{name}}" onclick="coFilter('{{name}}')">{{name}}</option>
                             {{/each}}

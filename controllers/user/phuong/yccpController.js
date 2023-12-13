@@ -1,26 +1,25 @@
 const controller = {}
 const currentPage = 4;
 
+// Firebase
 const admin = require("../../../config/firebaseAdmin");
-//https://firebase.google.com/docs/firestore/manage-data/add-data
-const db = admin.firestore();
+// MongoDB
+const {client}  = require("../../../config/mongodbConfig");
+const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
     try {
         // Get latest snapshot of requested Firebase collections
-        const permissionReqRef = db.collection("permissionReqs");
-        const permissionReqSnapshot = await permissionReqRef.get();
-        const adRef = db.collection("ads");
-        const adSnapshot = await adRef.get();
-        const adLocationRef = db.collection("adLocations");
-        const adLocationSnapshot = await adLocationRef.get();
+        const permissionReqSnapshot = await client.db(dbName).collection("permissionReqs").find({}).toArray();
+        const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
+        const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
         
         // Extract data from retrieved snapshots
         let Company = []; let Status = [];
         let companyId = []; let statusId = [];
         let PermissionReq = [];
         permissionReqSnapshot.forEach((doc) => {
-            let data = doc.data();
+            let data = doc;
 
             if (!companyId.includes(data.co.name)) {
                 companyId.push(data.co.name);
@@ -36,11 +35,11 @@ controller.show = async (req, res) => {
         });
         let Ad = [];
         adSnapshot.forEach((doc) => {
-            Ad.push(doc.data());
+            Ad.push(doc);
         });
         let AdLocation = [];
         adLocationSnapshot.forEach((doc) => {
-            AdLocation.push(doc.data());
+            AdLocation.push(doc);
         });
 
         // Filters
@@ -69,18 +68,15 @@ controller.show = async (req, res) => {
 }
 
 controller.deletePermissionReq = async (req, res) => {
-    let id = req.params.id;
-
-    // Initialize an array to store promises for each update operation
-    const deletePromises = [];
-    const permissionReqRef = await db.collection("permissionReqs").where("permissionReqId", "==", parseInt(id)).get();
-    permissionReqRef.forEach((doc) => {
-        deletePromises.push(doc.ref.delete());
-    })
-    
     try {
-        // Wait for all delete operations to complete
-        await Promise.all(deletePromises);
+        let id = req.params.id;
+
+        const result = await client.db(dbName).collection("permissionReqs").findOneAndDelete({permissionReqId: parseInt(id)});
+
+        // Check if the document was found and deleted
+        if (result == null) {
+            return res.status(404).send("Document not found");
+        }
     
         res.send("Change accepted!");
     }
@@ -90,9 +86,8 @@ controller.deletePermissionReq = async (req, res) => {
 }
 
 controller.createPermissionReq = async (req, res) => {
-    const permissionReqRef = db.collection("permissionReqs");
-    const permissionReqSnapshot = await permissionReqRef.get();
-    let permissionReqCnt = permissionReqSnapshot.size;
+    const permissionReqSnapshot = client.db(dbName).collection("permissionReqs");
+    let permissionReqHighest = (await permissionReqSnapshot.find({}).sort({permissionReqId:-1}).limit(1).toArray())[0].permissionReqId
 
     let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
     let i = 0;
@@ -109,15 +104,16 @@ controller.createPermissionReq = async (req, res) => {
             enddate: null,
             locationId: null,
             name: req.body.newPermissionReqAdName,
-            permissionReqId: permissionReqCnt + 1,
+            permissionReqId: permissionReqHighest + 1,
             size: req.body.newPermissionReqSize,
             startdate: null,
             status: 0,
             thumbnails: thumbnails
         }
     
-        await permissionReqRef.add(newData);
-        res.redirect("/phuong/yeucaucapphep")
+        const result = await permissionReqSnapshot.insertOne(newData); //upsert = update and insert
+        if (result.insertedId != null)
+            res.redirect("/phuong/yeucaucapphep");
     }
 
     try {
@@ -132,7 +128,7 @@ controller.createPermissionReq = async (req, res) => {
             else
                 extension = "jpg";
             // Upload the thumbnails to storage
-            let temp = bucket.file("yeucaucapphep/" + (permissionReqCnt + 1) + "/thumbnail" + i + "." + extension);
+            let temp = bucket.file("yeucaucapphep/" + (permissionReqHighest + 1) + "/thumbnail" + i + "." + extension);
             await temp.save(file.buffer, {contentType: file.mimetype});
             
             let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});

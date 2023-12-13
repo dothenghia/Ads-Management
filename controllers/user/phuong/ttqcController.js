@@ -2,27 +2,23 @@ const controller = {}
 
 const currentPage = 1;
 
-const admin = require("../../../config/firebaseAdmin");
-//https://firebase.google.com/docs/firestore/manage-data/add-data
-const db = admin.firestore();
+const {client}  = require("../../../config/mongodbConfig");
+const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
-    // Get latest snapshot of requested Firebase collections
-    const adRef = db.collection("ads");
-    const adSnapshot = await adRef.get();
-    const adLocationRef = db.collection("adLocations");
-    const adLocationSnapshot = await adLocationRef.get();
+    const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
+    const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
     
     // Extract data from retrieved snapshots
     let Ad = [];
     adSnapshot.forEach((doc) => {
-        Ad.push(doc.data());
+        Ad.push(doc);
     });
     let AdType = []; let AdForm = []; let LocationType = [];
     let adTypeId = []; let adFormId = []; let locationTypeId = [];
     let AdLocation = [];
     adLocationSnapshot.forEach((doc) => {
-        let data = doc.data();
+        let data = doc;
 
         if (!locationTypeId.includes(data.locationType)) {
             locationTypeId.push(data.locationType);
