@@ -72,4 +72,36 @@ controller.show = async (req, res) => {
     }
 }
 
+controller.acceptChange = async (req, res) => {
+    try {
+        let { id, solution } = req.body;
+
+        const result = await client.db(dbName).collection("reports").findOneAndUpdate(
+            {reportId: parseInt(id)}, 
+            { $set: {status: "Đã xử lý", solution: solution} }
+        );
+
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
+}
+
+controller.denyChange = async (req, res) => {
+    try {
+        let { id, solution } = req.body;
+
+        const result = await client.db(dbName).collection("reports").findOneAndUpdate(
+            {reportId: parseInt(id)}, 
+            { $set: {status: "Từ chối", solution: solution} }
+        );
+    
+        res.send("Change denied!");
+    }
+    catch (error) {
+        res.send("Change denial error!");
+    }
+}
+
 module.exports = controller;
