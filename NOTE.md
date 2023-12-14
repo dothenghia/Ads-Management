@@ -15,9 +15,7 @@ Nghĩa : 0,2,5,6
 
 ### ====== [GẤP] ĐỔI DATABASE VỀ MONGODB ======
 1. Những phần có thể giữ nguyên bên Firebase :
-- Authentication
 - Storage
-- 
 
 2. Những phần sẽ chuyển sang Mongo :
 - FireStore -> MongoDB
