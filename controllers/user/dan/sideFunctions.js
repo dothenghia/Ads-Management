@@ -105,9 +105,89 @@ async function getAdInfo(adId) {
     }
 }
 
+
+async function qcReportInfo(locationId, adId) {
+    try {
+        const db = client.db(dbName);
+        const adLocationsCollection = db.collection('adLocations');
+        const adsCollection = db.collection('ads');
+
+        const adLocationQuery = { locationId: locationId };
+        const adLocationData = await adLocationsCollection.findOne(adLocationQuery);
+
+        if (!adLocationData) {
+            console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locationId);
+            return null;
+        }
+
+        const adQuery = { adId: adId };
+        const adData = await adsCollection.findOne(adQuery);
+
+        if (!adData) {
+            console.log("Không tìm thấy ad với adId:", adId);
+            return null;
+        }
+
+        const { phuong, quan } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
+
+        return {
+            name: adData.name,
+            address: adLocationData.address,
+            phuong: phuong,
+            quan: quan,
+        };
+    }
+    catch (error) {
+        console.error("Error getting QC report information:", error);
+        return null;
+    }
+}
+
+async function ddqcReportInfo(locationId) {
+    try {
+        const db = client.db(dbName);
+        const adLocationsCollection = db.collection('adLocations');
+
+        const adLocationQuery = { locationId: locationId };
+        const adLocationData = await adLocationsCollection.findOne(adLocationQuery);
+
+        if (!adLocationData) {
+            console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locationId);
+            return null;
+        }
+
+        const { phuong, quan } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
+
+        return {
+            name: 'Chi tiết báo cáo địa điểm',
+            address: adLocationData.address,
+            phuong: phuong,
+            quan: quan,
+        };
+    }
+    catch (error) {
+        console.error("Error getting DDQC report information:", error);
+        return null;
+    }
+}
+
+async function ddbkReportInfo(longitude, latitude) {
+    const reverseLocation = await reverseGeocoding(longitude, latitude);
+
+    return {
+        name: 'Chi tiết báo cáo địa điểm',
+        address: reverseLocation.name,
+        phuong: reverseLocation.phuong,
+        quan: reverseLocation.quan,
+    }
+}
+
 module.exports = {
     convertAdToGeoJSON,
     convertReportToGeoJSON,
     getReportStatus,
-    getAdInfo
+    getAdInfo,
+    qcReportInfo,
+    ddqcReportInfo,
+    ddbkReportInfo
 }

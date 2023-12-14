@@ -2,7 +2,7 @@
 const { client } = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 
-const { convertAdToGeoJSON, convertReportToGeoJSON, getReportStatus, getAdInfo } = require('./sideFunctions.js')
+const { convertAdToGeoJSON, convertReportToGeoJSON, getReportStatus, getAdInfo, qcReportInfo, ddqcReportInfo, ddbkReportInfo } = require('./sideFunctions.js')
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
 
@@ -170,7 +170,7 @@ controller.getAdInfoById = async (req, res) => {
         };
 
         return res.status(200).json(result);
-    } 
+    }
     catch (error) {
         console.error("Error getting ad information by Id:", error);
         return res.status(500).json({ error: "Lỗi khi lấy thông tin quảng cáo." });
@@ -178,9 +178,64 @@ controller.getAdInfoById = async (req, res) => {
 }
 
 controller.getReportInfoById = async (req, res) => {
-    res.json({
-        message: "getReportInfoById 🐭"
-    })
+    const rpId = parseInt(req.params.rpId);
+
+    try {
+        const db = client.db(dbName);
+        const reportsCollection = db.collection('reports');
+        const reportQuery = { reportId: rpId };
+        const reportDocs = await reportsCollection.findOne(reportQuery);
+
+        if (!reportDocs) {
+            console.log("Không tìm thấy report với reportId:", rpId);
+            return res.status(404).json({ message: "Report not found" });
+        }
+
+        const reportData = reportDocs;
+
+        // Nếu là báo cáo về QUẢNG CÁO
+        if (reportData.reportType == 'qc') {
+            const { name, address, phuong, quan } = await qcReportInfo(reportData.locationId, reportData.adId);
+
+            return res.json({
+                ...reportData,
+                name,
+                address,
+                phuong,
+                quan,
+            });
+        }
+        // Nếu là báo cáo về ĐỊA ĐIỂM QUẢNG CÁO
+        else if (reportData.reportType == 'ddqc') {
+            const { name, address, phuong, quan } = await ddqcReportInfo(reportData.locationId);
+
+            return res.json({
+                ...reportData,
+                name,
+                address,
+                phuong,
+                quan,
+            });
+        }
+        // Nếu là báo cáo về ĐỊA ĐIỂM BẤT KỲ
+        else if (reportData.reportType == 'ddbk') {
+            const { name, address, phuong, quan } = await ddbkReportInfo(reportData.longitude, reportData.latitude);
+
+            return res.json({
+                ...reportData,
+                name,
+                address,
+                phuong,
+                quan,
+            });
+        }
+
+        return res.json(reportData);
+    } 
+    catch (error) {
+        console.error("Error getting report information:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
 }
 
 controller.getReportLength = async (req, res) => {
