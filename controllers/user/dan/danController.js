@@ -11,6 +11,7 @@ const { convertAdToGeoJSON,
     ddbkReportInfo } = require('./sideFunctions.js')
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
+const formatDate = require('./formatDate.js')
 
 const controller = {}
 
@@ -105,6 +106,8 @@ controller.getAdLocationInfoById = async (req, res) => {
             // Sử dụng Promise.all để thực hiện nhiều truy vấn cùng một lúc
             const adListPromises = adLocationData.adList.map(async (ad, i) => {
                 adLocationData.adList[i] = await getAdInfo(ad.adId);
+                adLocationData.adList[i].contractStartDate = formatDate(adLocationData.adList[i].contractStartDate);
+                adLocationData.adList[i].contractEndDate = formatDate(adLocationData.adList[i].contractEndDate);
                 adLocationData.adList[i].adStatus = "";
                 if (adLocationData.adList[i].reportId != "") {
                     adLocationData.numberOfReports++;
@@ -167,8 +170,8 @@ controller.getAdInfoById = async (req, res) => {
             adType: adLocationData.adType,
             adForm: adLocationData.adForm,
             locationType: adLocationData.locationType,
-            contractStartDate: adData.contractStartDate,
-            contractEndDate: adData.contractEndDate,
+            contractStartDate: formatDate(adData.contractStartDate),
+            contractEndDate: formatDate(adData.contractEndDate),
             size: adData.size,
             thumbnails: adData.thumbnails,
             adStatus: adData.adStatus || "",
@@ -205,6 +208,7 @@ controller.getReportInfoById = async (req, res) => {
 
             return res.json({
                 ...reportData,
+                time: formatDate(reportData.time),
                 name,
                 address,
                 phuong,
@@ -217,6 +221,7 @@ controller.getReportInfoById = async (req, res) => {
 
             return res.json({
                 ...reportData,
+                time: formatDate(reportData.time),
                 name,
                 address,
                 phuong,
@@ -229,6 +234,7 @@ controller.getReportInfoById = async (req, res) => {
 
             return res.json({
                 ...reportData,
+                time: formatDate(reportData.time),
                 name,
                 address,
                 phuong,
@@ -271,16 +277,19 @@ controller.getReportList = async (req, res) => {
             if (reportData.reportType === 'qc') {
                 return {
                     ...reportData,
+                    time: formatDate(reportData.time),
                     ...(await qcReportInfo(reportData.locationId, reportData.adId)),
                 };
             } else if (reportData.reportType === 'ddqc') {
                 return {
                     ...reportData,
+                    time: formatDate(reportData.time),
                     ...(await ddqcReportInfo(reportData.locationId)),
                 };
             } else if (reportData.reportType === 'ddbk') {
                 return {
                     ...reportData,
+                    time: formatDate(reportData.time),
                     ...(await ddbkReportInfo(reportData.longitude, reportData.latitude)),
                 };
             }
