@@ -1,6 +1,103 @@
-
 document.querySelectorAll(".edit-button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
+
+        // Pre-define Phuong
+        var phuong = {
+            "1": [
+                {
+                    id: "4",
+                    name: "Phường 4"
+                },
+                {
+                    id: "bennghe",
+                    name: "Bến Nghé"
+                },
+                {
+                    id: "benthanh",
+                    name: "Bến Thành"
+                },
+                {
+                    id: "cogiang",
+                    name: "Cô Giang"
+                },
+                {
+                    id: "caukho",
+                    name: "Cầu Kho"
+                },
+                {
+                    id: "cauonglanh",
+                    name: "Cầu Ông Lãnh"
+                },
+                {
+                    id: "daKao",
+                    name: "Đa Kao"
+                },
+                {
+                    id: "nguyenthaibinh",
+                    name: "Nguyễn Thái Bình"
+                },
+                {
+                    id: "nguyenthaichin",
+                    name: "Nguyễn Thái Bình"
+                },
+                {
+                    id: "phamngulao",
+                    name: "Phạm Ngũ Lão"
+                },
+                {
+                    id: "tanDinh",
+                    name: "Tân Định"
+                }
+            ],
+            "2": [
+                {
+                    id: 'ankhanh',
+                    name: 'An Khánh'
+                },
+                {
+                    id: 'anloiDong',
+                    name: 'An Lợi Đông'
+                },
+                {
+                    id: 'anphu',
+                    name: 'An Phú'
+                },
+                {
+                    id: 'binhan',
+                    name: 'Bình An'
+                },
+                {
+                    id: 'binhKhanh',
+                    name: 'Bình Khánh'
+                },
+                {
+                    id: 'binhTrungDong',
+                    name: 'Bình Trưng Đông'
+                },
+                {
+                    id: 'binhTrungTay',
+                    name: 'Bình Trưng Tây'
+                },
+                {
+                    id: 'catlai',
+                    name: 'Cát Lái'
+                },
+                {
+                    id: 'thaodien',
+                    name: 'Thảo Điền'
+                },
+                {
+                    id: 'thanhMyLoi',
+                    name: 'Thạnh Mỹ Lợi'
+                },
+                {
+                    id: 'thuthiem',
+                    name: 'Thủ Thiêm'
+                }
+            ],
+        }
+
+        // Page, account role
         let page = btn.dataset.page;
         let accountRole = btn.dataset.accountRole;
 
@@ -13,14 +110,19 @@ document.querySelectorAll(".edit-button").forEach((btn) => {
         let accUsername = btn.dataset.userName;
         let accPassword = btn.dataset.password;
 
-        var areaDetail = accArea.split("-"); 
+        var areaDetail = accArea.split("-");
         // Admin account
         document.getElementById("id").value = accId;
         document.getElementById("hotenEdit").value = accName;
         document.getElementById("phoneEdit").value = accPhone;
         document.getElementById("roleEdit").value = accRole;
-        document.getElementById("areaEdit").value = translateArea(areaDetail[0], areaDetail[1]);
-        document.getElementById("quanID").value = areaDetail[0];
+        document.getElementById("areaEdit").value = "Sở Văn hóa và Thể thao TP.HCM";
+        document.getElementById("quanID").value = areaDetail[0] ? areaDetail[0] : "1";
+        if (phuong[areaDetail[0]] != null) { // Append options for ph
+            phuong[areaDetail[0]].forEach(function (phuong) {
+                $("#phuongID").append($('<option></option>').attr('value', phuong.id).text(phuong.name));
+            });
+        }
         document.getElementById("phuongID").value = areaDetail[1];
         document.getElementById("usernameEdit").value = accUsername;
         document.getElementById("passwordEdit").value = accPassword;
@@ -28,109 +130,32 @@ document.querySelectorAll(".edit-button").forEach((btn) => {
         const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
         modal.show();
 
+        // Make sure the dropdown options are hidden when the modal is closed
+        if (accRole == "3") {
+            $("#areaEdit").prop("hidden", false);
+            resetQuanandPhuong();
+        } else if (accRole == "2") {
+            $("#areaEdit").prop("hidden", true);
+            $("#quanID").prop("hidden", false);
+            resetPhuong();
+        } else {
+            $("#areaEdit").prop("hidden", true);
+            $("#quanID").prop("hidden", false);
+            $("#phuongID").prop("hidden", false);
+        }
+
+        // Listen to the change event of the role dropdown
         document.getElementById("roleEdit").addEventListener("change", (e) => {
             let SelectedRole = document.getElementById("roleEdit").value;
-            
-            console.log(SelectedRole);
-            if (SelectedRole != "3") {
-                
-                var quanSelect = $("#quanID");
 
-                function dynamicPhuongSelect(){
-                    var SelectedQuan = document.getElementById("quanID").value;
-                    
+            // If not Phuong or Quan
+            if (SelectedRole != "3") {
+                resetPhuong(); // Hide the phuong dropdown if the role is Quan
+                var quanSelect = $("#quanID");
+                var SelectedQuan = quanSelect.value;
+
+                function dynamicPhuongSelect() {
                     var phuongSelect = $("#phuongID");
-                    
-                    var phuong = {
-                        "1" : [
-                            {
-                                id: "bennghe",
-                                name: "Bến Nghé"
-                            },
-                            {
-                                id: "benthanh",
-                                name: "Bến Thành"
-                            },
-                            {
-                                id: "cogiang",
-                                name: "Cô Giang"
-                            },
-                            {
-                                id: "caukho",
-                                name: "Cầu Kho"
-                            },
-                            {
-                                id : "cauonglanh",
-                                name: "Cầu Ông Lãnh"
-                            },
-                            {
-                                id: "daKao",
-                                name: "Đa Kao"
-                            },
-                            {
-                                id: "nguyenthaibinh",
-                                name: "Nguyễn Thái Bình"
-                            },
-                            {
-                                id: "nguyenthaichin",
-                                name: "Nguyễn Thái Bình"
-                            },
-                            {
-                                id: "phamngulao",
-                                name: "Phạm Ngũ Lão"
-                            },
-                            {
-                                id: "tanDinh",
-                                name: "Tân Định"
-                            }
-                        ],
-                        "2" : [
-                            {
-                                id: 'ankhanh',
-                                name: 'An Khánh'
-                            },
-                            {
-                                id: 'anloiDong',
-                                name: 'An Lợi Đông'
-                            },
-                            {
-                                id: 'anphu',
-                                name: 'An Phú'
-                            },
-                            {
-                                id: 'binhan',
-                                name: 'Bình An'
-                            },
-                            {
-                                id: 'binhKhanh',
-                                name: 'Bình Khánh'
-                            },
-                            {
-                                id: 'binhTrungDong',
-                                name: 'Bình Trưng Đông'
-                            },
-                            {
-                                id: 'binhTrungTay',
-                                name: 'Bình Trưng Tây'
-                            },
-                            {
-                                id: 'catlai',
-                                name: 'Cát Lái'
-                            },
-                            {
-                                id: 'thaodien',
-                                name: 'Thảo Điền'
-                            },
-                            {
-                                id: 'thanhMyLoi',
-                                name: 'Thạnh Mỹ Lợi'
-                            },
-                            {
-                                id: 'thuthiem',
-                                name: 'Thủ Thiêm'
-                            }
-                        ],
-                    }
 
                     // Clear existing options
                     phuongSelect.empty();
@@ -140,19 +165,38 @@ document.querySelectorAll(".edit-button").forEach((btn) => {
                     });
 
                     phuongSelect.prop("hidden", false);
-                    phuongSelect.prop("disabled", false);
                 }
-                
-                quanSelect.change(dynamicPhuongSelect);
-                dynamicPhuongSelect();
+
+                if (SelectedRole == "1") {
+                    quanSelect.change(dynamicPhuongSelect);
+                    dynamicPhuongSelect();
+                }
 
                 quanSelect.prop("hidden", false);
-                $("areaEdit").prop("hidden", true);
+                hideTextArea();
+            }
+            else {
+                $("#areaEdit").value = "Sở Văn hóa và Thể thao TP.HCM";
+                $("#areaEdit").prop("hidden", false);
+                resetQuanandPhuong();
             }
 
         });
     });
 });
+
+function resetQuanandPhuong() {
+    $("#quanID").prop("hidden", true);
+    $("#phuongID").prop("hidden", true);
+}
+
+function resetPhuong() {
+    $("#phuongID").prop("hidden", true);
+}
+
+function hideTextArea() {
+    $("#areaEdit").prop("hidden", true);
+}
 
 
 async function editAcc(e) {
@@ -193,12 +237,12 @@ async function accSettings(e) {
 
 function translateArea(idQuan, idPhuong) {
     var address = "";
-    
+
     if (idPhuong == "" && idQuan == "") {
         address = "Sở Văn hóa và Thể thao TP.HCM";
         return address;
     }
-    
+
     if (idPhuong != "") {
         switch (idPhuong) {
             case "1":
@@ -262,7 +306,7 @@ function translateArea(idQuan, idPhuong) {
         case "5":
             address += "Quận 5";
             break;
-        case "6":     
+        case "6":
             address += "Quận 6";
             break;
         case "7":
@@ -283,7 +327,7 @@ function translateArea(idQuan, idPhuong) {
         case "12":
             address += "Quận 12";
             break;
-        case "GV": 
+        case "GV":
             address += "Quận Gò Vấp";
             break;
         case "BT":
@@ -293,3 +337,14 @@ function translateArea(idQuan, idPhuong) {
 
     return address;
 }
+
+/* 
+    Note: 
+        - Đầu tiên ta sẽ append những options cho phường với tên quận tương ứng, rồi gán giá trị cho phường
+        - Mỗi lần mở edit modal cần check cái role ( Sở, quận, phường ) để hiển thị dropdown hay text area (với sở). 
+        => Với mỗi role sẽ tắt mở các dropdown/text area tương ứng
+        * Lưu ý role ban đầu sẽ k thay đổi nếu k nhấn lưu
+        - Thêm sự kiện vào cái dropdown Role, nếu là Sở thì hiển thị text area, nếu là quận thì hiển thị dropdown quận, nếu là phường thì hiển thị dropdown phường + quận
+        - Mỗi lần role dropdown thay đổi thì cần check role đang chọn là gì
+        - Nhớ tắt mở các text area, dropdown tương ứng với role. Quận thì tắt text và phường drop, phường thì tắt text, sở thì tắt quận và phường drop
+*/ 

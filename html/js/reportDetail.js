@@ -38,11 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         <span class='status-tag__title'>${reportDetails.status}</span>
                     </div>
                 `;
-            $i('reportDetailTime').textContent = reportDetails.time;
+            let dateObject = new Date(reportDetails.time);
+            let time = dateObject.getDate().toString().padStart(2, 0) + "/" + dateObject.getMonth().toString().padStart(2, 0) + "/" + dateObject.getFullYear();
+            $i('reportDetailTime').textContent = time;
             $i('reportDetailFullname').textContent = reportDetails.fullname;
             $i('reportDetailEmail').textContent = reportDetails.email;
             $i('reportDetailPhone').textContent = reportDetails.phone;
             $i('reportDetailContent').textContent = reportDetails.content;
+            if (reportDetails.solution == "")
+                $i('reportDetailSolution').innerHTML = `<i>(Báo cáo chưa được xử lý)</i>`;
+            else
+                $i('reportDetailSolution').textContent = reportDetails.solution;
             let reportThumbnails = $i('reportDetailThumbnails').querySelector(".carousel-inner");
             // Destroy old children first
             while (reportThumbnails.firstChild) {
@@ -86,6 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
             var reportDetails = JSON.parse(button.dataset.reportDetails)[0];
             var reportAddress = button.dataset.reportAddress;
             var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
+            let reportId = button.dataset.id;
+            let accountRole = button.dataset.accountRole;
     
             // Update the modal content with the specific data
             $i('reportUpdateAddress').textContent = reportAddress;
@@ -111,7 +119,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         <span class='status-tag__title'>${reportDetails.status}</span>
                     </div>
                 `;
-            $i('reportUpdateTime').textContent = reportDetails.time;
+            let dateObject = new Date(reportDetails.time);
+            let time = dateObject.getDate().toString().padStart(2, 0) + "/" + dateObject.getMonth().toString().padStart(2, 0) + "/" + dateObject.getFullYear();
+            $i('reportUpdateTime').textContent = time;
             $i('reportUpdateFullname').textContent = reportDetails.fullname;
             $i('reportUpdateEmail').textContent = reportDetails.email;
             $i('reportUpdatePhone').textContent = reportDetails.phone;
@@ -152,6 +162,16 @@ document.addEventListener("DOMContentLoaded", function () {
     
             // Show the modal
             $('#reportUpdateModal').modal('show');
+
+            
+
+            // Listen to edit
+            $i('reportUpdateChoiceAccept').addEventListener("click", () => {
+                acceptReport(accountRole, reportId);
+            });
+            $i('reportUpdateChoiceDeny').addEventListener("click", () => {
+                denyReport(accountRole, reportId)
+            });
         }
       });
     });
@@ -165,6 +185,42 @@ document.addEventListener("DOMContentLoaded", function () {
     if (urlParams.has("statusId"))
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
 });
+
+async function acceptReport(accountRole, id) {
+    let solution = document.querySelector("#reportUpdateSolution").value
+    if (solution == "") {
+        alert("Vui lòng nhập phương thức xử lý");
+        return;
+    }
+
+    let res = await fetch(`/${accountRole}/baocao/chapnhan/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, solution: solution }),
+    });
+    
+    location.reload();
+}
+
+async function denyReport(accountRole, id) {
+    let solution = document.querySelector("#reportUpdateSolution").value
+    if (solution == "") {
+        alert("Vui lòng nhập phương thức xử lý");
+        return;
+    }
+
+    let res = await fetch(`/${accountRole}/baocao/tuchoi/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, solution: solution }),
+    });
+    
+    location.reload();
+}
 
 // Filter functions
 const filters = (new URL(window.location.href)).searchParams;

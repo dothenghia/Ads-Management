@@ -22,10 +22,10 @@
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">
-                        <select id="coFilter" name="">
-                            <option value="all" onclick="coFilter('all')">Công ty</option>
+                        <select id="coFilter" name="" onchange="coFilter(this.value)">
+                            <option value="all">Công ty</option>
                             {{#each company}}
-                                <option value="{{name}}" onclick="coFilter('{{name}}')">{{name}}</option>
+                                <option value="{{name}}">{{name}}</option>
                             {{/each}}
                         </select>
                     </th>
@@ -33,11 +33,11 @@
                     <th scope="col">SĐT</th>
                     <th scope="col">Địa điểm yêu cầu cấp phép</th>
                     <th scope="col">
-                        <select id="statusFilter" name="">
-                            <option value="all" onclick="statusFilter('all')">Tình trạng xử lý</option>
-                            <option value="0" onclick="statusFilter(0)">Đang xử lý</option>
-                            <option value="1" onclick="statusFilter(1)">Đã xử lý</option>
-                            <option value="2" onclick="statusFilter(2)">Từ chối</option>
+                        <select id="statusFilter" name="" onchange="statusFilter(this.value)">
+                            <option value="all">Tình trạng xử lý</option>
+                            <option value="0">Đang xử lý</option>
+                            <option value="1">Đã xử lý</option>
+                            <option value="2">Từ chối</option>
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
@@ -135,7 +135,13 @@
                     <div class="row" id="permissionReqDetailCategoryRow">
                         <div class="col-4">
                             <h6 id="permissionReqDetailCategoryTitle">Thời hạn hợp đồng</h6>
-                            <h6 id="permissionReqDetailContractDate"></h6>
+                            <div id="permissionReqDetailContractDate" class="d-flex flex-row text-primary">
+                                <img src="/assets/icon/LineDate.svg" alt="Date Range Icon" class="mb-2 me-1">
+                                <div class="d-flex flex-column" id="permissionReqDetailContractDateContainer">
+                                    <h6 id="permissionReqDetailContractDateStart"></h6>
+                                    <h6 id="permissionReqDetailContractDateEnd"></h6>
+                                </div>      
+                            </div>
                         </div>
                         <div class="col-4">
                             <h6 id="permissionReqDetailCategoryTitle">Kích thước</h6>
@@ -201,7 +207,6 @@
                         <h6 class="modal-title" id="newPermissionReqModalLabel">
                             Thông tin chi tiết
                             <br>
-                            <i class="bi bi-geo-alt" id="newPermissionReqAddress"></i>
                         </h6>
                         <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

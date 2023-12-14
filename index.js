@@ -68,6 +68,7 @@ app.engine('hbs', expressHbs.engine({
         toJSON: helpers.httpFuncs.toJSON,
         arrayLength: helpers.httpFuncs.arrayLength,
         arrayIndex: helpers.httpFuncs.arrayIndex,
+        mongoDateToLocaleString: helpers.httpFuncs.mongoDateToLocaleString,
         checkIDValidate: helpers.checkIDValidate.checkIDValidate,
 
         // Sở
@@ -107,11 +108,10 @@ app.use('/dan', require("./routes/user/danRoute")); // ROUTE DÂN
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     connectToMongoDB();
-  });
+});
 // Handle graceful shutdown (computer turned off by software function,)
 process.on('SIGINT', async () => {
     console.log('Shutting down gracefully');
     await closeMongoDBConnection();
     process.exit(0);
 });
-  
