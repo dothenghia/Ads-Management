@@ -135,6 +135,8 @@ async function qcReportInfo(locationId, adId) {
             address: adLocationData.address,
             phuong: phuong,
             quan: quan,
+            longitude: adLocationData.longitude,
+            latitude: adLocationData.latitude,
         };
     }
     catch (error) {
@@ -159,10 +161,12 @@ async function ddqcReportInfo(locationId) {
         const { phuong, quan } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
 
         return {
-            name: 'Chi tiết báo cáo địa điểm',
-            address: adLocationData.address,
+            name: adLocationData.address,
+            address: "",
             phuong: phuong,
             quan: quan,
+            longitude: adLocationData.longitude,
+            latitude: adLocationData.latitude,
         };
     }
     catch (error) {
@@ -175,8 +179,8 @@ async function ddbkReportInfo(longitude, latitude) {
     const reverseLocation = await reverseGeocoding(longitude, latitude);
 
     return {
-        name: 'Chi tiết báo cáo địa điểm',
-        address: reverseLocation.name,
+        name: reverseLocation.name,
+        address: "",
         phuong: reverseLocation.phuong,
         quan: reverseLocation.quan,
     }

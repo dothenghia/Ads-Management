@@ -2,7 +2,13 @@
 const { client } = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 
-const { convertAdToGeoJSON, convertReportToGeoJSON, getReportStatus, getAdInfo, qcReportInfo, ddqcReportInfo, ddbkReportInfo } = require('./sideFunctions.js')
+const { convertAdToGeoJSON,
+    convertReportToGeoJSON,
+    getReportStatus,
+    getAdInfo,
+    qcReportInfo,
+    ddqcReportInfo,
+    ddbkReportInfo } = require('./sideFunctions.js')
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
 
@@ -255,9 +261,39 @@ controller.getReportLength = async (req, res) => {
 }
 
 controller.getReportList = async (req, res) => {
-    res.json({
-        message: "getReportList 🐭"
-    })
-}
+    try {
+        const db = client.db(dbName);
+        const reportsCollection = db.collection('reports');
+
+        const reportDocs = await reportsCollection.find({}).toArray();
+
+        const detailedReports = await Promise.all(reportDocs.map(async (reportData) => {
+            if (reportData.reportType === 'qc') {
+                return {
+                    ...reportData,
+                    ...(await qcReportInfo(reportData.locationId, reportData.adId)),
+                };
+            } else if (reportData.reportType === 'ddqc') {
+                return {
+                    ...reportData,
+                    ...(await ddqcReportInfo(reportData.locationId)),
+                };
+            } else if (reportData.reportType === 'ddbk') {
+                return {
+                    ...reportData,
+                    ...(await ddbkReportInfo(reportData.longitude, reportData.latitude)),
+                };
+            }
+
+            return reportData;
+        }));
+
+        return res.json(detailedReports);
+    }
+    catch (error) {
+        console.error("Lỗi khi lấy danh sách chi tiết reports:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
 
 module.exports = controller;
