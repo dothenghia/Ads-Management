@@ -93,7 +93,6 @@ controller.getAdLocationInfoById = async (req, res) => {
 
         if (adLocationData.reportId != "") {
             adLocationData.locationStatus = await getReportStatus(adLocationData.reportId);
-            console.log("Location status:", adLocationData.locationStatus);
         }
 
         if (adLocationData.adList && adLocationData.adList.length > 0) {
@@ -119,9 +118,63 @@ controller.getAdLocationInfoById = async (req, res) => {
 }
 
 controller.getAdInfoById = async (req, res) => {
-    res.json({
-        message: "getAdInfoById 🐭"
-    })
+    let { locationId, adId } = req.query; // Lấy tham số từ URL query string
+    locationId = parseInt(locationId);
+    adId = parseInt(adId);
+
+    try {
+        const db = client.db(dbName);
+        const adLocationsCollection = db.collection('adLocations');
+        const adsCollection = db.collection('ads');
+
+        // Truy vấn đến document của adLocation có locationId tương ứng
+        const adLocationQuery = { locationId: locationId };
+        const adLocationData = await adLocationsCollection.findOne(adLocationQuery);
+
+        if (!adLocationData) {
+            console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locationId);
+            return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." });
+        }
+
+        // Truy vấn đến document của ad có adId tương ứng
+        const adQuery = { adId: adId };
+        const adData = await adsCollection.findOne(adQuery);
+
+        if (!adData) {
+            console.log("Không tìm thấy ad với adId:", adId);
+            return res.status(404).json({ error: "Không tìm thấy quảng cáo." });
+        }
+
+        if (adData.reportId != "") {
+            adData.adStatus = await getReportStatus(adData.reportId);
+        }
+
+        const { phuong, quan } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
+
+        const result = {
+            adId: adData.adId,
+            locationId: adLocationData.locationId,
+            address: adLocationData.address,
+            quan: quan,
+            phuong: phuong,
+            name: adData.name,
+            adType: adLocationData.adType,
+            adForm: adLocationData.adForm,
+            locationType: adLocationData.locationType,
+            contractStartDate: adData.contractStartDate,
+            contractEndDate: adData.contractEndDate,
+            size: adData.size,
+            thumbnails: adData.thumbnails,
+            adStatus: adData.adStatus || "",
+            reportId: adData.reportId,
+        };
+
+        return res.status(200).json(result);
+    } 
+    catch (error) {
+        console.error("Error getting ad information by Id:", error);
+        return res.status(500).json({ error: "Lỗi khi lấy thông tin quảng cáo." });
+    }
 }
 
 controller.getReportInfoById = async (req, res) => {
