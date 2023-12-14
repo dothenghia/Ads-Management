@@ -38,6 +38,11 @@ function arrayIndex(array, index) {
     return array[index];
 }
 
+function mongoDateToLocaleString(date) {
+    let dateObject = new Date(date);
+    return dateObject.getDate().toString().padStart(2, 0) + "/" + dateObject.getMonth().toString().padStart(2, 0) + "/" + dateObject.getFullYear();
+}
+
 module.exports = {
     createGlobal: createGlobal,
     getGlobal: getGlobal,
@@ -49,5 +54,7 @@ module.exports = {
     toJSON: toJSON,
     fromJSON: fromJSON,
     arrayLength: arrayLength,
-    arrayIndex: arrayIndex
+    arrayIndex: arrayIndex,
+
+    mongoDateToLocaleString: mongoDateToLocaleString
 };

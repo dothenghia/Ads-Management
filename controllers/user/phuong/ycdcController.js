@@ -1,24 +1,20 @@
 const controller = {}
 const currentPage = 2;
 
-const admin = require("../../../config/firebaseAdmin");
-//https://firebase.google.com/docs/firestore/manage-data/add-data
-const db = admin.firestore();
+const {client}  = require("../../../config/mongodbConfig");
+const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
     try {
-        // Get latest snapshot of requested Firebase collections
-        const changeReqRef = db.collection("changeReqs");
-        const changeReqSnapshot = await changeReqRef.get();
-        const adRef = db.collection("ads");
-        const adSnapshot = await adRef.get();
+        const changeReqSnapshot = await client.db(dbName).collection("changeReqs").find({}).toArray();
+        const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
         
         // Extract data from retrieved snapshots
         let Reason = []; let Status = [];
         let reasonId = []; let statusId = [];
         let ChangeReq = [];
         changeReqSnapshot.forEach((doc) => {
-            let data = doc.data();
+            let data = doc;
 
             if (!reasonId.includes(data.reason)) {
                 reasonId.push(data.reason);
@@ -34,7 +30,7 @@ controller.show = async (req, res) => {
         });
         let Ad = [];
         adSnapshot.forEach((doc) => {
-            Ad.push(doc.data());
+            Ad.push(doc);
         });
 
         // Filters
@@ -62,23 +58,14 @@ controller.show = async (req, res) => {
 }
 
 controller.acceptChange = async (req, res) => {
-    let { id } = req.body;
-
-    // Initialize an array to store promises for each update operation
-    const updatePromises = [];
-    const changeReqRef = await db.collection("changeReqs").where("changeReqId", "==", id).get();
-    changeReqRef.forEach((doc) => {
-        const updateData = {
-            status: 1
-        };
-
-        updatePromises.push(doc.ref.update(updateData));
-    })
-    
     try {
-        // Wait for all update operations to complete
-        await Promise.all(updatePromises);
-    
+        let { id } = req.body;
+
+        const result = await client.db(dbName).collection("changeReqs").findOneAndUpdate(
+            {changeReqId: parseInt(id)}, 
+            { $set: {status: 1} }
+        );
+
         res.send("Change accepted!");
     }
     catch (error) {
@@ -87,22 +74,13 @@ controller.acceptChange = async (req, res) => {
 }
 
 controller.denyChange = async (req, res) => {
-    let { id } = req.body;
-
-    // Initialize an array to store promises for each update operation
-    const updatePromises = [];
-    const changeReqRef = await db.collection("changeReqs").where("changeReqId", "==", parseInt(id)).get();
-    changeReqRef.forEach((doc) => {
-        const updateData = {
-            status: 2
-        };
-
-        updatePromises.push(doc.ref.update(updateData));
-    })
-    
     try {
-        // Wait for all update operations to complete
-        await Promise.all(updatePromises);
+        let { id } = req.body;
+
+        const result = await client.db(dbName).collection("changeReqs").findOneAndUpdate(
+            {changeReqId: parseInt(id)}, 
+            { $set: {status: 2} }
+        );
     
         res.send("Change denied!");
     }
