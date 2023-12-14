@@ -1,3 +1,6 @@
+const { client } = require("../../../config/mongodbConfig");
+const dbName = 'Ads-Management';
+
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
 
@@ -60,7 +63,51 @@ async function convertReportToGeoJSON(report) {
 }
 
 
+async function getReportStatus(reportId) {
+    try {
+        const db = client.db('Ads-Management');
+        const reportsCollection = db.collection('reports');
+
+        // Truy vấn đến document có reportId tương ứng
+        const reportQuery = { reportId: reportId };
+        const reportData = await reportsCollection.findOne(reportQuery);
+
+        if (!reportData) {
+            console.log("Không tìm thấy report với reportId:", reportId);
+            return null;
+        }
+
+        return reportData.status;
+    } catch (error) {
+        console.error("Error getting report status:", error);
+        return null;
+    }
+}
+
+async function getAdInfo(adId) {
+    try {
+        const db = client.db('Ads-Management');
+        const adsCollection = db.collection('ads');
+
+        // Truy vấn đến document có adId tương ứng
+        const adQuery = { adId: adId };
+        const adData = await adsCollection.findOne(adQuery);
+
+        if (!adData) {
+            console.log("Không tìm thấy ad với adId:", adId);
+            return null;
+        }
+
+        return adData;
+    } catch (error) {
+        console.error("Error getting ad information:", error);
+        return null;
+    }
+}
+
 module.exports = {
     convertAdToGeoJSON,
-    convertReportToGeoJSON
+    convertReportToGeoJSON,
+    getReportStatus,
+    getAdInfo
 }
