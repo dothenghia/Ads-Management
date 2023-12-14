@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
+    button.addEventListener('click', function () {
         // Parse the string into a JavaScript object
-        console.log(button.dataset.permissionReqDetails);
+        // console.log(button.dataset.permissionReqDetails);
         var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails);
         var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
         var adAddress = button.dataset.adAddress;
@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('permissionReqDetailCoEmail').textContent = permissionReqDetails.co.email;
         $i('permissionReqDetailName').textContent = permissionReqDetails.name;
         $i('permissionReqDetailSize').textContent = permissionReqDetails.size;
-        $i('permissionReqDetailContractDate').textContent = "Làm sao làm cái này???";
+        $i('permissionReqDetailContractDate').querySelector('#permissionReqDetailContractDateStart').textContent = permissionReqDetails.startdate;
+        $i('permissionReqDetailContractDate').querySelector('#permissionReqDetailContractDateEnd').textContent = permissionReqDetails.enddate;
         $i('permissionReqDetailContent').textContent = permissionReqDetails.content;
         let permissionReqThumbnails = $i('permissionReqDetailThumbnails').querySelector(".carousel-inner");
         // Destroy old children first

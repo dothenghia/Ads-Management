@@ -33,38 +33,31 @@
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <form id="ReportForm">
+    <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="newPermissionReqModalLabel" aria-hidden="true">
+        <form action="./yeucaucapphep/taomoi" method="POST" enctype="multipart/form-data">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
                 <div class="modal-content">
                     <div class="modal-header d-flex flex-column">
                         <div class="w-100 d-flex flex-row">
-                            <h5 class="modal-title w-100 fw-bold" id="modalTitleId">Đơn Phản hồi thông tin</h5>
+                            <h5 class="modal-title w-100 fw-bold" id="newPermissionReqModalLabel">Mẫu Thêm Yêu Cầu Mới</h5>
                             <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="newPermissionReqModalContent">
 
                         <div class="container-fluid">
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="w-33 d-flex flex-column" style="min-width: 50%;">
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Hình thức báo cáo <span class="text-danger">*</span></p>
+                                <div class="w-33 d-flex flex-column" style="min-width: 50%;" id="newPermissionReqCoName">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Công Ty<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <select class="form-select" id="inputGroupSelect01" name="HinhThuc">
-                                            <option selected>Hình thức báo cáo</option>
-                                            <option value="1">Tố giác sai phạm</option>
-                                            <option value="2">Đăng ký nội dung</option>
-                                            <option value="3">Đóng góp ý kiến</option>
-                                            <option value="4">Giải đáp thắc mắc</option>
-                                        </select>
+                                        <input type="text" class="form-control" placeholder="Công Ty ABC" aria-label="Company" name="newPermissionReqCoName">
                                     </div>
-
                                 </div>
 
                                 <div class="w-33 d-flex flex-column " style="min-width: 50%;"> 
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Họ và Tên <span class="text-danger">*</span></p>
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Số điện thoại liên lạc<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="text" class="form-control" placeholder="Nhập Họ và Tên" aria-label="Username" name="UserName">
+                                        <input type="text" class="form-control" placeholder="0948361133" aria-label="Phone" id="newPermissionReqPhone" name="newPermissionReqPhone">
                                     </div>
                                 </div>
                             </div>
@@ -72,15 +65,65 @@
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
                                 <div class="w-33 d-flex flex-column" style="min-width: 50%;">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Email <span class="text-danger">*</span></p>
-                                    <div class="input-group mb-3" style="padding-right: 15%;">
-                                        <input type="text" class="form-control" placeholder="Nhập Địa Chỉ Email" aria-label="Email" name="Email">
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="email" class="form-control" placeholder="123@gmail.com" aria-label="Email" id="newPermissionReqEmail" name="newPermissionReqEmail" >
                                     </div>
                                 </div>
 
                                 <div class="w-33 d-flex flex-column " style="min-width: 50%;"> 
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Số điện thoại <span class="text-danger">*</span></p>
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Tên Quảng Cáo<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="text" class="form-control" placeholder="Nhập Số Điện Thoại" aria-label="PhoneNum" name="PhoneNum">
+                                        <input type="text" class="form-control" placeholder="Quảng Cáo 1" aria-label="PhoneNum" id="newPermissionReqAdName" name="newPermissionReqAdName">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="w-33 d-flex flex-column " style="min-width: 50%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Tên Quảng Cáo<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" placeholder="Quảng Cáo 1" aria-label="PhoneNum" id="newPermissionReqAdName" name="newPermissionReqAdName">
+                                    </div>
+                                </div>
+
+                                <div class="w-33 d-flex flex-column" style="min-width: 50%;">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Kích thước<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="email" class="form-control" placeholder="10m x 20m" aria-label="Email" id="newPermissionReqSize" name="newPermissionReqSize" >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="w-33 d-flex flex-column " style="min-width: 50%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Thời Gian Bắt Đầu Hợp Đồng<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" placeholder="Ngày 20 Tháng 10 Năm 2022" aria-label="PhoneNum" id="newPermissionReqStartDate" name="newPermissionReqStartDate">
+                                    </div>
+                                </div>
+
+                                <div class="w-33 d-flex flex-column" style="min-width: 50%;">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Thời Gian Kết Thúc Hợp Đồng<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="email" class="form-control" placeholder="Ngày 30 Tháng 12 Năm 2022" aria-label="Email" id="newPermissionReqEndDate" name="newPermissionReqEndDate" >
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Địa Điểm  -->
+                            <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Địa Điểm</p>
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="w-33 d-flex flex-column " style="min-width: 50%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Thời Gian Bắt Đầu Hợp Đồng<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" placeholder="Ngày 20 Tháng 10 Năm 2022" aria-label="PhoneNum" id="newPermissionReqStartDate" name="newPermissionReqStartDate">
+                                    </div>
+                                </div>
+
+                                <div class="w-33 d-flex flex-column" style="min-width: 50%;">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Thời Gian Kết Thúc Hợp Đồng<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="email" class="form-control" placeholder="Ngày 30 Tháng 12 Năm 2022" aria-label="Email" id="newPermissionReqEndDate" name="newPermissionReqEndDate" >
                                     </div>
                                 </div>
                             </div>

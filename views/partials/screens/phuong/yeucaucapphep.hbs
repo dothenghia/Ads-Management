@@ -135,7 +135,13 @@
                     <div class="row" id="permissionReqDetailCategoryRow">
                         <div class="col-4">
                             <h6 id="permissionReqDetailCategoryTitle">Thời hạn hợp đồng</h6>
-                            <h6 id="permissionReqDetailContractDate"></h6>
+                            <div id="permissionReqDetailContractDate" class="d-flex flex-row text-primary">
+                                <img src="/assets/icon/LineDate.svg" alt="Date Range Icon" class="mb-2 me-1">
+                                <div class="d-flex flex-column" id="permissionReqDetailContractDateContainer">
+                                    <h6 id="permissionReqDetailContractDateStart"></h6>
+                                    <h6 id="permissionReqDetailContractDateEnd"></h6>
+                                </div>      
+                            </div>
                         </div>
                         <div class="col-4">
                             <h6 id="permissionReqDetailCategoryTitle">Kích thước</h6>
@@ -201,7 +207,6 @@
                         <h6 class="modal-title" id="newPermissionReqModalLabel">
                             Thông tin chi tiết
                             <br>
-                            <i class="bi bi-geo-alt" id="newPermissionReqAddress"></i>
                         </h6>
                         <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

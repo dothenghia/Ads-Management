@@ -104,11 +104,10 @@ app.use('/logout', require("./routes/general/logoutRoute"));
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     connectToMongoDB();
-  });
+});
 // Handle graceful shutdown (computer turned off by software function,)
 process.on('SIGINT', async () => {
     console.log('Shutting down gracefully');
     await closeMongoDBConnection();
     process.exit(0);
 });
-  

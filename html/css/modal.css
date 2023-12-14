@@ -59,6 +59,7 @@
     font-weight: 500;
 }
 
+
 #adDetailModal .modal-body #adDetailThumbnails {
     margin-top: 1vh;
 }
@@ -229,6 +230,16 @@
 
 #permissionReqDetailModal .modal-body h6:not(#permissionReqDetailCategoryTitle) {
     color: rgb(81, 80, 80);
+    font-weight: 500;
+}
+
+#permissionReqDetailModal .modal-body h6#permissionReqDetailContractDateStart {
+    color: #0065FF;
+    font-weight: 500;
+}
+
+#permissionReqDetailModal .modal-body h6#permissionReqDetailContractDateEnd {
+    color: #0065FF;
     font-weight: 500;
 }
 
