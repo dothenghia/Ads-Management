@@ -231,7 +231,7 @@ controller.getReportInfoById = async (req, res) => {
         }
 
         return res.json(reportData);
-    } 
+    }
     catch (error) {
         console.error("Error getting report information:", error);
         return res.status(500).json({ message: "Internal Server Error" });
@@ -239,9 +239,19 @@ controller.getReportInfoById = async (req, res) => {
 }
 
 controller.getReportLength = async (req, res) => {
-    res.json({
-        message: "getReportLength 🐭"
-    })
+    try {
+        const db = client.db(dbName);
+        const reportsCollection = db.collection('reports');
+
+        // Lấy số lượng documents trong collection 'reports'
+        const reportLength = await reportsCollection.countDocuments();
+
+        return res.json({ reportLength });
+    }
+    catch (error) {
+        console.error("Lỗi khi lấy số lượng documents:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
 }
 
 controller.getReportList = async (req, res) => {
