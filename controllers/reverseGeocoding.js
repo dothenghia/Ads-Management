@@ -26,4 +26,4 @@ async function reverseGeocoding(longitude, latitude) {
     }
 }
 
-export default reverseGeocoding;
+module.exports = reverseGeocoding;

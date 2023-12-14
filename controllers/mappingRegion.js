@@ -15,7 +15,7 @@ function mappingRegion(idQuan, idPhuong) {
     return null;
 }
 
-export default mappingRegion;
+module.exports = mappingRegion;
 
 const hochiminh = [
     {
