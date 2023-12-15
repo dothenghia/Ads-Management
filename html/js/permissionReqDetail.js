@@ -96,3 +96,8 @@ function statusFilter(statusId) {
         filters.delete("statusId");
     window.location.href = "?" + filters.toString();
 }
+
+// Create new reqs functions
+function displayWards(optionElement) {
+    console.log(optionElement.selectedOptions[0]);
+}

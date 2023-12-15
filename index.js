@@ -68,6 +68,7 @@ app.engine('hbs', expressHbs.engine({
         toJSON: helpers.httpFuncs.toJSON,
         arrayLength: helpers.httpFuncs.arrayLength,
         arrayIndex: helpers.httpFuncs.arrayIndex,
+        mapToArray: helpers.httpFuncs.mapToArray,
         mongoDateToLocaleString: helpers.httpFuncs.mongoDateToLocaleString,
         checkIDValidate: helpers.checkIDValidate.checkIDValidate,
 

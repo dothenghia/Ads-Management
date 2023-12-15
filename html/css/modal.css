@@ -298,6 +298,14 @@
     color: #0065FF;
 }
 
+#newPermissionReqModal .modal-header #newPermissionReqModalLabel select {
+    border: solid 1px var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 15px;
+    color: var(--text-color);
+}
+
 #newPermissionReqModal .modal-body {
     background-color: white; 
     border-radius: 0 0 12px 12px !important;
