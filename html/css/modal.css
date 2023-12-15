@@ -263,8 +263,18 @@
 
 
 /* newPermissionReqModal */
+#drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+}
 
-#newPermissionReqModal {
+#drop-area.hover {
+    background-color: #f0f8ff; /* Light Blue */
+}
+
+/* #newPermissionReqModal {
     --bs-modal-width: 50vw;
 }
 
@@ -314,7 +324,6 @@
 }
 
 #newPermissionReqModal .modal-body #newPermissionReqCoName input {
-    margin: 0 1.2vw;
     width: calc(100% - 1.2vw * 2);
 }
 
@@ -391,7 +400,7 @@
     text-align: center;
     font-weight: 200;
     color: rgb(98, 97, 97);
-}
+} */
 
 
 /* ReportDetailModal */
