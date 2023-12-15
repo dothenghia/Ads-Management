@@ -356,8 +356,7 @@
 }
 
 #newPermissionReqModal .modal-body input {
-    padding-left: 2px;
-    border: 2px solid #0066ffa4;
+    border: 2px solid rgb(189, 189, 189);
     box-shadow: none;
     border-radius: 10px;
 }
