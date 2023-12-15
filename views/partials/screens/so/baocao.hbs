@@ -18,16 +18,16 @@
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="Loại báo cáo">Loại báo cáo</option>
-                            <option value="Quảng cáo">Quảng cáo</option>
-                            <option value="Địa điểm Quảng cáo">Địa điểm Quảng cáo</option>
-                            <option value="Địa điểm Bất kỳ">Địa điểm Bất kỳ</option>
+                        <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
+                            <option value="all">Loại báo cáo</option>
+                            <option value="qc">Quảng cáo</option>
+                            <option value="ddqc">Địa điểm Quảng cáo</option>
+                            <option value="ddbk">Địa điểm Bất kỳ</option>
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="Hình thức báo cáo">Hình thức báo cáo</option>
+                        <select id="reportFormFilter" name="" onchange="reportFormFilter(this.value)">
+                            <option value="all">Hình thức báo cáo</option>
                             <option value="Tố giác sai phạm">Tố giác sai phạm</option>
                             <option value="Đăng ký nội dung">Đăng ký nội dung</option>
                             <option value="Đóng góp ý kiến">Đóng góp ý kiến</option>
@@ -37,8 +37,8 @@
                     <th scope="col">Thời gian</th>
                     <th scope="col">Địa điểm</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="Tình trạng xử lý">Tình trạng xử lý</option>
+                        <select id="statusFilter" name="" onchange="statusFilter(this.value)">
+                            <option value="all">Tình trạng xử lý</option>
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Đã xử lý">Đã xử lý</option>
                             <option value="Từ chối">Từ chối</option>
@@ -57,7 +57,7 @@
                         <td scope="col">{{addNumber @index 1}}</td>
                         <td scope="col">{{translateReportType reportType}}</td>
                         <td scope="col">{{reportForm}}</td>
-                        <td scope="col">{{time}}</td>
+                        <td scope="col">{{mongoDateToLocaleString time}}</td>
                         <td scope="col">{{getReportLocation ../adLocation locationId}}</td>
 
                         <td scope="col">

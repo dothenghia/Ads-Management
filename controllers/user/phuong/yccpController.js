@@ -44,6 +44,7 @@ controller.show = async (req, res) => {
             Ad.push(doc);
         });
         let AdLocation = [];
+        
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
 
@@ -61,6 +62,8 @@ controller.show = async (req, res) => {
             AdLocation.push(data);
         });
         // console.log(AdArea.quan_5.wards.phuong_04.adLocations);
+
+        console.log(AdArea);
 
         // Filters
         let filterCoId = req.query.coId;

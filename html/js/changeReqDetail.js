@@ -111,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#reasonFilter').value = urlParams.get("reasonId");
     if (urlParams.has("statusId"))
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
+    if (urlParams.has("roleId")) 
+        document.querySelector('#roleFilter').value = urlParams.get("roleId");
 });
 
 async function acceptChange(accountRole, id) {
@@ -153,5 +155,13 @@ function statusFilter(statusId) {
         filters.set("statusId", statusId);
     else
         filters.delete("statusId");
+    window.location.href = "?" + filters.toString();
+}
+
+function roleFilter(roleId) {
+    if (roleId != "all")
+        filters.set("roleId", roleId);
+    else
+        filters.delete("roleId");
     window.location.href = "?" + filters.toString();
 }

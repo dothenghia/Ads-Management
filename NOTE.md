@@ -89,19 +89,16 @@ Khoa :
                 ], ...
 
 Bảo :
-    - Thêm từng collect isDelete
-    - thống nhất đặt id phường trong adlocation để chỉnh sửa trong getLocation
-    - Delete h sẽ k dùng được, chỉ có hiệu ứng hiển thị modal
-    - Chốt những kiểu dữ liệu được lưu tren firebase
-    - accounts chuyển từ hashed pass -> pass
-    - Edit khu vực bên nhân sự có thể geocoding reverse?
-    - database có hỗ trợ date (yy-mm-dd) nhớ viết hàm convert
-    - Sau khi chỉnh nhân sự edit xong quay lại reportModal chỉnh thêm select quận phường đường
-    - Detail Cấp Phép chưa có nút accept
+    - Thêm từng collect isDelete - Done
+    - thống nhất đặt id phường trong adlocation để chỉnh sửa trong getLocation  - done
+    - Delete h sẽ k dùng được, chỉ có hiệu ứng hiển thị modal - Chưa
+    - database có hỗ trợ date (yy-mm-dd) nhớ viết hàm convert - Done
+    
+    - Detail Cấp Phép chưa có nút accept - Chưa
     Sở :
     - Thống kê
-    - Trang Cấp Phép, Điều Chỉnh -> Chỉ có Duyệt thoi
-    - Bỏ hết những cái nút Thêm (Trừ trang Nhân sự)
+    - Trang Cấp Phép, Điều Chỉnh -> Chỉ có Duyệt thoi  - Done
+    - Bỏ hết những cái nút Thêm (Trừ trang Nhân sự) - Done
     - Tạo thêm các nhân sự :
         + 2 quận
         + Mỗi quận thì 2 phường

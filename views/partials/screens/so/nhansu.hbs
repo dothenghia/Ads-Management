@@ -11,7 +11,6 @@
 
         <div class="d-flex">
             <button class="btn btn-outline-primary custom-btn">Thêm nhân sự</button>
-
         </div>
     </div>
 
@@ -25,16 +24,15 @@
                     <th scope="col">Họ tên</th>
                     <th scope="col">Thông tin liên lạc</th>
                     <th scope="col">
-                        <select id="" name="" class="rounded-3">
-                            <option value="Chức vụ">Chức vụ</option>
-                            <option value="Cán bộ phường">Cán bộ phường</option>
-                            <option value="Cán bộ quận">Cán bộ quận</option>
-                            <option value="Cán bộ sở">Cán bộ sở</option>
+                        <select id="roleFilter" name="" class="rounded-3" onchange="roleFilter(this.value)">
+                            <option value="all">Chức vụ</option>
+                            {{#each userRole}}
+                                <option value="{{value}}">{{getAgentRole value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">Khu Vực</th>
                     <th scope="col">Tài Khoản</th>
-                    <th scope="col">Mật Khẩu</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -52,16 +50,15 @@
                         Cán Bộ {{getAgentRole role}}
                     </td>
                     <td scope="col">
-                        {{#if (translateAgentArea quan_id phuong_id)}}
-                            {{translateAgentArea quan_id phuong_id}}
+                        {{#if (translateAgentArea ../adArea quan_id phuong_id)}}
+                            {{translateAgentArea ../adArea quan_id phuong_id}}
                         {{else}}
                             No data
                         {{/if}}
                     </td>
                     <td scope="col">{{isUdfNullBlank username}}</td>
-                    <td scope="col">{{isUdfNullBlank password}}</td>
                     <td scope="col">
-                        <button class="edit-button" data-id="{{id}}" data-name="{{name}}" data-phone="{{phone}}" data-role="{{role}}" data-area="{{quan_id}}-{{phuong_id}}" data-user-name="{{username}}" data-password="{{password}}" data-account-role="so" data-page="nhansu">
+                        <button class="edit-button" data-id="{{_id}}" data-name="{{name}}" data-phone="{{phone}}" data-role="{{role}}" data-area="{{quan_id}}-{{phuong_id}}" data-user-name="{{username}}" data-password="{{password}}" data-account-role="so" data-page="nhansu">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="feather feather-edit">
@@ -161,29 +158,15 @@
                             <div class="col mb-3">
                                 <label for="areaEdit" class="form-label">Khu Vực</label>
                                 <input type="text" id="areaEdit" name="area" class="form-control"
-                                    placeholder="Quận 1" />
+                                    placeholder="Sở Văn Hóa Và Truyền THống" />
                                 <select id="quanID" name="quanID" class="rounded-3 form-select" hidden>
-                                    <option value="1">Quận 1</option>
-                                    <option value="2">Quận 2</option>
-                                    {{!-- <option value="3">Quận 3</option>
-                                    <option value="4">Quận 4</option>
-                                    <option value="5">Quận 5</option>
-                                    <option value="6">Quận 6</option>
-                                    <option value="7">Quận 7</option>
-                                    <option value="8">Quận 8</option>
-                                    <option value="9">Quận 9</option>
-                                    <option value="10">Quận 10</option>
-                                    <option value="11">Quận 11</option>
-                                    <option value="12">Quận 12</option>
-                                    <option value="13">Quận Bình Tân</option>
-                                    <option value="14">Quận Bình Thạnh</option>
-                                    <option value="15">Quận Gò Vấp</option>
-                                    <option value="16">Quận Phú Nhuận</option>
-                                    <option value="17">Quận Tân Bình</option>
-                                    <option value="18">Quận Tân Phú</option> --}}
+                                    <option value="">Quận</option>
+                                    {{#each (mapToArray adArea)}}
+                                        <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                    {{/each}}
                                 </select>
                                 <select id="phuongID" name="phuongID" class="rounded-3 form-select my-2" hidden>
-                                    
+                                    <option value="">Phường</option>
                                 </select>
                             </div>
                         </div>
@@ -209,6 +192,8 @@
 <script src="/js/deleteMethod.js"></script>
 
 <script src="/js/editMethod.js"></script>
+
+<script src="/js/accountDetail.js"></script>
 
 
 

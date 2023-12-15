@@ -18,27 +18,29 @@
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="Đơn vị gửi yêu cầu">Đơn vị gửi yêu cầu</option>
-                            <option value="Cán bộ phường">Cán bộ phường</option>
-                            <option value="Cán bộ quận">Cán bộ quận</option>
+                        <select id="roleFilter" name="" onchange="roleFilter(this.value)">
+                            <option value="all">Đơn vị gửi yêu cầu</option>
+                            {{#each senderRole}}
+                                <option value="{{value}}">{{getAgentRole value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">Thời gian</th>
                     {{!-- <th scope="col">Vị trí điều chỉnh</th> --}}
                     <th scope="col">
-                        <select id="" name="">
+                        <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
                             <option value="all">Lý do chỉnh sửa</option>
-                            <option value="1">Không phù hợp</option>
-                            <option value="2">Đổi mới</option>
+                            {{#each reason}}
+                                <option value="{{value}}">{{value}}</option>
+                            {{/each}}
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="Tình trạng xử lý">Tình trạng xử lý</option>
-                            <option value="Đang xử lý">Đang xử lý</option>
-                            <option value="Đã xử lý">Đã xử lý</option>
-                            <option value="Từ chối">Từ chối</option>
+                        <select id="statusFilter" name="" onchange="statusFilter(this.value)">
+                            <option value="all">Tình trạng xử lý</option>
+                            <option value="0">Đang xử lý</option>
+                            <option value="1">Đã xử lý</option>
+                            <option value="2">Từ chối</option>
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
@@ -54,25 +56,25 @@
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
                         <td scope="col">Cán bộ {{getAgentRole senderRole}}</td>
-                        <td scope="col">{{date}}</td>
+                        <td scope="col">{{mongoDateToLocaleString date}}</td>
                         {{!-- <td scope="col">{{getLocation../adLocation locationId 2}}</td> --}}
                         <td scope="col">{{reason}}</td>
                         <td scope="col">
-                            {{#if (getReportStatus status 1) }}
+                            {{#if (getReportStatus status 0) }}
                             <div class="status-tag status-tag-dangxuly">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
                                 <span class='status-tag__title'>Đang xử lý</span>
                             </div>
                             {{/if}}
 
-                            {{#if (getReportStatus status 2) }}
+                            {{#if (getReportStatus status 1) }}
                             <div class="status-tag status-tag-daxuly">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path> <polyline points="22 4 12 14.01 9 11.01"></polyline> </svg>
                                 <span class='status-tag__title'>Đã xử lý</span>
                             </div>
                             {{/if}}
 
-                            {{#if (getReportStatus status 0) }}
+                            {{#if (getReportStatus status 2) }}
                             <div class="status-tag status-tag-tuchoi">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"> <circle cx="12" cy="12" r="10"></circle> <line x1="15" y1="9" x2="9" y2="15"></line> <line x1="9" y1="9" x2="15" y2="15"></line> </svg>
                                 <span class='status-tag__title'>Từ chối</span>
@@ -170,14 +172,13 @@
                         
                     </div>
                 </div>
-                
                 <div class="row justify-content-end" id="changeReqDetailChoice">
                     <button id="changeReqDetailChoiceDeny" onclick="" class="col-2">Từ chối</button>
                     <button id="changeReqDetailChoiceAccept" onclick="" class="col-2">Chấp thuận</button>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- The Change Request Delete Modal -->
     <div class="modal" id="confirmationModal">

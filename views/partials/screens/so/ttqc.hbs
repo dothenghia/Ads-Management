@@ -28,26 +28,26 @@
                     <th scope="col">Tên</th>
                     <th scope="col">Địa Điểm</th>
                     <th scope="col">
-                        <select id="adTypeFilter" name="">
-                            <option value="all" onclick="adTypeFilter('all')">Loại quảng cáo</option>
+                        <select id="adTypeFilter" name="" onchange="adTypeFilter(this.value)">
+                            <option value="all">Loại quảng cáo</option>
                             {{#each adType}}
-                                <option value="{{value}}" onclick="adTypeFilter("{{value}}")">{{value}}</option>
+                                <option value="{{value}}">{{value}}</option>
                             {{/each}}
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="adFormFilter" name="">
-                            <option value="all" onclick="adFormFilter('all')">Hình thức</option>
+                        <select id="adFormFilter" name="" onchange="adFormFilter(this.value)">
+                            <option value="all">Hình thức</option>
                             {{#each adForm}}
-                                <option value="{{value}}" onclick="adFormFilter('{{value}}')">{{value}}</option>
+                                <option value="{{value}}">{{value}}</option>
                             {{/each}}
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="locationTypeFilter" name="">
-                            <option value="all" onclick="locationTypeFilter('all')">Loại vị trí</option>
+                        <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
+                            <option value="all">Loại vị trí</option>
                             {{#each locationType}}
-                                <option value="{{value}}" onclick="locationTypeFilter('{{value}}')">{{value}}</option>
+                                <option value="{{value}}">{{value}}</option>
                             {{/each}}
                         </select>
                     </th>
