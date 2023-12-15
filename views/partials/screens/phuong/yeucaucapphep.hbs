@@ -207,6 +207,15 @@
                         <h6 class="modal-title" id="newPermissionReqModalLabel">
                             Thông tin chi tiết
                             <br>
+                            <select name="" id="newPermissionReqDistrict" onchange="displayWards(this)">
+                                <option value="none">Quận</option>
+                                {{#each (mapToArray adArea)}}
+                                    <option value="{{idQuan}}" data-wards={{toJSON wards}}>{{name}}</option>
+                                {{/each}}
+                            </select>
+                            <select name="" id="newPermissionReqWard">
+                                <option value="none">Phường</option>
+                            </select>
                         </h6>
                         <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
