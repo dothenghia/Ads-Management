@@ -15,13 +15,18 @@ export default function DetailReportModal(detailReportInfo) {
     }
     window.PreventCloseDetailReportModal = PreventCloseDetailReportModal;
 
-    
+
     return `
         <div class="detail-report-modal-container" onclick="CloseDetailReportModal()">
             <div class="detail-report-modal" onclick="PreventCloseDetailReportModal(event)">
                 
                 <div class="detail-report-modal__title">
-                    <h1>${detailReportInfo.name}</h1>
+                    <h1>
+                    ${detailReportInfo.address == "" ?
+                        "Chi tiết báo cáo địa điểm" :
+                        detailReportInfo.name
+                    }
+                    </h1>
                     <button type="button"  onclick="CloseDetailReportModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
@@ -30,7 +35,10 @@ export default function DetailReportModal(detailReportInfo) {
 
                 <div class="detail-report-modal__address">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                    <h1>${detailReportInfo.address}, ${detailReportInfo.phuong}, ${detailReportInfo.quan}</h1>
+                    <h1>${detailReportInfo.address == "" ?
+                    detailReportInfo.name :
+                    detailReportInfo.address
+                }, ${detailReportInfo.phuong}, ${detailReportInfo.quan}</h1>
                 </div>
 
 
@@ -78,15 +86,14 @@ export default function DetailReportModal(detailReportInfo) {
                     <div id="detail-report-modal__carousel-" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" role="listbox">
 
-                            ${
-                                detailReportInfo.images.map((thumbnail, index) => {
-                                    return `
-                                    <div class="carousel-item rounded-4 ${index==0 && 'active'}">
+                            ${detailReportInfo.images.map((thumbnail, index) => {
+            return `
+                                    <div class="carousel-item rounded-4 ${index == 0 && 'active'}">
                                         <img src=${thumbnail.url} class="rounded-4" alt=${thumbnail.url}>
                                     </div>
                                     `
-                                }).join('')
-                            }
+        }).join('')
+        }
 
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#detail-report-modal__carousel-" data-bs-slide="prev">

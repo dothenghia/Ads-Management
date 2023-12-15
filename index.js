@@ -2,6 +2,7 @@ const express = require('express'); //Khai báo các thứ cần thiết
 const expressHbs = require('express-handlebars');
 const passport = require('./config/passportConfig').passport;
 const {connectToMongoDB,closeMongoDBConnection} = require('./config/mongodbConfig');
+const cors = require('cors'); // CÁI NÀY DÙNG ĐỂ CHO NGƯỜI DÂN FETCH API
 const port = 3000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -26,6 +27,7 @@ const helpers = {
 }
 
 const app = express();
+app.use(cors()); // CÁI NÀY DÙNG ĐỂ CHO NGƯỜI DÂN FETCH API
 app.use(express.static(__dirname + "/html"));
 // Use body-parser middleware to parse form data
 app.use(express.json());
@@ -99,6 +101,7 @@ app.use('/quan', checkAuthenticated,require("./routes/user/quanRoute"));
 app.use('/so', checkAuthenticated, require("./routes/user/soRoute"));
 app.use('/logout', require("./routes/general/logoutRoute"));
 
+app.use('/dan', require("./routes/user/danRoute")); // ROUTE DÂN
 
 // Start the server on port 3000
 // Start the server
