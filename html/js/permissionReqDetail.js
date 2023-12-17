@@ -7,15 +7,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
+    button.addEventListener('click', async function () {
         // Parse the string into a JavaScript object
         // console.log(button.dataset.permissionReqDetails);
         var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails);
         var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
-        var adAddress = button.dataset.adAddress;
+
+        let areaInfo = await getAreaInfo(adLocationDetails.longitude, adLocationDetails.latitude);
 
         // Update the modal content with the specific data
-        $i('permissionReqDetailAddress').textContent = adAddress;
+        $i('permissionReqDetailAddress').textContent = adLocationDetails.address + ", " + areaInfo;
         $i('permissionReqDetailCoName').textContent = "Công ty " + permissionReqDetails.co.name;
         $i('permissionReqDetailCoPhone').textContent = permissionReqDetails.co.phone;
         $i('permissionReqDetailCoEmail').textContent = permissionReqDetails.co.email;
@@ -153,6 +154,14 @@ function statusFilter(statusId) {
     else
         filters.delete("statusId");
     window.location.href = "?" + filters.toString();
+}
+
+// Process address
+async function getAreaInfo(longitude, latitude) {
+    const token = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
+    let fetchResult = await (await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${token}`)).json();
+    
+    return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
 }
 
 // Create new reqs functions

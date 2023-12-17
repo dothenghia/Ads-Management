@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', async function () {
             // Get the data-ad-details attribute containing the specific data as a string
 
             // Parse the string into a JavaScript object
@@ -14,8 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
             var adLocationDetails = JSON.parse(button.dataset.adLocationDetails);
             var adAddress = button.dataset.adAddress;
 
+            let areaInfo = await getAreaInfo(adLocationDetails.longitude, adLocationDetails.latitude);
+
             // Update the modal content with the specific data
-            $i('adDetailAddress').textContent = adAddress
+            $i('adDetailAddress').textContent = adLocationDetails.address + ", " + areaInfo;
             $i('adDetailName').textContent = adDetails.name;
             $i('adDetailType').textContent = adLocationDetails.adType;
             $i('adDetailForm').textContent = adLocationDetails.adForm;
@@ -78,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (urlParams.has("locationTypeId"))
         document.querySelector('#locationTypeFilter').value = urlParams.get("locationTypeId");
 });
+
 // Filter functions
 const filters = (new URL(window.location.href)).searchParams;
 function adTypeFilter(adTypeId) {
@@ -100,4 +103,12 @@ function locationTypeFilter(locationTypeId) {
     else
         filters.delete("locationTypeId");
     window.location.href = "?" + filters.toString();
+}
+
+// Process address
+async function getAreaInfo(longitude, latitude) {
+    const token = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
+    let fetchResult = await (await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${token}`)).json();
+    
+    return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
 }
