@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 `;
             let dateObject = new Date(reportDetails.time);
-            let time = dateObject.getDate().toString().padStart(2, 0) + "/" + dateObject.getMonth().toString().padStart(2, 0) + "/" + dateObject.getFullYear();
+            let time = dateObject.getDate().toString().padStart(2, 0) + "/" + (dateObject.getMonth() + 1).toString().padStart(2, 0) + "/" + dateObject.getFullYear();
             $i('reportDetailTime').textContent = time;
             $i('reportDetailFullname').textContent = reportDetails.fullname;
             $i('reportDetailEmail').textContent = reportDetails.email;
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 `;
             let dateObject = new Date(reportDetails.time);
-            let time = dateObject.getDate().toString().padStart(2, 0) + "/" + dateObject.getMonth().toString().padStart(2, 0) + "/" + dateObject.getFullYear();
+            let time = "Ngày " + dateObject.getDate().toString().padStart(2, 0) + " tháng " + (dateObject.getMonth() + 1).toString().padStart(2, 0) + " năm " + dateObject.getFullYear();
             $i('reportUpdateTime').textContent = time;
             $i('reportUpdateFullname').textContent = reportDetails.fullname;
             $i('reportUpdateEmail').textContent = reportDetails.email;

@@ -21,8 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('permissionReqDetailCoEmail').textContent = permissionReqDetails.co.email;
         $i('permissionReqDetailName').textContent = permissionReqDetails.name;
         $i('permissionReqDetailSize').textContent = permissionReqDetails.size;
-        $i('permissionReqDetailContractDate').querySelector('#permissionReqDetailContractDateStart').textContent = permissionReqDetails.startdate;
-        $i('permissionReqDetailContractDate').querySelector('#permissionReqDetailContractDateEnd').textContent = permissionReqDetails.enddate;
+
+        let startDateObject = new Date(permissionReqDetails.startdate);
+        let startDate = "Ngày " + startDateObject.getDate().toString().padStart(2, 0) + " tháng " + (startDateObject.getMonth() + 1).toString().padStart(2, 0) + " năm " + startDateObject.getFullYear();
+        $i('permissionReqDetailContractDate').querySelector('#permissionReqDetailContractDateStart').textContent = startDate;
+        let endDateObject = new Date(permissionReqDetails.enddate);
+        let endDate = "Ngày " + endDateObject.getDate().toString().padStart(2, 0) + " tháng " + (endDateObject.getMonth() + 1).toString().padStart(2, 0) + " năm " + endDateObject.getFullYear();
+        $i('permissionReqDetailContractDate').querySelector('#permissionReqDetailContractDateEnd').textContent = endDate;
+
         $i('permissionReqDetailContent').textContent = permissionReqDetails.content;
         let permissionReqThumbnails = $i('permissionReqDetailThumbnails').querySelector(".carousel-inner");
         // Destroy old children first
@@ -77,6 +83,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (urlParams.has("statusId"))
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
 
+
+    // Set default location selectors' value to "all"
+    document.querySelector("#newPermissionReqDistrict").value = "all";
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
@@ -147,6 +156,56 @@ function statusFilter(statusId) {
 }
 
 // Create new reqs functions
-function displayWards(optionElement) {
-    console.log(optionElement.selectedOptions[0]);
+function displayWards(selectElement) {
+    let selectedOptions = selectElement.selectedOptions[0];
+    let wardSelect = document.querySelector("#newPermissionReqWard");
+    wardSelect.addEventListener('change', () => displayAddresses(document.querySelector('#newPermissionReqWard')));
+    if (selectedOptions.value == "all") {
+        while (wardSelect.children.length > 1) {
+            wardSelect.removeChild(wardSelect.lastChild);
+        }
+    }
+    else {
+        let districtWards = JSON.parse(selectedOptions.dataset.wards)
+        // Destroy old children (except the first one) first
+        while (wardSelect.children.length > 1) {
+            wardSelect.removeChild(wardSelect.lastChild);
+        }
+        districtWards.forEach((ward) => {
+            let option = document.createElement("option");
+            option.value = ward.idPhuong;
+            option.text = ward.name;
+            option.dataset.addresses = JSON.stringify(ward.adLocations);
+            wardSelect.appendChild(option);
+        })
+    }
+    
+    // Reset address selector as well
+    let addressSelect = document.querySelector("#newPermissionReqAddress");
+    addressSelect.value = "all"
+    while (addressSelect.children.length > 1) {
+        addressSelect.removeChild(addressSelect.lastChild);
+    }
+}
+function displayAddresses(selectElement) {
+    let selectedOptions = selectElement.selectedOptions[0];
+    let addressSelect = document.querySelector("#newPermissionReqAddress");
+    if (selectedOptions.value == "all") {
+        while (addressSelect.children.length > 1) {
+            addressSelect.removeChild(addressSelect.lastChild);
+        }
+    }
+    else {
+        let wardAddresses = JSON.parse(selectedOptions.dataset.addresses)
+        // Destroy old children (except the first one) first
+        while (addressSelect.children.length > 1) {
+            addressSelect.removeChild(addressSelect.lastChild);
+        }
+        wardAddresses.forEach((address) => {
+            let option = document.createElement("option");
+            option.value = address.locationId;
+            option.innerText = address.address;
+            addressSelect.appendChild(option);
+        })
+    }
 }

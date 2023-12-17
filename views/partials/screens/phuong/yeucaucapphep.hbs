@@ -198,81 +198,6 @@
         </div>
     </div>
 
-    <!-- Old -->
-    <div class="modal fade" id="newPermissionReqModa" tabindex="-1" aria-labelledby="newPermissionReqModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form action="./yeucaucapphep/taomoi" method="POST" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h6 class="modal-title" id="newPermissionReqModalLabel">
-                            Thông tin chi tiết
-                            <br>
-                            <select name="" id="newPermissionReqDistrict" onchange="displayWards(this)">
-                                <option value="none">Quận</option>
-                                {{#each (mapToArray adArea)}}
-                                    <option value="{{idQuan}}" data-wards={{toJSON wards}}>{{name}}</option>
-                                {{/each}}
-                            </select>
-                            <select name="" id="newPermissionReqWard">
-                                <option value="none">Phường</option>
-                            </select>
-                        </h6>
-                        <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="newPermissionReqModalContent">
-                        <div class="row" id="newPermissionReqCoName">
-                            <h5>Công ty</h5>
-                            <input type="text" name="newPermissionReqCoName" required>
-                        </div>
-                        <div class="row" id="newPermissionReqCategoryRow">
-                            <div class="col">
-                                <h6 id="newPermissionReqCategoryTitle">Số điện thoại liên lạc</h6>
-                                <input type="text" id="newPermissionReqPhone" name="newPermissionReqPhone" required>
-                            </div>
-                            <div class="col">
-                                <h6 id="newPermissionReqCategoryTitle">Email</h6>
-                                <input type="email" id="newPermissionReqEmail" name="newPermissionReqEmail" required>
-                            </div>
-                            <div class="col">
-                                <h6 id="newPermissionReqCategoryTitle">Tên quảng cáo</h6>
-                                <input type="text" id="newPermissionReqAdName" name="newPermissionReqAdName" required>
-                            </div>
-                        </div>
-                        <div class="row" id="newPermissionReqCategoryRow">
-                            <div class="col-4">
-                                <h6 id="newPermissionReqCategoryTitle">Thời hạn hợp đồng</h6>
-                                <h6 id="newPermissionReqContractDate"></h6>
-                            </div>
-                            <div class="col-4">
-                                <h6 id="newPermissionReqCategoryTitle">Kích thước</h6>
-                                <input type="text" id="newPermissionReqSize" name="newPermissionReqSize" required>
-                            </div>
-                        </div>
-                        <div class="row" id="newPermissionReqCategoryRow">
-                            <div class="col">
-                                <h6 id="newPermissionReqCategoryTitle">Nội dung</h6>
-                                <textarea name="newPermissionReqContent" id="newPermissionReqContent" required></textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <h6 id="newPermissionReqCategoryTitle">Hình ảnh quảng cáo</h6>
-                            <div class="row">
-                                <div id="newPermissionReqThumbnails" class="carousel slide" data-ride="carousel">
-                                    <input type="file" name="newPermissionReqThumbnailsUpdate" id="newPermissionReqThumbnailsUpdate" accept="image/png, image/jpeg" multiple required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-end" id="newPermissionReqChoice">
-                        <button type="submit" id="newPermissionReqChoiceCreate" onclick="" class="col-2">Tạo yêu cầu mới</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Create new permission request modal -->
     <div class="modal fade" id="newPermissionReqModal" tabindex="-1" role="dialog" aria-labelledby="newPermissionReqModalLabel" aria-hidden="true">
         <form action="./yeucaucapphep/taomoi" method="POST" enctype="multipart/form-data">
@@ -291,14 +216,14 @@
                                 <div class="d-flex flex-column" style="min-width: 50%;" id="newPermissionReqCoName">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Công Ty<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <input type="text" class="form-control" placeholder="Công Ty ABC" aria-label="Company" name="newPermissionReqCoName">
+                                        <input type="text" class="form-control" placeholder="Công Ty ABC" aria-label="Company" name="newPermissionReqCoName" required>
                                     </div>
                                 </div>
 
                                 <div class="d-flex flex-column " style="min-width: 50%;"> 
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Số điện thoại liên lạc<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="text" class="form-control" placeholder="0948361133" aria-label="Phone" id="newPermissionReqPhone" name="newPermissionReqPhone">
+                                        <input type="text" class="form-control" placeholder="0948361133" aria-label="Phone" id="newPermissionReqPhone" name="newPermissionReqPhone" required>
                                     </div>
                                 </div>
                             </div>
@@ -307,14 +232,7 @@
                                 <div class="d-flex flex-column" style="min-width: 50%;">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Email <span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <input type="email" class="form-control" placeholder="123@gmail.com" aria-label="Email" id="newPermissionReqEmail" name="newPermissionReqEmail" >
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-column " style="min-width: 50%;"> 
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Tên Quảng Cáo<span class="text-danger">*</span></p>
-                                    <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="text" class="form-control" placeholder="Quảng Cáo 1" aria-label="PhoneNum" id="newPermissionReqAdName" name="newPermissionReqAdName">
+                                        <input type="email" class="form-control" placeholder="123@gmail.com" aria-label="Email" id="newPermissionReqEmail" name="newPermissionReqEmail" required>
                                     </div>
                                 </div>
                             </div>
@@ -323,14 +241,14 @@
                                 <div class="d-flex flex-column " style="min-width: 50%;"> 
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Tên Quảng Cáo<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <input type="text" class="form-control" placeholder="Quảng Cáo 1" aria-label="PhoneNum" id="newPermissionReqAdName" name="newPermissionReqAdName">
+                                        <input type="text" class="form-control" placeholder="Quảng Cáo 1" aria-label="PhoneNum" id="newPermissionReqAdName" name="newPermissionReqAdName" required>
                                     </div>
                                 </div>
 
                                 <div class="d-flex flex-column" style="min-width: 50%;">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Kích thước<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="email" class="form-control" placeholder="10m x 20m" aria-label="Email" id="newPermissionReqSize" name="newPermissionReqSize" >
+                                        <input type="text" class="form-control" placeholder="10m x 20m" aria-label="Email" id="newPermissionReqSize" name="newPermissionReqSize" required>
                                     </div>
                                 </div>
                             </div>
@@ -339,39 +257,51 @@
                                 <div class="d-flex flex-column " style="min-width: 50%;"> 
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Thời Gian Bắt Đầu Hợp Đồng<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <input type="text" class="form-control" placeholder="Ngày 20 Tháng 10 Năm 2022" aria-label="PhoneNum" id="newPermissionReqStartDate" name="newPermissionReqStartDate">
+                                        <input type="date" class="form-control" placeholder="Ngày 20 Tháng 10 Năm 2022" aria-label="PhoneNum" id="newPermissionReqStartDate" name="newPermissionReqStartDate" requireds>
                                     </div>
                                 </div>
 
                                 <div class="d-flex flex-column" style="min-width: 50%;">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Thời Gian Kết Thúc Hợp Đồng<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="email" class="form-control" placeholder="Ngày 30 Tháng 12 Năm 2022" aria-label="Email" id="newPermissionReqEndDate" name="newPermissionReqEndDate" >
+                                        <input type="date" class="form-control" placeholder="Ngày 30 Tháng 12 Năm 2022" aria-label="Email" id="newPermissionReqEndDate" name="newPermissionReqEndDate" required>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Địa Điểm  -->
                             <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Địa Điểm</p>
-                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="d-flex flex-column " style="min-width: 25%;"> 
+                            <div class="row d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="col d-flex flex-column "> 
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Quận<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <input type="text" class="form-control" placeholder="Ngày 20 Tháng 10 Năm 2022" aria-label="PhoneNum" id="newPermissionReqStartDate" name="newPermissionReqStartDate">
+                                        <select name="newPermissionReqDistrict" id="newPermissionReqDistrict" onchange="displayWards(this)" required>
+                                            <option value="all">Quận</option>
+                                            {{#each adArea}}
+                                                <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 35%;">
+                                <div class="col d-flex flex-column">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Phường<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="email" class="form-control" placeholder="Ngày 30 Tháng 12 Năm 2022" aria-label="Email" id="newPermissionReqEndDate" name="newPermissionReqEndDate" >
+                                        <select name="newPermissionReqWard" id="newPermissionReqWard" required>
+                                            <option value="all">Phường</option>
+                                        </select>
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 40%;">
+                                <div class="col d-flex flex-column">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Địa Chỉ<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="email" class="form-control" placeholder="Ngày 30 Tháng 12 Năm 2022" aria-label="Email" id="newPermissionReqEndDate" name="newPermissionReqEndDate" >
+                                        <select name="newPermissionReqAddress" id="newPermissionReqAddress" required>
+                                            <option value="all">Địa chỉ</option>
+                                            {{#each adArea}}
+                                                <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +309,7 @@
                             <div class="d-flex flex-column w-100">
                                 <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Nội dung báo cáo <span class="text-danger">*</span></p>
                                 <div class="input-group mb-3">
-                                    <textarea class="form-control" placeholder="Nhập Nội Dung Báo Cáo" aria-label="ReportContent" style="min-height: 100px;" name="ReportContent"></textarea>
+                                    <textarea class="form-control" placeholder="Nhập Nội Dung Báo Cáo" aria-label="ReportContent" style="min-height: 100px;" name="ReportContent" required></textarea>
                                 </div>
                             </div>
 
@@ -392,7 +322,7 @@
                                     </span> 
                                     to select
                                 </p>
-                                <input type="file" id="fileInput" class="d-none" name="FileInput" multiple >
+                                <input type="file" id="fileInput" class="d-none" name="newPermissionReqThumbnailsUpdate" accept="image/png, image/jpeg" multiple>
                                 <div class="w-100">
                                     <ul id="file-list" class="d-none"></ul>
                                 </div>

@@ -63,7 +63,24 @@ controller.show = async (req, res) => {
         });
         // console.log(AdArea.quan_5.wards.phuong_04.adLocations);
 
-        console.log(AdArea);
+        // Convert adArea to stringify-able format
+        let temp = [];
+        let i = 0;
+        for (let districtKey in AdArea) {
+            if (AdArea.hasOwnProperty(districtKey)) {
+                temp.push(AdArea[districtKey]);
+            }
+            
+            let wardTemp = [];
+            for (let wardKey in temp[i].wards) {
+                if (temp[i].wards.hasOwnProperty(wardKey)) {
+                    wardTemp.push(temp[i].wards[wardKey]);
+                }
+            }
+            temp[i].wards = wardTemp;
+            i++;
+        }
+        AdArea = temp;
 
         // Filters
         let filterCoId = req.query.coId;
@@ -125,12 +142,13 @@ controller.createPermissionReq = async (req, res) => {
                 phone: req.body.newPermissionReqPhone
             },
             content: req.body.newPermissionReqContent,
-            enddate: null,
-            locationId: null,
+            enddate: req.body.newPermissionReqEndDate,
+            locationId: parseInt(req.body.newPermissionReqAddress),
             name: req.body.newPermissionReqAdName,
             permissionReqId: permissionReqHighest + 1,
             size: req.body.newPermissionReqSize,
-            startdate: null,
+            startdate: req.body.newPermissionReqStartDate,
+            content: req.body.ReportContent,
             status: 0,
             thumbnails: thumbnails
         }

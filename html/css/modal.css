@@ -355,10 +355,13 @@
     font-weight: 500;
 }
 
-#newPermissionReqModal .modal-body input {
+#newPermissionReqModal .modal-body input, #newPermissionReqModal .modal-body select {
     border: 2px solid rgb(189, 189, 189);
     box-shadow: none;
     border-radius: 10px;
+    padding: .375rem .75rem;
+    background-color: #FFFFFF;
+    color: #7f7e7e;
 }
 
 #newPermissionReqModal .modal-body textarea#newPermissionReqContent {

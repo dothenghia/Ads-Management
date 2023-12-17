@@ -20,8 +20,15 @@ document.addEventListener("DOMContentLoaded", function () {
             $i('adDetailType').textContent = adLocationDetails.adType;
             $i('adDetailForm').textContent = adLocationDetails.adForm;
             $i('adDetailLocationType').textContent = adLocationDetails.locationType;
-            $i('adDetailContractDate').querySelector('#adDetailContractDateStart').textContent = adDetails.contractStartDate;
-            $i('adDetailContractDate').querySelector('#adDetailContractDateEnd').textContent = adDetails.contractEndDate;
+
+            let startDateObject = new Date(adDetails.contractStartDate);
+            let startDate = "Ngày " + startDateObject.getDate().toString().padStart(2, 0) + " tháng " + (startDateObject.getMonth() + 1).toString().padStart(2, 0) + " năm " + startDateObject.getFullYear();
+            $i('adDetailContractDate').querySelector('#adDetailContractDateStart').textContent = startDate;
+
+            let endDateObject = new Date(adDetails.contractEndDate);
+            let endDate = "Ngày " + endDateObject.getDate().toString().padStart(2, 0) + " tháng " + (endDateObject.getMonth() + 1).toString().padStart(2, 0) + " năm " + endDateObject.getFullYear();
+            $i('adDetailContractDate').querySelector('#adDetailContractDateEnd').textContent = endDate;
+
             $i('adDetailSize').textContent = adDetails.size;
             let adThumbnails = $i('adDetailThumbnails').querySelector(".carousel-inner");
             // Destroy old children first
