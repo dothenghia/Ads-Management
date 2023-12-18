@@ -1,19 +1,86 @@
 
+import uploadImageAndGetURL from '/functions/dan/generateImageURL.js';
 import CaptchaBox from "../captcha/CaptchaBox.js";
 
 export default function ReportFormModal() {
+    let imagesURLs = [];
 
-    function ShowCaptchaBox(e) {
-        e.preventDefault();
-        document.querySelector('.captcha-box-root').innerHTML = CaptchaBox();
+    function generateReportId() {
+        // Lấy ngày tháng năm và thời gian hiện tại
+        let currentDate = new Date();
+        let day = currentDate.getDate();
+        let month = currentDate.getMonth() + 1; // Tháng bắt đầu từ 0
+        let year = currentDate.getFullYear();
+        let hours = currentDate.getHours();
+        let minutes = currentDate.getMinutes();
+        let seconds = currentDate.getSeconds();
+        return `${year}${month}${day}_${hours}${minutes}${seconds}`;
     }
-    window.ShowCaptchaBox = ShowCaptchaBox;
 
+    function submitReportForm(e) {
+        e.preventDefault();
+        let root = document.querySelector('.report-form-modal-root')
+        let reportForm = document.getElementById('form').value; // Hình thức báo cáo
+        let reportId = generateReportId(); // Mã báo cáo
+        let latitude = root.getAttribute('data-latitude'); // Vĩ độ
+        let content = tinymce.get("report-form-modal__content").getContent().trim(); // Nội dung báo cáo
+        let reportType = root.getAttribute('data-reportType'); // Loại báo cáo
+        let adId = root.getAttribute('data-adId'); // Mã quảng cáo
+        let phone = document.getElementById('phone').value; // Số điện thoại
+        let locationId = root.getAttribute('data-locationId'); // Mã địa điểm
+        let time = new Date().toLocaleString(); // Thời gian báo cáo
+        let fullname = document.getElementById('fullname').value; // Họ và tên
+        let email = document.getElementById('email').value; // Email
+        let longitude = root.getAttribute('data-longitude'); // Kinh độ
+        let status = 'Đang xử lý' // Trạng thái xử lý
+        let solution = '' // Giải pháp xử lý
+        let isDelete = false // Trạng thái xóa
+
+        if (!content) {
+            alert('Vui lòng nhập nội dung báo cáo');
+            return;
+        }
+
+        console.group('=====================');
+        console.log('reportId: ', reportId)
+        console.log('reportType: ', reportType)
+
+        console.log('locationId: ', locationId)
+        console.log('adId: ', adId)
+        console.log('longitude: ', longitude)
+        console.log('latitude: ', latitude)
+
+        console.log('reportForm:', reportForm);
+        console.log('status:', status);
+        console.log('time:', time);
+
+        console.log('fullname:', fullname);
+        console.log('Email:', email);
+        console.log('Số điện thoại:', phone);
+        console.log('Nội dung báo cáo:', content);
+        console.log('solution:', solution);
+        console.log('isDelete:', isDelete);
+        console.log('imagesURLs:', imagesURLs);
+        console.groupEnd();
+    }
+    window.submitReportForm = submitReportForm;
+
+    async function getURL(file) {
+        if (file) {
+            try {
+                let imageURL = await uploadImageAndGetURL(file);
+                imagesURLs.push({ url: imageURL });
+                // console.log(imagesURLs);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 
     // Upload file handler
     function InputUploadFile(e) {
-        const files = e.target.files;
-        console.log(files);
+        let files = e.target.files;
+        // console.log(files);
 
         let list = '';
         for (let i = 0; i < files.length; i++) {
@@ -26,7 +93,9 @@ export default function ReportFormModal() {
                         <span>${files[i].size} B</span>
                     </div>
                 </div>
-            `
+            `;
+            // Lấy URL cho từng file và đưa vào mảng
+            getURL(files[i]);
         }
         document.querySelector('.report-form-modal__file-list').innerHTML = list;
         document.querySelector('.report-form-modal__files-area label').style.display = 'none';
@@ -35,6 +104,7 @@ export default function ReportFormModal() {
     window.InputUploadFile = InputUploadFile;
 
     function ClearUploadFile() {
+        imagesURLs = []; // Xóa mảng khi người dùng xóa hết file
         document.querySelector('.report-form-modal__file-list').innerHTML = `
             <label for="report-form-modal__files">
                 <img src='/assets/dan/illustration/uploadfile.png' alt='upload file'>
@@ -73,8 +143,8 @@ export default function ReportFormModal() {
 
                 <form
                     action=""
-                    onsubmit="ShowCaptchaBox(event)"
                     novalidate
+                    onsubmit="submitReportForm(event)"
                     class="report-form-modal__form"
                 >
                     <div class="report-form-modal__row">
@@ -134,11 +204,10 @@ export default function ReportFormModal() {
                     <div class="report-form-modal__fluid">
                         <label for="report-form-modal__content">Nội dung báo cáo <span class="text-danger">*</span></label>
                         <textarea
-                            id="report-form-modal__content"
-                            class="report-form-modal__content"
-                            name="report-form-modal__content"
-                            placeholder="Nhập nội dung báo cáo"
-                            required
+                            id="report-form-modal__content" 
+                            class="report-form-modal__content" 
+                            name="report-form-modal__content" 
+                            placeholder="Nhập nội dung báo cáo" 
                         ></textarea>
                     </div>
 
@@ -167,6 +236,7 @@ export default function ReportFormModal() {
                                 type="file"
                                 id="report-form-modal__files"
                                 name="FileInput"
+                                accept="image/*"
                                 multiple
                                 onchange="InputUploadFile(event)"
                             >

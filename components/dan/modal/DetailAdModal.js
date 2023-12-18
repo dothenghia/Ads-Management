@@ -7,6 +7,12 @@ export default function DetailAdModal(detailAdInfo) {
 
     function openReportFormModal_DetailAdModal() {
         document.querySelector('.report-form-modal-root').classList.remove('hide');
+        let root = document.querySelector('.report-form-modal-root')
+        root.setAttribute('data-locationId', detailAdInfo.locationId)
+        root.setAttribute('data-adId', detailAdInfo.adId)
+        root.setAttribute('data-longitude', '')
+        root.setAttribute('data-latitude', '')
+        root.setAttribute('data-reportType', 'qc')
     }
 
     window.openReportFormModal_DetailAdModal = openReportFormModal_DetailAdModal;

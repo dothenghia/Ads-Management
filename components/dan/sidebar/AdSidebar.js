@@ -54,6 +54,12 @@ function AdSidebar_Info(adLocationData) {
 
     function openReportFormModal_AdSidebar() {
         document.querySelector('.report-form-modal-root').classList.remove('hide');
+        let root = document.querySelector('.report-form-modal-root')
+        root.setAttribute('data-locationId', adLocationData.locationId)
+        root.setAttribute('data-adId', '')
+        root.setAttribute('data-longitude', '')
+        root.setAttribute('data-latitude', '')
+        root.setAttribute('data-reportType', 'ddqc')
     }
     window.openReportFormModal_AdSidebar = openReportFormModal_AdSidebar;
 

@@ -4,6 +4,12 @@ export default function RandomPopup(map, data) {
 
     function openReportFormModal_RandomPopup() {
         document.querySelector('.report-form-modal-root').classList.remove('hide');
+        let root = document.querySelector('.report-form-modal-root')
+        root.setAttribute('data-locationId', '')
+        root.setAttribute('data-adId', '')
+        root.setAttribute('data-longitude', data.longitude.toFixed(4))
+        root.setAttribute('data-latitude', data.latitude.toFixed(4))
+        root.setAttribute('data-reportType', 'ddbk')
     }
     window.openReportFormModal_RandomPopup = openReportFormModal_RandomPopup;
 
