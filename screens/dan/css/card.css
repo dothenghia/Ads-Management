@@ -81,7 +81,9 @@
 .report-card__info h3 {
     color: var(--primary-color);
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 12px;
+    margin-top: -6px;
 }
 
 

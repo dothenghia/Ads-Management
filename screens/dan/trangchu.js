@@ -59,7 +59,13 @@ const trangchu = {
             
             <div class="modal-root"></div>
             
-            <div class="report-form-modal-root hide">${ReportFormModal()}</div>
+            <div class="report-form-modal-root hide"
+                data-locationId=""
+                data-adId=""
+                data-longitude=""
+                data-latitude=""
+                data-reportType=""
+            >${ReportFormModal()}</div>
             
             <div class="sidebar-root"></div>
 
