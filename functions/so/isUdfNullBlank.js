@@ -5,4 +5,16 @@ function isUdfNullBlank(value) {
     return value;
 }
 
-module.exports.isUdfNullBlank = isUdfNullBlank;
+function isArrayEmpty(arr) {
+    // console.log(arr);
+    if (arr.length === 0) {
+        return true;
+    }
+    return false;
+
+}
+
+module.exports= {
+    isUdfNullBlank: isUdfNullBlank, 
+    isArrayEmpty: isArrayEmpty
+};

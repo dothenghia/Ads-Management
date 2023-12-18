@@ -96,7 +96,7 @@ Bảo :
     
     - Detail Cấp Phép chưa có nút accept - Chưa
     Sở :
-    - Thống kê
+    - Thống kê - Chưa
     - Trang Cấp Phép, Điều Chỉnh -> Chỉ có Duyệt thoi  - Done
     - Bỏ hết những cái nút Thêm (Trừ trang Nhân sự) - Done
     - Tạo thêm các nhân sự :

@@ -87,21 +87,24 @@ controller.show = async (req, res) => {
 }
 
 controller.delete = async (req, res) => {
-    let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
+    try {
+        let id = req.params.id;
 
-    const permissionReqRef = db.collection("permissionReqs").where("permissionReqId", "==", id).get();
-    const updatePromise = []
+        
+        // Delete document
+        const result = await client.db(dbName).collection("permissionReqs").findOneAndUpdate({permissionReqId: parseInt(id)}, { $set: { delete: true } });
+        //const result = await client.db(dbName).collection("permissionReqs").findOneAndDelete({permissionReqId: parseInt(id)});
 
-    permissionReqRef.forEach((doc) => {
-        const updateId = {
-            permissionReqId: -1
+        // Check if the document was found and deleted
+        if (result == null) {
+            return res.status(404).send("Document not found");
         }
-
-        updatePromise.push(doc.ref.update(updateId));
-    });
     
-    await Promise.all(updatePromise);
-    res.send("Deleted");
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
 }
 
 module.exports = controller;

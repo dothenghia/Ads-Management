@@ -2,12 +2,6 @@ const controller = {}
 const currentPage = 0;
 
 
-controller.delete = (req, res) => {
-    
-    res.send("Deleted");
-}
-
-
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 
@@ -68,4 +62,26 @@ controller.show = async (req, res) => {
     });
 }
 
+
+controller.delete = async (req, res) => {
+    try {
+        let id = req.params.id;
+
+        // Delete document
+        const result = await client.db(dbName).collection("ads").findOneAndUpdate({adId: parseInt(id)}, { $set: { delete: true } });
+        
+        // Check if the document was found and deleted
+        if (result == null) {
+            return res.status(404).send("Document not found");
+        }
+    
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
+}
+
 module.exports = controller;
+
+

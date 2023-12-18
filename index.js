@@ -71,7 +71,8 @@ app.engine('hbs', expressHbs.engine({
         mapToArray: helpers.httpFuncs.mapToArray,
         mongoDateToLocaleString: helpers.httpFuncs.mongoDateToLocaleString,
         checkIDValidate: helpers.checkIDValidate.checkIDValidate,
-
+        CheckValidateWithSpecificField: helpers.checkIDValidate.CheckValidateWithSpecificField,
+        
         // Sở
         translateReportType: helpers.reportTrans.translateReportType,
         getReportLocation: helpers.reportLocation.getReportLocation,
@@ -79,6 +80,7 @@ app.engine('hbs', expressHbs.engine({
         translateAgentArea: helpers.translateAgentArea.translateAgentArea,
         getAgentRole: helpers.getAgentRole.getAgentRole,
         isUdfNullBlank: helpers.isUdfNullBlank.isUdfNullBlank,
+        isArrayEmpty: helpers.isUdfNullBlank.isArrayEmpty,
         wrapInObject: helpers.wrapInObject.wrapInObject,
 
         // Phường

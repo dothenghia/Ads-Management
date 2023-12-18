@@ -6,10 +6,10 @@
 <style>
     .shared-header {
         padding: 1.5rem 2rem;
-    } 
+    }
     table tbody tr td {
         padding: calc(.5rem + 6px) calc(.5rem + 12px) !important;
-    }  
+    }
 </style>
 
 <div class="shared-container">
@@ -18,6 +18,7 @@
     <div class="shared-header">
         <h1>Thông tin quảng cáo</h1>
     </div>
+
 
     {{!-- Table --}}
     <div class="shared-table-container">
@@ -53,7 +54,6 @@
                     </th>
                     <th scope="col">Chi tiết</th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
 
@@ -62,36 +62,40 @@
                 {{createGlobal 'adIndex' 1}}
                 {{#each adLocation}}
                     {{#each adList}}
-                        <tr>
-                            <td scope="col">{{getGlobal 'adIndex'}}</td>
-                            {{#with (getAdInfo ../../ad adId)}}
-                                <td scope="col">{{name}}</td>
-                            {{/with}}
-                            <td scope="col"> {{getLocation ../../adLocation ../locationId 2}}</td>
-                            <td scope="col">{{../adType}}</td>
-                            
-                            <td scope="col">{{../adForm}}</td>
-                            <td scope="col">{{../locationType}}</td>
-                            
-                            <td scope="col">
-                                <button class="table-detail-button" data-ad-location-details="{{toJSON ../../adLocation}}" data-ad-address="{{getLocation ../../adLocation ../locationId 0}}" data-ad-details="{{toJSON (getAdInfo ../../ad adId)}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-info">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                    </svg>
-                                </button>
-                            </td>
+                        {{#each (getAdInfo ../../ad adId)}} 
+                                {{#if (checkIDValidate delete)}}
+                                    {{else}}
+                                    <tr>
+                                        <td scope="col">{{getGlobal 'adIndex'}}</td>
+                                        <td scope="col">{{name}}</td>
+                                        <td scope="col"> {{getLocation ../../../adLocation ../../locationId 2}}</td>
+                                        <td scope="col">{{../../adType}}</td>
+                                        <td scope="col">{{../../adForm}}</td>
+                                        <td scope="col">{{../../locationType}}</td>
+                                        
+                                        <td scope="col">
+                                            <button class="table-detail-button" data-ad-location-details="{{toJSON (arrayIndex ../../../adLocation @../../index)}}" data-ad-address="{{getLocation ../../../adLocation ../../locationId 0}}" data-ad-details="{{toJSON (getAdInfo ../../../ad ../adId)}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-info">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                                </svg>
+                                            </button>
+                                        </td>
 
-                            <td scope="col">
-                                    <button class="ttqc-delete-button" data-location-id="{{../locationId}}" data-ad-id="{{adId}}" data-account-role="so" data-page="thongtinquangcao"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                    </button>
-                            </td>
-                        </tr>
-                        {{incrementGlobal 'adIndex'}}
+                                        <td scope="col">
+                                            <button class="ttqc-delete-button" data-location-id="{{../../locationId}}" data-ad-id="{{../adId}}" data-account-role="so" data-page="thongtinquangcao"> 
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                            </button>
+                                        </td>
+                                        
+                                    </tr>
+                                    {{incrementGlobal 'adIndex'}}
+                                {{/if}}
+                        {{/each}}
+                        
                     {{/each}}
                 {{/each}}
                 {{removeGlobal 'adIndex' 1}}
@@ -131,9 +135,9 @@
                         <div class="col">
                             <h6 id="adDetailCategoryTitle">Thời hạn hợp đồng</h6>
                             <div id="adDetailContractDate" class="d-flex flex-row text-primary">
-                                <img src="/assets/icon/LineDate.svg" alt="Date Range Icon" class="mb-2 me-1">
+                                <img src="/assets/icon/LineDate.svg" alt="Date Raange Icon" class="mb-2 me-1">
                                 <div class="d-flex flex-column" id="adDetailContractDateContainer">
-                                    <h6 id="adDetailContractDateStart"></h6>
+                                    <h6 id="adDetailContractDateStart" ></h6>
                                     <h6 id="adDetailContractDateEnd"></h6>
                                 </div>      
                             </div>
@@ -152,14 +156,7 @@
                                 <h6>Không có hình ảnh để hiển thị</h6>
                             </div>
                             <div id="adDetailThumbnails" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100"  alt="First slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100"  alt="Second slide">
-                                    </div>
-                                </div>
+                                <div class="carousel-inner"></div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#adDetailThumbnails" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 </button>
@@ -173,8 +170,10 @@
             </div>
         </div>
     </div>
+    
 
-    <!-- The Permission Delete Modal -->
+    
+<!-- The Permission Delete Modal -->
     <div class="modal fade" id="confirmationModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -199,5 +198,5 @@
 {{!-- Custom JS script --}}
 <script src="/js/adDetail.js"></script>
 
-{{!-- Custom Delete Btn --}}
+
 <script src="/js/deleteMethod.js"></script>

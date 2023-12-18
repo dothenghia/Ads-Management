@@ -46,7 +46,7 @@ document.querySelectorAll(".ttqc-delete-button").forEach((btn) => {
 
 
 async function deleteTTQCElement(accountRole, page, locationId, adId) {
-    let res = await fetch(`/${accountRole}/${page}/${locationId}.${adId}`, {
+    let res = await fetch(`/${accountRole}/${page}/${adId}`, {
         method: "DELETE",
     });
 

@@ -6,10 +6,23 @@ const dbName = 'Ads-Management';
 const fs = require("fs");
 const {hashPassword} = require("../../../config/bcryptConfig");
 
-controller.delete = (req, res) => {
-    let id = isNaN(req.params.id) ? 0 : parseInt(req.params.id);
-    changeId('account', id);
-    res.send("Deleted");
+controller.delete = async (req, res) => {
+    try {
+        let id = req.params.id;
+
+        // Delete document
+        const result = await client.db(dbName).collection("accounts").findOneAndUpdate({_id: id}, { $set: { delete: true } });
+        
+        // Check if the document was found and deleted
+        if (result == null) {
+            return res.status(404).send("Document not found");
+        }
+    
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
 }
 
 controller.show = async (req, res) => {
@@ -18,7 +31,7 @@ controller.show = async (req, res) => {
     try {
         
         //const result = await client.db(dbName).collection("reports").updateMany({}, { $set: { delete: false } });
-        console.log(result);
+        // console.log(result);
         const accountSnapshot = await client.db(dbName).collection("accounts").find({}).toArray();
         const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
 

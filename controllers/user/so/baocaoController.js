@@ -109,8 +109,22 @@ controller.denyChange = async (req, res) => {
 
 
 controller.delete = async (req, res) => {
+    try {
+        let id = req.params.id;
+
+        // Delete document
+        const result = await client.db(dbName).collection("reports").findOneAndUpdate({reportId: parseInt(id)}, { $set: { delete: true } });
+        
+        // Check if the document was found and deleted
+        if (result == null) {
+            return res.status(404).send("Document not found");
+        }
     
-    res.send("Deleted");
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
 }
 
 
