@@ -1,15 +1,14 @@
 
-- Những cái QC hết hạn hợp đồng thì sao ?
-    => Vẫn để trong DB, chỉ là ko show ra thoi (Check cái end contract date)
 ### ====== PHÂN CÔNG ======
 
 Nghĩa :
 
     Dân :
-        - Send Report + LocalStorage [1h]
-            => Gửi thẳng lên Collection 'reports'
-            => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý' & reportId đã gửi
-        - Captcha Box [2h]
+        - Send Report => Gửi thẳng lên Collection 'reports' /
+        - LocalStorage [1h] /
+        - Captcha Box [2h] /
+        - Fetch Report [2h]
+            => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý' & những cái reportId trong local storage đã gửi
 
     Phường+Quận :
         - Trang BanDo chưa làm xong [3h]

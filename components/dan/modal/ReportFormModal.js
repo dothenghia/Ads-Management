@@ -16,8 +16,8 @@ export default function ReportFormModal() {
         let hours = currentDate.getHours();
         let minutes = currentDate.getMinutes();
         let seconds = currentDate.getSeconds();
-        let milliseconds = currentDate.getMilliseconds();
-        return `${year}${month}${day}_${hours}${minutes}${seconds}${milliseconds}`;
+        // let milliseconds = currentDate.getMilliseconds();
+        return `${year}${month}${day}${hours}${minutes}${seconds}`;
     }
 
     function generateDate() {

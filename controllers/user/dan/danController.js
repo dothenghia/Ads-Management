@@ -17,9 +17,17 @@ const controller = {}
 
 controller.uploadData = async (req, res) => {
     try {
-        const jsonData = req.body;
+        let jsonData = req.body;
 
-        await client.db(dbName).collection("testCollection").updateOne(
+        // Chuyển đổi reportId, latitude, longitude thành kiểu số
+        jsonData.reportId = parseInt(jsonData.reportId);
+        jsonData.latitude = parseFloat(jsonData.latitude);
+        jsonData.longitude = parseFloat(jsonData.longitude);
+
+        // Chuyển đổi time thành kiểu date
+        jsonData.time = new Date(jsonData.time);
+
+        await client.db(dbName).collection("reports").updateOne(
             { _id: jsonData.reportId },
             { $set: jsonData },
             { upsert: true }
@@ -70,12 +78,19 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
 }
 
 // Hàm lấy danh sách các địa điểm bị báo cáo và chuyền về dạng GeoJSON
+// => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý'
+// & Những cái có delete = false
+// & những cái reportId trong local storage đã gửi
 controller.getReportGeoJSONList = async (req, res) => {
     try {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
-        const reportQuery = { reportType: 'ddbk' };
+        const reportQuery = {
+            delete: false,
+            reportType: 'ddbk',
+        };
+
         const reportDocs = await reportsCollection.find(reportQuery).toArray();
 
         const reportLocationGeoJSONList = [];
@@ -289,7 +304,11 @@ controller.getReportList = async (req, res) => {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
-        const reportDocs = await reportsCollection.find({}).toArray();
+        const reportQuery = {
+            delete: false,
+        };
+
+        const reportDocs = await reportsCollection.find(reportQuery).toArray();
 
         const detailedReports = await Promise.all(reportDocs.map(async (reportData) => {
             if (reportData.reportType === 'qc') {
