@@ -15,6 +15,24 @@ const formatDate = require('./formatDate.js')
 
 const controller = {}
 
+controller.uploadData = async (req, res) => {
+    try {
+        const jsonData = req.body;
+
+        await client.db(dbName).collection("testCollection").updateOne(
+            { _id: jsonData.reportId },
+            { $set: jsonData },
+            { upsert: true }
+        );
+
+        res.status(200).send(jsonData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+
 // Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON
 controller.getAdLocationGeoJSONList = async (req, res) => {
     try {

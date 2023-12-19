@@ -34,6 +34,20 @@ fetch('http://localhost:3000/uploadData', {
         console.error('Error:', error);
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 'Tương tự ta sẽ có việc request data từ client side = AJAX, sau đó từ mongoDB sẽ gửi về JSON, từ đó client xử lí'
 'server side'
 //cái này có trong exampleControllerMongoDB

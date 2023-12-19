@@ -19,5 +19,6 @@ router.get("/bc/:rpId", controller.getReportInfoById);
 router.get("/bclength", controller.getReportLength);
 router.get("/dsbc", controller.getReportList);
 
+router.post("/upload", controller.uploadData);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 
 import uploadImageAndGetURL from '/functions/dan/generateImageURL.js';
 import CaptchaBox from "../captcha/CaptchaBox.js";
+import sendReport from '/functions/dan/sendReport.js';
 
 export default function ReportFormModal() {
     let imagesURLs = [];
@@ -14,7 +15,18 @@ export default function ReportFormModal() {
         let hours = currentDate.getHours();
         let minutes = currentDate.getMinutes();
         let seconds = currentDate.getSeconds();
-        return `${year}${month}${day}_${hours}${minutes}${seconds}`;
+        let milliseconds = currentDate.getMilliseconds();
+        return `${year}${month}${day}_${hours}${minutes}${seconds}${milliseconds}`;
+    }
+
+    function generateDate() {
+        let currentDate = new Date();
+        let day = currentDate.getDate();
+        let month = currentDate.getMonth() + 1; // Tháng bắt đầu từ 0
+        let year = currentDate.getFullYear();
+
+        let isoString = `${year}-${month}-${day}T00:00:00.000+00:00`;
+        return new Date(isoString);
     }
 
     function submitReportForm(e) {
@@ -28,7 +40,7 @@ export default function ReportFormModal() {
         let adId = root.getAttribute('data-adId'); // Mã quảng cáo
         let phone = document.getElementById('phone').value; // Số điện thoại
         let locationId = root.getAttribute('data-locationId'); // Mã địa điểm
-        let time = new Date().toLocaleString(); // Thời gian báo cáo
+        let time = generateDate(); // Thời gian báo cáo
         let fullname = document.getElementById('fullname').value; // Họ và tên
         let email = document.getElementById('email').value; // Email
         let longitude = root.getAttribute('data-longitude'); // Kinh độ
@@ -41,27 +53,25 @@ export default function ReportFormModal() {
             return;
         }
 
-        console.group('=====================');
-        console.log('reportId: ', reportId)
-        console.log('reportType: ', reportType)
-
-        console.log('locationId: ', locationId)
-        console.log('adId: ', adId)
-        console.log('longitude: ', longitude)
-        console.log('latitude: ', latitude)
-
-        console.log('reportForm:', reportForm);
-        console.log('status:', status);
-        console.log('time:', time);
-
-        console.log('fullname:', fullname);
-        console.log('Email:', email);
-        console.log('Số điện thoại:', phone);
-        console.log('Nội dung báo cáo:', content);
-        console.log('solution:', solution);
-        console.log('isDelete:', isDelete);
-        console.log('imagesURLs:', imagesURLs);
-        console.groupEnd();
+        let uploadData = {
+            reportId,
+            reportType,
+            locationId,
+            adId,
+            longitude,
+            latitude,
+            reportForm,
+            status,
+            time,
+            fullname,
+            email,
+            phone,
+            content,
+            solution,
+            delete: isDelete,
+            images: imagesURLs
+        }
+        sendReport(uploadData);
     }
     window.submitReportForm = submitReportForm;
 
