@@ -2,6 +2,7 @@
 import uploadImageAndGetURL from '/functions/dan/generateImageURL.js';
 import CaptchaBox from "../captcha/CaptchaBox.js";
 import sendReport from '/functions/dan/sendReport.js';
+import setLocalStorageReportList from '/functions/dan/setLocalStorageReportList.js';
 
 export default function ReportFormModal() {
     let imagesURLs = [];
@@ -31,10 +32,16 @@ export default function ReportFormModal() {
 
     function submitReportForm(e) {
         e.preventDefault();
-        
+
         let captcha = document.getElementById('captcha-box-input').checked; // Trạng thái captcha
         if (!captcha) {
             alert('Vui lòng xác nhận bạn không phải là robot');
+            return;
+        }
+
+        let content = tinymce.get("report-form-modal__content").getContent().trim(); // Nội dung báo cáo
+        if (!content) {
+            alert('Vui lòng nhập nội dung báo cáo');
             return;
         }
 
@@ -42,7 +49,6 @@ export default function ReportFormModal() {
         let reportForm = document.getElementById('form').value; // Hình thức báo cáo
         let reportId = generateReportId(); // Mã báo cáo
         let latitude = root.getAttribute('data-latitude'); // Vĩ độ
-        let content = tinymce.get("report-form-modal__content").getContent().trim(); // Nội dung báo cáo
         let reportType = root.getAttribute('data-reportType'); // Loại báo cáo
         let adId = root.getAttribute('data-adId'); // Mã quảng cáo
         let phone = document.getElementById('phone').value; // Số điện thoại
@@ -55,11 +61,28 @@ export default function ReportFormModal() {
         let solution = '' // Giải pháp xử lý
         let isDelete = false // Trạng thái xóa
 
-
-        if (!content) {
-            alert('Vui lòng nhập nội dung báo cáo');
+        // Kiểm tra các trường thông tin cá nhân
+        if (!fullname || !email || !phone) {
+            alert('Vui lòng điền đầy đủ thông tin Họ tên, Email, và Số điện thoại');
             return;
         }
+
+        // Kiểm tra định dạng email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Vui lòng nhập địa chỉ email hợp lệ');
+            return;
+        }
+
+        // Kiểm tra phone chỉ chứa ký tự số
+        const phoneRegex = /^\d+$/;
+        if (!phoneRegex.test(phone)) {
+            alert('Số điện thoại chỉ được chứa ký tự số');
+            return;
+        }
+
+        setLocalStorageReportList(reportId)
+
 
         let uploadData = {
             reportId,
@@ -79,7 +102,17 @@ export default function ReportFormModal() {
             delete: isDelete,
             images: imagesURLs
         }
-        // sendReport(uploadData);
+
+        sendReport(uploadData);
+
+        setTimeout(() => {
+            document.querySelector('.report-form-modal-root').classList.add('hide');
+        }, 500);
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    
     }
     window.submitReportForm = submitReportForm;
 

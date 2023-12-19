@@ -59,7 +59,7 @@ const trangchu = {
             
             <div class="modal-root"></div>
             
-            <div class="report-form-modal-root"
+            <div class="report-form-modal-root hide"
                 data-locationId=""
                 data-adId=""
                 data-longitude=""
