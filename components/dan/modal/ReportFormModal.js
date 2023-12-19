@@ -31,6 +31,13 @@ export default function ReportFormModal() {
 
     function submitReportForm(e) {
         e.preventDefault();
+        
+        let captcha = document.getElementById('captcha-box-input').checked; // Trạng thái captcha
+        if (!captcha) {
+            alert('Vui lòng xác nhận bạn không phải là robot');
+            return;
+        }
+
         let root = document.querySelector('.report-form-modal-root')
         let reportForm = document.getElementById('form').value; // Hình thức báo cáo
         let reportId = generateReportId(); // Mã báo cáo
@@ -47,6 +54,7 @@ export default function ReportFormModal() {
         let status = 'Đang xử lý' // Trạng thái xử lý
         let solution = '' // Giải pháp xử lý
         let isDelete = false // Trạng thái xóa
+
 
         if (!content) {
             alert('Vui lòng nhập nội dung báo cáo');
@@ -71,7 +79,7 @@ export default function ReportFormModal() {
             delete: isDelete,
             images: imagesURLs
         }
-        sendReport(uploadData);
+        // sendReport(uploadData);
     }
     window.submitReportForm = submitReportForm;
 
@@ -253,6 +261,8 @@ export default function ReportFormModal() {
                         </div>
                     </div>
 
+                    ${CaptchaBox()}
+
                     <div class="report-form-modal__submit">
                         <button type="submit" class="btn btn-outline-primary custom-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
@@ -269,3 +279,5 @@ export default function ReportFormModal() {
     
     `
 }
+
+{/* <div class="g-recaptcha" data-sitekey="6LdxBjYpAAAAAH_FRPwagu-DNC690y7s2uwIz8GM"></div> */ }

@@ -1,23 +1,12 @@
 
 export default function CaptchaBox() {
 
-    function submitCaptchaBox() {
-        console.log('submitCaptchaBox');
-
-        setTimeout(() => {
-            document.querySelector('.captcha-box-root').innerHTML = '';
-            document.querySelector('.report-form-modal-root').classList.add('hide');
-        }, 3500);
-    }
-
-    window.submitCaptchaBox = submitCaptchaBox;
-
     return `
     <div class="captcha-box-container">
         <div class="captcha">
             <div class="spinner">
                 <label>
-                    <input type="checkbox" onchange="submitCaptchaBox()">
+                    <input type="checkbox" id="captcha-box-input">
                     <span class="checkmark"><span>&nbsp;</span></span>
                 </label>
             </div>
@@ -27,7 +16,11 @@ export default function CaptchaBox() {
             <div class="logo">
                 <img src="https://forum.nox.tv/core/index.php?media/9-recaptcha-png/"/>
                 <p>reCAPTCHA</p>
-                <small>Privacy - Terms</small>
+                <div>
+                    <a href="https://policies.google.com/privacy?hl=en"><small>Privacy</small></a>
+                    <small style="margin-left: 3px; margin-right: 3px"> - </small>
+                    <a href="https://policies.google.com/terms?hl=en"><small>Terms</small></a>
+                </div>
             </div>
         </div>
     </div>
