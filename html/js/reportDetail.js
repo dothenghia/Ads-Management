@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
             $i('reportDetailFullname').textContent = reportDetails.fullname;
             $i('reportDetailEmail').textContent = reportDetails.email;
             $i('reportDetailPhone').textContent = reportDetails.phone;
-            $i('reportDetailContent').textContent = reportDetails.content;
+            $i('reportDetailContent').innerHTML = reportDetails.content;
             if (reportDetails.solution == "")
                 $i('reportDetailSolution').innerHTML = `<i>(Báo cáo chưa được xử lý)</i>`;
             else
