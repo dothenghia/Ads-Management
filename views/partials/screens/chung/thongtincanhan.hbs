@@ -8,7 +8,7 @@
         <!-- Account -->
         <div class="card-body">
           <div class="d-flex align-items-start align-items-sm-center gap-4">
-            <img src="{{#if user.imagePath}}{{user.imagePath}}{{else}}/img/avatar.jpg{{/if}}" alt="user-avatar" class="d-block rounded" height="100" width="100"
+            <img src="/img/avatar.jpg" alt="user-avatar" class="d-block rounded" height="100" width="100"
               id="uploadedAvatar" />
             <div class="button-wrapper">
               <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
@@ -27,11 +27,11 @@
         </div>
         <hr class="my-0" />
         <div class="card-body">
-          <form id="formAccountSettings"  onsubmit="accSettings(event)">
+          <form class="formInfoSettings"  onsubmit="accNamePhoneSettings(event)">
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="name" class="form-label">Tên</label>
-                <input class="form-control" type="text" id="name" name="name" value="{{account.name}}"/>
+                <input class="form-control" type="text" id="name" name="name" value="{{account.name}}" />
               </div>
               
               <div class="mb-3 col-md-6">
@@ -45,7 +45,7 @@
 
             </div>
             <div class="mt-2">
-              <input type="hidden" name="id" id="id" value="{{account.id}}" />
+              <input type="hidden" name="id" class="id" value="{{account._id}}" />
               <button type="submit" class="btn btn-primary me-2">Lưu</button>
               <button type="reset" class="btn btn-outline-secondary">Hủy</button>
             </div>
@@ -56,12 +56,10 @@
       <div class="card">
         <h5 class="card-header">Thay Đổi Mật Khẩu</h5>
         <div class="card-body">
-
-          <form onsubmit="return false">
-            <div class="row">
+          <form class="formPassSettings" onsubmit="accPassSettings(event)">
+            <div id="passWarn" class="row" hidden>
               <div class="mb-3 col-md-6">
-                <label for="oldPassword" class="form-label">Mật Khẩu Cũ</label>
-                <input class="form-control" type="password" id="oldPassword" name="oldPassword" autofocus />
+                <label class="form-label text-danger">Mật Khẩu Đã Nhập Không Khớp. Xin Thử Lại!!</label>
               </div>
             </div>
             <div class="row">
@@ -76,7 +74,7 @@
                 <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" />
               </div>
             </div>
-
+            <input type="hidden" name="id" class="id" value="{{account._id}}"/>
             <button type="submit" class="btn btn-primary me-2">Lưu</button>
           </form>
         </div>
@@ -84,3 +82,5 @@
     </div>
   </div>
 </div>
+
+<script src="/js/editMethod.js"></script>

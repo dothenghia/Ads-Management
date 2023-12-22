@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var adOldDetails = JSON.parse(button.dataset.adOldDetails)[0];
         var adNewDetails = JSON.parse(button.dataset.adNewDetails);
         var changeReqId = button.dataset.changeReqId;
+        console.log(changeReqId);
         var accountRole = button.dataset.accountRole;
         var status = button.dataset.status;
 
@@ -96,7 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
             $i('changeReqDetailChoiceDeny').style.display = 'none';
         }
         else {
-            $i('changeReqDetailChoiceAccept').addEventListener("click", () => { acceptChange(accountRole, changeReqId) } );
+            $i('changeReqDetailChoiceAccept').style.display = 'block';
+            $i('changeReqDetailChoiceDeny').style.display = 'block';
+            $i('changeReqDetailChoiceAccept').addEventListener("click", () => { console.log("click"); acceptChange(accountRole, changeReqId) } );
             $i('changeReqDetailChoiceDeny').addEventListener("click", () => { denyChange(accountRole, changeReqId) } );
         }
 

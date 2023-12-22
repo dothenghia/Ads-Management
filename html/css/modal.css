@@ -182,9 +182,17 @@
 #permissionReqDetailModal {
     --bs-modal-width: 50vw;
 }
+#permissionReqDetailModal .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 12px !important;
+}
 
 #permissionReqDetailModal .modal-header {
+    background-color: white; 
+    border-radius: 12px 12px 0 0 !important;
     padding: 2vh 1.2vw 0.8vh 1.2vw;
+    color: #0065FF;
 }
 
 #permissionReqDetailModal .modal-header #permissionReqDetailModalLabel {
@@ -203,10 +211,13 @@
 #permissionReqDetailModal .modal-body {
     padding: 0.8vh 1.2vw 4vh 1.2vw;
     font-size: 18px;
+    border-radius: 0 0 12px 12px !important;
+    background-color: white; 
 }
 
 #permissionReqDetailModal .modal-body hr {
     margin: 0.5vh 0 2vh 0;
+    
 }
 
 #permissionReqDetailModal .modal-body #permissionReqDetailCoName {
@@ -260,6 +271,32 @@
     font-weight: 200;
     color: rgb(98, 97, 97);
 }
+
+#permissionReqDetailModal .modal-content #permissionReqDetailChoice {
+    padding: 3vh 1vw 0 0;
+}
+
+#permissionReqDetailModal .modal-content #permissionReqDetailChoice button {
+    margin-left: 2vw;
+    border-radius: 20px;
+    box-shadow: none;
+    padding: 1vh 0;
+    font-weight: 600;
+    width: 14%;
+}
+
+#permissionReqDetailModal .modal-content #permissionReqDetailChoice button:nth-of-type(1) {
+    border: 1px solid #FBBFBF;
+    background-color: #FBBFBF;
+    color: #DC3545;
+}
+
+#permissionReqDetailModal .modal-content #permissionReqDetailChoice button:nth-of-type(2) {
+    border: 1px solid #C7EDD9;
+    background-color: #C7EDD9;
+    color: #41AF79;
+}
+
 
 
 /* newPermissionReqModal */

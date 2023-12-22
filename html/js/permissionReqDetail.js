@@ -12,7 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log(button.dataset.permissionReqDetails);
         var permissionReqDetails = JSON.parse(button.dataset.permissionReqDetails);
         var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
-
+        var permissionReqId = button.dataset.permissionReqId;
+        var status = button.dataset.status;
+        var accountRole = button.dataset.accountRole;
+        console.log(accountRole,permissionReqId, status);
         let areaInfo = await getAreaInfo(adLocationDetails.longitude, adLocationDetails.latitude);
 
         // Update the modal content with the specific data
@@ -65,17 +68,35 @@ document.addEventListener("DOMContentLoaded", function () {
             $i("permissionReqDetailNoThumbnails").style.display = "block"
         }
 
+        if (status != 0) {
+            $i('permissionReqDetailChoiceAccept').style.display = 'none';
+            $i('permissionReqDetailChoiceDeny').style.display = 'none';
+        }
+        else {
+            $i('permissionReqDetailChoiceAccept').style.display = 'block';
+            $i('permissionReqDetailChoiceDeny').style.display = 'block';
+            $i('permissionReqDetailChoiceAccept').addEventListener("click", () => { 
+                acceptChange(accountRole, permissionReqId) 
+            });
+            $i('permissionReqDetailChoiceDeny').addEventListener("click", () => { 
+                denyChange(accountRole, permissionReqId) 
+            });
+        }
+
         // Show the modal
         $('#permissionReqDetailModal').modal('show');
-      });
+
+        });
     });
 
     /* View permission request detail button */
     let newPermissionReqButton = document.querySelector('#newPermissionReqButton');
-    newPermissionReqButton.addEventListener('click', function() {
-        // Show the modal
-        $('#newPermissionReqModal').modal('show');
-    });
+    if (newPermissionReqButton != null) {
+        newPermissionReqButton.addEventListener('click', function() {
+            // Show the modal
+            $('#newPermissionReqModal').modal('show');
+        });
+}
 
     // Change filter buttons to match current filters
     let urlParams = (new URL(window.location.href)).searchParams;
@@ -86,10 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Set default location selectors' value to "all"
-    document.querySelector("#newPermissionReqDistrict").value = "all";
+    var newPermissionReqDistrict = document.querySelector("#newPermissionReqDistrict");
+    if (newPermissionReqDistrict != null) newPermissionReqDistrict.value = "all";
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
+    
     // JavaScript for handling drag-and-drop functionality
     document.getElementById('drop-area').addEventListener('dragover', function (e) {
         e.preventDefault();
@@ -134,6 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
             fileStorage.push(file);
         }
     }
+
+
 });
 
 // Filter functions
@@ -219,4 +244,30 @@ function displayAddresses(selectElement) {
             addressSelect.appendChild(option);
         })
     }
+}
+
+
+// Accept request for so
+async function acceptChange(accountRole, id) {
+    let res = await fetch(`/${accountRole}/capphep/chapnhan/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+    });
+    
+    location.reload();
+}
+
+async function denyChange(accountRole, id) {
+    let res = await fetch(`/${accountRole}/capphep/tuchoi/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+    });
+    
+    location.reload();
 }

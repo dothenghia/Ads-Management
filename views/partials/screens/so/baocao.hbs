@@ -60,7 +60,13 @@
                         <td scope="col">{{translateReportType reportType}}</td>
                         <td scope="col">{{reportForm}}</td>
                         <td scope="col">{{mongoDateToLocaleString time}}</td>
-                        <td scope="col">{{getReportLocation ../adLocation locationId}}</td>
+                        <td scope="col">
+                            {{#if (equalString reportType "ddbk")}}
+                                {{locationId}}
+                            {{else}}
+                                {{getReportLocation ../adLocation locationId}}
+                            {{/if}}
+                        </td>
 
                         <td scope="col">
                             {{#if (getReportStatus status "Đang xử lý") }}
@@ -87,7 +93,7 @@
                             
                         {{!-- Chi tiết --}}
                         <td scope="col">
-                            <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}">
+                            <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-areas="{{toJSON ../adArea}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -113,7 +119,7 @@
 
     <!-- Report detail modal -->
     <div class="modal fade" id="reportDetailModal" tabindex="-1" aria-labelledby="reportDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title" id="reportDetailModalLabel">
@@ -179,6 +185,13 @@
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     </button>
                             </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" id="reportDetailCategoryRow">
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Phương thức xử lý</h6>
+                            <h6 id="reportDetailSolution"></h6>
                         </div>
                     </div>
                 </div>
