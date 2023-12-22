@@ -1,0 +1,45 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Geocoding Map</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+
+        #confirmButton {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<select name="newPermissionReqWard" id="newPermissionReqWard" required>
+    <option value="all">Chọn Quận</option>
+    <!-- Other district options... -->
+    <option value="Quận 5">Quận 5</option>
+    <!-- Other district options... -->
+</select>
+
+<select name="newPermissionReqDistrict" id="newPermissionReqDistrict" required>
+    <option value="all">Chọn Phường</option>
+    <!-- Other ward options... -->
+    <option value="Phường 4">Phường 4</option>
+    <!-- Other ward options... -->
+</select>
+
+<div id='map'></div>
+<button id="confirmButton" onclick="confirmLocation()">Confirm</button>
+
+
+<script src='testSmallPopUpMap.js'></script>
+
+</body>
+</html>
