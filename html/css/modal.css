@@ -358,7 +358,7 @@
 #newPermissionReqModal .modal-body input, #newPermissionReqModal .modal-body select {
     border: 2px solid rgb(189, 189, 189);
     box-shadow: none;
-    border-radius: 10px;
+    border-radius: 7px;
     padding: .375rem .75rem;
     background-color: #FFFFFF;
     color: #7f7e7e;
@@ -443,7 +443,7 @@
 }
 
 #reportDetailModal .modal-body hr {
-    margin: 0.5vh 0 2vh 0;
+    margin: 2vh 0 2vh 0;
 }
 
 #reportDetailModal .modal-body #reportDetailAddress {
@@ -495,10 +495,6 @@
     color: rgb(98, 97, 97);
 }
 
-#reportDetailModal .modal-body #reportDetailSolution {
-    text-align: center;
-}
-
 
 /* ReportUpdateModal */
 
@@ -538,7 +534,7 @@
 }
 
 #reportUpdateModal .modal-body hr {
-    margin: 0.5vh 0 2vh 0;
+    margin: 2vh 0 1vh 0;
 }
 
 #reportUpdateModal .modal-body #reportUpdateAddress {
@@ -577,10 +573,12 @@
     width: 100%;
     height: 10vh;
     margin: 1vh 0 0.5vh 0;
-    padding: 3px 8px;
-    border: 2px solid #0065FF;
+    border: 2px solid rgb(189, 189, 189);
     box-shadow: none;
-    border-radius: 20px;
+    border-radius: 7px;
+    padding: .375rem .75rem;
+    background-color: #FFFFFF;
+    color: #7f7e7e;
 }
 
 #reportUpdateModal .modal-content #reportUpdateChoice {

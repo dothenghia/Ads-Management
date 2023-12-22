@@ -6,14 +6,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Iterate over each button and add a click event listener
     adDetailButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
+    button.addEventListener('click', async function () {
         // View report detail button
         if (button.id != "reportUpdateButton") {
             // Parse the string into a JavaScript object
             var reportDetails = JSON.parse(button.dataset.reportDetails)[0];
-            var reportAddress = button.dataset.reportAddress;
             var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
-    
+            let adAreas = JSON.parse(button.dataset.adAreas);
+
+            let reportAddress;
+            if (reportDetails.reportType == "ddbk") {
+                reportAddress = await getAreaInfo(reportDetails.longitude, reportDetails.latitude, 1);
+            }
+            else {
+                let reportDistrict = adAreas.filter((district) => district.idQuan == adLocationDetails.idQuan)[0];
+                let reportWard = reportDistrict.wards.filter((ward) => ward.idPhuong == adLocationDetails.idPhuong)[0];
+                reportAddress = adLocationDetails.address + ", " + reportWard.name + ", " + reportDistrict.name;
+            }
             // Update the modal content with the specific data
             $i('reportDetailAddress').textContent = reportAddress;
             $i('reportDetailForm').textContent = reportDetails.reportForm;
@@ -54,12 +63,12 @@ document.addEventListener("DOMContentLoaded", function () {
             while (reportThumbnails.firstChild) {
                 reportThumbnails.removeChild(reportThumbnails.lastChild);
             }
-            if (adLocationDetails && adLocationDetails.thumbnails.length > 0) {
+            if (reportDetails && reportDetails.images.length > 0) {
                 reportThumbnails.style.display = "block";
                 $i("reportDetailNoThumbnails").style.display = "none"
                 
                 let i = 0;
-                adLocationDetails.thumbnails.forEach((thumbnail) => {
+                reportDetails.images.forEach((thumbnail) => {
                     let slide = document.createElement("div");
                     if (i == 0) {
                         slide.classList.add("carousel-item", "active");
@@ -90,11 +99,21 @@ document.addEventListener("DOMContentLoaded", function () {
         else {
             // Parse the string into a JavaScript object
             var reportDetails = JSON.parse(button.dataset.reportDetails)[0];
-            var reportAddress = button.dataset.reportAddress;
             var adLocationDetails = JSON.parse(button.dataset.adLocationDetails)[0];
             let reportId = button.dataset.id;
             let accountRole = button.dataset.accountRole;
-    
+            let adAreas = JSON.parse(button.dataset.adAreas);
+
+            let reportAddress;
+            if (reportDetails.reportType == "ddbk") {
+                reportAddress = await getAreaInfo(adLocationDetails.longitude, adLocationDetails.latitude, 1);
+            }
+            else {
+                let reportAddressObject = adLocationDetails.filter((loc) => loc.locationId == locationId)[0];
+                let reportDistrict = adAreas.filter((district) => district.idQuan == reportAddressObject.idQuan);
+                let reportWard = reportDistrict.wards.filter((ward) => ward.idPhuong == reportAddressObject.idPhuong);
+                reportAddress = reportAddressObject.address + ", " + reportDistrict.name + ", " + reportWard.name;
+            }
             // Update the modal content with the specific data
             $i('reportUpdateAddress').textContent = reportAddress;
             $i('reportUpdateForm').textContent = reportDetails.reportForm;
@@ -131,12 +150,12 @@ document.addEventListener("DOMContentLoaded", function () {
             while (reportThumbnails.firstChild) {
                 reportThumbnails.removeChild(reportThumbnails.lastChild);
             }
-            if (adLocationDetails && adLocationDetails.thumbnails.length > 0) {
+            if (reportDetails && reportDetails.images.length > 0) {
                 reportThumbnails.style.display = "block";
                 $i("reportUpdateNoThumbnails").style.display = "none"
                 
                 let i = 0;
-                adLocationDetails.thumbnails.forEach((thumbnail) => {
+                reportDetails.images.forEach((thumbnail) => {
                     let slide = document.createElement("div");
                     if (i == 0) {
                         slide.classList.add("carousel-item", "active");
@@ -220,6 +239,17 @@ async function denyReport(accountRole, id) {
     });
     
     location.reload();
+}
+
+// Process address
+async function getAreaInfo(longitude, latitude, type = 0) {
+    const token = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
+    let fetchResult = await (await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${token}`)).json();
+    
+    if (type == 0)  // Return only wards and districts
+        return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
+    else        // Return all details
+        return "Gần " + fetchResult.features[0].text + ", " + fetchResult.features[3].text + ", " + fetchResult.features[1].text;
 }
 
 // Filter functions

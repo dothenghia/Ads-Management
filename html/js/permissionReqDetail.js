@@ -133,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fileStorage.push(file);
         }
-        console.log(fileStorage);
     }
 });
 
@@ -157,11 +156,14 @@ function statusFilter(statusId) {
 }
 
 // Process address
-async function getAreaInfo(longitude, latitude) {
+async function getAreaInfo(longitude, latitude, type = 0) {
     const token = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
     let fetchResult = await (await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${token}`)).json();
     
-    return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
+    if (type == 0)  // Return only wards and districts
+        return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
+    else        // Return all details
+        return "Gần " + fetchResult.features[0].text + ", " + fetchResult.features[3].text + ", " + fetchResult.features[1].text;
 }
 
 // Create new reqs functions

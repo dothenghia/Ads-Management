@@ -1,7 +1,6 @@
 const controller = {}
-const currentPage = 4;
+const currentPage = 5;
 
-const { json } = require("express");
 // Firebase
 const admin = require("../../../config/firebaseAdmin");
 // MongoDB
@@ -44,7 +43,6 @@ controller.show = async (req, res) => {
             Ad.push(doc);
         });
         let AdLocation = [];
-        
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
 

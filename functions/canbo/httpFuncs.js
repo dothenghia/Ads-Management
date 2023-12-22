@@ -46,6 +46,11 @@ function mapToArray(map) {
     return result;
 }
 
+function equalString(string1, string2) {
+    console.log(string1 == string2);
+    return string1 == string2;
+}
+
 function mongoDateToLocaleString(date) {
     let dateObject = new Date(date);
     return "Ngày " + dateObject.getDate().toString().padStart(2, 0) + " tháng " + (dateObject.getMonth() + 1).toString().padStart(2, 0) + " năm " + dateObject.getFullYear();
@@ -64,6 +69,7 @@ module.exports = {
     arrayLength: arrayLength,
     arrayIndex: arrayIndex,
     mapToArray: mapToArray,
+    equalString: equalString,
 
     mongoDateToLocaleString: mongoDateToLocaleString
 };

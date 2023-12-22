@@ -64,7 +64,13 @@
                         <td scope="col">{{translateReportType reportType}}</td>
                         <td scope="col">{{reportForm}}</td>
                         <td scope="col">{{mongoDateToLocaleString time}}</td>
-                        <td scope="col">{{getReportLocation ../adLocation locationId}}</td>
+                        <td scope="col">
+                            {{#if (equalString reportType "ddbk")}}
+                                {{locationId}}
+                            {{else}}
+                                {{getReportLocation ../adLocation locationId}}
+                            {{/if}}
+                        </td>
 
                         <td scope="col">
                             {{#if (getReportStatus status "Đang xử lý") }}
@@ -90,7 +96,7 @@
                         </td>
 
                         <td scope="col">
-                            <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}">
+                            <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-areas="{{toJSON ../adArea}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -104,11 +110,11 @@
                         {{!-- Sửa --}}
                         {{#if (getReportStatus status "Đang xử lý")}}
                             <td scope="col">
-                                <button type="button" class="table-detail-button" id="reportUpdateButton" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-id="{{reportId}}" data-account-role="phuong">
+                                <button type="button" class="table-detail-button" id="reportUpdateButton" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-areas="{{toJSON ../../adArea}}" data-id="{{reportId}}" data-account-role="phuong">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" stroke="#0065FF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/></svg>
                                 </button>
                             </td>
-                            {{else}}
+                        {{else}}
                             <td scope="col">
                                 <button type="button" class="table-detail-button" id="reportUpdateButton" disabled>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16 "stroke="#abaaa7" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/></svg>
@@ -168,7 +174,6 @@
                             <h6 id="reportDetailContent"></h6>
                         </div>
                     </div>
-                    <hr>
                     <div class="row" id="reportDetailCategoryRow">
                         <h6 id="reportDetailCategoryTitle">Hình ảnh quảng cáo</h6>
                         <div class="row">
@@ -193,9 +198,10 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <div class="row" id="reportDetailCategoryRow">
                         <div class="col">
-                            <h6 id="reportDetailCategoryTitle">Nội dung báo cáo</h6>
+                            <h6 id="reportDetailCategoryTitle">Phương thức xử lý</h6>
                             <h6 id="reportDetailSolution"></h6>
                         </div>
                     </div>
@@ -250,7 +256,6 @@
                             <h6 id="reportUpdateContent"></h6>
                         </div>
                     </div>
-                    <hr>
                     <div class="row" id="reportUpdateCategoryRow">
                         <h6 id="reportUpdateCategoryTitle">Hình ảnh quảng cáo</h6>
                         <div class="row">
@@ -267,6 +272,7 @@
                                 </button>
                             </div>
                         </div>
+                        <hr>
                         <div class="row" id="reportUpdateCategoryRow">
                             <div class="col">
                                 <h6 id="reportUpdateCategoryTitle">Phương thức xử lý</h6>
