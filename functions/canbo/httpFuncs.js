@@ -1,3 +1,12 @@
+const fs = require("fs")
+
+// Get local data for HCM city's wards and districts
+var areas;
+(async () => {
+    const dataFile = await fs.promises.readFile("./html/data/hochiminh.json");
+    areas = JSON.parse(dataFile);
+})();
+
 globalVars = {}
 function createGlobal(name, value) {
     globalVars[name] = value;
@@ -51,6 +60,40 @@ function equalString(string1, string2) {
     return string1 == string2;
 }
 
+function filterById(data, idField, idValue) {
+    return data.filter((datum) => datum[idField] == idValue)[0];
+}
+
+function filterAllById(data, idField, idValue) {
+    return data.filter((datum) => datum[idField] == idValue);
+}
+
+// 0: Only ward, 1: Ward and district
+function getAddress(districtId, wardId, resultType = 0) {
+    let districts = areas.districts;
+    let district = districts.filter((district) => district.idQuan == districtId)[0];
+    let ward = district.wards.filter((ward) => ward.idPhuong == wardId)[0];
+
+    if (resultType == 0) {
+        return ward.name;
+    }
+    else {
+        return ward.name + ", " + district.name;
+    }
+}
+
+// 0: Only ward, 1: Ward and district
+function getAdLocationFromAd(adLocationData, adId) {
+    for (loc in adLocationData) {
+        let locData = adLocationData[loc];
+
+        let filter = locData.adList.filter((ad) => adId == ad.adId)
+        if (filter.length > 0) return locData;
+    }
+
+    return null;
+}
+
 function mongoDateToLocaleString(date) {
     let dateObject = new Date(date);
     return "Ngày " + dateObject.getDate().toString().padStart(2, 0) + " tháng " + (dateObject.getMonth() + 1).toString().padStart(2, 0) + " năm " + dateObject.getFullYear();
@@ -70,6 +113,11 @@ module.exports = {
     arrayIndex: arrayIndex,
     mapToArray: mapToArray,
     equalString: equalString,
+
+    filterById: filterById,
+    filterAllById: filterAllById,
+    getAddress: getAddress,
+    getAdLocationFromAd: getAdLocationFromAd,
 
     mongoDateToLocaleString: mongoDateToLocaleString
 };

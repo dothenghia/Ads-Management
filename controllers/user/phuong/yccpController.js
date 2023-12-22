@@ -47,15 +47,17 @@ controller.show = async (req, res) => {
             let data = doc;
 
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
+            console.log(docDistrict.idQuan in AdArea);
             if (!(docDistrict.idQuan in AdArea))
-                AdArea[docDistrict.idQuan] = {name: docDistrict.name, idQuan: docDistrict.idQuan, wards: {}}
-            else {
-                let docWard = docDistrict.wards.filter((ward) => ward.idPhuong == doc.idPhuong)[0];
+                AdArea[docDistrict.idQuan] = {name: docDistrict.name, idQuan: docDistrict.idQuan, wards: {}};
+            
+            let docWard = docDistrict.wards.filter((ward) => ward.idPhuong == doc.idPhuong)[0];
 
-                if (!(docWard.idPhuong in AdArea[docDistrict.idQuan]))
-                    AdArea[docDistrict.idQuan].wards[docWard.idPhuong] = {name: docWard.name, idPhuong: docWard.idPhuong, adLocations: []}
-                    AdArea[docDistrict.idQuan].wards[docWard.idPhuong].adLocations.push({address: doc.address, locationId: doc.locationId});
+            if (!(docWard.idPhuong in AdArea[docDistrict.idQuan].wards)) {
+                AdArea[docDistrict.idQuan].wards[docWard.idPhuong] = {name: docWard.name, idPhuong: docWard.idPhuong, adLocations: []}
             }
+            
+            AdArea[docDistrict.idQuan].wards[docWard.idPhuong].adLocations.push({address: doc.address, locationId: doc.locationId});
 
             AdLocation.push(data);
         });
