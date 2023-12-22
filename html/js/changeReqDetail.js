@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var adOldDetails = JSON.parse(button.dataset.adOldDetails)[0];
         var adNewDetails = JSON.parse(button.dataset.adNewDetails);
         var changeReqId = button.dataset.changeReqId;
+        console.log(changeReqId);
         var accountRole = button.dataset.accountRole;
         var status = button.dataset.status;
         var reason = button.dataset.reason;

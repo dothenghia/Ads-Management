@@ -57,9 +57,26 @@ controller.show = async (req, res) => {
 
             AdLocation.push(data);
         });
-        console.log(AdArea.quan_5.wards);
+        // console.log(AdArea.quan_5.wards);
         // console.log(AdArea.quan_5.wards.phuong_04.adLocations);
-
+        
+        let temp = [];
+        let i = 0;
+        for (let districtKey in AdArea) {
+            if (AdArea.hasOwnProperty(districtKey)) {
+                temp.push(AdArea[districtKey]);
+            }
+            
+            let wardTemp = [];
+            for (let wardKey in temp[i].wards) {
+                if (temp[i].wards.hasOwnProperty(wardKey)) {
+                    wardTemp.push(temp[i].wards[wardKey]);
+                }
+            }
+            temp[i].wards = wardTemp;
+            i++;
+        }
+        AdArea = temp;
         // Filters
         let filterCoId = req.query.coId;
         if (filterCoId)
@@ -107,4 +124,36 @@ controller.delete = async (req, res) => {
     }
 }
 
+
+controller.acceptChange = async (req, res) => {
+    try {
+        let { id } = req.body;
+
+        const result = await client.db(dbName).collection("permissionReqs").findOneAndUpdate(
+            {permissionReqId: parseInt(id)}, 
+            { $set: {status: 1} }
+        );
+
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
+}
+
+controller.denyChange = async (req, res) => {
+    try {
+        let { id } = req.body;
+
+        const result = await client.db(dbName).collection("permissionReqs").findOneAndUpdate(
+            {permissionReqId: parseInt(id)}, 
+            { $set: {status: 2} }
+        );
+    
+        res.send("Change denied!");
+    }
+    catch (error) {
+        res.send("Change denial error!");
+    }
+}
 module.exports = controller;

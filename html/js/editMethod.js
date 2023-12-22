@@ -165,14 +165,36 @@ async function editAcc(e) {
     location.reload();
 }
 
-async function accSettings(e) {
+async function accNamePhoneSettings(e) {
     e.preventDefault()
 
-    const formData = new FormData(document.getElementById("formAccountSettings"))
+    const formData = new FormData(document.querySelector(".formInfoSettings"))
     const data = Object.fromEntries(formData.entries())
 
-    console.log(data)
-    let res = await fetch('/chung/thongtincanhan', {
+    console.log(data);
+    let res = await fetch('/so/thongtincanhan', {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    })
+
+    location.reload();
+}
+
+async function accPassSettings(e) {
+    e.preventDefault()
+
+    const formData = new FormData(document.querySelector(".formPassSettings"))
+    const data = Object.fromEntries(formData.entries())
+
+    console.log(data);
+    if (data.newPassword != data.confirmPassword) {
+        $("#passWarn").prop("hidden", false)
+        return;
+    }
+    let res = await fetch('/so/thongtincanhan', {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",

@@ -40,8 +40,12 @@ Bảo :
     - Tạo ra trang Quản lý Địa điểm quảng cáo :
         + Có nút Thêm DDQC : Điền vào những cái thông tin về địa điểm đó ()
         + Danh sách các ĐĐQC
-
+    Cụ thể là tạo ra 1 adLocation với adlist rỗng
+    
     BỎ CÁI FIELD delete TRONG COLLECTION report
+    - Up ảnh lên ở đâu?
+    - Thiếu trang thêm nhân sự
+    
 
 
 Hải :

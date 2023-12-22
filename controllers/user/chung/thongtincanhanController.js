@@ -1,27 +1,48 @@
 const controller = {}
 const currentPage = 6;
 
-const admin = require("../../../config/firebaseAdmin");
-const db = admin.firestore();
+const {client}  = require("../../../config/mongodbConfig");
+const dbName = 'Ads-Management';
+const fs = require("fs");
+const {hashPassword} = require("../../../config/bcryptConfig");
+
+controller.delete = async (req, res) => {
+    try {
+        let id = req.params.id;
+
+        // Delete document
+        const result = await client.db(dbName).collection("accounts").findOneAndUpdate({_id: id}, { $set: { delete: true } });
+        
+        // Check if the document was found and deleted
+        if (result == null) {
+            return res.status(404).send("Document not found");
+        }
+    
+        res.send("Change accepted!");
+    }
+    catch (error) {
+        res.send("Change acceptance error!");
+    }
+}
 
 controller.show = async (req, res) => {
-    const token = req.cookies.jwtToken;
-    const decoded = await jwt.verify(token, jwtSecret);
-    
-    console.log(req.user);
+     //upsert = update and insert
     try {
-        const accountRef = db.collection("accounts");
-        const accountSnapshot = await accountRef.get();
+        
+        //const result = await client.db(dbName).collection("reports").updateMany({}, { $set: { delete: false } });
+        console.log(req.user);
+        const accountSnapshot = await client.db(dbName).collection("accounts").find({}).toArray();
 
-        let Account = [];
+        let Account = []; 
         accountSnapshot.forEach((doc) => {
-            Account.push(doc.data());
+            let data = doc;
+            Account.push(data);
         });
-
-        // console.log(Account);
+        Account = Account.filter((user) =>  user.role == req.user.accountType);
+        console.log(Account);
         res.render("partials/screens/so/index", {
             "current": currentPage,
-            "account": Account,
+            "account": Account[0],
             body: function() {
                 return "screens/chung/thongtincanhan";
             }
@@ -32,37 +53,30 @@ controller.show = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
     
+    
 }
 
 controller.edit = async (req, res) => {
-    let { id, name, phone } = req.body;
-
+    let { id, name, phone, newPassword} = req.body;
+    console.log(name);
     try {
-        const accountRef = await db.collection("accounts").where("id", "==", id).get();
+        const accountSnapshot = await client.db(dbName).collection("accounts").findOne({ _id: id });
+        
+        const updateData = {
+            name: name ? name : accountSnapshot.name,
+            phone: phone ? phone : accountSnapshot.phone,
+            hashedpassword: newPassword ? await hashPassword(newPassword) : accountSnapshot.hashedpassword,
+        };
 
-        // Initialize an array to store promises for each update operation
-        const updatePromises = [];
+        //update
+        await client.db(dbName).collection("accounts").updateOne({ _id: id }, { $set: updateData });
 
-        // Iterate over the documents in the query result
-        accountRef.forEach((doc) => {
-            const updateData = {
-                name: name,
-                phone: phone
-            };
-            // Cần chỉnh lại pass word và area
-            // Update each document and add the resulting promise to the array
-            updatePromises.push(doc.ref.update(updateData));
-        });
-
-        // Wait for all update operations to complete
-        await Promise.all(updatePromises);
-    } catch {
+        res.send("Documents updated successfully");
+    } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
+
 }
-
-
-
 
 module.exports = controller;

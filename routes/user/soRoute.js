@@ -8,6 +8,7 @@ router.use("/baocao", require("./so/baocaoRoute"));
 router.use("/thongtinquangcao", require("./so/ttqcRoute"));
 router.use("/nhansu", require("./so/nhansuRoute"));
 router.use("/dieuchinh", require("./so/dieuchinhRoute"));
+router.use("/yeucaudieuchinh", require("./so/dieuchinhRoute"));
 router.use("/capphep", require("./so/capphepRoute"));
 router.use("/thongke", require("./so/thongkeRoute"));
 router.use("/thongtincanhan", require("./chung/thongtincanhanRoute"));
