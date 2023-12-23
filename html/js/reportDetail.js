@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let reportAddress;
             if (reportDetails.reportType == "ddbk") {
-                reportAddress = await getAreaInfo(adLocationDetails.longitude, adLocationDetails.latitude, 1);
+                reportAddress = await getAreaInfo(reportDetails.longitude, reportDetails.latitude, 1);
             }
             else {
                 let reportAddressObject = adLocationDetails.filter((loc) => loc.locationId == locationId)[0];

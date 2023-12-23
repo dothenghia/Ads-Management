@@ -1,6 +1,7 @@
 const controller = {}
 const currentPage = 5;
 
+const jwt = require("jsonwebtoken");
 // Firebase
 const admin = require("../../../config/firebaseAdmin");
 // MongoDB
@@ -10,6 +11,12 @@ const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
     try {
+        // Get current account
+        const token = req.cookies.jwtToken;
+        const decoded = await jwt.verify(token, "suffering");
+        let currentAccount = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+    
+        // Get current page's data
         // Get latest snapshot of requested MongoDB collections
         const permissionReqSnapshot = await client.db(dbName).collection("permissionReqs").find({}).toArray();
         const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
@@ -47,7 +54,6 @@ controller.show = async (req, res) => {
             let data = doc;
 
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
-            console.log(docDistrict.idQuan in AdArea);
             if (!(docDistrict.idQuan in AdArea))
                 AdArea[docDistrict.idQuan] = {name: docDistrict.name, idQuan: docDistrict.idQuan, wards: {}};
             
@@ -92,6 +98,7 @@ controller.show = async (req, res) => {
 
         res.render("partials/screens/phuong/index", {
             "current": currentPage,
+            "account": currentAccount,
             "company": Company,
             "status": Status,
             "permissionReq": PermissionReq,

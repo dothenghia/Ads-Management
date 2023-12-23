@@ -1,6 +1,7 @@
 const controller = {}
 const currentPage = 2;
 
+const jwt = require("jsonwebtoken");
 // Firebase
 const admin = require("../../../config/firebaseAdmin");
 // MongoDB
@@ -10,6 +11,12 @@ const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
     try {
+        // Get current account
+        const token = req.cookies.jwtToken;
+        const decoded = await jwt.verify(token, "suffering");
+        let currentAccount = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+    
+        // Get current page's data
         const changeReqSnapshot = await client.db(dbName).collection("changeReqs").find({}).toArray();
         const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
         const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
@@ -94,6 +101,7 @@ controller.show = async (req, res) => {
 
         res.render("partials/screens/phuong/index", {
             "current": currentPage,
+            "account": currentAccount,
             "reason": Reason,
             "status": Status,
             "changeReq": ChangeReq,

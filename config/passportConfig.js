@@ -52,7 +52,14 @@ passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
 
 const generateToken = (user) => {
   console.log(user);
-  return jwt.sign({ sub: user.id, accountType: user.role }, jwtSecret, {
+
+  let areaId;
+  if (user.role == "1") areaId = user.phuong_id;
+  else if (user.role == "2") areaId = user.quan_id;
+  else areaId = "Sở";
+  let areaName = user.area;
+
+  return jwt.sign({ sub: user.id, accountType: user.role, areaId, areaName, name: user.name }, jwtSecret, {
     expiresIn: '1h', // Token expiration time
   });
 };
