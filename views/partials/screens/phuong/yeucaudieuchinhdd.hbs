@@ -3,17 +3,15 @@
 <link rel="stylesheet" href="/css/phuong/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
 
-<style>
-    .shared-header {
-        padding: 1.5rem 2rem;
-    }
-</style>
-
 <div class="shared-container">
 
     {{!-- Header--}}
     <div class="shared-header">
-        <h1>Yêu cầu điều chỉnh</h1>
+        <h1>Yêu cầu điều chỉnh địa điểm quảng cáo</h1>
+
+        <div class="d-flex">
+            <button class="btn btn-outline-primary custom-btn" id="newChangeLocReqButton">Thêm yêu cầu điều chỉnh ĐĐQC</button>
+        </div>
     </div>
 
 
@@ -46,10 +44,14 @@
             </thead>
 
             <tbody>
-                {{#each changeReq}}
+                {{#each changeLocReq}}
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">jytk</td>
+                        <td scope="col">
+                            {{#with (getAdLocationFromAd ../adLocation oldLocationId)}}
+                                {{address}}
+                            {{/with}}
+                        </td>
                         <td scope="col">{{mongoDateToLocaleString date}}</td>
                         <td scope="col">{{reason}}</td>
 
@@ -77,7 +79,7 @@
                         </td>
                         
                         <td scope="col">
-                            <button class="table-detail-button" data-ad-old-details="{{toJSON (getAdInfo ../ad oldAdId)}}" data-ad-new-details="{{toJSON new}}" data-change-req-id={{changeReqId}} data-account-role="phuong" data-status={{status}}>
+                            <button class="table-detail-button" data-loc-old-details="{{toJSON (getAdLocationInfo ../adLocation oldLocationId)}}" data-loc-new-details="{{toJSON new}}" data-change-req-id={{changeLocReqId}} data-account-role="phuong" data-status={{status}} data-reason="{{reason}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -94,15 +96,15 @@
     </div>
 
     <!-- Change request detail modal -->
-    <div class="modal fade" id="changeReqDetailModal" tabindex="-1" aria-labelledby="changeReqDetailModalLabel" aria-hidden="true">
+    <div class="modal fade" id="changeLocReqDetailModal" tabindex="-1" aria-labelledby="changeLocReqDetailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Địa điểm & Bảng QC</h5>
                     <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="changeReqDetailContent">
-                    <div class="row justify-content-center" id="changeReqDetailTable">
+                <div class="modal-body" id="changeLocReqDetailContent">
+                    <div class="row justify-content-center" id="changeLocReqDetailTable">
                         <div class="table">
                             <table class="table table-primary">
                                 <thead>
@@ -114,45 +116,23 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Tên</th>
-                                        <td id="changeReqDetailOldName"></td>
-                                        <td id="changeReqDetailNewName"></td>
+                                        <th scope="row">Hình thức</th>
+                                        <td id="changeLocReqDetailOldAdForm"></td>
+                                        <td id="changeLocReqDetailNewAdForm"></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Kích thước</th>
-                                        <td id="changeReqDetailOldSize"></td>
-                                        <td id="changeReqDetailNewSize"></td>
+                                        <th scope="row">Loại quảng cáo</th>
+                                        <td id="changeLocReqDetailOldAdType"></td>
+                                        <td id="changeLocReqDetailNewAdType"></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Hình ảnh</th>
-                                        <td>
-                                            <div id="changeReqDetailOldNoThumbnails" style="display: none">
-                                                <h6>Không có hình ảnh để hiển thị</h6>
-                                            </div>
-                                            <div id="changeReqDetailOldThumbnails" class="carousel slide" data-ride="carousel">
-                                                <div class="carousel-inner"></div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div id="changeReqDetailNewNoThumbnails" style="display: none">
-                                                <h6>Không có hình ảnh để hiển thị</h6>
-                                            </div>
-                                            <div id="changeReqDetailNewThumbnails" class="carousel slide" data-ride="carousel">
-                                                <div class="carousel-inner"></div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-                                        </td>
+                                        <th scope="row">Loại vị trí</th>
+                                        <td id="changeLocReqDetailOldLocationType"></td>
+                                        <td id="changeLocReqDetailNewLocationType"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Lí do điều chỉnh</th>
+                                        <td colspan="2" id="changeLocReqDetailReason"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -160,14 +140,128 @@
                         
                     </div>
                 </div>
-                <div class="row justify-content-end" id="changeReqDetailChoice">
-                    <button id="changeReqDetailChoiceDeny" onclick="" class="col-2">Từ chối</button>
-                    <button id="changeReqDetailChoiceAccept" onclick="" class="col-2">Chấp thuận</button>
-                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Create new change request modal -->
+    <div class="modal fade" id="newChangeLocReqModal" tabindex="-1" role="dialog" aria-labelledby="newChangeLocReqModalLabel" aria-hidden="true">
+        <form action="./yeucaudieuchinhdd/taomoi" method="POST">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
+                <div class="modal-content">
+                    <div class="modal-header d-flex flex-column">
+                        <div class="w-100 d-flex flex-row">
+                            <h5 class="modal-title w-100 fw-bold" id="newChangeLocReqModalLabel">Mẫu Thêm Yêu Cầu Mới</h5>
+                            <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body" id="newChangeLocReqModalContent">
+                        <div class="container-fluid">
+                            <!-- Địa Điểm  -->
+                            <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Địa Điểm</p>
+                            <div class="row d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="col d-flex flex-column "> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Quận<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select name="newChangeLocReqDistrict" id="newChangeLocReqDistrict" onchange="displayWards(this)" required>
+                                            <option value="all">Quận</option>
+                                            {{#each adArea}}
+                                                <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col d-flex flex-column">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Phường<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <select name="newChangeLocReqWard" id="newChangeLocReqWard" required>
+                                            <option value="all">Phường</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col d-flex flex-column">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Địa Điểm Quảng Cáo<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <select name="newChangeLocReqAddress" id="newChangeLocReqAddress" required>
+                                            <option value="all">Địa Điểm Quảng Cáo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="newChangeLocReqAllContent" style="display: none">
+                                <input type="text" value="" class="form-control" aria-label="Phone" id="newChangeLocReqId" name="newChangeLocReqId" style="display: none">
+                                <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                    <div class="d-flex flex-column" style="min-width: 33%;">
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Hình thức cũ</p>
+                                        <div class="input-group mb-3" style="padding-right: 12%;">
+                                            <input type="text" class="form-control" aria-label="Company" id="newChangeLocReqOldAdForm" name="newChangeLocReqOldAdForm" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-column " style="min-width: 33%;"> 
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Loại quảng cáo cũ</p>
+                                        <div class="input-group mb-3" style="padding-right: 10%;">
+                                            <input type="text" class="form-control" aria-label="Phone" id="newChangeLocReqOldAdType" name="newChangeLocReqOldAdType" disabled>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="d-flex flex-column" style="min-width: 33%;">
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Loại vị trí cũ</p>
+                                        <div class="input-group mb-3" style="padding-right: 12%;">
+                                            <input type="text" class="form-control" aria-label="Company" id="newChangeLocReqOldLocationType" name="newChangeLocReqOldLocationType" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                    <div class="d-flex flex-column " style="min-width: 33%;"> 
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Hình thức mới <span class="text-danger">*</span></p>
+                                        <div class="input-group mb-3" style="padding-right: 12%;">
+                                            <input type="text" class="form-control" aria-label="PhoneNum" id="newChangeLocReqNewAdForm" name="newChangeLocReqNewAdForm" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-column" style="min-width: 33%;">
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Loại quảng cáo mới <span class="text-danger">*</span></p>
+                                        <div class="input-group mb-3" style="padding-right: 10%;">
+                                            <input type="text" class="form-control" aria-label="Email" id="newChangeLocReqNewAdType" name="newChangeLocReqNewAdType" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-column" style="min-width: 33%;">
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeLocReqCategoryTitle">Loại vị trí mới <span class="text-danger">*</span></p>
+                                        <div class="input-group mb-3" style="padding-right: 10%;">
+                                            <input type="text" class="form-control" aria-label="Email" id="newChangeLocReqNewLocationType" name="newChangeLocReqNewLocationType" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column w-100">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Lí do chỉnh sửa <span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3">
+                                        <textarea class="form-control" placeholder="Nhập lí do" aria-label="ChangeLocReqReason" style="min-height: 100px;" name="ChangeLocReqReason" required></textarea>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-outline-primary text-start" id="newChangeLocReqChoiceCreate" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                                    </svg>    
+                                    Gửi yêu cầu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
 {{!-- Custom JS script --}}
-<script src="/js/changeReqDetail.js"></script>
+<script src="/js/changeLocReqDetail.js"></script>

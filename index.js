@@ -74,6 +74,7 @@ app.engine('hbs', expressHbs.engine({
         filterAllById: helpers.httpFuncs.filterAllById,
         getAddress: helpers.httpFuncs.getAddress,
         getAdLocationFromAd: helpers.httpFuncs.getAdLocationFromAd,
+        getAdLocationById: helpers.httpFuncs.getAdLocationById,
         mongoDateToLocaleString: helpers.httpFuncs.mongoDateToLocaleString,
         checkIDValidate: helpers.checkIDValidate.checkIDValidate,
         CheckValidateWithSpecificField: helpers.checkIDValidate.CheckValidateWithSpecificField,

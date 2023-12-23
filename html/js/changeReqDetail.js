@@ -165,30 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-async function acceptChange(accountRole, id) {
-    let res = await fetch(`/${accountRole}/yeucaudieuchinh/chapnhan/${id}`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-    });
-    
-    location.reload();
-}
-
-async function denyChange(accountRole, id) {
-    let res = await fetch(`/${accountRole}/yeucaudieuchinh/tuchoi/${id}`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-    });
-    
-    location.reload();
-}
-
 // Filter functions
 const filters = (new URL(window.location.href)).searchParams;
 
@@ -222,6 +198,7 @@ function displayWards(selectElement) {
     let wardSelect = document.querySelector("#newChangeReqWard");
     wardSelect.addEventListener('change', () => displayAds(document.querySelector('#newChangeReqWard')));
     if (selectedOptions.value == "all") {
+        document.querySelector("#newChangeReqAllContent").style.display = "none";
         while (wardSelect.children.length > 1) {
             wardSelect.removeChild(wardSelect.lastChild);
         }
@@ -252,6 +229,7 @@ function displayAds(selectElement) {
     let selectedOptions = selectElement.selectedOptions[0];
     let adSelect = document.querySelector("#newChangeReqAd");
     if (selectedOptions.value == "all") {
+        document.querySelector("#newChangeReqAllContent").style.display = "none";
         while (adSelect.children.length > 1) {
             adSelect.removeChild(adSelect.lastChild);
         }

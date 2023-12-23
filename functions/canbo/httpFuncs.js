@@ -82,7 +82,6 @@ function getAddress(districtId, wardId, resultType = 0) {
     }
 }
 
-// 0: Only ward, 1: Ward and district
 function getAdLocationFromAd(adLocationData, adId) {
     for (loc in adLocationData) {
         let locData = adLocationData[loc];
@@ -90,6 +89,13 @@ function getAdLocationFromAd(adLocationData, adId) {
         let filter = locData.adList.filter((ad) => adId == ad.adId)
         if (filter.length > 0) return locData;
     }
+
+    return null;
+}
+
+function getAdLocationById(adLocationData, locationId) {
+    let filter = adLocationData.filter((loc) => locationId == loc.locationId);
+    if (filter.length > 0) return filter[0];
 
     return null;
 }
@@ -118,6 +124,7 @@ module.exports = {
     filterAllById: filterAllById,
     getAddress: getAddress,
     getAdLocationFromAd: getAdLocationFromAd,
+    getAdLocationById: getAdLocationById,
 
     mongoDateToLocaleString: mongoDateToLocaleString
 };

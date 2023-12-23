@@ -324,6 +324,250 @@
 } 
 
 
+/* changeLocReqDetailModal */
+
+#changeLocReqDetailModal {
+    --bs-modal-width: 60vw;
+}
+
+#changeLocReqDetailModal .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 12px !important;
+}
+
+#changeLocReqDetailModal .modal-content .modal-header {
+    background-color: white; 
+    border-radius: 12px 12px 0 0 !important;
+    padding: 2vh 1.2vw 1.2vh 1.2vw;
+    color: #0065FF;
+}
+
+#changeLocReqDetailModal .modal-content .modal-body {
+    background-color: white; 
+    border-radius: 0 0 12px 12px !important;
+    padding: 1.2vh 3vw 1vh 3vw;
+    font-size: 18px;
+}
+
+#changeLocReqDetailModal .modal-content .modal-body #changeLocReqDetailTable table {
+    --bs-table-bg: white;
+    text-align: start;
+    border-color: #DEE2E6;
+}
+
+#changeLocReqDetailModal .modal-content .modal-body #changeLocReqDetailTable table > :not(caption) > * > * {
+    padding: 1rem 1rem;
+}
+
+#changeLocReqDetailModal .modal-content .modal-body #changeLocReqDetailTable table th {
+    text-align: start;
+    color: #0065FF;
+    font-weight: 600;
+    font-size: 18px;
+    padding-left: 2vw !important;
+}
+
+#changeLocReqDetailModal .modal-content .modal-body #changeLocReqDetailTable table td {
+    text-align: start;
+    padding-left: 2vw !important;
+}
+
+#changeLocReqDetailModal .modal-content .modal-body #changeLocReqDetailTable table thead th:not(:last-of-type), tbody th, tbody th + td {
+    border-width: 0 1px 0 0;
+}
+
+#changeLocReqDetailModal .modal-content #changeLocReqDetailChoice {
+    padding: 3vh 1vw 0 0;
+}
+
+#changeLocReqDetailModal .modal-content #changeLocReqDetailChoice button {
+    margin-left: 2vw;
+    border-radius: 20px;
+    box-shadow: none;
+    padding: 1vh 0;
+    font-weight: 600;
+    width: 14%;
+}
+
+#changeLocReqDetailModal .modal-content #changeLocReqDetailChoice button:nth-of-type(1) {
+    border: 1px solid #FBBFBF;
+    background-color: #FBBFBF;
+    color: #DC3545;
+}
+
+#changeLocReqDetailModal .modal-content #changeLocReqDetailChoice button:nth-of-type(2) {
+    border: 1px solid #C7EDD9;
+    background-color: #C7EDD9;
+    color: #41AF79;
+}
+
+#changeLocReqDetailModal .modal-body #changeLocReqDetailOldThumbnails, #changeLocReqDetailModal .modal-body #changeLocReqDetailNewThumbnails {
+    margin-top: 1vh;
+}
+
+#changeLocReqDetailModal .modal-body #changeLocReqDetailOldThumbnails .carousel-item img, #changeLocReqDetailModal .modal-body #changeLocReqDetailNewThumbnails .carousel-item img {
+    border: 1px solid white;
+    border-radius: 20px;
+    width: 20vw !important;
+    height: 30vh;
+    margin: auto;
+}
+
+#changeLocReqDetailModal .modal-body #changeLocReqDetailOldNoThumbnails, #changeLocReqDetailModal .modal-body #changeLocReqDetailNewNoThumbnails {
+    text-align: center;
+    font-weight: 200;
+    color: rgb(98, 97, 97);
+}
+
+
+/* newChangeLocReqModal */
+#drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+#drop-area.hover {
+    background-color: #f0f8ff; /* Light Blue */
+}
+
+#newChangeLocReqModal {
+    --bs-modal-width: 50vw;
+}
+
+#newChangeLocReqModal .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 12px !important;
+}
+
+#newChangeLocReqModal .modal-content .modal-header {
+    background-color: white; 
+    border-radius: 12px 12px 0 0 !important;
+    padding: 2vh 1.2vw 1.2vh 1.2vw;
+    color: #0065FF;
+}
+
+#newChangeLocReqModal .modal-header {
+    padding: 2vh 1.2vw 0.8vh 1.2vw;
+}
+
+#newChangeLocReqModal .modal-header #newChangeLocReqModalLabel {
+    font-weight: 600;
+}
+
+#newChangeLocReqModal .modal-header #newChangeLocReqModalLabel br {
+    display: block;
+    margin: 0.1em 0;
+}
+
+#newChangeLocReqModal .modal-header #newChangeLocReqModalLabel i {
+    color: #0065FF;
+}
+
+#newChangeLocReqModal .modal-header #newChangeLocReqModalLabel select {
+    border: solid 1px var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+#newChangeLocReqModal .modal-body {
+    background-color: white; 
+    border-radius: 0 0 12px 12px !important;
+    padding: 0.8vh 1.2vw 4vh 1.2vw;
+    font-size: 18px;
+}
+
+#newChangeLocReqModal .modal-body hr {
+    margin: 2vh 0 2vh 0;
+}
+
+#newChangeLocReqModal .modal-body input#newChangeLocReqOldAdForm, #newChangeLocReqModal .modal-body input#newChangeLocReqOldAdType, #newChangeLocReqModal .modal-body input#newChangeLocReqOldLocationType {
+    background-color: #d4d0d0;
+}
+
+#newChangeLocReqModal .modal-body #newChangeLocReqName {
+    font-weight: 700;
+    margin-bottom: 2vh;
+}
+
+#newChangeLocReqModal .modal-body #newChangeLocReqCategoryRow {
+    margin-top: 1vh;
+}
+
+#newChangeLocReqModal .modal-body h6#newChangeLocReqCategoryTitle {
+    font-weight: bold;
+    color: rgb(81, 80, 80);
+    margin-bottom: 3px;
+}
+
+#newChangeLocReqModal .modal-body h6:not(#newChangeLocReqCategoryTitle) {
+    color: rgb(81, 80, 80);
+    font-weight: 500;
+}
+
+#newChangeLocReqModal .modal-body input, #newChangeLocReqModal .modal-body select {
+    border: 2px solid rgb(189, 189, 189);
+    box-shadow: none;
+    border-radius: 7px;
+    padding: .375rem .75rem;
+    background-color: #FFFFFF;
+    color: #7f7e7e;
+}
+
+#newChangeLocReqModal .modal-body textarea#newChangeLocReqContent {
+    resize: none;
+    width: 100%;
+    height: 10vh;
+    margin: 1vh 0 2vh 0;
+    padding: 3px 8px;
+    border: 2px solid #0066ffa4;
+    box-shadow: none;
+    border-radius: 20px;
+}
+
+#newChangeLocReqModal .modal-content #newChangeLocReqChoice {
+    padding: 3vh 1vw 0 0;
+}
+
+#newChangeLocReqModal .modal-content #newChangeLocReqChoice button {
+    margin-left: 2vw;
+    border-radius: 20px;
+    box-shadow: none;
+    padding: 1vh 0;
+    font-weight: 600;
+    width: 20%;
+}
+
+#newChangeLocReqModal .modal-content #newChangeLocReqChoice button:nth-of-type(1) {
+    border: 1px solid #C7EDD9;
+    background-color: #C7EDD9;
+    color: #41AF79;
+}
+
+#newChangeLocReqModal .modal-body #newChangeLocReqThumbnails {
+    margin-top: 1vh;
+}
+
+#newChangeLocReqModal .modal-body #newChangeLocReqThumbnails .carousel-item img {
+    border: 1px solid white;
+    border-radius: 20px;
+    width: 20vw !important;
+    height: 30vh;
+    margin: auto;
+}
+
+#newChangeLocReqModal .modal-body #newChangeLocReqNoThumbnails {
+    text-align: center;
+    font-weight: 200;
+    color: rgb(98, 97, 97);
+} 
+
+
 /* permissionReqDetailModal */
 
 #permissionReqDetailModal {
