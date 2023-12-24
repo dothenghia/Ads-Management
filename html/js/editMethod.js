@@ -78,7 +78,7 @@ document.querySelectorAll(".edit-button").forEach((btn) => {
 
         // Listen to the change event of the role dropdown
         document.getElementById("roleEdit").addEventListener("change", (e) => {
-            let SelectedRole = document.getElementById("roleEdit").value;
+            let SelectedRole = e.target.value;
             console.log("SelectedRole: ", SelectedRole);
             // If not Phuong or Quan
             if (SelectedRole != "3") {

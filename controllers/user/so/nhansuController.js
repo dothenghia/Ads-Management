@@ -1,4 +1,4 @@
-const controller = {}
+ const controller = {}
 const currentPage = 2;
 
 const {client}  = require("../../../config/mongodbConfig");
@@ -71,7 +71,7 @@ controller.show = async (req, res) => {
                     
             }
         });
-        console.log(AdArea.quan_1.wards);
+        //console.log(AdArea.quan_1.wards);
         // console.log(AdArea.quan_5.wards.phuong_04.adLocations);
 
         let filterRoleId = req.query.roleId;
@@ -121,6 +121,42 @@ controller.edit = async (req, res) => {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
+
+}
+
+controller.add = async (req, res) => {
+    let { newAccountName, newAccountPhone, newAccountEmail, newAccountUserName, newAccountPass, newAccountRole, newAccountDistrict, newAccountWard} = req.body;
+    const accountSnapShot = client.db(dbName).collection("accounts");
+    let idHighest = parseInt( (await accountSnapShot.find({}).sort({_id:-1}).limit(1).toArray())[0]._id );
+
+    console.log( idHighest);
+    
+    try {
+        
+        const newData = {
+            _id: (idHighest + 1).toString(),
+            date: new Date(),
+            area: "HCM",
+            fbID: "",
+            microsoftEmail: "",
+            name: newAccountName ? newAccountName : "No name",
+            phone: newAccountPhone ? newAccountPhone : "No phone",
+            username: newAccountUserName,
+            email: newAccountEmail ? newAccountEmail : "No email",
+            hashedpassword: await hashPassword(newAccountPass),
+            role: newAccountRole ? newAccountRole : "3",
+            quan_id: newAccountDistrict ? newAccountDistrict : "",
+            phuong_id: newAccountWard ? newAccountWard : "",
+        };
+
+        await accountSnapShot.insertOne(newData);
+
+        res.send("Documents updated successfully");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+    //res.send("Documents updated successfully");
 
 }
 
