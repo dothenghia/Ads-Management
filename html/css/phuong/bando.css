@@ -1,4 +1,25 @@
 .bando-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
     width: 100%;
-    height: 100%;
+}
+
+#offcanvasLeftLabel {
+    color: #0065FF;
+    font-weight: bold;
+}
+
+#offcanvasLeft img {
+    border-radius: 5px;
+    height: 30vh;
+    width: 100%;
+}
+
+#adDetail {
+    margin: 2vh 0 2vh 0;
+    padding: 1rem;
+    box-shadow: 3px 5px rgb(208, 208, 208);
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 20px;
 }

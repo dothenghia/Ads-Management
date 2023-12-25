@@ -28,22 +28,6 @@ controller.show = async (req, res) => {
         // Extract data from retrieved snapshots
         let Reason = []; let Status = [];
         let reasonId = []; let statusId = [];
-        let ChangeReq = [];
-        changeReqSnapshot.forEach((doc) => {
-            let data = doc;
-
-            if (!reasonId.includes(data.reason)) {
-                reasonId.push(data.reason);
-                Reason.push({value: data.reason});
-            }
-
-            if (!statusId.includes(data.status)) {
-                statusId.push(data.status);
-                Status.push({value: data.status});
-            }
-
-            ChangeReq.push(data);
-        });
         let Ad = [];
         adSnapshot.forEach((doc) => {
             Ad.push(doc);
@@ -70,6 +54,40 @@ controller.show = async (req, res) => {
             }
 
             AdLocation.push(data);
+        });
+        let ChangeReq = [];
+        changeReqSnapshot.forEach((doc) => {
+            let data = doc;
+
+            if (!reasonId.includes(data.reason)) {
+                reasonId.push(data.reason);
+                Reason.push({value: data.reason});
+            }
+
+            if (!statusId.includes(data.status)) {
+                statusId.push(data.status);
+                Status.push({value: data.status});
+            }
+
+            // Check if matching area before extracting
+            let idPhuong = "phuong_";
+            if (!isNaN(currentAccount.areaId)) idPhuong += currentAccount.areaId.padStart(2, 0);
+            else idPhuong += currentAccount.areaId;
+            for (loc in AdLocation) {
+                let locDetail = AdLocation[loc];
+
+                console.log(locDetail);
+                let isFound = false;
+                for (ad in locDetail.adList) {
+                    let adDetail = locDetail.adList[ad];
+                    if (adDetail.adId == data.oldAdId && locDetail.idPhuong == idPhuong) {
+                        ChangeReq.push(data);
+                        isFound = true;
+                        break;
+                    }
+                }
+                if (isFound) break;
+            }
         });
 
         // Convert adArea to stringify-able format
@@ -132,7 +150,7 @@ controller.createChangeReq = async (req, res) => {
             reason: req.body.ChangeReqReason,
             changeReqId: changeReqHighest + 1,
             senderRole: 1,
-            oldAdId: req.body.newChangeReqId,
+            oldAdId: parseInt(req.body.newChangeReqId),
             status: 0,
             new: {
                 name: req.body.newChangeReqNewName,
