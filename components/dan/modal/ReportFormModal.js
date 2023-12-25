@@ -59,7 +59,7 @@ export default function ReportFormModal() {
         let longitude = root.getAttribute('data-longitude'); // Kinh độ
         let status = 'Đang xử lý' // Trạng thái xử lý
         let solution = '' // Giải pháp xử lý
-        let isDelete = false // Trạng thái xóa
+        // let isDelete = false // Trạng thái xóa
 
         // Kiểm tra các trường thông tin cá nhân
         if (!fullname || !email || !phone) {
@@ -99,7 +99,7 @@ export default function ReportFormModal() {
             phone,
             content,
             solution,
-            delete: isDelete,
+            // delete: isDelete,
             images: imagesURLs
         }
 
