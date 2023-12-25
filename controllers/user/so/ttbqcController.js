@@ -57,7 +57,7 @@ controller.show = async (req, res) => {
         "locationType": LocationType,
         "adLocation": AdLocation,
         body: function() {
-            return "screens/so/ttqc";
+            return "screens/so/ttbqc";
         }
     });
 }

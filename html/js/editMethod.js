@@ -1,4 +1,5 @@
-document.querySelectorAll(".edit-button").forEach((btn) => {
+var editAccForm = document.getElementById("editAccForm");
+editAccForm.forEach((btn) => {
     btn.addEventListener("click", (e) => {
 
         // Page, account role

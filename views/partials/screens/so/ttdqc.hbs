@@ -1,0 +1,218 @@
+<link rel="stylesheet" href="/css/custom-btn.css">
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/phuong/shared.css">
+<link rel="stylesheet" href="/css/modal.css">
+
+<style>
+    .shared-header {
+        padding: 1.5rem 2rem;
+    }
+    table tbody tr td {
+        padding: calc(.5rem + 6px) calc(.5rem + 12px) !important;
+    }
+</style>
+
+<div class="shared-container">
+
+    {{!-- Header--}}
+    <div class="shared-header">
+        <h1>Thông tin điểm quảng cáo</h1>
+        <div class="d-flex">
+            <button class="btn btn-outline-primary custom-btn" id="newAdLocationCreateBtn"  
+                data-bs-toggle="modal" data-bs-target="#newAdLocationModal">
+                    Thêm Địa Điểm Mới
+            </button>
+        </div>
+    </div>
+
+
+    {{!-- Table --}}
+    <div class="shared-table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Địa Điểm</th>
+                    <th scope="col">
+                        <select id="adFormFilter" name="" onchange="adFormFilter(this.value)">
+                            <option value="all">Hình thức</option>
+                            {{#each adForm}}
+                                <option value="{{value}}">{{value}}</option>
+                            {{/each}}
+                        </select>
+                    </th>
+                    <th scope="col">
+                        <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
+                            <option value="all">Loại vị trí</option>
+                            {{#each locationType}}
+                                <option value="{{value}}">{{value}}</option>
+                            {{/each}}
+                        </select>
+                    </th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{!-- Pass data vào --}}
+                {{#each adLocation}}
+                    <tr>
+                        <td scope="col">{{addNumber @index 1}}</td>
+                        <td scope="col">
+                                {{#if (translateAgentArea ../adArea idQuan idPhuong)}}
+                                    {{address}}, {{translateAgentArea ../adArea idQuan idPhuong}}
+                                {{else}}
+                                    No data
+                                {{/if}}
+                            </td>
+                        <td scope="col">{{adForm}}</td>
+                        <td scope="col">{{locationType}}</td>
+                        <td scope="col">
+                            <button class="edit-button" data-account-role="so" data-page="thongtindiadiemquangcao">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-edit">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+                        </td>  
+                        <td scope="col">
+                            <button class="delete-button" data-id="{{locationId}}" data-account-role="so" data-page="thongtindiadiemquangcao">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-trash-2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </td>              
+                    </tr>
+                {{/each}}
+                
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Create new account modal -->
+    <div class="modal fade" id="newAdLocationModal" tabindex="-1" role="dialog" aria-labelledby="newAdLocationModalLabel" aria-hidden="true">
+        <form action="" id="newAdLocationCreateForm" onsubmit="createAdLocation(event)">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
+                <div class="modal-content">
+                    <div class="modal-header d-flex flex-column">
+                        <div class="w-100 d-flex flex-row">
+                            <h5 class="modal-title w-100 fw-bold" id="newAdLocationModalLabel">Mẫu Thêm Địa Điểm Mới</h5>
+                            <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body" id="newAdLocationModalContent">
+                        <div class="container-fluid">
+
+                            {{!-- Hình thức + Vị trí --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationFormDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Hình thức<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAdLocationForm" name="newAdLocationForm" class="rounded-3 form-select">
+                                            <option value="">Hình thức</option>
+                                            <option value="Cổ động chính trị">Cổ động chính trị</option>
+                                            <option value="Quảng cáo thương mại">Quảng cáo thương mại</option>
+                                            <option value="Xã hội hoá">Xã hội hoá</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationFormDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Vị trí<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newLocationType" name="newLocationType" class="rounded-3 form-select">
+                                            <option value="">Vị trí</option>
+                                            <option value="Đất công/Công viên">Đất công/Công viên</option>
+                                            <option value="Hành lang an toàn giao thông">Hành lang an toàn giao thông</option>
+                                            <option value="Đất tư nhân/Nhà ở riêng lẻ">Đất tư nhân/Nhà ở riêng lẻ</option>
+                                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                                            <option value="Chợ">Chợ</option>
+                                            <option value="Cây xăng">Cây xăng</option>
+                                            <option value="Nhà chờ xe buýt">Nhà chờ xe buýt</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            {{!-- Chức vụ + Quận + Phường --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationDistrictDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Quận<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAdLocationDistrict" name="newAdLocationDistrict" class="rounded-3 form-select" >
+                                            <option value="">Quận</option>
+                                            {{#each adArea}}
+                                                <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationWardDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Phường<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAdLocationWard" name="newAdLocationWard" class="rounded-3 form-select" >
+                                            <option value="">Phường</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationAddrs">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Địa Chỉ<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" placeholder="Nguyễn Văn Cừ" aria-label="Company" name="newAdLocationAddress" >
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{!-- Nút Save --}}
+                            <button class="btn btn-outline-primary text-start" id="newAdLocationCreate" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
+                                Thêm
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- The Delete Modal -->
+    <div class="modal fade" id="confirmationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Đồng Ý Xóa Dữ Liệu Vĩnh Viễn?</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác Nhận</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{{!-- Custom JS script --}}
+<script src="/js/adDetail.js"></script>
+
+<script src="/js/createMethod.js"></script>
+
+<script src="/js/deleteMethod.js"></script>
