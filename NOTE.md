@@ -7,6 +7,9 @@ Nghĩa :
     Dân :
         - Fetch Report [2h]
             => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý' & những cái reportId trong local storage đã gửi
+        * REPORT 1 CÁI QC XONG THÌ NÓ VẪN BÌNH THƯỜNG, VÌ Ng dân ko CÓ TÁC ĐỘNG ĐẾN Collection `reports` .
+        Nhưng xem lại trong Danh sách Báo cáo thì vẫn được nhen.
+        Chỉ là lúc render điểm đó ra thì nó chỉ lấy những adLocation/ad nào có status là "ĐXL" hoặc "TChối" thoi.
 
     Phường+Quận :
         - Trang BanDo chưa làm xong [4h]

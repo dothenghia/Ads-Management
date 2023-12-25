@@ -84,7 +84,7 @@ async function convertReportToGeoJSON(report) {
     }
 }
 
-async function getReportStatus(reportId, localStorageId) {
+async function getReportStatus(reportId, localStorageId = []) {
     // console.log("reportId:", reportId);
     // console.log("localStorageId:", localStorageId.includes(reportId));
     try {

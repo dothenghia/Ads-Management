@@ -11,7 +11,7 @@ router.get('/test', (req, res) => {
 router.post("/ddqcgeojson", controller.getAdLocationGeoJSONList);
 router.get("/ddbcbkgeojson", controller.getReportGeoJSONList);
 
-router.get("/ddqc/:locaId", controller.getAdLocationInfoById);
+router.post("/ddqc/:locaId", controller.getAdLocationInfoById);
 
 router.get("/qc", controller.getAdInfoById); // PHẢI LẤY QUERY PARAMS
 router.get("/bc/:rpId", controller.getReportInfoById);

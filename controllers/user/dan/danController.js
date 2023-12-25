@@ -22,9 +22,11 @@ controller.uploadData = async (req, res) => {
 
         // Chuyển đổi reportId, latitude, longitude thành kiểu số
         jsonData.reportId = parseInt(jsonData.reportId);
-        jsonData.latitude = parseFloat(jsonData.latitude);
-        jsonData.longitude = parseFloat(jsonData.longitude);
-
+        jsonData.latitude = jsonData.latitude == "" ? "" : parseFloat(jsonData.latitude);
+        jsonData.longitude = jsonData.longitude == "" ? "" : parseFloat(jsonData.longitude);
+        jsonData.locationId = jsonData.locationId == "" ? "" : parseFloat(jsonData.locationId);
+        jsonData.adId = jsonData.adId == "" ? "" : parseFloat(jsonData.adId);
+        
         // Chuyển đổi time thành kiểu date
         jsonData.time = new Date(jsonData.time);
 
@@ -127,6 +129,8 @@ controller.getReportGeoJSONList = async (req, res) => {
 
 controller.getAdLocationInfoById = async (req, res) => {
     const locaId = parseInt(req.params.locaId);
+    let localStorageReportList = req.body.map(item => parseFloat(item));
+    // console.log("localStorageReportList:", localStorageReportList);
 
     try {
         const db = client.db(dbName);
@@ -148,7 +152,7 @@ controller.getAdLocationInfoById = async (req, res) => {
         adLocationData.phuong = phuong;
 
         if (adLocationData.reportId != "") {
-            adLocationData.locationStatus = await getReportStatus(adLocationData.reportId);
+            adLocationData.locationStatus = await getReportStatus(adLocationData.reportId, localStorageReportList);
         }
 
         if (adLocationData.adList && adLocationData.adList.length > 0) {
@@ -160,7 +164,7 @@ controller.getAdLocationInfoById = async (req, res) => {
                 adLocationData.adList[i].adStatus = "";
                 if (adLocationData.adList[i].reportId != "") {
                     adLocationData.numberOfReports++;
-                    adLocationData.adList[i].adStatus = await getReportStatus(adLocationData.adList[i].reportId);
+                    adLocationData.adList[i].adStatus = await getReportStatus(adLocationData.adList[i].reportId, localStorageReportList);
                 }
             });
 
