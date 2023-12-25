@@ -6,7 +6,7 @@ async function getReportGeoJSONList() {
 
     const response = await fetch('http://localhost:3000/dan/ddbcbkgeojson');
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     const filteredReports = data.filter(report => {
         let str = report.properties.reportId.toString();

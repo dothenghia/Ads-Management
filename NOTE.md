@@ -4,7 +4,6 @@
 - 
 
 Nghĩa :
-
     Dân :
         - Fetch Report [2h]
             => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý' & những cái reportId trong local storage đã gửi

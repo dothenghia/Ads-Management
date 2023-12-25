@@ -2,11 +2,9 @@
 
 async function getReportLength() {
 
-    const response = await fetch('http://localhost:3000/dan/bclength');
-    const data = await response.json();
-    // console.log(data);
+    let localStorageReportList = JSON.parse(localStorage.getItem('reportIdList')) || [];
 
-    return data.reportLength;
+    return localStorageReportList.length;
 }
 
 export default getReportLength;

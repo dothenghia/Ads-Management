@@ -4,6 +4,28 @@ const dbName = 'Ads-Management';
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
 
+async function checkReportIsDeleted(reportId) {
+    try {
+        const db = client.db(dbName);
+        const reportsCollection = db.collection('reports');
+
+        // Truy vấn để lấy report với reportId cụ thể
+        const report = await reportsCollection.findOne({ reportId: reportId });
+
+        // Kiểm tra giá trị của trường 'delete'
+        if (report) {
+            return report.delete || false; // Trả về giá trị của trường 'delete' hoặc false nếu không tồn tại trường 'delete'
+        } else {
+            // Nếu không tìm thấy report với reportId cụ thể
+            console.log(`Không tìm thấy report với reportId: ${reportId}`);
+            return false;
+        }
+    } catch (error) {
+        console.error("Lỗi khi kiểm tra report:", error);
+        return false;
+    }
+}
+
 // Hàm chuyển đổi dữ liệu Ad thành GeoJSON
 function convertAdToGeoJSON(adLocation) {
     let { quan, phuong } = mappingRegion(adLocation.idQuan, adLocation.idPhuong);
@@ -193,5 +215,6 @@ module.exports = {
     getAdInfo,
     qcReportInfo,
     ddqcReportInfo,
-    ddbkReportInfo
+    ddbkReportInfo,
+    checkReportIsDeleted
 }

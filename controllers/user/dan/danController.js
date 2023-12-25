@@ -87,7 +87,6 @@ controller.getReportGeoJSONList = async (req, res) => {
         const reportsCollection = db.collection('reports');
 
         const reportQuery = {
-            delete: false,
             reportType: 'ddbk',
         };
 
@@ -283,6 +282,7 @@ controller.getReportInfoById = async (req, res) => {
     }
 }
 
+// ~~~~~~~~~~~~~~~~ KHÔNG DÙNG NỮA
 controller.getReportLength = async (req, res) => {
     try {
         const db = client.db(dbName);
@@ -304,9 +304,7 @@ controller.getReportList = async (req, res) => {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
-        const reportQuery = {
-            delete: false,
-        };
+        const reportQuery = {};
 
         const reportDocs = await reportsCollection.find(reportQuery).toArray();
 
