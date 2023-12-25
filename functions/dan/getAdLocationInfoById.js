@@ -1,4 +1,5 @@
 // @ Hàm lấy Thông tin địa điểm quảng cáo theo locationId ##########
+// ~ Done
 
 async function getAdLocationInfoById(locaId) {
 
