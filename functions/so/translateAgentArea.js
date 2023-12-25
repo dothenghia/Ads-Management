@@ -1,6 +1,5 @@
 function translateAgentArea(Obj, idQuan, idPhuong) {
     var address = "";
-    
     if (idQuan == "" && idPhuong == "") {
         return "Sở Văn hóa và Thể thao TP.HCM";
     }

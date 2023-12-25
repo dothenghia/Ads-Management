@@ -4,6 +4,7 @@ const controller = require("../../../controllers/user/so/nhansuController");
 
 router.get("/", controller.show);
 router.put("/", controller.edit);
+router.post("/", controller.add);
 router.delete("/:id", controller.delete);
 
 module.exports = router;

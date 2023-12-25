@@ -87,6 +87,7 @@ controller.show = async (req, res) => {
             i++;
         }
         AdArea = temp;
+        //console.log(AdArea);
 
         // Filters
         let filterCoId = req.query.coId;
