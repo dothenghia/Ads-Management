@@ -8,7 +8,7 @@ router.get('/test', (req, res) => {
     })
 });
 
-router.get("/ddqcgeojson", controller.getAdLocationGeoJSONList);
+router.post("/ddqcgeojson", controller.getAdLocationGeoJSONList);
 router.get("/ddbcbkgeojson", controller.getReportGeoJSONList);
 
 router.get("/ddqc/:locaId", controller.getAdLocationInfoById);

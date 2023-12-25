@@ -1,4 +1,5 @@
 // @ Hàm lấy số lượng báo cáo ##########
+// ~ Done
 
 async function getReportLength() {
 

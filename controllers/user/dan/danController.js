@@ -15,6 +15,7 @@ const formatDate = require('./formatDate.js')
 
 const controller = {}
 
+// ~ ============== Done
 controller.uploadData = async (req, res) => {
     try {
         let jsonData = req.body;
@@ -41,22 +42,37 @@ controller.uploadData = async (req, res) => {
 }
 
 
+// ~ ============== Done
 // Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON
 controller.getAdLocationGeoJSONList = async (req, res) => {
     try {
+        let localStorageReportList = req.body.map(item => parseFloat(item));
+        // console.log("localStorageReportList:", localStorageReportList);
+
+
         const db = client.db(dbName);
         const adLocationsCollection = db.collection('adLocations');
         const adsCollection = db.collection('ads');
 
+        // Lấy tất cả các documents trong collection 'adLocations'
         const adLocationDocs = await adLocationsCollection.find().toArray();
 
+        // Sử dụng Promise.all để thực hiện nhiều truy vấn cùng một lúc
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
-            let numberOfReports = adLocationData.reportId == "" ? 0 : 1;
+            // Đếm số lượng reports của adLocation
+            let numberOfReports = 0;
+            let adLocationStatus = await getReportStatus(adLocationData.reportId, localStorageReportList)
+            if (adLocationStatus !== null) {
+                numberOfReports = 1;
+            }
 
             if (adLocationData.adList && adLocationData.adList.length > 0) {
                 const adPromises = adLocationData.adList.map(async (ad) => {
                     const adDoc = await adsCollection.findOne({ adId: ad.adId });
-                    numberOfReports += adDoc && adDoc.reportId !== "" ? 1 : 0;
+                    let adStatus = await getReportStatus(adDoc.reportId, localStorageReportList)
+                    if (adStatus !== null) {
+                        numberOfReports++;
+                    }
                 });
 
                 await Promise.all(adPromises);
@@ -81,6 +97,7 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
 // => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý'
 // & Những cái có delete = false
 // & những cái reportId trong local storage đã gửi
+// ~ ============== Done
 controller.getReportGeoJSONList = async (req, res) => {
     try {
         const db = client.db(dbName);
@@ -282,7 +299,7 @@ controller.getReportInfoById = async (req, res) => {
     }
 }
 
-// ~~~~~~~~~~~~~~~~ KHÔNG DÙNG NỮA
+// ~ ============== Done
 controller.getReportLength = async (req, res) => {
     try {
         const db = client.db(dbName);
@@ -299,6 +316,7 @@ controller.getReportLength = async (req, res) => {
     }
 }
 
+// ~ ============== Done
 controller.getReportList = async (req, res) => {
     try {
         const db = client.db(dbName);

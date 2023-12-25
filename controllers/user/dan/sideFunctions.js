@@ -84,27 +84,51 @@ async function convertReportToGeoJSON(report) {
     }
 }
 
-
-async function getReportStatus(reportId) {
+async function getReportStatus(reportId, localStorageId) {
+    // console.log("reportId:", reportId);
+    // console.log("localStorageId:", localStorageId.includes(reportId));
     try {
-        const db = client.db('Ads-Management');
-        const reportsCollection = db.collection('reports');
-
-        // Truy vấn đến document có reportId tương ứng
-        const reportQuery = { reportId: reportId };
-        const reportData = await reportsCollection.findOne(reportQuery);
-
-        if (!reportData) {
-            console.log("Không tìm thấy report với reportId:", reportId);
+        if (!reportId) {
             return null;
         }
 
-        return reportData.status;
+        if (localStorageId && localStorageId.includes(reportId)) {
+            const db = client.db('Ads-Management');
+            const reportsCollection = db.collection('reports');
+            const reportQuery = { reportId: reportId };
+            const reportData = await reportsCollection.findOne(reportQuery);
+
+            if (!reportData) {
+                console.log("Không tìm thấy report với reportId:", reportId);
+                return null;
+            }
+            return reportData.status;
+
+        } else {
+            // Truy vấn vào collection 'reports' nếu reportId không có trong localStorageId
+            const db = client.db('Ads-Management');
+            const reportsCollection = db.collection('reports');
+            const reportQuery = { reportId: reportId };
+            const reportData = await reportsCollection.findOne(reportQuery);
+
+            if (!reportData) {
+                console.log("Không tìm thấy report với reportId:", reportId);
+                return null;
+            }
+
+            // Kiểm tra xem status có phải là 'Đã xử lý' hoặc 'Từ chối' không
+            if (reportData.status === 'Đã xử lý' || reportData.status === 'Từ chối') {
+                return reportData.status;
+            } else {
+                return null;
+            }
+        }
     } catch (error) {
         console.error("Error getting report status:", error);
         return null;
     }
 }
+
 
 async function getAdInfo(adId) {
     try {

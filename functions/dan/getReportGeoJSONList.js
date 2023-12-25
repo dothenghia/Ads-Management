@@ -1,4 +1,5 @@
 // @ Hàm lấy danh sách các địa điểm bị báo cáo và chuyền về dạng GeoJSON ##########
+// ~ Done
 
 async function getReportGeoJSONList() {
 
@@ -15,7 +16,7 @@ async function getReportGeoJSONList() {
             ['Từ chối', 'Đã xử lý'].includes(report.properties.status)
         );
     });
-    console.log(filteredReports);
+    // console.log(filteredReports);
 
     return filteredReports;
 }
