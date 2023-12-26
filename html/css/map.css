@@ -1,4 +1,4 @@
-#mapDisplay {
+#mapDisplay, #EditmapDisplay {
     display: none;
     position: absolute;
     top: calc(100% + 10px);
@@ -7,7 +7,7 @@
     border-radius: 20px;
 }
 
-#map {
+#Newmap, #Editmap {
     width: 100%;
     height: 400px;
     margin: 0 auto;

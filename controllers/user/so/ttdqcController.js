@@ -90,7 +90,6 @@ controller.add = async (req, res) => {
     let idHighest =  (await adLocationSnapShot.find({}).sort({locationId:-1}).limit(1).toArray())[0].locationId;
 
     // console.log( idHighest);
-    
     try {
         
         const newData = {
@@ -111,6 +110,36 @@ controller.add = async (req, res) => {
 
         // await adLocationSnapShot.insertOne(newData);
         await adLocationSnapShot.insertOne(newData);
+
+        res.send("Documents updated successfully");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+    //res.send("Documents updated successfully");
+
+}
+
+controller.edit = async (req, res) => {
+    let { EditAdLocationId, EditAdLocationForm, EditLocationType, EditAdLocationDistrict, EditAdLocationWard, EditAdLocationAddress, EditAdLocationLongtitude, EditAdLocationLattitude } = req.body;
+    const adLocationSnapShot = await client.db(dbName).collection("adLocations").findOne({ locationId: parseInt(EditAdLocationId) });
+    
+
+    // console.log( idHighest);
+    try {
+        
+        const updateData = {
+            adForm: EditAdLocationForm ? EditAdLocationForm : adLocationSnapShot.adForm,
+            locationType: EditLocationType ? EditLocationType : adLocationSnapShot.locationType,
+            idQuan: EditAdLocationDistrict ? EditAdLocationDistrict : adLocationSnapShot.idQuan,
+            idPhuong: EditAdLocationWard ? EditAdLocationWard : adLocationSnapShot.idPhuong,
+            address: EditAdLocationAddress ? EditAdLocationAddress : adLocationSnapShot.address,
+            latitude: parseFloat(EditAdLocationLattitude ? EditAdLocationLattitude : adLocationSnapShot.latitude),
+            longitude: parseFloat(EditAdLocationLongtitude ? EditAdLocationLongtitude : adLocationSnapShot.longitude),
+        };
+
+        // await adLocationSnapShot.insertOne(updateData);
+        await client.db(dbName).collection("adLocations").updateOne({ locationId: parseInt(EditAdLocationId) }, { $set: updateData });
 
         res.send("Documents updated successfully");
     } catch (error) {

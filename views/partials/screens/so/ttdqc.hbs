@@ -72,7 +72,7 @@
                         <td scope="col">{{adForm}}</td>
                         <td scope="col">{{locationType}}</td>
                         <td scope="col">
-                            <button class="edit-button" data-account-role="so" data-page="thongtindiadiemquangcao">
+                            <button class="edit-button" data-account-role="so" data-page="thongtindiadiemquangcao" data-id="{{locationId}}" data-quan-id="{{idQuan}}" data-phuong-id="{{idPhuong}}" data-address="{{address}}" data-location-type="{{locationType}}" data-ad-form="{{adForm}}" data-longitude="{{longitude}}" data-latitude="{{latitude}}"> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                     class="feather feather-edit">
@@ -102,7 +102,7 @@
         </table>
     </div>
 
-    <!-- Create new account modal -->
+    <!-- Create new location modal -->
     <div class="modal fade" id="newAdLocationModal" tabindex="-1" role="dialog" aria-labelledby="newAdLocationModalLabel" aria-hidden="true">
         <form action="" id="newAdLocationCreateForm" onsubmit="createAdLocation(event)">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
@@ -191,7 +191,7 @@
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="newAdLocationAddrs" placeholder="Nguyễn Văn Cừ" aria-label="Company" name="newAdLocationAddress" >
                                         </div>
-                                        <div id="chooseCoordinate">
+                                        <div id="NewchooseCoordinate">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ms-1 mt-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-compass"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
                                         </div>
                                     </div>
@@ -205,14 +205,132 @@
                     </div>
 
                     <!-- Map -->
-                    <div id="mapDisplay">
-                        <div id="map"></div>
+                    <div id="EditmapDisplay">
+                        <div id="Newmap"></div>
                         <div class="bg-light mt-1" style=" max-width: 60%; float:right; border-radius: 10px">
-                            <button class="btn btn-outline-primary text-start" id="confirmButton" type="button" autocomplete="off" style="border: 3px solid;" onclick="confirmLocation()"> 
+                            <button class="btn btn-outline-primary text-start" id="confirmButton" type="button" autocomplete="off" style="border: 3px solid;" onclick="confirmNewLocation()"> 
                                 Xác Nhận
                             </button>
                         </div>
                         
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+
+    <!-- Edit  location modal -->
+    <div class="modal fade" id="EditAdLocationModal" tabindex="-1" role="dialog" aria-labelledby="EditAdLocationModalLabel" aria-hidden="true">
+        <form action="" id="EditAdLocationCreateForm" onsubmit="editAdLocation(event)">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
+                <div class="modal-content">
+                    <div class="modal-header d-flex flex-column">
+                        <div class="w-100 d-flex flex-row">
+                            <h5 class="modal-title w-100 fw-bold" id="EditAdLocationModalLabel">Mẫu Sửa Đổi Địa Điểm Mới</h5>
+                            <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body" id="EditAdLocationModalContent">
+                        <div class="container-fluid">
+                            {{!-- Hình thức + Vị trí --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="EditAdLocationFormDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="EditAdLocationCategoryTitle">Hình thức<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="EditAdLocationForm" name="EditAdLocationForm" class="rounded-3 form-select">
+                                            <option value="">Hình thức</option>
+                                            <option value="Cổ động chính trị">Cổ động chính trị</option>
+                                            <option value="Quảng cáo thương mại">Quảng cáo thương mại</option>
+                                            <option value="Xã hội hoá">Xã hội hoá</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="EditAdLocationFormDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="EditAdLocationCategoryTitle">Vị trí<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="EditLocationType" name="EditLocationType" class="rounded-3 form-select">
+                                            <option value="">Vị trí</option>
+                                            <option value="Đất công/Công viên">Đất công/Công viên</option>
+                                            <option value="Hành lang an toàn giao thông">Hành lang an toàn giao thông</option>
+                                            <option value="Đất tư nhân/Nhà ở riêng lẻ">Đất tư nhân/Nhà ở riêng lẻ</option>
+                                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                                            <option value="Chợ">Chợ</option>
+                                            <option value="Cây xăng">Cây xăng</option>
+                                            <option value="Nhà chờ xe buýt">Nhà chờ xe buýt</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            {{!-- Kinh độ vĩ độ --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="EditAdLocationLongtitudeDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="EditAdLocationCategoryTitle">Kinh Độ</p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" id="EditAdLocationLongtitude" placeholder="108.2" aria-label="Company" name="EditAdLocationLongtitude" disabled >
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="EditAdLocationLattitudeDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="EditAdLocationCategoryTitle">Vĩ Độ</p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" id="EditAdLocationLattitude" placeholder="108.2" aria-label="Company" name="EditAdLocationLattitude" disabled >
+                                    </div>
+                                </div>
+                            </div>
+                            {{!-- Chức vụ + Quận + Phường --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                
+                                <div class="d-flex flex-column" style="min-width: 25%;" id="EditAdLocationDistrictDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="EditAdLocationCategoryTitle">Quận<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="EditAdLocationDistrict" name="EditAdLocationDistrict" class="rounded-3 form-select" >
+                                            <option value="">Quận</option>
+                                            {{#each adArea}}
+                                                <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 30%;" id="EditAdLocationWardDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="EditAdLocationCategoryTitle">Phường<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="EditAdLocationWard" name="EditAdLocationWard" class="rounded-3 form-select" >
+                                            <option value="">Phường</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 45%;" id="EditAdLocationAddrsDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Địa Chỉ<span class="text-danger">*</span></p>
+                                    <div class="d-flex flex-row">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="EditAdLocationAddrs" placeholder="Nguyễn Văn Cừ" aria-label="Company" name="EditAdLocationAddress" >
+                                        </div>
+                                        <div id="EditchooseCoordinate">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ms-1 mt-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-compass"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{!-- Nút Save --}}
+                            <input type="hidden" class="form-control" id="EditAdLocationId" name="EditAdLocationId" >
+                            <button class="btn btn-outline-primary text-start" id="EditAdLocationCreate" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
+                                Lưu
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Map -->
+                    <div id="mapDisplay">
+                        <div id="Editmap"></div>
+                        <div class="bg-light mt-1" style=" max-width: 60%; float:right; border-radius: 10px">
+                            <button class="btn btn-outline-primary text-start" id="confirmButton" type="button" autocomplete="off" style="border: 3px solid;" onclick="confirmEditLocation()"> 
+                                Xác Nhận
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,3 +372,5 @@
 <script src="/js/deleteMethod.js"></script>
 
 <script src="/js/mapConfig.js"></script>
+
+<script src="/js/editLocation.js"></script>

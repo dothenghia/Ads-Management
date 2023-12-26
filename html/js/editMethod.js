@@ -1,6 +1,6 @@
-var editAccForm = document.getElementById("editAccForm");
-if (editAccForm != null) {
-    document.getElementById("editAccForm").forEach((btn) => {
+var editBtn = document.querySelectorAll(".edit-button");
+if (editBtn != null) {
+    editBtn.forEach((btn) => {
         btn.addEventListener("click", (e) => {
     
             // Page, account role
@@ -135,7 +135,6 @@ if (editAccForm != null) {
         });
     });
 }
-
 
 function resetQuanandPhuong() {
     $("#quanID").prop("hidden", true);
