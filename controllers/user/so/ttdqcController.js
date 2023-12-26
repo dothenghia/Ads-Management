@@ -1,12 +1,17 @@
 const controller = {}
-const currentPage = 0;
+const currentPage = 1;
 
-
+const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 const fs = require("fs");
 
 controller.show = async (req, res) => {
+    // Get current account
+    const token = req.cookies.jwtToken;
+    const decoded = await jwt.verify(token, "suffering");
+    let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+
     const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
 
     // Get local data for HCM city's wards and districts
@@ -33,6 +38,7 @@ controller.show = async (req, res) => {
 
         // Lọc ra quận object trong JSON 
         let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
+        console.log(docDistrict);
         if (!(docDistrict.idQuan in AdArea)) {
             // Tạo mới quận object
             AdArea[docDistrict.idQuan] = {name: docDistrict.name, idQuan: docDistrict.idQuan, wards: {}}
@@ -68,6 +74,7 @@ controller.show = async (req, res) => {
     res.render("partials/screens/so/index", {
         "current": currentPage,
         "adForm": AdForm,
+        "roleInfo": currentRoleInfo,
         "locationType": LocationType,
         "adArea": docDistrict,
         "adLocation": AdLocation,
@@ -78,7 +85,7 @@ controller.show = async (req, res) => {
 }
 
 controller.add = async (req, res) => {
-    let { newAdLocationForm, newLocationType, newAdLocationDistrict, newAdLocationWard, newAdLocationAddress } = req.body;
+    let { newAdLocationForm, newLocationType, newAdLocationDistrict, newAdLocationWard, newAdLocationAddress, newAdLocationLongtitude, newAdLocationLattitude } = req.body;
     const adLocationSnapShot = client.db(dbName).collection("adLocations");
     let idHighest =  (await adLocationSnapShot.find({}).sort({locationId:-1}).limit(1).toArray())[0].locationId;
 
@@ -94,8 +101,8 @@ controller.add = async (req, res) => {
             address: newAdLocationAddress,
             adType: "",
             reportId: "",
-            latitude: "",
-            longitude: "",
+            latitude: parseFloat(newAdLocationLattitude),
+            longitude: parseFloat(newAdLocationLongtitude),
             adList: [],
             planning: true,
             locationId: idHighest + 1,

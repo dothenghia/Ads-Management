@@ -39,8 +39,8 @@ Bảo :
     - Trang Cấp Phép, Điều Chỉnh -> Chỉ có Duyệt thoi  - Done
 
     - Tạo ra trang Quản lý Địa điểm quảng cáo :
-        + Có nút Thêm DDQC : Điền vào những cái thông tin về địa điểm đó ()
-        + Danh sách các ĐĐQC
+        + Có nút Thêm DDQC : Điền vào những cái thông tin về địa điểm đó () - done
+        + Danh sách các ĐĐQC - done
     Cụ thể là tạo ra 1 adLocation với adlist rỗng
     
     BỎ CÁI FIELD delete TRONG COLLECTION report

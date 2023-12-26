@@ -1,11 +1,16 @@
 const controller = {}
 const currentPage = 0;
 
-
+const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
+    // Get current account
+    const token = req.cookies.jwtToken;
+    const decoded = await jwt.verify(token, "suffering");
+    let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+
     const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
     const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
     
@@ -52,6 +57,7 @@ controller.show = async (req, res) => {
     res.render("partials/screens/so/index", {
         "current": currentPage,
         "ad": Ad,
+        "roleInfo": currentRoleInfo,
         "adType": AdType,
         "adForm": AdForm,
         "locationType": LocationType,

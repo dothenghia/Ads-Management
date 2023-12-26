@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/phuong/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
+<link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+<link rel="stylesheet" href="/css/map.css">
 
 <style>
     .shared-header {
@@ -99,7 +102,6 @@
         </table>
     </div>
 
-
     <!-- Create new account modal -->
     <div class="modal fade" id="newAdLocationModal" tabindex="-1" role="dialog" aria-labelledby="newAdLocationModalLabel" aria-hidden="true">
         <form action="" id="newAdLocationCreateForm" onsubmit="createAdLocation(event)">
@@ -113,7 +115,6 @@
                     </div>
                     <div class="modal-body" id="newAdLocationModalContent">
                         <div class="container-fluid">
-
                             {{!-- Hình thức + Vị trí --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
                                 <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationFormDiv">
@@ -144,10 +145,26 @@
                                     </div>
                                 </div>
                             </div>
+                            {{!-- Kinh độ vĩ độ --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationLongtitudeDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Kinh Độ</p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" id="newAdLocationLongtitude" placeholder="108.2" aria-label="Company" name="newAdLocationLongtitude" disabled >
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationLattitudeDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Vĩ Độ</p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" id="newAdLocationLattitude" placeholder="108.2" aria-label="Company" name="newAdLocationLattitude" disabled >
+                                    </div>
+                                </div>
+                            </div>
                             {{!-- Chức vụ + Quận + Phường --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
                                 
-                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationDistrictDiv">
+                                <div class="d-flex flex-column" style="min-width: 25%;" id="newAdLocationDistrictDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Quận<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
                                         <select id="newAdLocationDistrict" name="newAdLocationDistrict" class="rounded-3 form-select" >
@@ -159,7 +176,7 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationWardDiv">
+                                <div class="d-flex flex-column" style="min-width: 30%;" id="newAdLocationWardDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAdLocationCategoryTitle">Phường<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
                                         <select id="newAdLocationWard" name="newAdLocationWard" class="rounded-3 form-select" >
@@ -168,14 +185,18 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationAddrs">
+                                <div class="d-flex flex-column" style="min-width: 45%;" id="newAdLocationAddrsDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Địa Chỉ<span class="text-danger">*</span></p>
-                                    <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <input type="text" class="form-control" placeholder="Nguyễn Văn Cừ" aria-label="Company" name="newAdLocationAddress" >
+                                    <div class="d-flex flex-row">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="newAdLocationAddrs" placeholder="Nguyễn Văn Cừ" aria-label="Company" name="newAdLocationAddress" >
+                                        </div>
+                                        <div id="chooseCoordinate">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ms-1 mt-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-compass"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                             {{!-- Nút Save --}}
                             <button class="btn btn-outline-primary text-start" id="newAdLocationCreate" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
                                 Thêm
@@ -183,10 +204,22 @@
                         </div>
                     </div>
 
+                    <!-- Map -->
+                    <div id="mapDisplay">
+                        <div id="map"></div>
+                        <div class="bg-light mt-1" style=" max-width: 60%; float:right; border-radius: 10px">
+                            <button class="btn btn-outline-primary text-start" id="confirmButton" type="button" autocomplete="off" style="border: 3px solid;" onclick="confirmLocation()"> 
+                                Xác Nhận
+                            </button>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
         </form>
+        
     </div>
+
     <!-- The Delete Modal -->
     <div class="modal fade" id="confirmationModal">
         <div class="modal-dialog">
@@ -210,9 +243,14 @@
     
 </div>
 
+
+
 {{!-- Custom JS script --}}
+
 <script src="/js/adDetail.js"></script>
 
 <script src="/js/createMethod.js"></script>
 
 <script src="/js/deleteMethod.js"></script>
+
+<script src="/js/mapConfig.js"></script>

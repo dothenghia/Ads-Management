@@ -1,5 +1,5 @@
 const controller = {}
-const currentPage = 6;
+const currentPage = 7;
 
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';

@@ -106,7 +106,7 @@ async function createAcc(e) {
 
 /* For Địa Điểm quảng cáo */
 // Config logic for chuc vu and khu vuc
-var adLocationBtn = document.getElementById('newAdLocationButton');
+var adLocationBtn = document.getElementById('newAdLocationCreateBtn');
 if (adLocationBtn != null) {
     adLocationBtn.addEventListener("click", (e) => {
         // Set every things back to default value
@@ -114,7 +114,11 @@ if (adLocationBtn != null) {
         document.getElementById('newLocationType').value = "";
         document.getElementById('newAdLocationDistrict').value = "";
         document.getElementById('newAdLocationWard').value = "";
-    
+        document.getElementById('newAdLocationLongtitude').value = "";
+        document.getElementById('newAdLocationLattitude').value = "";
+        
+        // Set display none to the map
+        document.querySelector('#mapDisplay').style.display = 'none';
     });
 }
 
@@ -159,6 +163,9 @@ if (adLocationDistrict != null) {
 async function createAdLocation(e) {
     e.preventDefault()
 
+    // Remove disable attribute
+    document.getElementById('newAdLocationLattitude').disabled = false;
+    document.getElementById('newAdLocationLongtitude').disabled = false;
     const formData = new FormData(document.getElementById("newAdLocationCreateForm"))
     const data = Object.fromEntries(formData.entries())
 

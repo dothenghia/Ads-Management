@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
             $i('reportUpdateFullname').textContent = reportDetails.fullname;
             $i('reportUpdateEmail').textContent = reportDetails.email;
             $i('reportUpdatePhone').textContent = reportDetails.phone;
-            $i('reportUpdateContent').textContent = reportDetails.content;
+            $i('reportUpdateContent').innerHTML = reportDetails.content;
             let reportThumbnails = $i('reportUpdateThumbnails').querySelector(".carousel-inner");
             // Destroy old children first
             while (reportThumbnails.firstChild) {

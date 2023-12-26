@@ -10,7 +10,11 @@
 
         <div class="navbar-avatar">
             <img src="/img/avatar.jpg" alt="avatar">
-            <span>{{name}} (Sở)</span>
+            <span>
+                {{#with roleInfo}}
+                    {{name}} ({{areaName}})
+                {{/with}}
+            </span>
         </div>
 
         <div class="navbar-list">
