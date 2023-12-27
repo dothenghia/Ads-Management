@@ -1,4 +1,32 @@
 
+function getBoundaryQuan(idQuan) {
+    const district = boundary.find(d => d.idQuan === idQuan);
+
+    if (!district) {
+        return [];
+    }
+
+    return district.coordinates;
+}
+
+function getBoundaryPhuong(idQuan, idPhuong) {
+    const district = boundary.find(d => d.idQuan === idQuan);
+    
+    if (!district) {
+        return [];
+    }
+
+    const ward = district.wards.find(w => w.idPhuong === idPhuong);
+
+    if (!ward) {
+        return [];
+    }
+
+    return ward.coordinates;
+}
+
+export { getBoundaryQuan, getBoundaryPhuong };
+
 const boundary = [
     {
         "name": "Quận 1",
