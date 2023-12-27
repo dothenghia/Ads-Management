@@ -1,0 +1,16 @@
+#mapDisplay, #EditmapDisplay {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 15%;
+    width: 75%;
+    border-radius: 20px;
+}
+
+#Newmap, #Editmap {
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+    
+    border-radius: 20px;
+}

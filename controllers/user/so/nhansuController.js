@@ -1,6 +1,7 @@
  const controller = {}
-const currentPage = 2;
+const currentPage = 3;
 
+const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 const fs = require("fs");
@@ -26,7 +27,11 @@ controller.delete = async (req, res) => {
 }
 
 controller.show = async (req, res) => {
-    
+    // Get current account
+    const token = req.cookies.jwtToken;
+    const decoded = await jwt.verify(token, "suffering");
+    let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+
      //upsert = update and insert
     try {
         
@@ -80,6 +85,7 @@ controller.show = async (req, res) => {
         }
         res.render("partials/screens/so/index", {
             "current": currentPage,
+            "roleInfo": currentRoleInfo,
             "account": Account,
             "userRole": UserRole,
             "adArea": AdArea,

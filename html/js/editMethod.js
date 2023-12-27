@@ -1,114 +1,40 @@
-document.querySelectorAll(".edit-button").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-
-        // Page, account role
-        let page = btn.dataset.page;
-        let accountRole = btn.dataset.accountRole;
-
-        // Employee account
-        let accId = btn.dataset.id;
-        let accName = btn.dataset.name;
-        let accPhone = btn.dataset.phone;
-        let accRole = btn.dataset.role;
-        let accArea = btn.dataset.area;
-        let accUsername = btn.dataset.userName;
-        let accPassword = btn.dataset.password;
-
-        var areaDetail = accArea.split("-");
-        // Admin account
-        document.getElementById("id").value = accId;
-        document.getElementById("hotenEdit").value = accName;
-        document.getElementById("phoneEdit").value = accPhone;
-        document.getElementById("roleEdit").value = accRole;
-        document.getElementById("areaEdit").value = "Sở Văn hóa và Thể thao TP.HCM";
-        document.getElementById("quanID").value = areaDetail[0] ? areaDetail[0] : "";
-        
-        // Assuming you have a reference to the <select> element with id "quanID"
-        var selectElement = document.getElementById('quanID');
-
-        // Get the selected option
-        var selectedOption = selectElement.options[selectElement.selectedIndex];
-
-        // Lọc ra phường tương ứng với quận
-        var newPhuongOptions = [];
-        // Access the data-wards attribute using dataset
-        if (selectedOption.dataset.wards != null && selectedOption.dataset.wards != undefined) {
-            // Các phường của quận đang chọn
-            var dataWardsValue = JSON.parse(selectedOption.dataset.wards); // Có thể chưa chọn j
-            if (dataWardsValue != undefined || dataWardsValue != null)
-                // Loop qua các key để add vào newPhuongOptions
-                Object.keys(dataWardsValue).forEach(function (phuong) {
-                    newPhuongOptions.push({value: phuong, text: dataWardsValue[phuong].name});
-                });
-        }
-
-        var phuongElement = document.getElementById("phuongID");
-        // Clear existing options (optional)
-        phuongElement.innerHTML = '<option value="">Phường</option>';
-
-        // Add new options
-        newPhuongOptions.forEach(function (optionData) {
-            var option = document.createElement('option');
-            option.value = optionData.value;
-            option.text = optionData.text;
-            phuongElement.appendChild(option);
-        });
-
-        
-        document.getElementById("phuongID").value = areaDetail[1];
-        document.getElementById("usernameEdit").value = accUsername;
-        document.getElementById("passwordEdit").value = accPassword;
-
-        const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
-        modal.show();
-
-        // Make sure the dropdown options are hidden when the modal is closed
-        if (accRole == "3") {
-            $("#areaEdit").prop("hidden", false);
-            resetQuanandPhuong();
-        } else if (accRole == "2") {
-            $("#areaEdit").prop("hidden", true);
-            $("#quanID").prop("hidden", false);
-            resetPhuong();
-        } else {
-            $("#areaEdit").prop("hidden", true);
-            $("#quanID").prop("hidden", false);
-            $("#phuongID").prop("hidden", false);
-        }
-
-        // Listen to the change event of the role dropdown
-        document.getElementById("roleEdit").addEventListener("change", (e) => {
-            let SelectedRole = e.target.value;
-            console.log("SelectedRole: ", SelectedRole);
-            // If not Phuong or Quan
-            if (SelectedRole != "3") {
-                resetPhuong(); // Hide the phuong dropdown if the role is Quan
-                
-                $("#quanID").prop("hidden", false);
-                if (SelectedRole == "1") {
-                    
-                    $("#phuongID").prop("hidden", false);
-                }
-                hideTextArea();
-            }
-            else {
-                $("#areaEdit").value = "Sở Văn hóa và Thể thao TP.HCM";
-                $("#areaEdit").prop("hidden", false);
-                resetQuanandPhuong();
-            }
-
-        });
-
-        // Listen to the change event of the Quan dropdown
-        document.getElementById("quanID").addEventListener("change", (e) => {
+var editBtn = document.querySelectorAll(".edit-button");
+if (editBtn != null) {
+    editBtn.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+    
+            // Page, account role
+            let page = btn.dataset.page;
+            let accountRole = btn.dataset.accountRole;
+    
+            // Employee account
+            let accId = btn.dataset.id;
+            let accName = btn.dataset.name;
+            let accPhone = btn.dataset.phone;
+            let accRole = btn.dataset.role;
+            let accArea = btn.dataset.area;
+            let accUsername = btn.dataset.userName;
+            let accPassword = btn.dataset.password;
+    
+            var areaDetail = accArea.split("-");
+            // Admin account
+            document.getElementById("id").value = accId;
+            document.getElementById("hotenEdit").value = accName;
+            document.getElementById("phoneEdit").value = accPhone;
+            document.getElementById("roleEdit").value = accRole;
+            document.getElementById("areaEdit").value = "Sở Văn hóa và Thể thao TP.HCM";
+            document.getElementById("quanID").value = areaDetail[0] ? areaDetail[0] : "";
             
-            // Lấy value của option quận đang chọn (e.target)
-            var selectedOption = e.target.options[e.target.selectedIndex];
-
-            // Lọc ra những phường theo quận đang chọn
+            // Assuming you have a reference to the <select> element with id "quanID"
+            var selectElement = document.getElementById('quanID');
+    
+            // Get the selected option
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+    
+            // Lọc ra phường tương ứng với quận
             var newPhuongOptions = [];
             // Access the data-wards attribute using dataset
-            if (selectedOption != null && selectedOption != undefined) {
+            if (selectedOption.dataset.wards != null && selectedOption.dataset.wards != undefined) {
                 // Các phường của quận đang chọn
                 var dataWardsValue = JSON.parse(selectedOption.dataset.wards); // Có thể chưa chọn j
                 if (dataWardsValue != undefined || dataWardsValue != null)
@@ -117,11 +43,11 @@ document.querySelectorAll(".edit-button").forEach((btn) => {
                         newPhuongOptions.push({value: phuong, text: dataWardsValue[phuong].name});
                     });
             }
-
+    
             var phuongElement = document.getElementById("phuongID");
             // Clear existing options (optional)
             phuongElement.innerHTML = '<option value="">Phường</option>';
-
+    
             // Add new options
             newPhuongOptions.forEach(function (optionData) {
                 var option = document.createElement('option');
@@ -129,9 +55,86 @@ document.querySelectorAll(".edit-button").forEach((btn) => {
                 option.text = optionData.text;
                 phuongElement.appendChild(option);
             });
+    
+            
+            document.getElementById("phuongID").value = areaDetail[1];
+            document.getElementById("usernameEdit").value = accUsername;
+            document.getElementById("passwordEdit").value = accPassword;
+    
+            const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+            modal.show();
+    
+            // Make sure the dropdown options are hidden when the modal is closed
+            if (accRole == "3") {
+                $("#areaEdit").prop("hidden", false);
+                resetQuanandPhuong();
+            } else if (accRole == "2") {
+                $("#areaEdit").prop("hidden", true);
+                $("#quanID").prop("hidden", false);
+                resetPhuong();
+            } else {
+                $("#areaEdit").prop("hidden", true);
+                $("#quanID").prop("hidden", false);
+                $("#phuongID").prop("hidden", false);
+            }
+    
+            // Listen to the change event of the role dropdown
+            document.getElementById("roleEdit").addEventListener("change", (e) => {
+                let SelectedRole = e.target.value;
+                console.log("SelectedRole: ", SelectedRole);
+                // If not Phuong or Quan
+                if (SelectedRole != "3") {
+                    resetPhuong(); // Hide the phuong dropdown if the role is Quan
+                    
+                    $("#quanID").prop("hidden", false);
+                    if (SelectedRole == "1") {
+                        
+                        $("#phuongID").prop("hidden", false);
+                    }
+                    hideTextArea();
+                }
+                else {
+                    $("#areaEdit").value = "Sở Văn hóa và Thể thao TP.HCM";
+                    $("#areaEdit").prop("hidden", false);
+                    resetQuanandPhuong();
+                }
+    
+            });
+    
+            // Listen to the change event of the Quan dropdown
+            document.getElementById("quanID").addEventListener("change", (e) => {
+                
+                // Lấy value của option quận đang chọn (e.target)
+                var selectedOption = e.target.options[e.target.selectedIndex];
+    
+                // Lọc ra những phường theo quận đang chọn
+                var newPhuongOptions = [];
+                // Access the data-wards attribute using dataset
+                if (selectedOption != null && selectedOption != undefined) {
+                    // Các phường của quận đang chọn
+                    var dataWardsValue = JSON.parse(selectedOption.dataset.wards); // Có thể chưa chọn j
+                    if (dataWardsValue != undefined || dataWardsValue != null)
+                        // Loop qua các key để add vào newPhuongOptions
+                        Object.keys(dataWardsValue).forEach(function (phuong) {
+                            newPhuongOptions.push({value: phuong, text: dataWardsValue[phuong].name});
+                        });
+                }
+    
+                var phuongElement = document.getElementById("phuongID");
+                // Clear existing options (optional)
+                phuongElement.innerHTML = '<option value="">Phường</option>';
+    
+                // Add new options
+                newPhuongOptions.forEach(function (optionData) {
+                    var option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.text = optionData.text;
+                    phuongElement.appendChild(option);
+                });
+            });
         });
     });
-});
+}
 
 function resetQuanandPhuong() {
     $("#quanID").prop("hidden", true);

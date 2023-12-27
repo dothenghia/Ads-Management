@@ -1,10 +1,16 @@
 const controller = {}
-const currentPage = 5;
+const currentPage = 6;
 
+const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
+    // Get current account
+    const token = req.cookies.jwtToken;
+    const decoded = await jwt.verify(token, "suffering");
+    let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+
     try {
         const changeReqSnapshot = await client.db(dbName).collection("changeReqs").find({}).toArray();
         const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
@@ -50,6 +56,7 @@ controller.show = async (req, res) => {
             ChangeReq = ChangeReq.filter((req) => req.senderRole == filterRoleId);
         res.render("partials/screens/so/index", {
             "current": currentPage,
+            "roleInfo": currentRoleInfo,
             "reason": Reason,
             "status": Status,
             "changeReq": ChangeReq,
