@@ -26,7 +26,7 @@ Bảo :
     Sở :
     - Thống kê - Chưa
     - Chỉnh sửa tài khoản Cán bộ (P/Q/S) :
-        + Thêm gmail, fb id
+        + Thêm gmail, fb id - rồi
     - Sửa lại tên các nút trên Sidebar cho rõ ràng
     - Up ảnh lên ở đâu? => Liên hệ Hải hỗ trợ
     - Thiếu trang thêm nhân sự

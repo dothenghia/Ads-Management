@@ -174,7 +174,7 @@ async function accNamePhoneSettings(e) {
     const formData = new FormData(document.querySelector(".formInfoSettings"))
     const data = Object.fromEntries(formData.entries())
 
-    console.log(data);
+    console.log("data:",data);
     let res = await fetch('/so/thongtincanhan', {
         method: 'PUT',
         headers: {
@@ -206,6 +206,31 @@ async function accPassSettings(e) {
     })
 
     location.reload();
+}
+
+// Upload image
+var upload = document.getElementById('upload')
+if (upload != null){
+    upload.addEventListener('change', function () {
+        var files = this.files;
+        console.log("id: ", document.querySelector('.id').value ,files);
+        var formData = new FormData();
+    
+        formData.append('avatar', files[0]);
+        formData.append('id', document.querySelector('.id').value);
+
+        fetch('/so/thongtincanhan', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            
+            location.reload();
+        })
+        .catch(error => console.error('Error uploading files:', error));
+    });
 }
 
 /* 
