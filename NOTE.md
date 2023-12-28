@@ -7,10 +7,14 @@ Nghĩa :
     Dân :
         - TOÀN BẢN ĐỒ => chỉ lấy những cái là 'Đã xử lý'
         - DANH SÁCH ĐÃ GỬI => thì chỉ lẫy những cái reportId trong local storage đã gửi
+        
+        - Nhắc tụi nó Thêm Phường 15 của Quận 5
+        - CHỈ NHỮNG CÁI BÁO CÁO NÀO MÀ 'ĐÃ XỬ LÝ' THÌ MỚI ĐỔI reportId của adLocation và ad
+          Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
 
     Phường+Quận :
         - Trang BanDo chưa làm xong [4h]
-            => Bản đồ mở rộng giới hạn view (tạo layer viền khu vực đó - nếu rảnh)
+            => Bản đồ mở rộng giới hạn view (tạo layer viền khu vực đó - nếu rảnh) /
             => Cần làm Sidebar
             => Cần làm Nút danh sách báo cáo
         - Geocoding Search bar (Final)

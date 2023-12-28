@@ -48,7 +48,7 @@ controller.uploadData = async (req, res) => {
 // Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON
 controller.getAdLocationGeoJSONList = async (req, res) => {
     try {
-        let localStorageReportList = req.body.map(item => parseFloat(item));
+        let localStorageReportList = [];
         // console.log("localStorageReportList:", localStorageReportList);
 
 
@@ -63,6 +63,7 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
             // Đếm số lượng reports của adLocation
             let numberOfReports = 0;
+            let numberOfAds = 0;
             let adLocationStatus = await getReportStatus(adLocationData.reportId, localStorageReportList)
             if (adLocationStatus !== null) {
                 numberOfReports = 1;
@@ -71,16 +72,21 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
             if (adLocationData.adList && adLocationData.adList.length > 0) {
                 const adPromises = adLocationData.adList.map(async (ad) => {
                     const adDoc = await adsCollection.findOne({ adId: ad.adId });
-                    let adStatus = await getReportStatus(adDoc.reportId, localStorageReportList)
-                    if (adStatus !== null) {
-                        numberOfReports++;
+
+                    // Kiểm tra hợp lệ của contractStartDate và contractEndDate
+                    if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
+                        numberOfAds++;
+                        let adStatus = await getReportStatus(adDoc.reportId, localStorageReportList);
+                        if (adStatus !== null) {
+                            numberOfReports++;
+                        }
                     }
                 });
 
                 await Promise.all(adPromises);
             }
 
-            return { ...adLocationData, numberOfReports };
+            return { ...adLocationData, numberOfReports, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
@@ -129,7 +135,7 @@ controller.getReportGeoJSONList = async (req, res) => {
 
 controller.getAdLocationInfoById = async (req, res) => {
     const locaId = parseInt(req.params.locaId);
-    let localStorageReportList = req.body.map(item => parseFloat(item));
+    let localStorageReportList = [];
     // console.log("localStorageReportList:", localStorageReportList);
 
     try {
@@ -147,25 +153,40 @@ controller.getAdLocationInfoById = async (req, res) => {
 
         adLocationData.numberOfReports = adLocationData.reportId == "" ? 0 : 1;
         adLocationData.locationStatus = "";
+        adLocationData.newAdList = [];
+
         const { quan, phuong } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
         adLocationData.quan = quan;
         adLocationData.phuong = phuong;
 
         if (adLocationData.reportId != "") {
             adLocationData.locationStatus = await getReportStatus(adLocationData.reportId, localStorageReportList);
+            if (adLocationData.locationStatus == null) {
+                adLocationData.locationStatus = "";
+            }
         }
 
         if (adLocationData.adList && adLocationData.adList.length > 0) {
             // Sử dụng Promise.all để thực hiện nhiều truy vấn cùng một lúc
             const adListPromises = adLocationData.adList.map(async (ad, i) => {
                 adLocationData.adList[i] = await getAdInfo(ad.adId);
-                adLocationData.adList[i].contractStartDate = formatDate(adLocationData.adList[i].contractStartDate);
-                adLocationData.adList[i].contractEndDate = formatDate(adLocationData.adList[i].contractEndDate);
-                adLocationData.adList[i].adStatus = "";
-                if (adLocationData.adList[i].reportId != "") {
-                    adLocationData.numberOfReports++;
-                    adLocationData.adList[i].adStatus = await getReportStatus(adLocationData.adList[i].reportId, localStorageReportList);
+
+                // Kiểm tra hợp lệ của contractStartDate và contractEndDate
+                if (adLocationData.adList[i].contractStartDate <= new Date() && adLocationData.adList[i].contractEndDate >= new Date()) {
+                    adLocationData.adList[i].contractStartDate = formatDate(adLocationData.adList[i].contractStartDate);
+                    adLocationData.adList[i].contractEndDate = formatDate(adLocationData.adList[i].contractEndDate);
+                    adLocationData.adList[i].adStatus = "";
+                    if (adLocationData.adList[i].reportId != "") {
+                        adLocationData.numberOfReports++;
+                        adLocationData.adList[i].adStatus = await getReportStatus(adLocationData.adList[i].reportId, localStorageReportList);
+                        if (adLocationData.adList[i].adStatus == null) {
+                            adLocationData.adList[i].adStatus = "";
+                        }
+                    }
+
+                    adLocationData.newAdList.push(adLocationData.adList[i]);  // Thêm vào newAdList
                 }
+                
             });
 
             await Promise.all(adListPromises);

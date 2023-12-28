@@ -43,7 +43,7 @@ function convertAdToGeoJSON(adLocation) {
             idQuan: adLocation.idQuan,
             idPhuong: adLocation.idPhuong,
             adType: adLocation.adType,
-            numberOfAds: adLocation.adList.length,
+            numberOfAds: adLocation.numberOfAds,
             locationType: adLocation.locationType,
             quan,
             phuong,
@@ -116,8 +116,8 @@ async function getReportStatus(reportId, localStorageId = []) {
                 return null;
             }
 
-            // Kiểm tra xem status có phải là 'Đã xử lý' hoặc 'Từ chối' không
-            if (reportData.status === 'Đã xử lý' || reportData.status === 'Từ chối') {
+            // Kiểm tra xem status có phải là 'Đã xử lý' không
+            if (reportData.status === 'Đã xử lý') {
                 return reportData.status;
             } else {
                 return null;

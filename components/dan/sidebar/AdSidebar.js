@@ -90,7 +90,7 @@ function AdSidebar_Info(adLocationData) {
             <p>${adLocationData.adForm}</p>
 
             <h2>Số lượng</h2>
-            <p>${adLocationData.adList.length} ${adLocationData.adList.length == 0 ? '' : 'Trụ/bảng'}</p>
+            <p>${adLocationData.newAdList.length} ${adLocationData.newAdList.length == 0 ? '' : 'Trụ/bảng'}</p>
 
             <h2>Loại vị trí</h2>
             <p>${adLocationData.locationType}</p>
@@ -148,7 +148,7 @@ export default function AdSidebar(adLocationData) {
                 
 
                 <div class="ad-sidebar__adlist">
-                    ${adLocationData.adList.map(ad => AdCard(ad, adLocationData)).join('')}
+                    ${adLocationData.newAdList.map(ad => AdCard(ad, adLocationData)).join('')}
                 </div>
 
             </div>
