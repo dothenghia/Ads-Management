@@ -126,7 +126,7 @@ const trangchu = {
                 data: combinedData,
                 cluster: true,
                 clusterMaxZoom: 14,
-                clusterRadius: 35
+                clusterRadius: 30
             });
 
 

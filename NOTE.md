@@ -5,8 +5,8 @@
 
 Nghĩa :
     Dân :
-        - TOÀN BẢN ĐỒ => chỉ lấy những cái là 'Đã xử lý'
-        - DANH SÁCH ĐÃ GỬI => thì chỉ lẫy những cái reportId trong local storage đã gửi
+        - TOÀN BẢN ĐỒ => chỉ lấy những cái là 'Đã xử lý' /
+        - DANH SÁCH ĐÃ GỬI => thì chỉ lẫy những cái reportId trong local storage đã gửi /
         
         - Nhắc tụi nó Thêm Phường 15 của Quận 5
         - CHỈ NHỮNG CÁI BÁO CÁO NÀO MÀ 'ĐÃ XỬ LÝ' THÌ MỚI ĐỔI reportId của adLocation và ad
