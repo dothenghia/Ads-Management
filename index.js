@@ -111,6 +111,8 @@ app.use('/so', checkAuthenticated, require("./routes/user/soRoute"));
 app.use('/logout', require("./routes/general/logoutRoute"));
 
 app.use('/dan', require("./routes/user/danRoute")); // ROUTE DÂN
+app.use('/bando', require("./routes/user/bandoRoute")); // ROUTE DÂN
+
 
 // Start the server on port 3000
 // Start the server

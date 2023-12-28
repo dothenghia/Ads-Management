@@ -81,8 +81,13 @@ const trangchu = {
 
     // ====== Fetch dữ liệu các Địa điểm QC và Địa điểm BC
     fetchAdMarkers: async function () {
-
+        fetch('http://localhost:3000/bando/phuong/ddqc')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
     },
+
     fetchReportMarkers: async function () {
 
     },
