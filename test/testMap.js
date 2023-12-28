@@ -88,7 +88,11 @@ const trangchu = {
     },
 
     fetchReportMarkers: async function () {
-
+        fetch(`http://localhost:3000/bando/phuong/ddbcbk?idPhuongQuery=${idPhuong}&idQuanQuery=${idQuan}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
     },
 
     // ====== Hiển thị và Gom nhóm các Địa điểm QC và Địa điểm BC

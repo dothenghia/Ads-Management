@@ -24,6 +24,7 @@ controller.ddqc = async (req, res) => {
             // Đếm số lượng reports của adLocation
             let numberOfReports = 0;
             let numberOfAds = 0;
+
             let adLocationStatus = await getReportStatus(adLocationData.reportId)
             if (adLocationStatus !== null) {
                 numberOfReports = 1;
@@ -42,32 +43,43 @@ controller.ddqc = async (req, res) => {
                         }
                     }
                 });
-
                 await Promise.all(adPromises);
             }
-
             return { ...adLocationData, numberOfReports, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
-
         const adLocationGeoJSONList = results.map(ad => convertAdToGeoJSON(ad));
         res.json(adLocationGeoJSONList);
-
     }
     catch (error) {
         console.error("Error getting documents:", error);
         res.status(500).json({ error: "Internal server error" });
     }
-
 }
 
 
 // ========== Lấy danh sách ĐỊA ĐIỂM BÁO CÁO BẤT KỲ tại Phường đó (Dạng GeoJSON)
+// Cứ lấy về hết, Bên phía client sẽ filter theo tọa độ boundary của Phường đó
 controller.ddbcbk = async (req, res) => {
-    res.json({
-        message: "ddbcbk"
-    })
+    try {
+        const db = client.db(dbName);
+        const reportsCollection = db.collection('reports');
+
+        const reportDocs = await reportsCollection.find({ reportType: 'ddbk' }).toArray();
+
+        const reportLocationGeoJSONList = [];
+        for (const reportData of reportDocs) {
+            const geoJSON = await convertReportToGeoJSON(reportData);
+            geoJSON && reportLocationGeoJSONList.push(geoJSON);
+        }
+
+        res.json(reportLocationGeoJSONList);
+    }
+    catch (error) {
+        console.error("Error getting documents:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
 }
 
 module.exports = controller;
@@ -103,6 +115,34 @@ function convertAdToGeoJSON(adLocation) {
     };
 }
 
+// ========== Hàm chuyển đổi dữ liệu Report thành dạng GeoJSON
+async function convertReportToGeoJSON(report) {
+    try {
+        const reverseLocation = await reverseGeocoding(report.longitude, report.latitude);
+
+        return {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [report.longitude, report.latitude]
+            },
+            properties: {
+                reportId: report.reportId,
+                reportForm: report.reportForm,
+                status: report.status,
+                name: reverseLocation.name,
+                phuong: reverseLocation.phuong,
+                quan: reverseLocation.quan,
+
+                markerType: 'Report' // Thêm cái này để filter marker trên map
+            }
+        };
+    }
+    catch (error) {
+        console.error('Error in reverseGeocoding:', error);
+        return null;
+    }
+}
 
 // ========== Hàm lấy status của report theo reportId
 async function getReportStatus(reportId) {
