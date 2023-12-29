@@ -8,7 +8,7 @@ let chuaqhColorSubtle = '#9EEAF9';
 let reportColor = '#FF1E1E';
 let reportColorSubtle = '#e8828e';
 
-// import AdPopup from '/components/dan/popup/AdPopup.js';
+import AdPopup from '../popup/AdPopup.js';
 // import AdSidebar from '/components/dan/sidebar/AdSidebar.js';
 // import getAdLocationInfoById from '/functions/dan/getAdLocationInfoById.js';
 
@@ -67,4 +67,35 @@ export default function AdMarker(map) {
 
 
     
+
+    // Tạo popup (Nhưng chưa hiển thị)
+    let popup = new mapboxgl.Popup({
+        offset: 20, // Dời lên 20px
+        closeButton: false, // Không hiển thị nút đóng
+    })
+
+    // Xử lý sự kiện hover vào marker
+    map.on('mouseenter', 'AdMarker-circle', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+
+        let markerInfo = e.features[0];
+        // console.log(markerInfo.properties);
+        const coordinates = e.features[0].geometry.coordinates.slice();
+
+        // Đảm bảo rằng nếu bản đồ được thu nhỏ sao cho có thể nhìn thấy nhiều bản sao của đối tượng địa lý thì cửa sổ bật lên sẽ xuất hiện trên bản sao được trỏ tới.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360; }
+
+        // Show popup
+        popup.setLngLat(coordinates)
+            .setHTML(
+                `${AdPopup(markerInfo.properties)}`
+            )
+            .addTo(map);
+    });
+
+    map.on('mouseleave', 'AdMarker-circle', () => {
+        map.getCanvas().style.cursor = '';
+
+        popup.remove();
+    });
 }

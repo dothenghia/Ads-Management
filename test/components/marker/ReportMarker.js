@@ -4,7 +4,7 @@ let dkndColor = '#FFA33C';
 let dgykColor = '#F448CE';
 let gdtmColor = '#9747FF';
 
-// import ReportPopup from '../popup/ReportPopup.js';
+import ReportPopup from '../popup/ReportPopup.js';
 // import DetailReportModal from "../modal/DetailReportModal.js";
 // import getReportInfoById from '/functions/dan/getReportInfoById.js';
 
@@ -122,5 +122,34 @@ export default function ReportMarker(map) {
     });
 
 
+
     
+    // Tạo popup (Nhưng chưa hiển thị)
+    let popup = new mapboxgl.Popup({
+        offset: 20,
+        closeButton: false,
+    })
+
+    // Xử lý sự kiện hover vào marker
+    map.on('mouseenter', 'ReportMarker-circle', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+
+        let infomationOfMarker = e.features[0];
+        const coordinates = e.features[0].geometry.coordinates.slice();
+
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) { coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360; }
+
+        // Show popup
+        popup.setLngLat(coordinates)
+            .setHTML(
+                `${ReportPopup(infomationOfMarker.properties)}`
+            )
+            .addTo(map);
+    });
+
+    map.on('mouseleave', 'ReportMarker-circle', () => {
+        map.getCanvas().style.cursor = '';
+
+        popup.remove();
+    });
 }
