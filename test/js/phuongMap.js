@@ -4,7 +4,7 @@ let idPhuong = 'phuong_04'
 let idQuan = 'quan_5'
 // ! ================================
 
-import mappingRegion from "../functions/dan/mappingRegion.js";
+import mappingRegion from "../../../functions/dan/mappingRegion.js";
 import { getBoundaryPhuong, getBoundaryQuan } from "./boundary.js";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ';
