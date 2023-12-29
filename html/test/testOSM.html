@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap Example</title>
+    <!-- Include Leaflet CSS and JavaScript -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+</head>
+<body>
+    <!-- Create a div to hold the map -->
+    <div id="map" style="height: 500px; width: 50%;"></div>
+    
+    <h1>Chọn quận:</h1>
+
+  
+        <!-- Create a dropdown list -->
+        <label for="quan">Chọn quận</label>
+        <select id="quan" name="quan">
+            <option value="">All</option>
+            <option value="Quận 1">Quận 1</option>
+            <option value="Quận 5">Quận 5</option>
+            <!-- Add more options as needed -->
+        </select>
+        <label for="quan">Chọn Phường</label>
+        <select id="phuong" name="phuong">
+            <option value="">All</option>
+            <option value="Phường 4">Phường 4</option>
+            <option value="Phường 5">Phường 5</option>
+            <!-- Add more options as needed -->
+        </select>
+        <br>
+        <label for="duong">Nhập đường</label>
+        <input type="text" name="duong" id="duong">
+        
+        <div id="locationInfo"></div>
+        <hr>
+        <button id="submit">Xác nhận</button>
+        <div id="MarkerInfo"></div>
+        <br>
+
+   
+    <!-- Include your custom script for map initialization -->
+    <script src="testOSM.js"></script>
+</body>
+</html>
