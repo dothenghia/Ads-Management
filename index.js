@@ -1,7 +1,8 @@
 const express = require('express'); //Khai báo các thứ cần thiết
 const expressHbs = require('express-handlebars');
 const passport = require('./config/passportConfig').passport;
-const {connectToMongoDB,closeMongoDBConnection} = require('./config/mongodbConfig');
+// const {connectToMongoDB,closeMongoDBConnection} = require('./config/mongodbConfig');
+const {connectToMongoDB,closeMongoDBConnection} = require('./config/mongooseConfig');
 const cors = require('cors'); // CÁI NÀY DÙNG ĐỂ CHO NGƯỜI DÂN FETCH API
 const port = 3000;
 const session = require('express-session');

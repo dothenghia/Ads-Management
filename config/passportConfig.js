@@ -7,14 +7,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const jwt = require('jsonwebtoken');
 const jwtSecret = 'suffering';
-const { client } = require("../config/mongodbConfig");
-const dbName = 'Ads-Management';
+const accountsModel = require('../models/accountsModel');
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const user = await client.db(dbName).collection('accounts').findOne({ username: username });
-
-      if (user.empty) {
+      const user = await accountsModel.findOne({ username: username });
+      if (!user) {
         return done(null, false);
       }
       console.log(user);
@@ -38,7 +36,7 @@ const opts = {
 
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
   try {
-    const user = await client.db(dbName).collection('accounts').findOne({_id: jwt_payload.sub});
+    const user = await accountsModel.findOne({_id: jwt_payload.sub});
     if (!user.exists) {
       return done(null, false);
     }
@@ -75,7 +73,7 @@ passport.use(new GoogleStrategy({
 },
   async (accessToken, refreshToken, profile, cb) => {
     try {
-      const user = await client.db(dbName).collection('accounts').findOne({email: profile.emails[0].value});
+      const user = await accountsModel.findOne({email: profile.emails[0].value});
 
       if (user == null) {
         return cb(null, false);
