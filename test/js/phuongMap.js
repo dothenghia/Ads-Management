@@ -1,7 +1,7 @@
 
 // ! ĐIỀN ID QUẬN VÀ ID PHƯỜNG VÀO ĐÂY
-let idPhuong = 'phuong_nguyen_cu_trinh'
-let idQuan = 'quan_1'
+let idPhuong = 'phuong_04'
+let idQuan = 'quan_5'
 // ! ================================
 
 // Import Functions
@@ -49,7 +49,6 @@ const trangchu = {
     createBoundary: function () {
         let coordinates = getBoundaryPhuong(idQuan, idPhuong)
         this.boundary = coordinates
-        // let coordinatesQuan = getBoundaryQuan(idQuan)
 
         trangchu.map.on('load', function () {
             // Tạo một GeoJSON feature với điểm geometry
@@ -73,7 +72,7 @@ const trangchu = {
                 paint: {
                     'line-color': 'rgba(0, 0, 0, 0.8)', // Màu của đường line
                     'line-width': 2, // Độ rộng của đường line
-                    // 'line-dasharray': [1, 1] // Độ dài và khoảng cách của các đường line
+                    'line-dasharray': [1, 1] // Độ dài và khoảng cách của các đường line
                 }
             });
         });
@@ -97,7 +96,7 @@ const trangchu = {
     },
 
     fetchReportMarkers: async function () {
-        let data = await fetch(`http://localhost:3000/bando/phuong/ddbcbk?idPhuongQuery=${idPhuong}&idQuanQuery=${idQuan}`)
+        let data = await fetch(`http://localhost:3000/bando/ddbcbk`)
         let tempList = await data.json()
         // console.log(tempList)
 
