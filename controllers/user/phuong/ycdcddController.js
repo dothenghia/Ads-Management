@@ -14,7 +14,7 @@ controller.show = async (req, res) => {
         // Get current account
         const token = req.cookies.jwtToken;
         const decoded = await jwt.verify(token, "suffering");
-        let currentAccount = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
     
         // Get current page's data
         const changeLocReqSnapshot = await client.db(dbName).collection("changeLocReqs").find({}).toArray();
@@ -25,25 +25,6 @@ controller.show = async (req, res) => {
         let areas = JSON.parse(dataFile);
         
         // Extract data from retrieved snapshots
-        let Reason = []; let Status = [];
-        let reasonId = []; let statusId = [];
-        let ChangeLocReq = [];
-        changeLocReqSnapshot.forEach((doc) => {
-            let data = doc;
-
-            if (!reasonId.includes(data.reason)) {
-                reasonId.push(data.reason);
-                Reason.push({value: data.reason});
-            }
-
-            if (!statusId.includes(data.status)) {
-                statusId.push(data.status);
-                Status.push({value: data.status});
-            }
-
-            ChangeLocReq.push(data);
-        });
-
         let AdLocation = []; let AdArea = {};
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
@@ -61,6 +42,38 @@ controller.show = async (req, res) => {
             AdArea[docDistrict.idQuan].wards[docWard.idPhuong].adLocations.push(doc);
 
             AdLocation.push(data);
+        });
+
+        let Reason = []; let Status = [];
+        let reasonId = []; let statusId = [];
+        let ChangeLocReq = [];
+        changeLocReqSnapshot.forEach((doc) => {
+            let data = doc;
+
+            if (!reasonId.includes(data.reason)) {
+                reasonId.push(data.reason);
+                Reason.push({value: data.reason});
+            }
+
+            if (!statusId.includes(data.status)) {
+                statusId.push(data.status);
+                Status.push({value: data.status});
+            }
+
+            // Check if matching area before extracting
+            //idQuan
+            let idQuan = currentAccount.idQuan;
+            // idPhuong
+            let idPhuong = currentAccount.idPhuong;
+            for (loc in AdLocation) {
+                let locDetail = AdLocation[loc];
+
+                if (locDetail.idQuan == idQuan && locDetail.idPhuong == idPhuong) {
+                    ChangeLocReq.push(data);
+                    isFound = true;
+                    break;
+                }
+            }
         });
 
         // Convert adArea to stringify-able format

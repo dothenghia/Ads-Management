@@ -27,24 +27,8 @@ controller.show = async (req, res) => {
         let areas = JSON.parse(dataFile);
         
         // Extract data from retrieved snapshots
-        let Company = []; let Status = []; let AdArea = {};
-        let companyId = []; let statusId = []; 
-        let PermissionReq = [];
-        permissionReqSnapshot.forEach((doc) => {
-            let data = doc;
+        let AdArea = {};
 
-            if (!companyId.includes(data.co.name)) {
-                companyId.push(data.co.name);
-                Company.push(data.co);
-            }
-
-            if (!statusId.includes(data.status)) {
-                statusId.push(data.status);
-                Status.push({value: data.status});
-            }
-
-            PermissionReq.push(data);
-        });
         let Ad = [];
         adSnapshot.forEach((doc) => {
             Ad.push(doc);
@@ -67,7 +51,24 @@ controller.show = async (req, res) => {
 
             AdLocation.push(data);
         });
-        // console.log(AdArea.quan_5.wards.phuong_04.adLocations);
+        let Company = []; let Status = [];
+        let companyId = []; let statusId = []; 
+        let PermissionReq = [];
+        permissionReqSnapshot.forEach((doc) => {
+            let data = doc;
+
+            if (!companyId.includes(data.co.name)) {
+                companyId.push(data.co.name);
+                Company.push(data.co);
+            }
+
+            if (!statusId.includes(data.status)) {
+                statusId.push(data.status);
+                Status.push({value: data.status});
+            }
+
+            PermissionReq.push(data);
+        });
 
         // Convert adArea to stringify-able format
         let temp = [];
@@ -170,23 +171,27 @@ controller.createPermissionReq = async (req, res) => {
         let thumbnails = Array();
         let i = 0;
         let n = req.files.length;
-        await req.files.forEach(async (file) => {
-            if (file.mimetype.endsWith("png"))
-                extension = "png";
-            else if (file.mimetype.endsWith("jpeg"))
-                extension = "jpeg";
-            else
-                extension = "jpg";
-            // Upload the thumbnails to storage
-            let temp = bucket.file("yeucaucapphep/" + (permissionReqHighest + 1) + "/thumbnail" + i + "." + extension);
-            await temp.save(file.buffer, {contentType: file.mimetype});
-            
-            let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
-            thumbnails.push({url: signedURL});
-            
-            i++;
-            if (i == n) pushData(req, thumbnails);
-        })
+
+        if (n > 0) {
+            await req.files.forEach(async (file) => {
+                if (file.mimetype.endsWith("png"))
+                    extension = "png";
+                else if (file.mimetype.endsWith("jpeg"))
+                    extension = "jpeg";
+                else
+                    extension = "jpg";
+                // Upload the thumbnails to storage
+                let temp = bucket.file("yeucaucapphep/" + (permissionReqHighest + 1) + "/thumbnail" + i + "." + extension);
+                await temp.save(file.buffer, {contentType: file.mimetype});
+                
+                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
+                thumbnails.push({url: signedURL});
+                
+                i++;
+                if (i == n) pushData(req, thumbnails);
+            })
+        }
+        else pushData(req, thumbnails);
     }
     catch (error) {
         console.log(error)

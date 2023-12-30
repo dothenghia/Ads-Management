@@ -68,21 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
             $i("permissionReqDetailNoThumbnails").style.display = "block"
         }
 
-        if (status != 0) {
-            $i('permissionReqDetailChoiceAccept').style.display = 'none';
-            $i('permissionReqDetailChoiceDeny').style.display = 'none';
-        }
-        else {
-            $i('permissionReqDetailChoiceAccept').style.display = 'block';
-            $i('permissionReqDetailChoiceDeny').style.display = 'block';
-            $i('permissionReqDetailChoiceAccept').addEventListener("click", () => { 
-                acceptChange(accountRole, permissionReqId) 
-            });
-            $i('permissionReqDetailChoiceDeny').addEventListener("click", () => { 
-                denyChange(accountRole, permissionReqId) 
-            });
-        }
-
         // Show the modal
         $('#permissionReqDetailModal').modal('show');
 
@@ -108,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Set default location selectors' value to "all"
     var newPermissionReqDistrict = document.querySelector("#newPermissionReqDistrict");
-    if (newPermissionReqDistrict != null) newPermissionReqDistrict.value = "all";
+    if (newPermissionReqDistrict != null) newPermissionReqDistrict.value = "";
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
@@ -196,7 +181,7 @@ function displayWards(selectElement) {
     let selectedOptions = selectElement.selectedOptions[0];
     let wardSelect = document.querySelector("#newPermissionReqWard");
     wardSelect.addEventListener('change', () => displayAddresses(document.querySelector('#newPermissionReqWard')));
-    if (selectedOptions.value == "all") {
+    if (selectedOptions.value == "") {
         while (wardSelect.children.length > 1) {
             wardSelect.removeChild(wardSelect.lastChild);
         }
@@ -218,7 +203,7 @@ function displayWards(selectElement) {
     
     // Reset address selector as well
     let addressSelect = document.querySelector("#newPermissionReqAddress");
-    addressSelect.value = "all"
+    addressSelect.value = ""
     while (addressSelect.children.length > 1) {
         addressSelect.removeChild(addressSelect.lastChild);
     }
@@ -226,7 +211,7 @@ function displayWards(selectElement) {
 function displayAddresses(selectElement) {
     let selectedOptions = selectElement.selectedOptions[0];
     let addressSelect = document.querySelector("#newPermissionReqAddress");
-    if (selectedOptions.value == "all") {
+    if (selectedOptions.value == "") {
         while (addressSelect.children.length > 1) {
             addressSelect.removeChild(addressSelect.lastChild);
         }

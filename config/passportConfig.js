@@ -20,6 +20,7 @@ passport.use(
       }
 
       const user = userSnapshot.docs[0].data();
+      console.log(user);
       
       if (!bcryptConfig.checkPassword(password,user.hashedpassword)) {
         return done(null, false);
@@ -53,13 +54,18 @@ passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
 const generateToken = (user) => {
   console.log(user);
 
-  let areaId;
-  if (user.role == "1") areaId = user.phuong_id;
-  else if (user.role == "2") areaId = user.quan_id;
-  else areaId = "Sở";
-  let areaName = user.area;
+  let idQuan = "";
+  let idPhuong = "";
+  if (user.role == "1") {
+    idQuan = user.quan_id;
+    idPhuong = user.phuong_id;
+  }
+  else if (user.role == "2") {
+    idPhuong = user.phuong_id;
+  }
+  let areaName = user.area; 
 
-  return jwt.sign({ sub: user.id, accountType: user.role, areaId, areaName, name: user.name }, jwtSecret, {
+  return jwt.sign({ sub: user.id, accountType: user.role, idQuan: idQuan, idPhuong: idPhuong, areaName, name: user.name }, jwtSecret, {
     expiresIn: '1h', // Token expiration time
   });
 };

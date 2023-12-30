@@ -14,7 +14,7 @@ controller.show = async (req, res) => {
         // Get current account
         const token = req.cookies.jwtToken;
         const decoded = await jwt.verify(token, "suffering");
-        let currentAccount = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
     
         // Get current page's data
         const changeReqSnapshot = await client.db(dbName).collection("changeReqs").find({}).toArray();
@@ -70,17 +70,17 @@ controller.show = async (req, res) => {
             }
 
             // Check if matching area before extracting
-            let idPhuong = "phuong_";
-            if (!isNaN(currentAccount.areaId)) idPhuong += currentAccount.areaId.padStart(2, 0);
-            else idPhuong += currentAccount.areaId;
+            //idQuan
+            let idQuan = currentAccount.idQuan;
+            // idPhuong
+            let idPhuong = currentAccount.idPhuong;
             for (loc in AdLocation) {
                 let locDetail = AdLocation[loc];
 
-                console.log(locDetail);
                 let isFound = false;
                 for (ad in locDetail.adList) {
                     let adDetail = locDetail.adList[ad];
-                    if (adDetail.adId == data.oldAdId && locDetail.idPhuong == idPhuong) {
+                    if (adDetail.adId == data.oldAdId && locDetail.idQuan == idQuan && locDetail.idPhuong == idPhuong) {
                         ChangeReq.push(data);
                         isFound = true;
                         break;
