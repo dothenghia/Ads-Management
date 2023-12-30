@@ -5,21 +5,20 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const jwt = require('jsonwebtoken');
-const admin = require('./firebaseAdmin');
 const jwtSecret = 'suffering';
-const db = admin.firestore()
+const { client } = require("../config/mongodbConfig");
+const dbName = 'Ads-Management';
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const userSnapshot = await db.collection('accounts').where('username', '==', username).get();
+      const user = await client.db(dbName).collection('accounts').findOne({ username: username });
 
-      if (userSnapshot.empty) {
+      if (user.empty) {
         return done(null, false);
       }
-
-      const user = userSnapshot.docs[0].data();
+      console.log(user);
+      
       
       if (!bcryptConfig.checkPassword(password,user.hashedpassword)) {
         return done(null, false);
@@ -39,7 +38,7 @@ const opts = {
 
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
   try {
-    const user = await db.collection('accounts').where('id', '==', jwt_payload.sub).get();
+    const user = await client.db(dbName).collection('accounts').findOne({_id: jwt_payload.sub});
     if (!user.exists) {
       return done(null, false);
     }
@@ -53,13 +52,18 @@ passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
 const generateToken = (user) => {
   console.log(user);
 
-  let areaId;
-  if (user.role == "1") areaId = user.phuong_id;
-  else if (user.role == "2") areaId = user.quan_id;
-  else areaId = "Sở";
-  let areaName = user.area;
+  let idQuan = "";
+  let idPhuong = "";
+  if (user.role == "1") {
+    idQuan = user.quan_id;
+    idPhuong = user.phuong_id;
+  }
+  else if (user.role == "2") {
+    idPhuong = user.phuong_id;
+  }
+  let areaName = user.area; 
 
-  return jwt.sign({ sub: user.id, accountType: user.role, areaId, areaName, name: user.name }, jwtSecret, {
+  return jwt.sign({ sub: user.id, accountType: user.role, idQuan: idQuan, idPhuong: idPhuong, areaName, name: user.name }, jwtSecret, {
     expiresIn: '1h', // Token expiration time
   });
 };
@@ -71,13 +75,12 @@ passport.use(new GoogleStrategy({
 },
   async (accessToken, refreshToken, profile, cb) => {
     try {
-      const userSnapshot = await db.collection('accounts').where('email', '==', profile.emails[0].value).get();
+      const user = await client.db(dbName).collection('accounts').findOne({email: profile.emails[0].value});
 
-      if (userSnapshot.empty) {
+      if (user == null) {
         return cb(null, false);
       }
 
-      const user = userSnapshot.docs[0].data();
       return cb(null, user);
     } catch (error) {
       return cb(error);
@@ -95,13 +98,11 @@ passport.use(
     async (accessToken, refreshToken, profile, cb) => {
       try {
         console.log(profile);
-        const userSnapshot = await db.collection('accounts').where('fbID', '==', profile.id).get();
-
-        if (userSnapshot.empty) {
+        const user = await client.db(dbName).collection('accounts').findOne({fbID: profile.id});
+        console.log(user);
+        if (user == null) {
           return cb(null, false);
         }
-
-        const user = userSnapshot.docs[0].data();
         return cb(null, user);
       } catch (error) {
         return cb(error);

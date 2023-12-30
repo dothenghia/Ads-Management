@@ -10,7 +10,7 @@ controller.show = async (req, res) => {
     // Get current account
     const token = req.cookies.jwtToken;
     const decoded = await jwt.verify(token, "suffering");
-    let currentAccount = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+    let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
 
     // Get current page's data
     const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
@@ -42,7 +42,10 @@ controller.show = async (req, res) => {
             AdType.push({value: data.adType});
         }
 
-        AdLocation.push(data);
+        // Check if matching area before extracting
+        let idPhuong = currentAccount.idPhuong;
+        let idQuan = currentAccount.idQuan;
+        if (data.idQuan == idQuan && data.idPhuong == idPhuong) AdLocation.push(data);
     });
 
     // Filters

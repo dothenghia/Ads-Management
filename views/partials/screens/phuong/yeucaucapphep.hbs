@@ -276,7 +276,7 @@
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Quận<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
                                         <select name="newPermissionReqDistrict" id="newPermissionReqDistrict" onchange="displayWards(this)" required>
-                                            <option value="all">Quận</option>
+                                            <option value="">Quận</option>
                                             {{#each adArea}}
                                                 <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
                                             {{/each}}
@@ -288,7 +288,7 @@
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Phường<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
                                         <select name="newPermissionReqWard" id="newPermissionReqWard" required>
-                                            <option value="all">Phường</option>
+                                            <option value="">Phường</option>
                                         </select>
                                     </div>
                                 </div>
@@ -297,7 +297,7 @@
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newPermissionReqCategoryTitle">Địa Chỉ<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
                                         <select name="newPermissionReqAddress" id="newPermissionReqAddress" required>
-                                            <option value="all">Địa chỉ</option>
+                                            <option value="">Địa chỉ</option>
                                         </select>
                                     </div>
                                 </div>
