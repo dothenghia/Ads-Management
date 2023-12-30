@@ -40,7 +40,7 @@ async function checkAuthenticated(req, res, next) {
                 break;
         }
 
-        return res.redirect('/login?status=401');
+        return res.redirect(`/login?status=401&returnTo=${encodeURIComponent(req.originalUrl)}`);
     } catch (err) {
         return res.redirect('/login?status=500');
     }

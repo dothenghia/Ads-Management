@@ -1,9 +1,10 @@
 const { passport, generateToken } = require('../../config/passportConfig');
 
-const controller = {};
-
+const controller = {}
+originalUrl = null;
 controller.show = (req, res) => {
     const statusCode = req.query.status || 200;
+    originalUrl = req.query.returnTo;
     if (statusCode == '500'){
         res.render('general/login', { layout: 'layout_general',error: 'Lỗi hệ thống, vui lòng thử lại.' });
     }
@@ -20,21 +21,38 @@ controller.submit = (req, res, next) => {
         }
 
         const token = generateToken(user);
-
+       
+    
         res.cookie('jwtToken', token, { httpOnly: true });
-
+        console.log(originalUrl);
         switch (user.role) {
             case '1':
+                if (originalUrl && originalUrl.includes('phuong')){
+                    res.redirect(originalUrl);
+                    originalUrl = null;
+                    break;
+                }
                 res.redirect('/phuong/bando');
                 break;
             case '2':
+                if (originalUrl && originalUrl.includes('quan')){
+                    res.redirect(originalUrl);
+                    originalUrl = null;
+                    break;
+                }
                 res.redirect('/quan/bando');
                 break;
             case '3':
+                if (originalUrl && originalUrl.includes('so')){
+                    res.redirect(originalUrl);
+                    originalUrl = null;
+                    break;
+                }
                 res.redirect('/so/thongtinquangcao');
                 break;
             default:
                 res.redirect('/');
+                break;
         }
     })(req, res, next); // IIFE Immediately Invoked Function Expression
 };

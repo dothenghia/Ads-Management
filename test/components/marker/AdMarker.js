@@ -9,7 +9,7 @@ let reportColor = '#FF1E1E';
 let reportColorSubtle = '#e8828e';
 
 import AdPopup from '../popup/AdPopup.js';
-// import AdSidebar from '/components/dan/sidebar/AdSidebar.js';
+import AdSidebar from '../sidebar/AdSidebar.js';
 // import getAdLocationInfoById from '/functions/dan/getAdLocationInfoById.js';
 
 export default function AdMarker(map) {
@@ -66,7 +66,19 @@ export default function AdMarker(map) {
     });
 
 
-    
+    // Xử lý sự kiện click vào marker
+    map.on('click', 'AdMarker-circle', (e) => {
+        let markerInfo = e.features[0];
+        // console.log(markerInfo.properties);
+
+        fetch(`http://localhost:3000/bando/ddqc/${markerInfo.properties.locationId}`)
+            .then(response => response.json())
+            .then(adLocationInfo => {
+                // console.log(adLocationInfo)
+                document.querySelector('.sidebar-root').innerHTML = AdSidebar(adLocationInfo)
+            })
+    });
+
 
     // Tạo popup (Nhưng chưa hiển thị)
     let popup = new mapboxgl.Popup({
