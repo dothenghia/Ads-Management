@@ -16,8 +16,6 @@ map.on('move', (e) => {
     marker.setLatLng(newCenter);
 });
 
-
-
 quan = document.getElementById('quan');
 phuong = document.getElementById('phuong');
 duong = document.getElementById('duong');
