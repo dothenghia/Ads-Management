@@ -59,7 +59,7 @@ const generateToken = (user) => {
     idPhuong = user.phuong_id;
   }
   else if (user.role == "2") {
-    idPhuong = user.phuong_id;
+    idQuan = user.quan_id;
   }
   let areaName = user.area; 
 
