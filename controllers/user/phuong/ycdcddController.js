@@ -117,7 +117,7 @@ controller.createChangeReq = async (req, res) => {
             reason: req.body.ChangeLocReqReason,
             changeLocReqId: changeLocReqHighest + 1,
             senderRole: 1,
-            oldLocationId: req.body.newChangeLocReqId,
+            oldLocationId: parseInt(req.body.newChangeLocReqId),
             status: 0,
             new: {
                 adForm: req.body.newChangeLocReqNewAdForm,

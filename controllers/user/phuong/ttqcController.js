@@ -42,7 +42,11 @@ controller.show = async (req, res) => {
             AdType.push({value: data.adType});
         }
 
-        AdLocation.push(data);
+        // Check if matching area before extracting
+        let idPhuong = "phuong_";
+        if (!isNaN(currentAccount.areaId)) idPhuong += currentAccount.areaId.padStart(2, 0);
+        else idPhuong += currentAccount.areaId;
+        if (data.idPhuong == idPhuong) AdLocation.push(data);
     });
 
     // Filters
