@@ -11,6 +11,7 @@ import { getBoundaryPhuong, getBoundaryQuan } from "./boundary.js";
 // Import Components
 import AdMarker from '../components/marker/AdMarker.js'
 import ReportMarker from '../components/marker/ReportMarker.js'
+import ReportListButton from '../components/ReportListButton.js';
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmFyb2xvaSIsImEiOiJjbG8ybW1ucHcwOTZjMnF0ZGFqdXpwemUwIn0._gUBQBWHcx7zDxxK6UEUbQ';
@@ -85,7 +86,10 @@ const trangchu = {
             <div class="modal-root"></div>
 
             <div class="sidebar-root"></div>
+
+            <div class="report-list-button-root"></div>
         `
+        ReportListButton(trangchu.map, this.boundary)
     },
 
 
