@@ -109,10 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 reportAddress = await getAreaInfo(reportDetails.longitude, reportDetails.latitude, 1);
             }
             else {
-                let reportAddressObject = adLocationDetails.filter((loc) => loc.locationId == locationId)[0];
-                let reportDistrict = adAreas.filter((district) => district.idQuan == reportAddressObject.idQuan);
-                let reportWard = reportDistrict.wards.filter((ward) => ward.idPhuong == reportAddressObject.idPhuong);
-                reportAddress = reportAddressObject.address + ", " + reportDistrict.name + ", " + reportWard.name;
+                let reportDistrict = adAreas.filter((district) => district.idQuan == adLocationDetails.idQuan)[0];
+                let reportWard = reportDistrict.wards.filter((ward) => ward.idPhuong == adLocationDetails.idPhuong)[0];
+                reportAddress = adLocationDetails.address + ", " + reportDistrict.name + ", " + reportWard.name;
             }
             // Update the modal content with the specific data
             $i('reportUpdateAddress').textContent = reportAddress;
