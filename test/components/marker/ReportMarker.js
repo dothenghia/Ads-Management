@@ -5,7 +5,7 @@ let dgykColor = '#F448CE';
 let gdtmColor = '#9747FF';
 
 import ReportPopup from '../popup/ReportPopup.js';
-// import DetailReportModal from "../modal/DetailReportModal.js";
+import DetailReportModal from "../modal/DetailReportModal.js";
 // import getReportInfoById from '/functions/dan/getReportInfoById.js';
 
 export default function ReportMarker(map) {
@@ -122,8 +122,19 @@ export default function ReportMarker(map) {
     });
 
 
+    // Xử lý sự kiện click vào marker
+    map.on('click', 'ReportMarker-circle', (e) => {
+        let infomationOfMarker = e.features[0];
 
-    
+        fetch(`http://localhost:3000/dan/bc/${infomationOfMarker.properties.reportId}`)
+            .then(response => response.json())
+            .then(reportInfo => {
+                // console.log(reportInfo)
+                document.querySelector('.modal-root').innerHTML = DetailReportModal(reportInfo);
+            })
+    });
+
+
     // Tạo popup (Nhưng chưa hiển thị)
     let popup = new mapboxgl.Popup({
         offset: 20,
