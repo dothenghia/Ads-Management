@@ -14,7 +14,7 @@ controller.show = async (req, res) => {
         // Get current account
         const token = req.cookies.jwtToken;
         const decoded = await jwt.verify(token, "suffering");
-        let currentAccount = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
     
         // Get current page's data
         // Get latest snapshot of requested MongoDB collections
@@ -67,7 +67,19 @@ controller.show = async (req, res) => {
                 Status.push({value: data.status});
             }
 
-            PermissionReq.push(data);
+            // Check if matching area before extracting
+            //idQuan
+            let idQuan = currentAccount.idQuan;
+            // idPhuong
+            let idPhuong = currentAccount.idPhuong;
+            for (loc in AdLocation) {
+                let locDetail = AdLocation[loc];
+
+                if (locDetail.locationId == doc.locationId && locDetail.idQuan == idQuan && locDetail.idPhuong == idPhuong) {
+                    PermissionReq.push(data);
+                    break;
+                }
+            }
         });
 
         // Convert adArea to stringify-able format

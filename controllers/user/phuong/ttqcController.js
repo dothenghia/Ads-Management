@@ -43,9 +43,9 @@ controller.show = async (req, res) => {
         }
 
         // Check if matching area before extracting
-        // idPhuong
         let idPhuong = currentAccount.idPhuong;
-        if (data.idPhuong == idPhuong) AdLocation.push(data);
+        let idQuan = currentAccount.idQuan;
+        if (data.idQuan == idQuan && data.idPhuong == idPhuong) AdLocation.push(data);
     });
 
     // Filters

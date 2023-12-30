@@ -68,9 +68,8 @@ controller.show = async (req, res) => {
             for (loc in AdLocation) {
                 let locDetail = AdLocation[loc];
 
-                if (locDetail.idQuan == idQuan && locDetail.idPhuong == idPhuong) {
+                if (locDetail.locationId == doc.oldLocationId && locDetail.idQuan == idQuan && locDetail.idPhuong == idPhuong) {
                     ChangeLocReq.push(data);
-                    isFound = true;
                     break;
                 }
             }
