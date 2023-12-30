@@ -2,10 +2,6 @@
 import AdCard from "../card/AdCard.js"
 import StatusTag from '../tag/StatusTag.js'
 
-import DetailReportModal from "../modal/DetailReportModal.js";
-import getReportInfoById from '/functions/dan/getReportInfoById.js';
-
-
 function AdSidebar_Thumbnail(adLocationData) {
 
     if (adLocationData.planning == false) {
