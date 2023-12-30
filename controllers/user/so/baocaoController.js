@@ -1,6 +1,7 @@
 const controller = {}
-const currentPage = 1;
+const currentPage = 2;
 
+const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const fs = require("fs");
 const axios = require("axios");
@@ -10,7 +11,13 @@ const mapboxToken = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1
 
 
 controller.show = async (req, res) => {
+    // Get current account
+    const token = req.cookies.jwtToken;
+    const decoded = await jwt.verify(token, "suffering");
+    let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+
     try {
+
         // Get latest snapshot of requested Firebase collections
         const reportSnapshot = await client.db(dbName).collection("reports").find({}).toArray();
         const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
@@ -107,6 +114,7 @@ controller.show = async (req, res) => {
 
         res.render("partials/screens/so/index", {
             "current": currentPage,
+            "roleInfo": currentRoleInfo,
             "reportType": ReportType,
             "reportForm": ReportForm,
             "status": Status,

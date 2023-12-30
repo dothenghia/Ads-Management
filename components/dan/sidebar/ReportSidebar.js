@@ -59,11 +59,25 @@ export default function ReportSidebar(map, reportData) {
                 </div>
                 
                 <div class="report-sidebar__content" data-type="qc">
-                    ${qcReports.map(rp => ReportCard(map, rp)).join('')}
+                    ${
+                        qcReports.length === 0
+                            ? `<div class="report-sidebar__empty">
+                                <img src="/assets/dan/illustration/empty.png" alt="empty">
+                                <h1>Bạn chưa gửi báo cáo nào</h1>
+                            </div>`
+                            : qcReports.map(rp => ReportCard(map, rp)).join('')
+                    }
                 </div>
                 
                 <div class="report-sidebar__content" data-type="dd" style="display: none;">
-                    ${ddReports.map(rp => ReportCard(map, rp)).join('')}
+                    ${
+                        ddReports.length === 0
+                            ? `<div class="report-sidebar__empty">
+                                <img src="/assets/dan/illustration/empty.png" alt="empty">
+                                <h1>Bạn chưa gửi báo cáo nào</h1>
+                            </div>`
+                            : ddReports.map(rp => ReportCard(map, rp)).join('')
+                    }
                 </div>
 
             </div>

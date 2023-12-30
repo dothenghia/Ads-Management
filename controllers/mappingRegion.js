@@ -1038,6 +1038,11 @@ const hochiminh = [
                 "idPhuong": "phuong_04"
             },
             {
+                "name": "Phường 15",
+                "division_type": "3",
+                "idPhuong": "phuong_15"
+            },
+            {
                 "name": "Phường 9",
                 "division_type": "3",
                 "idPhuong": "phuong_09"

@@ -5,7 +5,8 @@ router.use('/so', (req, res) => {
     res.redirect('/thongtinquangcao');
 });
 router.use("/baocao", require("./so/baocaoRoute"));
-router.use("/thongtinquangcao", require("./so/ttqcRoute"));
+router.use("/thongtinquangcao", require("./so/ttbqcRoute"));
+router.use("/thongtindiadiemquangcao", require("./so/ttdqcRoute"));
 router.use("/nhansu", require("./so/nhansuRoute"));
 router.use("/dieuchinh", require("./so/dieuchinhRoute"));
 router.use("/yeucaudieuchinh", require("./so/dieuchinhRoute"));

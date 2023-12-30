@@ -33,7 +33,7 @@ document.querySelectorAll(".ttqc-delete-button").forEach((btn) => {
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
             console.log("OK");
-            deleteTTQCElement(accountRole, page, locationId, adId);
+            deleteTTQCElement(accountRole, page, adId);
             modal.hide();
         });
 
@@ -45,7 +45,7 @@ document.querySelectorAll(".ttqc-delete-button").forEach((btn) => {
 });
 
 
-async function deleteTTQCElement(accountRole, page, locationId, adId) {
+async function deleteTTQCElement(accountRole, page, adId) {
     let res = await fetch(`/${accountRole}/${page}/${adId}`, {
         method: "DELETE",
     });

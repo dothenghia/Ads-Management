@@ -1,4 +1,5 @@
 // @ Hàm lấy danh sách các địa điểm bị báo cáo và chuyền về dạng GeoJSON ##########
+// ~ Done
 
 async function getReportGeoJSONList() {
 
@@ -6,7 +7,7 @@ async function getReportGeoJSONList() {
 
     const response = await fetch('http://localhost:3000/dan/ddbcbkgeojson');
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     const filteredReports = data.filter(report => {
         let str = report.properties.reportId.toString();
@@ -15,7 +16,7 @@ async function getReportGeoJSONList() {
             ['Từ chối', 'Đã xử lý'].includes(report.properties.status)
         );
     });
-    console.log(filteredReports);
+    // console.log(filteredReports);
 
     return filteredReports;
 }

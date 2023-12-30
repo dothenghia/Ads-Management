@@ -1,29 +1,14 @@
-<link rel="stylesheet" href="/css/phuong/bando.css">
-<div id="content" class="bando-container">
-    <div class="offcanvas offcanvas-start" tabindex="51" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
-        <div id="adInfo" class="offcanvas-body">
-            
-        </div>
-    </div>
 
-    <div id="sideButtons">
-        <div id="report">
-            <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                <img src="/assets/chung/icon/hopthu_icon.svg" alt="Filter">
-            </button>
-        </div>
-        <div class="offcanvas offcanvas-end" tabindex="51" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-                <h5 id="offcanvasRightLabel">Báo cáo</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvasRight" aria-label="Close"></button>
-            </div>
-            <div id="repInfo" class="offcanvas-body">
-                
-            </div>
-        </div>
-    </div>
+{{!-- MapBox CDN --}}
+<script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+
+{{!-- Link CSS --}}
+<link rel="stylesheet" href="/css/phuong/bando.css">
+
+<div id="content" class="bando-container">
+
 </div>
 
-<!-- Mapbox JS -->
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-<script src="/js/map.js" data-ads="{{toJSON ads}}" data-ad-locations="{{toJSON adLocation}}" data-feature-collection="{{toJSON featureCollection}}"></script>
+
+<script src="/js/map.js" ad-location={{toJSON AdLocation}}></script>

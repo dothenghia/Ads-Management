@@ -1,12 +1,18 @@
 const controller = {}
-const currentPage = 4;
+const currentPage = 5;
 
+const jwt = require("jsonwebtoken");
 // MongoDB
 const {client}  = require("../../../config/mongodbConfig");
 const fs = require("fs");
 const dbName = 'Ads-Management';
 
 controller.show = async (req, res) => {
+    // Get current account
+    const token = req.cookies.jwtToken;
+    const decoded = await jwt.verify(token, "suffering");
+    let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+
     try {
         // Get latest snapshot of requested MongoDB collections
         const permissionReqSnapshot = await client.db(dbName).collection("permissionReqs").find({}).toArray();
@@ -87,6 +93,7 @@ controller.show = async (req, res) => {
 
         res.render("partials/screens/so/index", {
             "current": currentPage,
+            "roleInfo": currentRoleInfo,
             "company": Company,
             "status": Status,
             "permissionReq": PermissionReq,

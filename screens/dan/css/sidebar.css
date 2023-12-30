@@ -199,3 +199,18 @@
     border-bottom-color: var(--primary-color);
 
 }
+
+.report-sidebar__empty {
+    width: 100%;
+    text-align: center;
+}
+.report-sidebar__empty img {
+    width: 100%;
+    max-width: 360px;
+    margin-bottom: 12px;
+}
+.report-sidebar__empty h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}

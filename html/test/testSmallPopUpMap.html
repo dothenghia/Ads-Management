@@ -10,8 +10,10 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
     <style>
         #map {
-            width: 100%;
+            width: 50%;
             height: 400px;
+            margin: 0 auto;
+            border-radius: 10px;
         }
 
         #confirmButton {
@@ -34,9 +36,12 @@
     <option value="Phường 4">Phường 4</option>
     <!-- Other ward options... -->
 </select>
+<div>
+    <div id='map'>
+    </div>
+    <button id="confirmButton" onclick="confirmLocation()">Confirm</button>
+</div>
 
-<div id='map'></div>
-<button id="confirmButton" onclick="confirmLocation()">Confirm</button>
 
 
 <script src='testSmallPopUpMap.js'></script>

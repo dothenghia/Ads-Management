@@ -15,15 +15,18 @@ const formatDate = require('./formatDate.js')
 
 const controller = {}
 
+// ~ ============== Done
 controller.uploadData = async (req, res) => {
     try {
         let jsonData = req.body;
 
         // Chuyển đổi reportId, latitude, longitude thành kiểu số
         jsonData.reportId = parseInt(jsonData.reportId);
-        jsonData.latitude = parseFloat(jsonData.latitude);
-        jsonData.longitude = parseFloat(jsonData.longitude);
-
+        jsonData.latitude = jsonData.latitude == "" ? "" : parseFloat(jsonData.latitude);
+        jsonData.longitude = jsonData.longitude == "" ? "" : parseFloat(jsonData.longitude);
+        jsonData.locationId = jsonData.locationId == "" ? "" : parseFloat(jsonData.locationId);
+        jsonData.adId = jsonData.adId == "" ? "" : parseFloat(jsonData.adId);
+        
         // Chuyển đổi time thành kiểu date
         jsonData.time = new Date(jsonData.time);
 
@@ -41,28 +44,49 @@ controller.uploadData = async (req, res) => {
 }
 
 
+// ~ ============== Done
 // Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON
 controller.getAdLocationGeoJSONList = async (req, res) => {
     try {
+        let localStorageReportList = [];
+        // console.log("localStorageReportList:", localStorageReportList);
+
+
         const db = client.db(dbName);
         const adLocationsCollection = db.collection('adLocations');
         const adsCollection = db.collection('ads');
 
+        // Lấy tất cả các documents trong collection 'adLocations'
         const adLocationDocs = await adLocationsCollection.find().toArray();
 
+        // Sử dụng Promise.all để thực hiện nhiều truy vấn cùng một lúc
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
-            let numberOfReports = adLocationData.reportId == "" ? 0 : 1;
+            // Đếm số lượng reports của adLocation
+            let numberOfReports = 0;
+            let numberOfAds = 0;
+            let adLocationStatus = await getReportStatus(adLocationData.reportId, localStorageReportList)
+            if (adLocationStatus !== null) {
+                numberOfReports = 1;
+            }
 
             if (adLocationData.adList && adLocationData.adList.length > 0) {
                 const adPromises = adLocationData.adList.map(async (ad) => {
                     const adDoc = await adsCollection.findOne({ adId: ad.adId });
-                    numberOfReports += adDoc && adDoc.reportId !== "" ? 1 : 0;
+
+                    // Kiểm tra hợp lệ của contractStartDate và contractEndDate
+                    if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
+                        numberOfAds++;
+                        let adStatus = await getReportStatus(adDoc.reportId, localStorageReportList);
+                        if (adStatus !== null) {
+                            numberOfReports++;
+                        }
+                    }
                 });
 
                 await Promise.all(adPromises);
             }
 
-            return { ...adLocationData, numberOfReports };
+            return { ...adLocationData, numberOfReports, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
@@ -81,13 +105,13 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
 // => Khi fetch về thì chỉ lấy những cái là 'Từ chối' & 'Đã xử lý'
 // & Những cái có delete = false
 // & những cái reportId trong local storage đã gửi
+// ~ ============== Done
 controller.getReportGeoJSONList = async (req, res) => {
     try {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
         const reportQuery = {
-            delete: false,
             reportType: 'ddbk',
         };
 
@@ -111,6 +135,8 @@ controller.getReportGeoJSONList = async (req, res) => {
 
 controller.getAdLocationInfoById = async (req, res) => {
     const locaId = parseInt(req.params.locaId);
+    let localStorageReportList = [];
+    // console.log("localStorageReportList:", localStorageReportList);
 
     try {
         const db = client.db(dbName);
@@ -127,25 +153,40 @@ controller.getAdLocationInfoById = async (req, res) => {
 
         adLocationData.numberOfReports = adLocationData.reportId == "" ? 0 : 1;
         adLocationData.locationStatus = "";
+        adLocationData.newAdList = [];
+
         const { quan, phuong } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
         adLocationData.quan = quan;
         adLocationData.phuong = phuong;
 
         if (adLocationData.reportId != "") {
-            adLocationData.locationStatus = await getReportStatus(adLocationData.reportId);
+            adLocationData.locationStatus = await getReportStatus(adLocationData.reportId, localStorageReportList);
+            if (adLocationData.locationStatus == null) {
+                adLocationData.locationStatus = "";
+            }
         }
 
         if (adLocationData.adList && adLocationData.adList.length > 0) {
             // Sử dụng Promise.all để thực hiện nhiều truy vấn cùng một lúc
             const adListPromises = adLocationData.adList.map(async (ad, i) => {
                 adLocationData.adList[i] = await getAdInfo(ad.adId);
-                adLocationData.adList[i].contractStartDate = formatDate(adLocationData.adList[i].contractStartDate);
-                adLocationData.adList[i].contractEndDate = formatDate(adLocationData.adList[i].contractEndDate);
-                adLocationData.adList[i].adStatus = "";
-                if (adLocationData.adList[i].reportId != "") {
-                    adLocationData.numberOfReports++;
-                    adLocationData.adList[i].adStatus = await getReportStatus(adLocationData.adList[i].reportId);
+
+                // Kiểm tra hợp lệ của contractStartDate và contractEndDate
+                if (adLocationData.adList[i].contractStartDate <= new Date() && adLocationData.adList[i].contractEndDate >= new Date()) {
+                    adLocationData.adList[i].contractStartDate = formatDate(adLocationData.adList[i].contractStartDate);
+                    adLocationData.adList[i].contractEndDate = formatDate(adLocationData.adList[i].contractEndDate);
+                    adLocationData.adList[i].adStatus = "";
+                    if (adLocationData.adList[i].reportId != "") {
+                        adLocationData.numberOfReports++;
+                        adLocationData.adList[i].adStatus = await getReportStatus(adLocationData.adList[i].reportId, localStorageReportList);
+                        if (adLocationData.adList[i].adStatus == null) {
+                            adLocationData.adList[i].adStatus = "";
+                        }
+                    }
+
+                    adLocationData.newAdList.push(adLocationData.adList[i]);  // Thêm vào newAdList
                 }
+                
             });
 
             await Promise.all(adListPromises);
@@ -283,6 +324,7 @@ controller.getReportInfoById = async (req, res) => {
     }
 }
 
+// ~ ============== Done
 controller.getReportLength = async (req, res) => {
     try {
         const db = client.db(dbName);
@@ -299,14 +341,13 @@ controller.getReportLength = async (req, res) => {
     }
 }
 
+// ~ ============== Done
 controller.getReportList = async (req, res) => {
     try {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
-        const reportQuery = {
-            delete: false,
-        };
+        const reportQuery = {};
 
         const reportDocs = await reportsCollection.find(reportQuery).toArray();
 

@@ -10,7 +10,10 @@
         <h1>Nhân sự</h1>
 
         <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn">Thêm nhân sự</button>
+            <button class="btn btn-outline-primary custom-btn" id="newAccountButton"  
+                data-bs-toggle="modal" data-bs-target="#newAccountModal">
+                    Thêm nhân sự
+            </button>
         </div>
     </div>
 
@@ -44,7 +47,7 @@
                 {{#if (checkIDValidate delete)}}
                     {{else}}
                         <tr>
-                            <td scope="col">{{@index}}</td>
+                            <td scope="col">{{addNumber @index 1}}</td>
                             <td scope="col">{{name}}</td>
                             <td scope="col">{{phone}}</td>
                             <td scope="col">
@@ -151,6 +154,7 @@
                             <div class="col mb-3">
                                 <label for="roleEdit" class="form-label">Chức Vụ</label>
                                 <select id="roleEdit" name="role" class="rounded-3 form-select">
+                                    <option value="">Cán Bộ</option>
                                     <option value="1">Cán bộ phường</option>
                                     <option value="2">Cán bộ quận</option>
                                     <option value="3">Cán bộ sở</option>
@@ -166,7 +170,7 @@
                                         <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
                                     {{/each}}
                                 </select>
-                                <select id="phuongID" name="phuongID" class="rounded-3 form-select my-2" hidden>
+                                <select id="phuongID" name="phuongID" class="rounded-3 form-select" hidden>
                                     <option value="">Phường</option>
                                 </select>
                             </div>
@@ -187,12 +191,119 @@
             </form>
         </div>
     </div>
+
+    <!-- Create new account modal -->
+    <div class="modal fade" id="newAccountModal" tabindex="-1" role="dialog" aria-labelledby="newAccountModalLabel" aria-hidden="true">
+        <form action="" id="newAccountCreateForm" onsubmit="createAcc(event)">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
+                <div class="modal-content">
+                    <div class="modal-header d-flex flex-column">
+                        <div class="w-100 d-flex flex-row">
+                            <h5 class="modal-title w-100 fw-bold" id="newAccountModalLabel">Mẫu Thêm Tài Khoản Mới</h5>
+                            <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body" id="newAccountModalContent">
+
+                        <div class="container-fluid">
+                            {{!-- Họ tên + Sđt --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAccountName">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Họ Tên<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" class="form-control" placeholder="Công Ty ABC" aria-label="Company" name="newAccountName" >
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column " style="min-width: 33%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountCategoryTitle">Số điện thoại liên lạc<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="text" class="form-control" placeholder="0948361133" aria-label="Phone" id="newAccountPhone" name="newAccountPhone" >
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column " style="min-width: 33%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountCategoryTitle">Email<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="email" class="form-control" placeholder="welcome@gmail" aria-label="Phone" id="newAccountEmail" name="newAccountEmail" >
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{!-- Tài Khoản + Mật khẩu --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAccountUserName">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Tài Khoản<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <input type="text" id="newAccountUserName" name="newAccountUserName" class="form-control"
+                                            placeholder="12354" required />
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column " style="min-width: 50%;"> 
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountPass">Mật Khẩu<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 10%;">
+                                        <input type="text" id="passwordEdit" name="newAccountPass" class="form-control"
+                                            placeholder="123" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{!-- Chức vụ + Quận + Phường --}}
+                            <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAccountRoleDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountCategoryTitle">Chức vụ<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAccountRole" name="newAccountRole" class="rounded-3 form-select">
+                                            <option value="">Chức vụ</option>
+                                            <option value="1">Cán bộ phường</option>
+                                            <option value="2">Cán bộ quận</option>
+                                            <option value="3">Cán bộ sở</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAccountDistrictDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountCategoryTitle">Quận<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAccountDistrict" name="newAccountDistrict" class="rounded-3 form-select" >
+                                            <option value="">Quận</option>
+                                            {{#each (mapToArray adArea)}}
+                                                <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAccountWardDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountCategoryTitle">Phường<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAccountWard" name="newAccountWard" class="rounded-3 form-select" >
+                                            <option value="">Phường</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{!-- Nút Save --}}
+                            <button class="btn btn-outline-primary text-start" id="newAccountCreate" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
+                                Lưu
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 {{!-- Custom Delete Btn --}}
 <script src="/js/deleteMethod.js"></script>
 
 <script src="/js/editMethod.js"></script>
+
+<script src="/js/createMethod.js"></script>
 
 <script src="/js/accountDetail.js"></script>
 

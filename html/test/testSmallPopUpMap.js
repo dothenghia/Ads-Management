@@ -72,6 +72,7 @@ function confirmLocation() {
     const coordinates = marker.getLngLat();
     // Perform reverse geocoding to get address information
     reverseGeocode(coordinates);
+    document.querySelector('#map').style.display = 'none';
 }
 
 function reverseGeocode(coordinates) {
@@ -82,7 +83,7 @@ function reverseGeocode(coordinates) {
             if (data.features.length > 0) {
                 const address = data.features[0].place_name;
                 console.log(data.features[0])
-                alert(`Location: ${address}`);
+                alert(`Location: ${address.split(',')[1]}`);
             } else {
                 alert('Reverse geocoding failed.');
             }
