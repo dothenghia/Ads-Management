@@ -12,9 +12,10 @@ router.get('/test', (req, res) => {
 router.get("/phuong/ddqc", phuongController.ddqc);
 
 // Lấy danh sách ĐỊA ĐIỂM BÁO CÁO BẤT KỲ tại Phường đó (Dạng GeoJSON)
-router.get("/phuong/ddbcbk", phuongController.ddbcbk);
+router.get("/ddbcbk", phuongController.ddbcbk);
 
-
+// Lấy thông tin ĐỊA ĐIỂM QUẢNG CÁO theo locationId
+router.get("/ddqc/:locaId", phuongController.getAdLocationInfoById);
 
 
 
