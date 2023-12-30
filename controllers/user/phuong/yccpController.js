@@ -14,7 +14,7 @@ controller.show = async (req, res) => {
         // Get current account
         const token = req.cookies.jwtToken;
         const decoded = await jwt.verify(token, "suffering");
-        let currentAccount = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
+        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
     
         // Get current page's data
         // Get latest snapshot of requested MongoDB collections
@@ -27,24 +27,8 @@ controller.show = async (req, res) => {
         let areas = JSON.parse(dataFile);
         
         // Extract data from retrieved snapshots
-        let Company = []; let Status = []; let AdArea = {};
-        let companyId = []; let statusId = []; 
-        let PermissionReq = [];
-        permissionReqSnapshot.forEach((doc) => {
-            let data = doc;
+        let AdArea = {};
 
-            if (!companyId.includes(data.co.name)) {
-                companyId.push(data.co.name);
-                Company.push(data.co);
-            }
-
-            if (!statusId.includes(data.status)) {
-                statusId.push(data.status);
-                Status.push({value: data.status});
-            }
-
-            PermissionReq.push(data);
-        });
         let Ad = [];
         adSnapshot.forEach((doc) => {
             Ad.push(doc);
@@ -67,7 +51,36 @@ controller.show = async (req, res) => {
 
             AdLocation.push(data);
         });
-        // console.log(AdArea.quan_5.wards.phuong_04.adLocations);
+        let Company = []; let Status = [];
+        let companyId = []; let statusId = []; 
+        let PermissionReq = [];
+        permissionReqSnapshot.forEach((doc) => {
+            let data = doc;
+
+            if (!companyId.includes(data.co.name)) {
+                companyId.push(data.co.name);
+                Company.push(data.co);
+            }
+
+            if (!statusId.includes(data.status)) {
+                statusId.push(data.status);
+                Status.push({value: data.status});
+            }
+
+            // Check if matching area before extracting
+            //idQuan
+            let idQuan = currentAccount.idQuan;
+            // idPhuong
+            let idPhuong = currentAccount.idPhuong;
+            for (loc in AdLocation) {
+                let locDetail = AdLocation[loc];
+
+                if (locDetail.locationId == doc.locationId && locDetail.idQuan == idQuan && locDetail.idPhuong == idPhuong) {
+                    PermissionReq.push(data);
+                    break;
+                }
+            }
+        });
 
         // Convert adArea to stringify-able format
         let temp = [];
@@ -170,23 +183,27 @@ controller.createPermissionReq = async (req, res) => {
         let thumbnails = Array();
         let i = 0;
         let n = req.files.length;
-        await req.files.forEach(async (file) => {
-            if (file.mimetype.endsWith("png"))
-                extension = "png";
-            else if (file.mimetype.endsWith("jpeg"))
-                extension = "jpeg";
-            else
-                extension = "jpg";
-            // Upload the thumbnails to storage
-            let temp = bucket.file("yeucaucapphep/" + (permissionReqHighest + 1) + "/thumbnail" + i + "." + extension);
-            await temp.save(file.buffer, {contentType: file.mimetype});
-            
-            let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
-            thumbnails.push({url: signedURL});
-            
-            i++;
-            if (i == n) pushData(req, thumbnails);
-        })
+
+        if (n > 0) {
+            await req.files.forEach(async (file) => {
+                if (file.mimetype.endsWith("png"))
+                    extension = "png";
+                else if (file.mimetype.endsWith("jpeg"))
+                    extension = "jpeg";
+                else
+                    extension = "jpg";
+                // Upload the thumbnails to storage
+                let temp = bucket.file("yeucaucapphep/" + (permissionReqHighest + 1) + "/thumbnail" + i + "." + extension);
+                await temp.save(file.buffer, {contentType: file.mimetype});
+                
+                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
+                thumbnails.push({url: signedURL});
+                
+                i++;
+                if (i == n) pushData(req, thumbnails);
+            })
+        }
+        else pushData(req, thumbnails);
     }
     catch (error) {
         console.log(error)
