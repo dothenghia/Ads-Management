@@ -4,7 +4,7 @@ function mappingRegionQuan(idQuan) {
 
     const district = hochiminh.find(d => d.idQuan === idQuan);
 
-    return district;
+    return district.name;
 }
 
 export default mappingRegionQuan;

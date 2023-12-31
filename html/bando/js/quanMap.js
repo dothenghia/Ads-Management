@@ -1,12 +1,11 @@
 
-// ! ĐIỀN ID QUẬN VÀ ID PHƯỜNG VÀO ĐÂY
-let idPhuong = 'phuong_04'
+// ! ĐIỀN ID QUẬN VÀO ĐÂY
 let idQuan = 'quan_5'
 // ! ================================
 
 // Import Functions
-import mappingRegion from "./mappingRegion.js";
-import { getBoundaryPhuong } from "./boundary.js";
+import mappingRegionQuan from "./mappingRegionQuan.js";
+import { getBoundaryQuan } from "./boundary.js";
 
 // Import Components
 import AdMarker from '../components/marker/AdMarker.js'
@@ -24,7 +23,7 @@ const trangchu = {
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [106.682667, 10.762886],
-            zoom: 16
+            zoom: 15
         }).addControl(
             new mapboxgl.NavigationControl({ showCompass: true }),
             'bottom-right'
@@ -39,8 +38,8 @@ const trangchu = {
 
     // ====== Center map theo địa chỉ
     centerMap: function () {
-        let { quan, phuong } = mappingRegion(idQuan, idPhuong)
-        let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${phuong}, ${quan}, Thành phố Hồ Chí Minh, Việt Nam.json?access_token=${mapboxgl.accessToken}`
+        let quan = mappingRegionQuan(idQuan)
+        let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${quan}, Thành phố Hồ Chí Minh, Việt Nam.json?access_token=${mapboxgl.accessToken}`
 
         fetch(url)
             .then(res => res.json())
@@ -52,7 +51,7 @@ const trangchu = {
 
     // ====== Tạo boundary cho map
     createBoundary: function () {
-        let coordinates = getBoundaryPhuong(idQuan, idPhuong)
+        let coordinates = getBoundaryQuan(idQuan)
         this.boundary = coordinates
 
         trangchu.map.on('load', function () {
@@ -75,9 +74,9 @@ const trangchu = {
                 type: 'line',
                 source: 'line-source',
                 paint: {
-                    'line-color': 'rgba(0, 0, 0, 0.8)', // Màu của đường line
-                    'line-width': 2, // Độ rộng của đường line
-                    'line-dasharray': [1, 1] // Độ dài và khoảng cách của các đường line
+                    'line-color': 'rgba(255, 0, 0, 0.8)', // Màu của đường line
+                    'line-width': 3, // Độ rộng của đường line
+                    // 'line-dasharray': [1, 1] // Độ dài và khoảng cách của các đường line
                 }
             });
         });
@@ -99,7 +98,7 @@ const trangchu = {
 
     // ====== Fetch dữ liệu các Địa điểm QC và Địa điểm BC
     fetchAdMarkers: async function () {
-        let data = await fetch(`http://localhost:3000/bando/phuong/ddqc?idPhuongQuery=${idPhuong}&idQuanQuery=${idQuan}`)
+        let data = await fetch(`http://localhost:3000/bando/quan/ddqc?idQuanQuery=${idQuan}`)
         this.adLocationList = await data.json()
     },
 
