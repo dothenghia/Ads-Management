@@ -23,6 +23,7 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
                     <th scope="col">
                         <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
                             <option value="all">Loại báo cáo</option>
@@ -41,7 +42,6 @@
                         </select>
                     </th>
                     <th scope="col">Thời gian</th>
-                    <th scope="col">Địa điểm</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all">Tình trạng xử lý</option>
@@ -61,9 +61,6 @@
                 {{#if (checkIDValidate reportId)}}
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">{{translateReportType reportType}}</td>
-                        <td scope="col">{{reportForm}}</td>
-                        <td scope="col">{{mongoDateToLocaleString time}}</td>
                         <td scope="col">
                             {{#if (equalString reportType "ddbk")}}
                                 {{locationId}}
@@ -71,6 +68,9 @@
                                 {{getReportLocation ../adLocation locationId}}
                             {{/if}}
                         </td>
+                        <td scope="col">{{translateReportType reportType}}</td>
+                        <td scope="col">{{reportForm}}</td>
+                        <td scope="col">{{mongoDateToLocaleString time}}</td>
 
                         <td scope="col">
                             {{#if (getReportStatus status "Đang xử lý") }}
