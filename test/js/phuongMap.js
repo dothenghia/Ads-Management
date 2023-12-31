@@ -1,7 +1,7 @@
 
 // ! ĐIỀN ID QUẬN VÀ ID PHƯỜNG VÀO ĐÂY
-let idPhuong = 'phuong_04'
-let idQuan = 'quan_5'
+let idPhuong = 'phuong_nguyen_cu_trinh'
+let idQuan = 'quan_1'
 // ! ================================
 
 // Import Functions
@@ -25,7 +25,11 @@ const trangchu = {
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [106.682667, 10.762886],
             zoom: 15
-        })
+        }).addControl(
+            new mapboxgl.NavigationControl({ showCompass: true }),
+            'bottom-right'
+        )
+
         this.map.doubleClickZoom.disable();
 
         this.adLocationList = [];

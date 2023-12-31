@@ -30,8 +30,8 @@
 .report-list-button {
     z-index: 5;
     position: fixed;
-    bottom: 80px;
-    right: 40px;
+    bottom: 140px;
+    right: 28px;
 
     width: 40px;
     height: 40px;

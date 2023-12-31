@@ -111,11 +111,7 @@ controller.getReportGeoJSONList = async (req, res) => {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
-        const reportQuery = {
-            reportType: 'ddbk',
-        };
-
-        const reportDocs = await reportsCollection.find(reportQuery).toArray();
+        const reportDocs = await reportsCollection.find({ reportType: 'ddbk' }).toArray();
 
         const reportLocationGeoJSONList = [];
 
