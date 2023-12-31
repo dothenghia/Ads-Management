@@ -24,7 +24,7 @@ const trangchu = {
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
             center: [106.682667, 10.762886],
-            zoom: 15
+            zoom: 16
         }).addControl(
             new mapboxgl.NavigationControl({ showCompass: true }),
             'bottom-right'
@@ -138,8 +138,8 @@ const trangchu = {
                 type: 'geojson',
                 data: combinedData,
                 cluster: true,
-                clusterMaxZoom: 14,
-                clusterRadius: 30
+                clusterMaxZoom: 15,
+                clusterRadius: 35
             });
 
 
