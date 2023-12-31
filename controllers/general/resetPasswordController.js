@@ -1,7 +1,6 @@
 const controller = {}
-const admin = require('../../config/firebaseAdmin');
 const bcryptConfig = require('../../config/bcryptConfig');
-const db = admin.firestore();
+const accountsModel = require('../../models/accountsModel');
 controller.show = (req, res) => {
     res.render('general/resetPassword', {
         layout: 'layout_general',
@@ -13,10 +12,9 @@ controller.submit = async (req,res) => {
     const storedEmail = req.session.email;
     if (password === confirmPassword) {
         try {
-            const userSnapshot = await db.collection('accounts').where('email', '==', storedEmail).get();
-            if (!userSnapshot.empty) {
-                const userDocRef = userSnapshot.docs[0].ref;
-                await userDocRef.update({ hashedpassword: await bcryptConfig.hashPassword(password) });
+            const user = await accountsModel.findOne({email: storedEmail});
+            if (user) {
+                await user.updateOne({ hashedpassword: await bcryptConfig.hashPassword(password) });
                 res.redirect('/login');
             } else {
                 res.render('general/resetPassword', {

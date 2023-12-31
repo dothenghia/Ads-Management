@@ -3,12 +3,56 @@ const currentPage = 4;
 
 const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
+const adLocationsModel = require('../../../models/adLocationsModel');
 const fs = require("fs");
 const axios = require("axios");
 
 const dbName = 'Ads-Management';
 const mapboxToken = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
 
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "kiznlh@gmail.com", // Your email address
+      pass: "nqgj rhqz euoa wqyq", // Your email password or app password
+    },
+});
+
+async function sendEmailToUser(userEmail, solution, status, locationID, latitude, longitude){
+    var locationName;
+    if (locationID && locationID != ""){
+        const location = await adLocationsModel.findOne({locationID: locationID});
+        locationName = location.address;
+    }
+    else{
+        let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxToken}`;
+        let fetchRawResult = await axios.get(url)
+        let fetchResult = fetchRawResult.data;
+        locationName = "Gần " + fetchResult.features[0].text;
+    }
+    var mailOptions = {
+        from: "kiznlh@gmail.com",
+        to: userEmail,
+        subject: "Tình trạng báo cáo của bạn",
+        html: `
+              <p>Xin chào,</p>
+              <p>Báo cáo của bạn về địa điểm <strong>${locationName}</strong> đã được xử lý như sau:</p>
+              <p><strong>Tình trạng: </strong>${status}.</p>
+              <p><strong>Cách thức xử lý: </strong>${solution}.</p>
+              <p>Cám ơn bạn đã đóng góp ý kiến.</p>
+          `,
+      };
+    transporter.sendMail(mailOptions, (error, info) => {
+    if (error) console.log(error);
+    else {
+        console.log("Email sent: " + info.response);
+    }
+    });
+}
 controller.show = async (req, res) => {
     try {
         // Get current account
@@ -139,7 +183,7 @@ controller.acceptChange = async (req, res) => {
             {reportId: parseInt(id)}, 
             { $set: {status: "Đã xử lý", solution: solution} }
         );
-        
+        sendEmailToUser(result.email,solution,"Đã xử lý",result.locationId, result.latitude, result.longitude);
         console.log("Res: ", result);
 
         var duplicateLocationId = result.locationId;
@@ -178,7 +222,7 @@ controller.denyChange = async (req, res) => {
             {reportId: parseInt(id)}, 
             { $set: {status: "Từ chối", solution: solution} }
         );
-    
+        sendEmailToUser(result.email,solution,"Từ chối",result.locationId, result.latitude, result.longitude);
         res.send("Change denied!");
     }
     catch (error) {
