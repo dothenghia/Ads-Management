@@ -1,0 +1,119 @@
+.ad-card,
+.report-card {
+    padding: 12px 20px 16px;
+    border-radius: 12px;
+    border: solid 1px var(--border-color);
+    margin-bottom: 12px;
+}
+
+.report-card {
+    width: 100%;
+}
+
+/* ------ Title ------ */
+.ad-card__title ,
+.report-card__title {
+    border-bottom: solid 1px var(--border-color);
+    margin-bottom: 12px;
+}
+.ad-card__title h1 ,
+.report-card__title h1 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--title-color);
+    text-align: center;
+}
+
+
+/* ------ Info chung ------ */
+.ad-card__info {
+    position: relative;
+}
+.ad-card__info-tag {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+
+
+.ad-card__info div.w-33 {
+    margin-bottom: 14px;
+}
+.ad-card__info h2,
+.report-card__info h2 {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.ad-card__info p,
+.report-card__info p {
+    color: var(--text-color);
+    font-size: 15px;
+}
+.ad-card__info span {
+    color: var(--primary-color);
+    font-size: 15px;
+}
+
+.report-card__info h1 {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.report-card__info h1 button {
+    padding: 6px 6px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+    transition: all 0.2s ease-in-out;
+}
+.report-card__info h1 button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+.report-card__info h3 {
+    color: var(--primary-color);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    margin-top: -6px;
+}
+
+
+/* ------ Thumbnail ------ */
+.ad-card__thumbnail {
+    width: 100%;
+    aspect-ratio: 300/180;
+    margin-bottom: 10px;
+    margin-top: 8px;
+}
+
+.ad-card__thumbnail .carousel,
+.ad-card__thumbnail .carousel-inner,
+.ad-card__thumbnail .carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+.ad-card__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ------ Thumbnail ------ */
+.ad-card__button,
+.report-card__button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}

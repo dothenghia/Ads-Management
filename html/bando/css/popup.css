@@ -1,0 +1,186 @@
+
+/* Style đè lên style mặc định của Mapbox */
+.mapboxgl-popup {
+    max-width: fit-content !important;
+    filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.25)) !important;
+}
+.mapboxgl-popup .mapboxgl-popup-content {
+    padding: 0px !important;
+    background-color: transparent !important;
+}
+.mapboxgl-popup-tip {
+    filter: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.25)) !important;
+}
+
+.report-popup,
+.ad-popup {
+    background-color: var(--white-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+    width: 332px;
+    height: fit-content;
+}
+
+.mapboxgl-popup-anchor-top-right .report-popup,
+.mapboxgl-popup-anchor-top-right .ad-popup {
+    border-top-right-radius: 0px;
+}
+.mapboxgl-popup-anchor-top-left .report-popup,
+.mapboxgl-popup-anchor-top-left .ad-popup {
+    border-top-left-radius: 0px;
+}
+.mapboxgl-popup-anchor-bottom-right .report-popup,
+.mapboxgl-popup-anchor-bottom-right .ad-popup {
+    border-bottom-right-radius: 0px;
+}
+.mapboxgl-popup-anchor-bottom-left .report-popup,
+.mapboxgl-popup-anchor-bottom-left .ad-popup {
+    border-bottom-left-radius: 0px;
+}
+
+
+/* ------ Title ------ */
+.report-popup__title,
+.ad-popup__title {
+    border-bottom: solid 1px var(--border-color);
+    margin-bottom: 12px;
+}
+.report-popup__title h1,
+.ad-popup__title h1 {
+    position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--title-color);
+    text-align: center;
+}
+.ad-popup__title span {
+    background-color: var(--report-color);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+    padding-top: 1px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    z-index: 1;
+}
+
+/* ------ Info  ------ */
+.ad-popup__info {
+
+}
+.report-popup__info h2,
+.ad-popup__info h2 {
+    color: var(--subtitle-color);
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    line-height: 20px;
+}
+.ad-popup__info p {
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.ad-popup__info span {
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* ------ Status ------ */
+.ad-popup__status {
+    padding: 8px 0px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+.ad-popup__status.qh {
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+}
+.ad-popup__status.cqh {
+    background-color: var(--chuaqh-color-light);
+    color: var(--chuaqh-color);
+}
+
+
+.report-popup__status .status-tag {
+    margin: 0;
+    width: 100%;
+}
+
+
+
+/* ============ Random Popup ============= */
+.random-popup {
+    position: fixed;
+    bottom: calc(40px);
+    left: calc(50%);
+    transform: translateX(-50%);
+    z-index: 10;
+
+    background-color: var(--white-color);
+    padding: 14px 16px;
+    border-radius: 8px;
+    min-width: 400px;
+    width: fit-content;
+    height: fit-content;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    align-items: center;
+}
+.random-popup__image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    border: solid 1px var(--border-color);
+    object-fit: contain;
+}
+
+.random-popup__info {
+    padding: 0px 0px 0px 10px;
+}
+.random-popup__info h1 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--title-color);
+}
+.random-popup__info h2 {
+    color: var(--subtitle-color);
+    font-size: 15px;
+    font-weight: 500;
+}
+.random-popup__header {
+    display: flex;
+    justify-content: space-between;
+}
+.random-popup__header button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+}
+.random-popup__split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: solid 1px var(--border-color);
+    padding-top: 10px;
+}
+.random-popup__split span{
+    color: var(--primary-color);
+    font-size: 15px;
+    font-weight: 600;
+}
