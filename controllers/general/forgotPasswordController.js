@@ -41,13 +41,13 @@ controller.otp = (req, res) => {
     var mailOptions = {
         from: "kiznlh@gmail.com",
         to: email,
-        subject: "Reset Password OTP - AdsMap",
+        subject: "Đổi mật khẩu - AdsMap",
         html: `
-            <p>Hello,</p>
-            <p>Your One-Time Password for account verification is: <strong>${otp}</strong>.</p>
-            <p>This code is valid for 1 hour.</p>
-            <p>Enter this code to complete the verification process.</p>
-            <p>Thank you.</p>
+            <p>Xin chào,</p>
+            <p>Mã OTP của bạn để khôi phục tài khoản là: <strong>${otp}</strong>.</p>
+            <p>Mã này có hiệu lực trong vòng 1 giờ.</p>
+            <p>Vòng lòng nhập mã này để hoàn tất việc khôi phục tài khoản.</p>
+            <p>Cám ơn bạn.</p>
         `,
     };
     transporter.sendMail(mailOptions, (error, info) => {

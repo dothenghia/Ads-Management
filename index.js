@@ -105,11 +105,11 @@ app.use('/login', require("./routes/general/loginRoute"));
 app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
 app.use('/OTPValidate', require("./routes/general/OTPValidateRoute"));
+app.use('/changePasswordDone', require("./routes/general/changePassswordDoneRoute"));
 app.use('/phuong', checkAuthenticated, require("./routes/user/phuongRoute"));
 app.use('/quan', checkAuthenticated,require("./routes/user/quanRoute"));
 app.use('/so', checkAuthenticated, require("./routes/user/soRoute"));
 app.use('/logout', require("./routes/general/logoutRoute"));
-
 app.use('/dan', require("./routes/user/danRoute")); // ROUTE DÂN
 app.use('/bando', require("./routes/user/bandoRoute")); // ROUTE DÂN
 

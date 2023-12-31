@@ -15,7 +15,7 @@ controller.submit = async (req,res) => {
             const user = await accountsModel.findOne({email: storedEmail});
             if (user) {
                 await user.updateOne({ hashedpassword: await bcryptConfig.hashPassword(password) });
-                res.redirect('/login');
+                res.redirect('/changePasswordDone');
             } else {
                 res.render('general/resetPassword', {
                     layout: 'layout_general',

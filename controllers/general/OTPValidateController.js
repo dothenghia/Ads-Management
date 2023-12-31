@@ -23,7 +23,7 @@ controller.show = (req, res) => {
     const { otp, timestamp } = generateOTP();
     req.session.otp = otp;
     req.session.otpTimestamp = timestamp;
-    var mailOptions = {
+    let mailOptions = {
       from: "kiznlh@gmail.com",
       to: req.session.email,
       subject: "Đổi mật khẩu - AdsMap",
