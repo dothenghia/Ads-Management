@@ -25,7 +25,7 @@
                     <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton">Sort</button></th>
                     <th scope="col">
                         <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
-                            <option value="all">Lý do chỉnh sửa</option>
+                            <option value="all">Tất cả Lý do chỉnh sửa</option>
                             {{#each reason}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -33,7 +33,7 @@
                     </th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tình trạng xử lý</option>
+                            <option value="all">Tất cả Tình trạng xử lý</option>
                             <option value="0">Đang xử lý</option>
                             <option value="1">Đã xử lý</option>
                             <option value="2">Từ chối</option>

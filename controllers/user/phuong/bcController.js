@@ -99,7 +99,7 @@ controller.show = async (req, res) => {
                 let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${data.longitude},${data.latitude}.json?access_token=${mapboxToken}`;
                 let fetchRawResult = await axios.get(url)
                 let fetchResult = fetchRawResult.data;
-                data.locationId = "Gần " + fetchResult.features[0].text;
+                data.locationId = fetchResult.features[0].text;
             }
         }));
         let Ad = [];

@@ -248,7 +248,7 @@ async function getAreaInfo(longitude, latitude, type = 0) {
     if (type == 0)  // Return only wards and districts
         return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
     else        // Return all details
-        return "Gần " + fetchResult.features[0].text + ", " + fetchResult.features[3].text + ", " + fetchResult.features[1].text;
+        return fetchResult.features[0].text + ", " + fetchResult.features[3].text + ", " + fetchResult.features[1].text;
 }
 
 // Filter functions
