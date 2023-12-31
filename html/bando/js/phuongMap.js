@@ -192,9 +192,9 @@ const trangchu = {
 
         this.renderHomePage();
 
-        // await this.fetchAdMarkers();
-        // await this.fetchReportMarkers();
-        // this.renderMarkers();
+        await this.fetchAdMarkers();
+        await this.fetchReportMarkers();
+        this.renderMarkers();
     }
 }
 
