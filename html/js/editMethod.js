@@ -193,6 +193,7 @@ async function accPassSettings(e) {
     const data = Object.fromEntries(formData.entries())
 
     console.log(data);
+    //if (data.oldPassword) cái này t ko biêt mày lấy từ db sao, chủ yếu là check coi cái hashed password cũ có giống với cái data.oldpassword ko thế thôi, 
     if (data.newPassword != data.confirmPassword) {
         $("#passWarn").prop("hidden", false)
         return;
