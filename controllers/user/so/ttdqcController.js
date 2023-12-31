@@ -38,7 +38,7 @@ controller.show = async (req, res) => {
 
         // Lọc ra quận object trong JSON 
         let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
-        console.log(docDistrict);
+        // console.log(docDistrict);
         if (!(docDistrict.idQuan in AdArea)) {
             // Tạo mới quận object
             AdArea[docDistrict.idQuan] = {name: docDistrict.name, idQuan: docDistrict.idQuan, wards: {}}

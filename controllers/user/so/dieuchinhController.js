@@ -109,7 +109,7 @@ controller.delete = async (req, res) => {
         let id = req.params.id;
 
         // Delete document
-        const result = await client.db(dbName).collection("changeReqs").findOneAndUpdate({changeReqId: parseInt(id)}, { $set: { delete: true } });
+        const result = await client.db(dbName).collection("changeReqs").deleteOne({changeReqId: parseInt(id)});
         
         // Check if the document was found and deleted
         if (result == null) {

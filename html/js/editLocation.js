@@ -109,6 +109,14 @@ if (adLocationDistrict != null) {
     });
 }
 
+var adLocationWard = document.getElementById("EditAdLocationWard");
+if (adLocationWard != null) {
+    adLocationWard.addEventListener("change", (e) => {
+        var adLocationAddrs = document.getElementById("EditAdLocationAddrs");
+        adLocationAddrs.value = "";
+    });
+}
+
 
 async function editAdLocation(e) {
     e.preventDefault()

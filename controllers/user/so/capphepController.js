@@ -116,9 +116,8 @@ controller.delete = async (req, res) => {
 
         
         // Delete document
-        const result = await client.db(dbName).collection("permissionReqs").findOneAndUpdate({permissionReqId: parseInt(id)}, { $set: { delete: true } });
-        //const result = await client.db(dbName).collection("permissionReqs").findOneAndDelete({permissionReqId: parseInt(id)});
-
+        const result = await client.db(dbName).collection("permissionReqs").deleteOne({permissionReqId: parseInt(id)});
+        
         // Check if the document was found and deleted
         if (result == null) {
             return res.status(404).send("Document not found");

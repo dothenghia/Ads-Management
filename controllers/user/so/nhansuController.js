@@ -12,18 +12,19 @@ controller.delete = async (req, res) => {
         let id = req.params.id;
 
         // Delete document
-        const result = await client.db(dbName).collection("accounts").findOneAndUpdate({_id: id}, { $set: { delete: true } });
-        
+        const result = await client.db(dbName).collection("accounts").deleteOne({_id: id});
+
         // Check if the document was found and deleted
         if (result == null) {
             return res.status(404).send("Document not found");
         }
     
-        res.send("Change accepted!");
+        res.send("Delete successfully!");
     }
     catch (error) {
-        res.send("Change acceptance error!");
+        res.send("Delete error!");
     }
+    
 }
 
 controller.show = async (req, res) => {
@@ -35,7 +36,7 @@ controller.show = async (req, res) => {
      //upsert = update and insert
     try {
         
-        //const result = await client.db(dbName).collection("reports").updateMany({}, { $set: { delete: false } });
+        const result = await client.db(dbName).collection("accounts").updateMany({}, { $unset: { delete: false } });
         // console.log(result);
         const accountSnapshot = await client.db(dbName).collection("accounts").find({}).toArray();
         const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();

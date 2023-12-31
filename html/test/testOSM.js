@@ -32,7 +32,7 @@ document.addEventListener('change', () => {
 
 function geocodeAddress(address){
     //https://nominatim.org/release-docs/develop/api/Search/
-    console.log(address)
+    console.log(address);
     var apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`;
 
     // Perform the API request using Fetch API
@@ -42,7 +42,7 @@ function geocodeAddress(address){
             // Check if a location is found
             if (data && data.length > 0) {
                 //Nhớ coi kĩ cái data, trong document cũng có việc, mà coi nó log ra như nào thì dễ hơn
-                console.log(data);
+                console.log("data:",data);
                 var location = data[0];
                 var displayName = location.display_name;
                 var lat = location.lat;

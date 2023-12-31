@@ -1,9 +1,8 @@
 // smallPopUpMap.js
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
+//'https://leafletjs.com/reference.html#map-example'
+var map = null;
 
-var map;
-
-const marker = new mapboxgl.Marker(); // Create a marker
+var marker = null; // Create a marker
 let confirmButton = document.getElementById('confirmButton');
 
 // Watch the change event on selects
@@ -12,26 +11,42 @@ document.getElementById('EditchooseCoordinate').addEventListener('click', handle
 
 // Function to handle the change event on selects
 function handleNewLocationInputChange() {
-    const selectedDistrict = document.getElementById('newAdLocationDistrict').value;
-    const selectedWard = document.getElementById('newAdLocationWard').value;
+    
+    const selectedDistrict = document.getElementById('newAdLocationDistrict');
+    const selectedDistrictOption = selectedDistrict.options[selectedDistrict.selectedIndex];
+    const selectedDistrictText = selectedDistrictOption.textContent;
+    console.log("selectedDistrict",selectedDistrict);
+    console.log("selectedDistrictText",selectedDistrictText);
+
+    const selectedWard = document.getElementById('newAdLocationWard');
+    const selectedWardOption = selectedWard.options[selectedWard.selectedIndex];
+    const selectedWardText = selectedWardOption.textContent;
 
     if (selectedDistrict !== '' && selectedWard !== '') {
-        const locationInput = selectedDistrict + ' ' + selectedWard;
-        console.log("Location",locationInput);
+        var addrs = document.getElementById('newAdLocationAddrs') ? document.getElementById('newAdLocationAddrs').value : "";
+        const locationInput = addrs +  ' ' + selectedWardText + ' ' + selectedDistrictText;
+        
         document.querySelector('#EditmapDisplay').style.display = 'block';
+        
+        if (document.getElementById('Newmap') == null || map == null) {
+            map = L.map('Newmap');
+            console.log("map:",map);
+            map.setView([10.762929812031853, 106.68248270284181], 13);
 
-        map = new mapboxgl.Map({
-            container: 'Newmap',
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [106.68252581658903, 10.762915804743274], // Center of the KHTN
-            zoom: 15,
-        });
-        map.on('click', (event) => {
-            // Show the confirm button
-            confirmButton.style.display = 'block';
-            // Set the marker at the clicked location
-            marker.setLngLat(event.lngLat).addTo(map);
-        });
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            marker = L.marker([10.762929812031853, 106.68248270284181]).addTo(map)
+                .bindPopup('A sample location.');
+
+            map.on('move', (e) => {
+                newCenter = map.getCenter();
+                marker.setLatLng(newCenter);
+            });
+            document.getElementById('Editmap').innerHTML = "";
+        }
 
         geocode(locationInput);
     }
@@ -39,55 +54,74 @@ function handleNewLocationInputChange() {
 
 // Function to handle the change event on selects
 function handleEditLocationInputChange() {
-    const selectedDistrict = document.getElementById('EditAdLocationDistrict').value;
-    const selectedWard = document.getElementById('EditAdLocationWard').value;
+    const selectedDistrict = document.getElementById('EditAdLocationDistrict');
+    const selectedDistrictOption = selectedDistrict.options[selectedDistrict.selectedIndex];
+    const selectedDistrictText = selectedDistrictOption.textContent;
+    console.log("selectedDistrict",selectedDistrict);
+    console.log("selectedDistrictText",selectedDistrictText);
+
+    const selectedWard = document.getElementById('EditAdLocationWard');
+    const selectedWardOption = selectedWard.options[selectedWard.selectedIndex];
+    const selectedWardText = selectedWardOption.textContent;
 
     // console.log("Edit:",selectedDistrict, selectedWard);
     if (selectedDistrict !== '' && selectedWard !== '') {
-        const locationInput = selectedDistrict + ' ' + selectedWard;
+        var addrs = document.getElementById('EditAdLocationAddrs') ? document.getElementById('EditAdLocationAddrs').value : "";
+        
+        var locationInput = addrs + ' '+ selectedWardText + ' ' + selectedDistrictText ;
+        // console.log("Before Location",locationInput);
         // console.log("Location",locationInput);
         document.querySelector('#mapDisplay').style.display = 'block';
+        
+        if (document.getElementById('Editmap') == null || map == null) {
+            map = L.map('Editmap');
+            map.setView([10.762929812031853, 106.68248270284181], 13);
 
-        map = new mapboxgl.Map({
-            container: 'Editmap',
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [106.68252581658903, 10.762915804743274], // Center of the KHTN
-            zoom: 15,
-        });
-        map.on('click', (event) => {
-            // Show the confirm button
-            confirmButton.style.display = 'block';
-            // Set the marker at the clicked location
-            marker.setLngLat(event.lngLat).addTo(map);
-        });
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
 
+            marker = L.marker([10.762929812031853, 106.68248270284181]).addTo(map)
+                .bindPopup('A sample location.');
+
+            map.on('move', (e) => {
+                newCenter = map.getCenter();
+                marker.setLatLng(newCenter);
+            });
+            document.getElementById('Newmap').innerHTML = "";
+        }
+        
         geocode(locationInput);
     }
 }
 
 // Function to handle geocode logic
 function geocode(locationInput) {
-    // Use Mapbox Geocoding API to get bounding box coordinates
-    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(locationInput)}.json?access_token=${mapboxgl.accessToken}`)
+    console.log("Location:",locationInput);
+    
+    // Open street map
+    var apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationInput)}&format=json&limit=1`;
+
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.features.length > 0) {
-                const bbox = data.features[0].bbox;
+            // Check if a location is found
+            if (data && data.length > 0) {
+                //Nhớ coi kĩ cái data, trong document cũng có việc, mà coi nó log ra như nào thì dễ hơn
+                console.log("data:", data);
+                var location = data[0];
+                var displayName = location.display_name;
+                var lat = location.lat;
+                var lon = location.lon;
 
-                if (bbox) {
-                    // Set the map bounds based on the bounding box
-                    map.setMaxBounds(bbox);
-                    map.fitBounds(bbox, { padding: 20 });
-                } else {
-                    // Handle the case where bbox is not available
-                    console.warn('Bounding box not available in the response. Using default zoom level.');
-                    const defaultZoom = 14; // Adjust this value as needed
-                    map.setZoom(defaultZoom);
-                }
-                // Set the marker at the location
-                marker.setLngLat(data.features[0].center).addTo(map);
+                // Display the location information
+                console.log(`Location: ${displayName}\nLatitude: ${lat}\nLongitude: ${lon}`);
+                
+                changeMarkerToSearchAddress(lat,lon);
             } else {
-                alert('Location not found.');
+                // Display a message if no location is found
+                console.log("Location not found.");
             }
         })
         .catch(error => {
@@ -96,16 +130,20 @@ function geocode(locationInput) {
         });
 }
 
+function changeMarkerToSearchAddress(lat, lon){
+    map.flyTo([lat,lon], 18);
+    marker.setLatLng([lat,lon]);
+} 
 // Confirm location
 function confirmNewLocation() {
-    const coordinates = marker.getLngLat();
+    const coordinates = marker.getLatLng();
     // Perform reverse geocoding to get address information
     reverseGeocodeNew(coordinates);
     document.querySelector('#mapDisplay').style.display = 'none';
 }
 
 function confirmEditLocation() {
-    const coordinates = marker.getLngLat();
+    const coordinates = marker.getLatLng();
     // Perform reverse geocoding to get address information
     reverseGeocodeEdit(coordinates);
     document.querySelector('#mapDisplay').style.display = 'none';
@@ -115,45 +153,49 @@ function confirmEditLocation() {
 function reverseGeocodeNew(coordinates) {
     // Use Mapbox Geocoding API for reverse geocoding
     document.querySelector('#newAdLocationLongtitude').value = coordinates.lng;
-    document.querySelector('#newAdLocationLattitude').value = coordinates.lng;
+    document.querySelector('#newAdLocationLattitude').value = coordinates.lat;
     console.log(coordinates);
-    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?access_token=${mapboxgl.accessToken}`)
+    var lat = coordinates.lat; var lon = coordinates.lng;
+    console.log("lat: " + lat + " lon: " + lon);
+    var apiUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`;
+
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.features.length > 0) {
-                const address = data.features[0].place_name;
-                console.log(data.features[0])
-                //alert(`Location: ${address}`);
-                // document.querySelector('#newAdLocationAddrs').value = address.split(',')[1];
+            if (data && data.display_name) { 
+                console.log(`Address: ${data.display_name}`);
             } else {
-                alert('Reverse geocoding failed.');
+                // Display a message if no address information is found
+                console.log("Address not found.");
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while reverse geocoding.');
         });
 }
 
 function reverseGeocodeEdit(coordinates) {
     // Use Mapbox Geocoding API for reverse geocoding
     document.querySelector('#EditAdLocationLongtitude').value = coordinates.lng;
-    document.querySelector('#EditAdLocationLattitude').value = coordinates.lng;
+    document.querySelector('#EditAdLocationLattitude').value = coordinates.lat;
     console.log(coordinates);
-    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?access_token=${mapboxgl.accessToken}`)
+    var lat = coordinates.lat; var lon = coordinates.lng;
+    console.log("lat: " + lat + " lon: " + lon);
+    var apiUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`;
+
+
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.features.length > 0) {
-                const address = data.features[0].place_name;
-                console.log(data.features[0])
-                //alert(`Location: ${address}`);
-                // document.querySelector('#newAdLocationAddrs').value = address.split(',')[1];
+            if (data && data.display_name) { 
+                console.log(data)
+                console.log(`Address: ${data.display_name}`);
             } else {
-                alert('Reverse geocoding failed.');
+                // Display a message if no address information is found
+                console.log("Address not found.");
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while reverse geocoding.');
         });
 }
