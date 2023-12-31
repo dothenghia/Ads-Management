@@ -84,6 +84,14 @@ if (accountDistrict != null) {
     });
 }
 
+var accountWard = document.getElementById("newAccountWard");
+if (accountWard != null) {
+    accountWard.addEventListener("change", (e) => {
+        var accounAddrs = document.getElementById("newAdLocationAddrs");
+        accounAddrs.value = "";
+    });
+}
+
 
 async function createAcc(e) {
     e.preventDefault()
