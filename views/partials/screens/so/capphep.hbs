@@ -45,8 +45,7 @@
                 {{!-- Pass data vào --}}
                 {{#each permissionReq}}
                 {{!-- if the delete is false, show the row --}}
-                {{#if (checkIDValidate delete)}} 
-                    {{else}}
+                
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
                         {{#with co}}
@@ -97,7 +96,7 @@
                             </button>
                         </td>
                     </tr>
-                {{/if}}
+                
                 {{/each}}
             </tbody>
         </table>

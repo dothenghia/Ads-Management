@@ -171,8 +171,8 @@ controller.delete = async (req, res) => {
         let id = req.params.id;
 
         // Delete document
-        const result = await client.db(dbName).collection("reports").findOneAndUpdate({reportId: parseInt(id)}, { $set: { delete: true } });
-        
+        const result = await client.db(dbName).collection("reports").deleteOne({reportId: parseInt(id)});
+
         // Check if the document was found and deleted
         if (result == null) {
             return res.status(404).send("Document not found");

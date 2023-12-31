@@ -53,8 +53,7 @@
                 {{!-- Pass data vào --}}
                 {{#each report }}
                 {{!-- only show when delete is false --}}
-                {{#if (checkIDValidate delete)}}
-                    {{else}}
+                
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
                         <td scope="col">{{translateReportType reportType}}</td>
@@ -111,7 +110,7 @@
                             </button>
                         </td>
                     </tr>
-                {{/if}}
+                
                 {{/each}}
             </tbody>
         </table>

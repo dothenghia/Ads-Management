@@ -53,8 +53,7 @@
                 {{!-- Pass data vào --}}
                 {{#each changeReq }}
                 {{!-- Only show when delete is false  --}}
-                {{#if (checkIDValidate delete)}}
-                    {{else}}
+                
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
                         <td scope="col">Cán bộ {{getAgentRole senderRole}}</td>
@@ -101,7 +100,7 @@
                             </button>
                         </td>
                     </tr>
-                {{/if}}
+                
                 {{/each}}
             </tbody>
         </table>
