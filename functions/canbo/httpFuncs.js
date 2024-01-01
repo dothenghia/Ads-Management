@@ -60,6 +60,12 @@ function equalString(string1, string2) {
     return string1 == string2;
 }
 
+function shortenString(string) {
+    if (string.length > 15) string = string.substring(0, 15) + "...";
+
+    return string;
+}
+
 function filterById(data, idField, idValue) {
     return data.filter((datum) => datum[idField] == idValue)[0];
 }
@@ -119,6 +125,7 @@ module.exports = {
     arrayIndex: arrayIndex,
     mapToArray: mapToArray,
     equalString: equalString,
+    shortenString: shortenString,
 
     filterById: filterById,
     filterAllById: filterAllById,
