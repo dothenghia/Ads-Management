@@ -6,20 +6,20 @@
 Nghĩa :
     Dân :
         - Đổi function trong Controller sang kiểu Model
-        - reportList (DDi tham khảo các nhóm khác)
         - Thống kê (Sở)
         - Chỉnh lại mấy cái placeholder, text, ...
 
+        * XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO
         - Nhắc tụi nó Thêm Phường 15 của Quận 5
-        * CHỈ NHỮNG CÁI BÁO CÁO về `BẢNG QUẢNG CÁO` hoặc là `ĐỊA ĐIỂM QUẢNG CÁO`
-          khi MÀ được duyệt là 'ĐÃ XỬ LÝ' THÌ PHẢI ĐỔI reportId của adLocation và ad tương ứng
-          Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
 
         - Geocoding Search bar (Final)
         - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
 
 Khoa :
+        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+        🚨🚨🚨 XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO 🚨🚨🚨
+        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
     Phường + Quận :
         - Thêm nút lọc Phường cho Cán bộ Quận
         - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
@@ -34,15 +34,13 @@ Khoa :
             + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách)
 
 
-        * CHỈ NHỮNG CÁI BÁO CÁO về `BẢNG QUẢNG CÁO` hoặc là `ĐỊA ĐIỂM QUẢNG CÁO`
-          khi MÀ được duyệt là 'ĐÃ XỬ LÝ' THÌ PHẢI ĐỔI reportId của adLocation và ad tương ứng
-          Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
+
 Bảo :
     Sở :
-        - Lọc ra những báo cáo trùng Địa điểm QC / Bảng QC => Nếu Đã Xử lý 1 cái, thì những cái còn lại thành Từ chối
-            * CHỈ NHỮNG CÁI BÁO CÁO về `BẢNG QUẢNG CÁO` hoặc là `ĐỊA ĐIỂM QUẢNG CÁO`
-            khi MÀ được duyệt là 'ĐÃ XỬ LÝ' THÌ PHẢI ĐỔI reportId của adLocation và ad tương ứng
-            Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
+        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+        🚨🚨🚨 XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO 🚨🚨🚨
+        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+            
         - Thêm trang `Quản lý Điều chỉnh QC`
         - Sửa lại tên các nút trên Sidebar cho rõ ràng
         - Up ảnh lên ở đâu? => Liên hệ Hải hỗ trợ
