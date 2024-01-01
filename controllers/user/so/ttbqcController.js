@@ -4,6 +4,8 @@ const currentPage = 0;
 const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
+// Firebase
+const admin = require("../../../config/firebaseAdmin");
 
 controller.show = async (req, res) => {
     // Get current account
@@ -68,7 +70,6 @@ controller.show = async (req, res) => {
     });
 }
 
-
 controller.delete = async (req, res) => {
     try {
         let id = req.params.id;
@@ -87,6 +88,75 @@ controller.delete = async (req, res) => {
     }
 }
 
+controller.add = async (req, res) => {
+
+    const adSnapshot = client.db(dbName).collection("ads");
+    let idHighest = parseInt( (await adSnapshot.find({}).sort({adId:-1}).limit(1).toArray())[0].adId );
+    let adId = idHighest + 1;
+    // console.log(req.body.data);
+    // console.log(req.body.thumbnails);
+    try {
+        let thumbnails = Array();
+        req.body.thumbnails.forEach((thumbnail) => {
+            // console.log(thumbnail);
+            thumbnails.push(thumbnail);
+        });
+        let {reportId, size, contractStartDate, contractEndDate, adName} = req.body.data;
+        let newData = {
+            adId: adId,
+            reportId: reportId,
+            contractStartDate: new Date(contractStartDate),
+            contractEndDate: new Date(contractEndDate),
+            size: size,
+            name: adName,
+            thumbnails: thumbnails
+        }
+    
+        const result = await adSnapshot.insertOne(newData); //upsert = update and insert
+        if (result.insertedId != null)
+            res.send(adId.toString());
+    }
+    catch (error) {
+        console.log(error)
+        res.send("Create error");
+    }
+
+}
+
+controller.edit = async (req, res) => {
+
+    const adSnapshot = client.db(dbName).collection("ads");
+    // console.log("Data: ",req.body.data);
+    // console.log("Thumbnails: ",req.body.thumbnails);
+    try {
+        let thumbnails = null;
+        if (req.body.thumbnails != null) {
+            thumbnails = Array();
+            req.body.thumbnails.forEach((thumbnail) => {
+                // console.log(thumbnail);
+                thumbnails.push(thumbnail);
+            });
+        } else {
+            const thumb = await adSnapshot.findOne({ adId: parseInt(req.body.data.adId)});
+            thumbnails = thumb.thumbnails;
+        }
+        
+        // console.log("Thumbnail:" , thumbnails);
+        let {newSize, newAdName} = req.body.data;
+        let updateData = {
+            size: newSize,
+            name: newAdName,
+            thumbnails: thumbnails
+        }
+    
+        const result = await adSnapshot.findOneAndUpdate({ adId: parseInt(req.body.data.adId) }, { $set: updateData }); //upsert = update and insert
+        res.send("Edit success");
+    }
+    catch (error) {
+        console.log(error)
+        res.send("Edit error");
+    }
+}
 module.exports = controller;
 
 

@@ -1,7 +1,7 @@
 const express = require('express'); //Khai báo các thứ cần thiết
 const expressHbs = require('express-handlebars');
 const passport = require('./config/passportConfig').passport;
-const {connectToMongoDB,closeMongoDBConnection} = require('./config/mongodbConfig');
+const {connectToMongoDB,closeMongoDBConnection} = require('./config/mongooseConfig');
 const cors = require('cors'); // CÁI NÀY DÙNG ĐỂ CHO NGƯỜI DÂN FETCH API
 const port = 3000;
 const session = require('express-session');
@@ -70,6 +70,7 @@ app.engine('hbs', expressHbs.engine({
         arrayIndex: helpers.httpFuncs.arrayIndex,
         mapToArray: helpers.httpFuncs.mapToArray,
         equalString: helpers.httpFuncs.equalString,
+        shortenString: helpers.httpFuncs.shortenString,
         filterById: helpers.httpFuncs.filterById,
         filterAllById: helpers.httpFuncs.filterAllById,
         getAddress: helpers.httpFuncs.getAddress,
@@ -105,11 +106,11 @@ app.use('/login', require("./routes/general/loginRoute"));
 app.use('/resetPassword', require("./routes/general/resetPasswordRoute"))
 app.use('/forgotPassword', require("./routes/general/forgotPasswordRoute"))
 app.use('/OTPValidate', require("./routes/general/OTPValidateRoute"));
+app.use('/changePasswordDone', require("./routes/general/changePassswordDoneRoute"));
 app.use('/phuong', checkAuthenticated, require("./routes/user/phuongRoute"));
 app.use('/quan', checkAuthenticated,require("./routes/user/quanRoute"));
 app.use('/so', checkAuthenticated, require("./routes/user/soRoute"));
 app.use('/logout', require("./routes/general/logoutRoute"));
-
 app.use('/dan', require("./routes/user/danRoute")); // ROUTE DÂN
 app.use('/bando', require("./routes/user/bandoRoute")); // ROUTE DÂN
 

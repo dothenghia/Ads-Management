@@ -94,16 +94,38 @@ document.addEventListener("DOMContentLoaded", function () {
             $i("changeReqDetailNewNoThumbnails").style.display = "block"
         }
 
+        // Show confirm /cancel btn
+        if (status == 0) {
+            document.getElementById('changeReqDetailChoiceAccept').style.display = "block";
+            document.getElementById('changeReqDetailChoiceDeny').style.display = "block";
+        } else {
+            document.getElementById('changeReqDetailChoiceAccept').style.display = "none";
+            document.getElementById('changeReqDetailChoiceDeny').style.display = "none";
+        }
+
+        // Update the modal's button's event
+        document.getElementById('changeReqDetailChoiceAccept').addEventListener('click', () => {
+            acceptChange(accountRole, changeReqId);
+            updateAdsInfoData(accountRole, adOldDetails.adId, adNewDetails.size, adNewDetails.name, adNewDetails.thumbnails);
+        });
+        document.getElementById('changeReqDetailChoiceDeny').addEventListener('click', () => {
+            denyChange(accountRole, changeReqId);
+        });
+
         // Show the modal
         $('#changeReqDetailModal').modal('show');
-      });
+
+        });
     });
 
     let newPermissionReqButton = document.querySelector('#newChangeReqButton');
-    newPermissionReqButton.addEventListener('click', function() {
-        // Show the modal
-        $('#newChangeReqModal').modal('show');
-    });
+    if (newPermissionReqButton != null) {
+        newPermissionReqButton.addEventListener('click', function() {
+            // Show the modal
+            $('#newChangeReqModal').modal('show');
+        });
+    }
+    
 
     // Change filter buttons to match current filters
     let urlParams = (new URL(window.location.href)).searchParams;
@@ -115,39 +137,45 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#roleFilter').value = urlParams.get("roleId");
 
     // Set default location selectors' value to "all"
-    document.querySelector("#newChangeReqDistrict").value = "all";
+    if (document.querySelector("#newChangeReqDistrict") != null)
+        document.querySelector("#newChangeReqDistrict").value = "all";
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
     // JavaScript for handling drag-and-drop functionality
-    document.getElementById('drop-area').addEventListener('dragover', function (e) {
-        e.preventDefault();
-        this.classList.add('hover');
-    });
-
-    document.getElementById('drop-area').addEventListener('dragleave', function (e) {
-        e.preventDefault();
-        this.classList.remove('hover');
-    });
-
-    document.getElementById('drop-area').addEventListener('drop', function (e) {
-        e.preventDefault();
-        this.classList.remove('hover');
-
-        var files = e.dataTransfer.files;
-        handleFiles(files);
-    });
+    if (document.getElementById('drop-area') != null) {
+        document.getElementById('drop-area').addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.classList.add('hover');
+        });
+    
+        document.getElementById('drop-area').addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+        });
+    
+        document.getElementById('drop-area').addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+    
+            var files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+    }
+    
 
     // Handling file input change
-    document.getElementById('fileInput').addEventListener('change', function () {
-        var files = this.files;
-        handleFiles(files);
-    });
+    if (document.getElementById('fileInput') != null)
+        document.getElementById('fileInput').addEventListener('change', function () {
+            var files = this.files;
+            handleFiles(files);
+        });
 
     // Additional handling for clicking the drop area to trigger file input
-    document.getElementById('click-span').addEventListener('click', function () {
-        document.getElementById('fileInput').click();
-    });
+    if (document.getElementById('click-span') != null)
+        document.getElementById('click-span').addEventListener('click', function () {
+            document.getElementById('fileInput').click();
+        });
 
     function handleFiles(files) {
         var fileList = document.getElementById('file-list');
@@ -298,4 +326,52 @@ function displayAds(selectElement) {
             }
         });
     }
+}
+
+// Accept request for so
+async function acceptChange(accountRole, id) {
+    let res = await fetch(`/${accountRole}/dieuchinh/chapnhan/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+    });
+    
+    location.reload();
+}
+
+async function denyChange(accountRole, id) {
+    let res = await fetch(`/${accountRole}/dieuchinh/tuchoi/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+    });
+    
+    location.reload();
+}
+
+async function updateAdsInfoData(accountRole, adId,  size,  adName, thumbnails) {
+    var formData = new FormData();
+    
+    formData.append('adId', adId);
+    formData.append('newSize', size);
+    formData.append('newAdName', adName);
+    const data = Object.fromEntries(formData.entries())
+    console.log("data: ",data);
+    console.log("thumbnails: ",thumbnails);
+
+    var res_IdHighest = await fetch(`/${accountRole}/thongtinquangcao`, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+            data: data,
+            thumbnails: thumbnails[0].url != "" ? thumbnails : null,
+        }),
+    });
+
+    
 }

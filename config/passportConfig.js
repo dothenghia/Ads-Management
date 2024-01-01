@@ -7,12 +7,13 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const jwt = require('jsonwebtoken');
 const jwtSecret = 'suffering';
-const { client } = require("../config/mongodbConfig");
-const dbName = 'Ads-Management';
+// const { client } = require("../config/mongodbConfig");
+// const dbName = 'Ads-Management';
+const accountsModel = require('../models/accountsModel');
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const user = await client.db(dbName).collection('accounts').findOne({ username: username });
+      const user = await accountsModel.findOne({ username: username });
 
       if (user.empty) {
         return done(null, false);
@@ -38,7 +39,7 @@ const opts = {
 
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
   try {
-    const user = await client.db(dbName).collection('accounts').findOne({_id: jwt_payload.sub});
+    const user = await accountsModel.findOne({_id: jwt_payload.sub});
     if (!user.exists) {
       return done(null, false);
     }
@@ -62,8 +63,9 @@ const generateToken = (user) => {
     idQuan = user.quan_id;
   }
   let areaName = user.area; 
+  let avatar = user.avatar[0];
 
-  return jwt.sign({ sub: user.id, accountType: user.role, idQuan: idQuan, idPhuong: idPhuong, areaName, name: user.name }, jwtSecret, {
+  return jwt.sign({ sub: user.id, accountType: user.role, idQuan: idQuan, idPhuong: idPhuong, areaName, name: user.name, avatar: avatar }, jwtSecret, {
     expiresIn: '1h', // Token expiration time
   });
 };
@@ -75,7 +77,7 @@ passport.use(new GoogleStrategy({
 },
   async (accessToken, refreshToken, profile, cb) => {
     try {
-      const user = await client.db(dbName).collection('accounts').findOne({email: profile.emails[0].value});
+      const user = await accountsModel.findOne({email: profile.emails[0].value});
 
       if (user == null) {
         return cb(null, false);
@@ -98,7 +100,7 @@ passport.use(
     async (accessToken, refreshToken, profile, cb) => {
       try {
         console.log(profile);
-        const user = await client.db(dbName).collection('accounts').findOne({fbID: profile.id});
+        const user = await accountsModel.findOne({fbID: profile.id});
         console.log(user);
         if (user == null) {
           return cb(null, false);

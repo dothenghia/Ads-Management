@@ -1,7 +1,7 @@
 const controller = {}
 const admin = require('../../config/firebaseAdmin');
 const jwt = require('jsonwebtoken');
-const db = admin.firestore();
+const accountsModel = require('../../models/accountsModel')
 
 jwtSecret = 'suffering';
 const decoded = jwt.verify(token, jwtSecret);

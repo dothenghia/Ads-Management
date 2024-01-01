@@ -30,7 +30,7 @@
                     <th scope="col">Địa Điểm</th>
                     <th scope="col">
                         <select id="adTypeFilter" name="" onchange="adTypeFilter(this.value)">
-                            <option value="all">Loại quảng cáo</option>
+                            <option value="all">Tất cả Loại quảng cáo</option>
                             {{#each adType}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -39,7 +39,7 @@
                     <th scope="col">Kích thước</th>
                     <th scope="col">
                         <select id="adFormFilter" name="" onchange="adFormFilter(this.value)">
-                            <option value="all">Hình thức</option>
+                            <option value="all">Tất cả Hình thức</option>
                             {{#each adForm}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -47,7 +47,7 @@
                     </th>
                     <th scope="col">
                         <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
-                            <option value="all">Loại vị trí</option>
+                            <option value="all">Tất cả Loại vị trí</option>
                             {{#each locationType}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}

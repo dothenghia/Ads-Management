@@ -26,7 +26,7 @@
                     <th scope="col">Tên</th>
                     <th scope="col">
                         <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
-                            <option value="all">Loại báo cáo</option>
+                            <option value="all">Tất cả Loại báo cáo</option>
                             <option value="qc">Bảng quảng cáo</option>
                             <option value="ddqc">Địa điểm Quảng cáo</option>
                             <option value="ddbk">Địa điểm Bất kỳ</option>
@@ -34,7 +34,7 @@
                     </th>
                     <th scope="col">
                         <select id="reportFormFilter" name="" onchange="reportFormFilter(this.value)">
-                            <option value="all">Hình thức báo cáo</option>
+                            <option value="all">Tất cả Hình thức báo cáo</option>
                             <option value="Tố giác sai phạm">Tố giác sai phạm</option>
                             <option value="Đăng ký nội dung">Đăng ký nội dung</option>
                             <option value="Đóng góp ý kiến">Đóng góp ý kiến</option>
@@ -44,7 +44,7 @@
                     <th scope="col">Thời gian</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tình trạng xử lý</option>
+                            <option value="all">Tất cả Tình trạng xử lý</option>
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Đã xử lý">Đã xử lý</option>
                             <option value="Từ chối">Từ chối</option>
@@ -65,7 +65,13 @@
                             {{#if (equalString reportType "ddbk")}}
                                 {{locationId}}
                             {{else}}
-                                {{getReportLocation ../adLocation locationId}}
+                                {{#if (equalString reportType "qc")}}
+                                    {{#with (arrayIndex (getAdInfo ../ad adId) 0)}}
+                                        {{name}}
+                                    {{/with}}
+                                {{else}}
+                                    {{getReportLocation ../adLocation locationId}}
+                                {{/if}}
                             {{/if}}
                         </td>
                         <td scope="col">{{translateReportType reportType}}</td>

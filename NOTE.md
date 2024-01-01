@@ -43,13 +43,8 @@ Bảo :
             
         - Thêm trang `Quản lý Điều chỉnh QC`
         - Sửa lại tên các nút trên Sidebar cho rõ ràng
-        - Up ảnh lên ở đâu? => Liên hệ Hải hỗ trợ
-        - Thiếu trang thêm nhân sự
-        - Style lại mấy cái modal Thêm địa điểm QC
-        - Đổi function trong Controller sang kiểu Model
-        - Sửa lỗi Xử lý Yêu cầu cấp phép
-        BỎ CÁI FIELD delete TRONG COLLECTION report
-
+       
+        
 
 
 
@@ -68,3 +63,10 @@ Tạo Tài khoản :
     - Quận 5 - Phường 3
 
 
+
+Sau khi accept, dò theo locationId
+Add thêm adId mới
+-> ads
+reportId: ""
+size: ...
+name

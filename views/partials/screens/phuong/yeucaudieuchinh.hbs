@@ -21,19 +21,13 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
                     <th scope="col">Địa điểm quảng cáo</th>
-                    <th scope="col">Thời điểm gửi yêu cầu</th>
-                    <th scope="col">
-                        <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
-                            <option value="all">Lý do chỉnh sửa</option>
-                            {{#each reason}}
-                                <option value="{{value}}">{{value}}</option>
-                            {{/each}}
-                        </select>
-                    </th>
+                    <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton">Sort</button></th>
+                    <th scope="col">Lý do chỉnh sửa</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tình trạng xử lý</option>
+                            <option value="all">Tất cả Tình trạng xử lý</option>
                             <option value="0">Đang xử lý</option>
                             <option value="1">Đã xử lý</option>
                             <option value="2">Từ chối</option>
@@ -48,12 +42,17 @@
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
                         <td scope="col">
+                            {{#with (arrayIndex (getAdInfo ../ad oldAdId) 0)}}
+                                {{name}}
+                            {{/with}}
+                        </td>
+                        <td scope="col">
                             {{#with (getAdLocationFromAd ../adLocation oldAdId)}}
                                 {{address}}
                             {{/with}}
                         </td>
                         <td scope="col">{{mongoDateToLocaleString date}}</td>
-                        <td scope="col">{{reason}}</td>
+                        <td scope="col">{{shortenString reason}}</td>
 
                         <td scope="col">
                             {{#if (equalNumber status 0)}}
@@ -309,3 +308,49 @@
 
 {{!-- Custom JS script --}}
 <script src="/js/changeReqDetail.js"></script>
+
+<script>
+    function convertDate(vietnameseDate){
+        let dateString = vietnameseDate.split(" ");
+        let day = dateString[1];
+        let month = dateString[3];
+        let year = dateString[5];
+        let date =  new Date(year + "-" + month + "-" + day);
+        return date;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('table');
+        const tbody = table.querySelector('tbody');
+        let ascending = true;
+
+        document.getElementById('sortButton').addEventListener('click', function () {
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.sort(function (rowA, rowB) {
+            const cellA = rowA.cells[2].innerText; 
+            const cellB = rowB.cells[2].innerText;
+
+            const dateA = convertDate(cellA);
+            const dateB = convertDate(cellB);
+            console.log('Date A: ' + dateA);
+            console.log('Date B: ' + dateB);
+
+            if (ascending) {
+            return dateA - dateB;
+            } else {
+            return dateB - dateA;
+            }
+        });
+
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+
+        rows.forEach(function (row) {
+            tbody.appendChild(row);
+        });
+
+        ascending = !ascending;
+    });
+  });
+</script>
