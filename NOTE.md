@@ -23,15 +23,7 @@ Khoa :
     Phường + Quận :
         - Thêm nút lọc Phường cho Cán bộ Quận
         - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
-        - Đổi function trong Controller sang kiểu Model
-        - Đổi tên thêm "Tất cả" vào các nút filter
-        - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn)
-        - Trang Báo cáo : Phường/Quận/Sở luôn
-            + Xóa chữ "gần"
-            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC
-        - Trang Yêu cầu điều chỉnh QC :
-            + Thêm cột Tên bảng QC
-            + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách)
+        - Lọc ra những báo cáo trùng Địa điểm QC / Bảng QC => Nếu Đã Xử lý 1 cái, thì những cái còn lại thành Từ chối - check
 
 
         * CHỈ NHỮNG CÁI BÁO CÁO về `BẢNG QUẢNG CÁO` hoặc là `ĐỊA ĐIỂM QUẢNG CÁO`
@@ -39,19 +31,15 @@ Khoa :
           Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
 Bảo :
     Sở :
-        - Lọc ra những báo cáo trùng Địa điểm QC / Bảng QC => Nếu Đã Xử lý 1 cái, thì những cái còn lại thành Từ chối
-            * CHỈ NHỮNG CÁI BÁO CÁO về `BẢNG QUẢNG CÁO` hoặc là `ĐỊA ĐIỂM QUẢNG CÁO`
-            khi MÀ được duyệt là 'ĐÃ XỬ LÝ' THÌ PHẢI ĐỔI reportId của adLocation và ad tương ứng
-            Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
-        - Thêm trang `Quản lý Điều chỉnh QC`
-        - Sửa lại tên các nút trên Sidebar cho rõ ràng
-        - Up ảnh lên ở đâu? => Liên hệ Hải hỗ trợ
-        - Thiếu trang thêm nhân sự
-        - Style lại mấy cái modal Thêm địa điểm QC
-        - Đổi function trong Controller sang kiểu Model
-        - Sửa lỗi Xử lý Yêu cầu cấp phép
-        BỎ CÁI FIELD delete TRONG COLLECTION report
+    - Thống kê - Chưa
+    - Chỉnh sửa tài khoản Cán bộ (P/Q/S) :
+        + Thêm gmail, fb id - check
+    - Sửa lại tên các nút trên Sidebar cho rõ ràng
+    - Up ảnh lên ở đâu? => Liên hệ Hải hỗ trợ - check
+    - Thiếu trang thêm nhân sự - check
+    - Style lại mấy cái modal Thêm địa điểm QC - check
 
+    BỎ CÁI FIELD delete TRONG COLLECTION report - check
 
 
 
@@ -70,3 +58,10 @@ Tạo Tài khoản :
     - Quận 5 - Phường 3
 
 
+
+Sau khi accept, dò theo locationId
+Add thêm adId mới
+-> ads
+reportId: ""
+size: ...
+name

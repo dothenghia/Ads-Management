@@ -106,7 +106,7 @@ controller.show = async (req, res) => {
 controller.edit = async (req, res) => {
     let { id, name, phone, username, password, role, quanID, phuongID} = req.body;
     
-    console.log((await hashPassword(password)));
+    // console.log((await hashPassword(password)));
     
     try {
         const accountSnapshot = await client.db(dbName).collection("accounts").findOne({ _id: id });
@@ -136,7 +136,7 @@ controller.add = async (req, res) => {
     const accountSnapShot = client.db(dbName).collection("accounts");
     let idHighest = parseInt( (await accountSnapShot.find({}).sort({_id:-1}).limit(1).toArray())[0]._id );
 
-    console.log( idHighest);
+    // console.log( idHighest);
     
     try {
         

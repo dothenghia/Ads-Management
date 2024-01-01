@@ -121,10 +121,9 @@ controller.add = async (req, res) => {
 }
 
 controller.edit = async (req, res) => {
-    let { EditAdLocationId, EditAdLocationForm, EditLocationType, EditAdLocationDistrict, EditAdLocationWard, EditAdLocationAddress, EditAdLocationLongtitude, EditAdLocationLattitude } = req.body;
+    let { EditAdLocationId, EditAdLocationForm, EditLocationType, EditAdLocationDistrict, EditAdLocationWard, EditAdLocationAddress, EditAdLocationLongtitude, EditAdLocationLattitude, EditAdList } = req.body;
     const adLocationSnapShot = await client.db(dbName).collection("adLocations").findOne({ locationId: parseInt(EditAdLocationId) });
     
-
     // console.log( idHighest);
     try {
         
@@ -150,6 +149,21 @@ controller.edit = async (req, res) => {
 
 }
 
+controller.addNewAd = async (req, res) => {
+    const adLocationSnapShot = await client.db(dbName).collection("adLocations").findOne({ locationId: parseInt(req.params.id) });
+    var adList = adLocationSnapShot.adList;
+    // console.log(adLocationSnapShot);
+    // console.log(adList);
+    if (adList == null) adList = [];
+    adList.push({adId: req.body.adId});
+    try {
+        await client.db(dbName).collection("adLocations").updateOne({ locationId: parseInt(req.params.id) }, { $set: { adList: adList } });
+        res.send("Documents updated successfully");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+}
 
 controller.delete = async (req, res) => {
     try {

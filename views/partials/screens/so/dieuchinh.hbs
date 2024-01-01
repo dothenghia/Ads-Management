@@ -84,7 +84,7 @@
                         </td>
 
                         <td scope="col">
-                            <button class="table-detail-button" data-ad-old-details="{{toJSON (getAdInfo ../ad oldAdId)}}" data-ad-new-details="{{toJSON new}}" data-change-req-id={{changeReqId}} data-account-role="so" data-status={{status}}>
+                            <button class="table-detail-button" data-ad-old-details="{{toJSON (getAdInfo ../ad oldAdId)}}" data-ad-new-details="{{toJSON new}}" data-change-req-id={{changeReqId}} data-account-role="so" data-status={{status}} data-reason="{{reason}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-info">
@@ -167,6 +167,10 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <th scope="row">Lí do điều chỉnh</th>
+                                        <td colspan="2" id="changeReqDetailReason"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -174,28 +178,28 @@
                     </div>
                 </div>
                 <div class="row justify-content-end" id="changeReqDetailChoice">
-                    <button id="changeReqDetailChoiceDeny" onclick="" class="col-2">Từ chối</button>
-                    <button id="changeReqDetailChoiceAccept" onclick="" class="col-2">Chấp thuận</button>
+                    <button id="changeReqDetailChoiceDeny" class="col-2">Từ chối</button>
+                    <button id="changeReqDetailChoiceAccept" class="col-2">Chấp thuận</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- The Change Request Delete Modal -->
-    <div class="modal" id="confirmationModal">
+    <div class="modal" id="confirmationModal"> 
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure?</h4>
+                    <h4 class="modal-title">Bạn có chắc chắn?</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Đồng ý</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy</button>
                 </div>
 
             </div>

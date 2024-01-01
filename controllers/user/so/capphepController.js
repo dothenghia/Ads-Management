@@ -130,7 +130,6 @@ controller.delete = async (req, res) => {
     }
 }
 
-
 controller.acceptChange = async (req, res) => {
     try {
         let { id } = req.body;

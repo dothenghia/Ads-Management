@@ -63,8 +63,9 @@ const generateToken = (user) => {
     idQuan = user.quan_id;
   }
   let areaName = user.area; 
+  let avatar = user.avatar[0];
 
-  return jwt.sign({ sub: user.id, accountType: user.role, idQuan: idQuan, idPhuong: idPhuong, areaName, name: user.name }, jwtSecret, {
+  return jwt.sign({ sub: user.id, accountType: user.role, idQuan: idQuan, idPhuong: idPhuong, areaName, name: user.name, avatar: avatar }, jwtSecret, {
     expiresIn: '1h', // Token expiration time
   });
 };

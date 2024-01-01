@@ -4,6 +4,8 @@ const currentPage = 0;
 const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
+// Firebase
+const admin = require("../../../config/firebaseAdmin");
 
 controller.show = async (req, res) => {
     // Get current account
@@ -68,7 +70,6 @@ controller.show = async (req, res) => {
     });
 }
 
-
 controller.delete = async (req, res) => {
     try {
         let id = req.params.id;
@@ -85,6 +86,41 @@ controller.delete = async (req, res) => {
     catch (error) {
         res.send("Change acceptance error!");
     }
+}
+
+controller.add = async (req, res) => {
+
+    const adSnapshot = client.db(dbName).collection("ads");
+    let idHighest = parseInt( (await adSnapshot.find({}).sort({adId:-1}).limit(1).toArray())[0].adId );
+    let adId = idHighest + 1;
+    // console.log(req.body.data);
+    // console.log(req.body.thumbnails);
+    try {
+        let thumbnails = Array();
+        req.body.thumbnails.forEach((thumbnail) => {
+            // console.log(thumbnail);
+            thumbnails.push(thumbnail);
+        });
+        let {reportId, size, contractStartDate, contractEndDate, adName} = req.body.data;
+        let newData = {
+            adId: adId,
+            reportId: reportId,
+            contractStartDate: new Date(contractStartDate),
+            contractEndDate: new Date(contractEndDate),
+            size: size,
+            name: adName,
+            thumbnails: thumbnails
+        }
+    
+        const result = await adSnapshot.insertOne(newData); //upsert = update and insert
+        if (result.insertedId != null)
+            res.send(adId.toString());
+    }
+    catch (error) {
+        console.log(error)
+        res.send("Create error");
+    }
+
 }
 
 module.exports = controller;
