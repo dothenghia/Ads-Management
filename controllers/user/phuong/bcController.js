@@ -32,7 +32,7 @@ async function sendEmailToUser(userEmail, solution, status, locationID, latitude
         let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxToken}`;
         let fetchRawResult = await axios.get(url)
         let fetchResult = fetchRawResult.data;
-        locationName = "Gần " + fetchResult.features[0].text;
+        locationName = fetchResult.features[0].text;
     }
     var mailOptions = {
         from: "kiznlh@gmail.com",
