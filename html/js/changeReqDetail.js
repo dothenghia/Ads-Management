@@ -94,9 +94,19 @@ document.addEventListener("DOMContentLoaded", function () {
             $i("changeReqDetailNewNoThumbnails").style.display = "block"
         }
 
+        // Show confirm /cancel btn
+        if (status == 0) {
+            document.getElementById('changeReqDetailChoiceAccept').style.display = "block";
+            document.getElementById('changeReqDetailChoiceDeny').style.display = "block";
+        } else {
+            document.getElementById('changeReqDetailChoiceAccept').style.display = "none";
+            document.getElementById('changeReqDetailChoiceDeny').style.display = "none";
+        }
+
         // Update the modal's button's event
         document.getElementById('changeReqDetailChoiceAccept').addEventListener('click', () => {
             acceptChange(accountRole, changeReqId);
+            updateAdsInfoData(accountRole, adOldDetails.adId, adNewDetails.size, adNewDetails.name, adNewDetails.thumbnails);
         });
         document.getElementById('changeReqDetailChoiceDeny').addEventListener('click', () => {
             denyChange(accountRole, changeReqId);
@@ -105,8 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Show the modal
         $('#changeReqDetailModal').modal('show');
 
-
-      });
+        });
     });
 
     let newPermissionReqButton = document.querySelector('#newChangeReqButton');
@@ -342,4 +351,27 @@ async function denyChange(accountRole, id) {
     });
     
     location.reload();
+}
+
+async function updateAdsInfoData(accountRole, adId,  size,  adName, thumbnails) {
+    var formData = new FormData();
+    
+    formData.append('adId', adId);
+    formData.append('newSize', size);
+    formData.append('newAdName', adName);
+    const data = Object.fromEntries(formData.entries())
+    console.log("data: ",data);
+    console.log("thumbnails: ",thumbnails);
+
+    var res_IdHighest = await fetch(`/${accountRole}/thongtinquangcao`, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+            data: data,
+            thumbnails: thumbnails[0].url != "" ? thumbnails : null,
+        }),
+    });
+
+    
 }

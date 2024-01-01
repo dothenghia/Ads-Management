@@ -123,6 +123,40 @@ controller.add = async (req, res) => {
 
 }
 
+controller.edit = async (req, res) => {
+
+    const adSnapshot = client.db(dbName).collection("ads");
+    // console.log("Data: ",req.body.data);
+    // console.log("Thumbnails: ",req.body.thumbnails);
+    try {
+        let thumbnails = null;
+        if (req.body.thumbnails != null) {
+            thumbnails = Array();
+            req.body.thumbnails.forEach((thumbnail) => {
+                // console.log(thumbnail);
+                thumbnails.push(thumbnail);
+            });
+        } else {
+            const thumb = await adSnapshot.findOne({ adId: parseInt(req.body.data.adId)});
+            thumbnails = thumb.thumbnails;
+        }
+        
+        // console.log("Thumbnail:" , thumbnails);
+        let {newSize, newAdName} = req.body.data;
+        let updateData = {
+            size: newSize,
+            name: newAdName,
+            thumbnails: thumbnails
+        }
+    
+        const result = await adSnapshot.findOneAndUpdate({ adId: parseInt(req.body.data.adId) }, { $set: updateData }); //upsert = update and insert
+        res.send("Edit success");
+    }
+    catch (error) {
+        console.log(error)
+        res.send("Edit error");
+    }
+}
 module.exports = controller;
 
 

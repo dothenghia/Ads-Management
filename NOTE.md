@@ -31,15 +31,14 @@ Khoa :
           Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
 Bảo :
     Sở :
-    - Thống kê - Chưa
-    - Chỉnh sửa tài khoản Cán bộ (P/Q/S) :
-        + Thêm gmail, fb id - check
-    - Sửa lại tên các nút trên Sidebar cho rõ ràng
-    - Up ảnh lên ở đâu? => Liên hệ Hải hỗ trợ - check
-    - Thiếu trang thêm nhân sự - check
-    - Style lại mấy cái modal Thêm địa điểm QC - check
-
-    BỎ CÁI FIELD delete TRONG COLLECTION report - check
+    - Lọc ra những báo cáo trùng Địa điểm QC / Bảng QC => Nếu Đã Xử lý 1 cái, thì những cái còn lại thành Từ chối
+            * CHỈ NHỮNG CÁI BÁO CÁO về `BẢNG QUẢNG CÁO` hoặc là `ĐỊA ĐIỂM QUẢNG CÁO`
+            khi MÀ được duyệt là 'ĐÃ XỬ LÝ' THÌ PHẢI ĐỔI reportId của adLocation và ad tương ứng
+            Còn nếu mà Từ chối thì ko cần cập nhật reportId của adLocation và ad
+        - Thêm trang `Quản lý Điều chỉnh QC`
+        - Sửa lại tên các nút trên Sidebar cho rõ ràng
+       
+        
 
 
 
