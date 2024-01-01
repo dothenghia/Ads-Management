@@ -42,7 +42,18 @@ function geocodeAddress(address){
             // Check if a location is found
             if (data && data.length > 0) {
                 //Nhớ coi kĩ cái data, trong document cũng có việc, mà coi nó log ra như nào thì dễ hơn
-                console.log("data:",data);
+                console.log("data:",data[0].boundingbox);
+                var boundingbox = data[0].boundingbox;
+                var bounds = L.latLngBounds([boundingbox[0], boundingbox[2]], [boundingbox[1], boundingbox[3]]);
+                
+                // Add a rectangle representing the restricted area
+                L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
+                // Create a map centered within the bounds
+                map.on('drag', function() {
+                    map.panInsideBounds(bounds, { animate: false });
+                });
+
+
                 var location = data[0];
                 var displayName = location.display_name;
                 var lat = location.lat;
@@ -85,7 +96,7 @@ function reverseGeocode(lat,lon){
         });
 }
 function changeMarkerToSearchAddress(lat, lon){
-    map.flyTo([lat,lon], 18);
+    map.flyTo([lat,lon], 17);
     marker.setLatLng([lat,lon]);
 
 }   
