@@ -260,7 +260,7 @@ async function acceptChange(accountRole, id) {
         body: JSON.stringify({ id: id }),
     });
     
-    //location.reload();
+    location.reload();
 }
 
 async function denyChange(accountRole, id) {
