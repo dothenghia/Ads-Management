@@ -70,6 +70,7 @@ app.engine('hbs', expressHbs.engine({
         arrayIndex: helpers.httpFuncs.arrayIndex,
         mapToArray: helpers.httpFuncs.mapToArray,
         equalString: helpers.httpFuncs.equalString,
+        shortenString: helpers.httpFuncs.shortenString,
         filterById: helpers.httpFuncs.filterById,
         filterAllById: helpers.httpFuncs.filterAllById,
         getAddress: helpers.httpFuncs.getAddress,
