@@ -9,6 +9,7 @@ router.use("/thongtinquangcao", require("./so/ttbqcRoute"));
 router.use("/thongtindiadiemquangcao", require("./so/ttdqcRoute"));
 router.use("/nhansu", require("./so/nhansuRoute"));
 router.use("/dieuchinh", require("./so/dieuchinhRoute"));
+router.use("/dieuchinhdiadiem", require("./so/dieuchinhdiadiemRoute"));
 router.use("/yeucaudieuchinh", require("./so/dieuchinhRoute"));
 router.use("/capphep", require("./so/capphepRoute"));
 router.use("/thongke", require("./so/thongkeRoute"));

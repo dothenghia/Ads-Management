@@ -26,16 +26,38 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('changeLocReqDetailNewLocationType').textContent = locNewDetails.locationType;
         $i('changeLocReqDetailReason').textContent = reason;
 
+
+        // Show confirm /cancel btn
+        if (status == 0) {
+            document.getElementById('changeLocReqDetailChoiceAccept').style.display = "block";
+            document.getElementById('changeLocReqDetailChoiceDeny').style.display = "block";
+        } else {
+            document.getElementById('changeLocReqDetailChoiceAccept').style.display = "none";
+            document.getElementById('changeLocReqDetailChoiceDeny').style.display = "none";
+        }
+
+        // Add event listeners to buttons accept/deny
+        document.getElementById('changeLocReqDetailChoiceAccept').addEventListener('click', () => {
+            acceptChange(accountRole, changeLocReqId);
+            updateAdLocationInfoData(accountRole, locOldDetails.locationId, locNewDetails.adForm, locNewDetails.adType, locNewDetails.locationType);
+        });
+        document.getElementById('changeLocReqDetailChoiceDeny').addEventListener('click', () => {
+            denyChange(accountRole, changeLocReqId);
+        });
+
         // Show the modal
         $('#changeLocReqDetailModal').modal('show');
       });
     });
 
     let newPermissionReqButton = document.querySelector('#newChangeLocReqButton');
-    newPermissionReqButton.addEventListener('click', function() {
-        // Show the modal
-        $('#newChangeLocReqModal').modal('show');
-    });
+    if (newPermissionReqButton != null) {
+        newPermissionReqButton.addEventListener('click', function() {
+            // Show the modal
+            $('#newChangeLocReqModal').modal('show');
+        });
+    }
+    
 
     // Change filter buttons to match current filters
     let urlParams = (new URL(window.location.href)).searchParams;
@@ -47,11 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#roleFilter').value = urlParams.get("roleId");
 
     // Set default location selectors' value to "all"
-    document.querySelector("#newChangeLocReqDistrict").value = "all";
+    var changeLocReqDistrict = document.querySelector("#newChangeLocReqDistrict");
+    if (changeLocReqDistrict != null) {
+        zdocument.querySelector("#newChangeLocReqDistrict").value = "all";
+    }
 });
 
+// Accept request for so
 async function acceptChange(accountRole, id) {
-    let res = await fetch(`/${accountRole}/yeucaudieuchinh/chapnhan/${id}`, {
+    let res = await fetch(`/${accountRole}/dieuchinhdiadiem/chapnhan/${id}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -63,7 +89,7 @@ async function acceptChange(accountRole, id) {
 }
 
 async function denyChange(accountRole, id) {
-    let res = await fetch(`/${accountRole}/yeucaudieuchinh/tuchoi/${id}`, {
+    let res = await fetch(`/${accountRole}/dieuchinhdiadiem/tuchoi/${id}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -72,6 +98,25 @@ async function denyChange(accountRole, id) {
     });
     
     location.reload();
+}
+
+async function updateAdLocationInfoData(accountRole, locationId,  adForm,  adType, locationType) {
+    var formData = new FormData();
+    
+    formData.append('EditAdLocationId', locationId);
+    formData.append('EditAdLocationForm', adForm);
+    formData.append('EditAdType', adType);
+    formData.append('EditLocationType', locationType);
+    const data = Object.fromEntries(formData.entries())
+    console.log("data: ",data);
+
+    var res = await fetch(`/${accountRole}/thongtindiadiemquangcao`, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    });
+
+    
 }
 
 // Filter functions
