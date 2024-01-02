@@ -16,7 +16,8 @@ Nghĩa :
         - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
 
-Khoa :
+Khoa : 
+    Hải note: Chỗ địa điểm lúc t chỉnh sửa thì ko hiện tên của địa điểm đó lên
         🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
         🚨🚨🚨 XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO 🚨🚨🚨
         🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
@@ -51,9 +52,9 @@ Bảo :
 Hải :
     - PHỤ TH BẢO
     Cán bộ :
-        - Sort
+        - Sort //xong
     Database :
-        - Phường/Quận : Người dân gửi báo cáo sẽ nhận được email thông báo về tình trạng và cách thức xử lý cho từng báo cáo một cách tự động
+        - Phường/Quận : Người dân gửi báo cáo sẽ nhận được email thông báo về tình trạng và cách thức xử lý cho từng báo cáo một cách tự động //xong
 
 
 Tạo Tài khoản :
