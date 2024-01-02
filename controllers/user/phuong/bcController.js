@@ -216,29 +216,7 @@ controller.acceptChange = async (req, res) => {
             { $set: {status: "Đã xử lý", solution: solution} }
         );
         sendEmailToUser(result.email,solution,"Đã xử lý",result.locationId, result.latitude, result.longitude);
-        //console.log("Res: ", result);
-
-        var duplicateLocationId = result.locationId;
-        var duplicateAdId = result.adId;
-
-        // Find documents that being duplicated
-        const documentsToUpdate = await client.db(dbName).collection("reports").find({
-            adId: duplicateAdId,
-            locationId: duplicateLocationId,
-            status: "Đang xử lý",
-            reportType: { $in: ["qc", "ddqc"] },
-            reportId: { $ne: parseInt(id) } // documents with different id
-        }).toArray();
-
-        //console.log(" After: ", documentsToUpdate);
-
-        // Update duplicated documents
-        const updatePromises = documentsToUpdate.forEach(document =>
-            client.db(dbName).collection("reports").updateOne({ reportId: document.reportId }, { $set: { status: "Từ chối", solution: "Bị trùng lặp" } })
-        );
-
-        // Wait for all update operations to complete
-        await Promise.all(updatePromises);
+        
 
         res.send("Change accepted!");
     }

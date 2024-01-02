@@ -27,23 +27,28 @@ document.addEventListener("DOMContentLoaded", function () {
         $i('changeLocReqDetailReason').textContent = reason;
 
 
-        // Show confirm /cancel btn
-        if (status == 0) {
-            document.getElementById('changeLocReqDetailChoiceAccept').style.display = "block";
-            document.getElementById('changeLocReqDetailChoiceDeny').style.display = "block";
-        } else {
-            document.getElementById('changeLocReqDetailChoiceAccept').style.display = "none";
-            document.getElementById('changeLocReqDetailChoiceDeny').style.display = "none";
-        }
+        var accept = document.getElementById('changeLocReqDetailChoiceAccept');
+        var deny = document.getElementById('changeLocReqDetailChoiceDeny');
+        if (accept != null && deny != null) {
+            // Show confirm /cancel btn
+            if (status == 0) {
+                document.getElementById('changeLocReqDetailChoiceAccept').style.display = "block";
+                document.getElementById('changeLocReqDetailChoiceDeny').style.display = "block";
+            } else {
+                document.getElementById('changeLocReqDetailChoiceAccept').style.display = "none";
+                document.getElementById('changeLocReqDetailChoiceDeny').style.display = "none";
+            }
 
-        // Add event listeners to buttons accept/deny
-        document.getElementById('changeLocReqDetailChoiceAccept').addEventListener('click', () => {
-            acceptChange(accountRole, changeLocReqId);
-            updateAdLocationInfoData(accountRole, locOldDetails.locationId, locNewDetails.adForm, locNewDetails.adType, locNewDetails.locationType);
-        });
-        document.getElementById('changeLocReqDetailChoiceDeny').addEventListener('click', () => {
-            denyChange(accountRole, changeLocReqId);
-        });
+            // Add event listeners to buttons accept/deny
+            document.getElementById('changeLocReqDetailChoiceAccept').addEventListener('click', () => {
+                acceptChange(accountRole, changeLocReqId);
+                updateAdLocationInfoData(accountRole, locOldDetails.locationId, locNewDetails.adForm, locNewDetails.adType, locNewDetails.locationType);
+            });
+            document.getElementById('changeLocReqDetailChoiceDeny').addEventListener('click', () => {
+                denyChange(accountRole, changeLocReqId);
+            });
+        }
+        
 
         // Show the modal
         $('#changeLocReqDetailModal').modal('show');

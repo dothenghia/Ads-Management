@@ -68,23 +68,27 @@ document.addEventListener("DOMContentLoaded", function () {
             $i("permissionReqDetailNoThumbnails").style.display = "block"
         }
 
-        // Update the modal's button's event
+        var accept = document.getElementById('permissionReqDetailChoiceAccept');
+        var deny = document.getElementById('permissionReqDetailChoiceDeny');
+        if (accept != null && deny != null) {
+            // Update the modal's button's event
+            if (permissionReqDetails.status == 0) {
+                document.getElementById('permissionReqDetailChoiceAccept').style.display = "block";
+                document.getElementById('permissionReqDetailChoiceDeny').style.display = "block";
+            } else {
+                document.getElementById('permissionReqDetailChoiceAccept').style.display = "none";
+                document.getElementById('permissionReqDetailChoiceDeny').style.display = "none";
+            }
 
-        if (permissionReqDetails.status == 0) {
-            document.getElementById('permissionReqDetailChoiceAccept').style.display = "block";
-            document.getElementById('permissionReqDetailChoiceDeny').style.display = "block";
-        } else {
-            document.getElementById('permissionReqDetailChoiceAccept').style.display = "none";
-            document.getElementById('permissionReqDetailChoiceDeny').style.display = "none";
+            document.getElementById('permissionReqDetailChoiceAccept').addEventListener('click', () => {
+                acceptChange(accountRole, permissionReqId);
+                updateAdsInfoData(accountRole, adLocationDetails.locationId, "", permissionReqDetails.size, permissionReqDetails.startdate, permissionReqDetails.enddate, permissionReqDetails.name, permissionReqDetails.thumbnails)
+            });
+            document.getElementById('permissionReqDetailChoiceDeny').addEventListener('click', () => {
+                denyChange(accountRole, permissionReqId);
+            });
         }
-
-        document.getElementById('permissionReqDetailChoiceAccept').addEventListener('click', () => {
-            acceptChange(accountRole, permissionReqId);
-            updateAdsInfoData(accountRole, adLocationDetails.locationId, "", permissionReqDetails.size, permissionReqDetails.startdate, permissionReqDetails.enddate, permissionReqDetails.name, permissionReqDetails.thumbnails)
-        });
-        document.getElementById('permissionReqDetailChoiceDeny').addEventListener('click', () => {
-            denyChange(accountRole, permissionReqId);
-        });
+        
 
         // Show the modal
         $('#permissionReqDetailModal').modal('show');
