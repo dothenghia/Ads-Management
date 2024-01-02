@@ -4,27 +4,6 @@ const dbName = 'Ads-Management';
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
 
-async function checkReportIsDeleted(reportId) {
-    try {
-        const db = client.db(dbName);
-        const reportsCollection = db.collection('reports');
-
-        // Truy vấn để lấy report với reportId cụ thể
-        const report = await reportsCollection.findOne({ reportId: reportId });
-
-        // Kiểm tra giá trị của trường 'delete'
-        if (report) {
-            return report.delete || false; // Trả về giá trị của trường 'delete' hoặc false nếu không tồn tại trường 'delete'
-        } else {
-            // Nếu không tìm thấy report với reportId cụ thể
-            console.log(`Không tìm thấy report với reportId: ${reportId}`);
-            return false;
-        }
-    } catch (error) {
-        console.error("Lỗi khi kiểm tra report:", error);
-        return false;
-    }
-}
 
 // Hàm chuyển đổi dữ liệu Ad thành GeoJSON
 function convertAdToGeoJSON(adLocation) {
@@ -84,47 +63,44 @@ async function convertReportToGeoJSON(report) {
     }
 }
 
-async function getReportStatus(reportId, localStorageId = []) {
-    // console.log("reportId:", reportId);
-    // console.log("localStorageId:", localStorageId.includes(reportId));
+async function getAdLocationStatus(locationId, localStorageReportList = []) {
     try {
-        if (!reportId) {
+        const db = client.db(dbName);
+        const reportsCollection = db.collection('reports');
+
+        const reportQuery = { locationId: locationId, reportId: { $in: localStorageReportList } };
+        const reportData = await reportsCollection.findOne(reportQuery);
+
+        if (!reportData) {
+            // console.log(`Không tìm thấy Report có locationId ${locationId} và trong localStorageReportList.`);
             return null;
         }
 
-        if (localStorageId && localStorageId.includes(reportId)) {
-            const db = client.db('Ads-Management');
-            const reportsCollection = db.collection('reports');
-            const reportQuery = { reportId: reportId };
-            const reportData = await reportsCollection.findOne(reportQuery);
+        return reportData.status;
+    }
+    catch (error) {
+        console.error("Lỗi khi lấy status của Ad Location:", error);
+        return null;
+    }
+}
 
-            if (!reportData) {
-                console.log("Không tìm thấy report với reportId:", reportId);
-                return null;
-            }
-            return reportData.status;
+async function getAdStatus(locationId, adId, localStorageReportList = []) {
+    try {
+        const db = client.db(dbName);
+        const reportsCollection = db.collection('reports');
 
-        } else {
-            // Truy vấn vào collection 'reports' nếu reportId không có trong localStorageId
-            const db = client.db('Ads-Management');
-            const reportsCollection = db.collection('reports');
-            const reportQuery = { reportId: reportId };
-            const reportData = await reportsCollection.findOne(reportQuery);
+        const reportQuery = { locationId: locationId, adId: adId, reportId: { $in: localStorageReportList } };
+        const reportData = await reportsCollection.findOne(reportQuery);
 
-            if (!reportData) {
-                console.log("Không tìm thấy report với reportId:", reportId);
-                return null;
-            }
-
-            // Kiểm tra xem status có phải là 'Đã xử lý' không
-            if (reportData.status === 'Đã xử lý') {
-                return reportData.status;
-            } else {
-                return null;
-            }
+        if (!reportData) {
+            // console.log(`Không tìm thấy Report có locationId ${locationId}, adId ${adId} và trong localStorageReportList.`);
+            return null;
         }
-    } catch (error) {
-        console.error("Error getting report status:", error);
+
+        return reportData.status;
+    }
+    catch (error) {
+        console.error("Lỗi khi lấy status của Ad Location:", error);
         return null;
     }
 }
@@ -235,10 +211,10 @@ async function ddbkReportInfo(longitude, latitude) {
 module.exports = {
     convertAdToGeoJSON,
     convertReportToGeoJSON,
-    getReportStatus,
+    getAdLocationStatus,
+    getAdStatus,
     getAdInfo,
     qcReportInfo,
     ddqcReportInfo,
     ddbkReportInfo,
-    checkReportIsDeleted
 }

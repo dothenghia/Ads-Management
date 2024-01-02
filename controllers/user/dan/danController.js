@@ -4,7 +4,8 @@ const dbName = 'Ads-Management';
 
 const { convertAdToGeoJSON,
     convertReportToGeoJSON,
-    getReportStatus,
+    getAdLocationStatus,
+    getAdStatus,
     getAdInfo,
     qcReportInfo,
     ddqcReportInfo,
@@ -26,7 +27,7 @@ controller.uploadData = async (req, res) => {
         jsonData.longitude = jsonData.longitude == "" ? "" : parseFloat(jsonData.longitude);
         jsonData.locationId = jsonData.locationId == "" ? "" : parseFloat(jsonData.locationId);
         jsonData.adId = jsonData.adId == "" ? "" : parseFloat(jsonData.adId);
-        
+
         // Chuyển đổi time thành kiểu date
         jsonData.time = new Date(jsonData.time);
 
@@ -44,56 +45,43 @@ controller.uploadData = async (req, res) => {
 }
 
 
-// ~ ============== Done
+// ~ ============== DOING
 // Hàm lấy danh sách các địa điểm quảng cáo và chuyền về dạng GeoJSON
 controller.getAdLocationGeoJSONList = async (req, res) => {
     try {
-        let localStorageReportList = [];
-        // console.log("localStorageReportList:", localStorageReportList);
-
+        const localStorageReportList = req.body.map(item => parseFloat(item));
+        console.log("localStorageReportList:", localStorageReportList);
 
         const db = client.db(dbName);
         const adLocationsCollection = db.collection('adLocations');
         const adsCollection = db.collection('ads');
-
-        // Lấy tất cả các documents trong collection 'adLocations'
         const adLocationDocs = await adLocationsCollection.find().toArray();
 
-        // Sử dụng Promise.all để thực hiện nhiều truy vấn cùng một lúc
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
-            // Đếm số lượng reports của adLocation
             let numberOfReports = 0;
             let numberOfAds = 0;
-            let adLocationStatus = await getReportStatus(adLocationData.reportId, localStorageReportList)
-            if (adLocationStatus !== null) {
-                numberOfReports = 1;
-            }
+
+            const adLocationStatus = await getAdLocationStatus(adLocationData.locationId, localStorageReportList);
+            if (adLocationStatus !== null) numberOfReports++;
 
             if (adLocationData.adList && adLocationData.adList.length > 0) {
-                const adPromises = adLocationData.adList.map(async (ad) => {
+                await Promise.all(adLocationData.adList.map(async (ad) => {
                     const adDoc = await adsCollection.findOne({ adId: ad.adId });
 
-                    // Kiểm tra hợp lệ của contractStartDate và contractEndDate
                     if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
                         numberOfAds++;
-                        let adStatus = await getReportStatus(adDoc.reportId, localStorageReportList);
-                        if (adStatus !== null) {
-                            numberOfReports++;
-                        }
+                        const adStatus = await getAdStatus(adLocationData.locationId, ad.adId, localStorageReportList);
+                        if (adStatus !== null) numberOfReports++;
                     }
-                });
-
-                await Promise.all(adPromises);
+                }));
             }
 
             return { ...adLocationData, numberOfReports, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
-
         const adLocationGeoJSONList = results.map(ad => convertAdToGeoJSON(ad));
         res.json(adLocationGeoJSONList);
-
     }
     catch (error) {
         console.error("Error getting documents:", error);
@@ -182,7 +170,7 @@ controller.getAdLocationInfoById = async (req, res) => {
 
                     adLocationData.newAdList.push(adLocationData.adList[i]);  // Thêm vào newAdList
                 }
-                
+
             });
 
             await Promise.all(adListPromises);
