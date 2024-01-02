@@ -5,15 +5,13 @@
 
 Nghĩa :
     Dân :
-        - Sửa lại 1970
-        - Đổi function trong Controller sang kiểu Model [ChờMấyKiaXongHếtRồiSửa]
+        - Sửa lại 1970 - [DONE]
+        - Sửa cách fetch data Dân
+        - Sửa cách fetch data Phường/Quận
+        - Geocoding Search bar
         - Thống kê (Sở)
         - Chỉnh lại mấy cái placeholder, text, icon ...
-
-        * XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO
-        - Nhắc tụi nó Thêm Phường 15 của Quận 5
-
-        - Geocoding Search bar (Final)
+        - Đổi function trong Controller sang kiểu Model [ChờMấyKiaXongHếtRồiSửa]
         - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
 
