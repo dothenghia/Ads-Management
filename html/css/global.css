@@ -86,3 +86,8 @@
         display: none;
     }
 }
+
+#sortButton{
+    background-color: white;
+    border: none;
+}

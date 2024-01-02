@@ -17,7 +17,8 @@ Nghĩa :
         - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
 
-Khoa :
+Khoa : 
+    Hải note: Chỗ địa điểm lúc t chỉnh sửa thì ko hiện tên của địa điểm đó lên
     Phường + Quận :
         - Thêm nút lọc Phường cho Cán bộ Quận
         - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
@@ -25,6 +26,10 @@ Khoa :
         - Đổi tên thêm "Tất cả" vào các nút filter
         - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn)
         - Trang Báo cáo : Phường/Quận/Sở luôn
+        - Đổi function trong Controller sang kiểu Model
+        - Đổi tên thêm "Tất cả" vào các nút filter (DONE)
+        - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn) (DONE)
+        - Trang Báo cáo : Phường/Quận/Sở luôn (DONE)
             + Xóa chữ "gần"
             + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC
         - Trang Yêu cầu điều chỉnh :
@@ -52,9 +57,9 @@ Bảo :
 Hải :
     - PHỤ TH BẢO
     Cán bộ :
-        - Sort
+        - Sort //xong
     Database :
-        - Phường/Quận : Người dân gửi báo cáo sẽ nhận được email thông báo về tình trạng và cách thức xử lý cho từng báo cáo một cách tự động
+        - Phường/Quận : Người dân gửi báo cáo sẽ nhận được email thông báo về tình trạng và cách thức xử lý cho từng báo cáo một cách tự động //xong
 
 
 Tạo Tài khoản :

@@ -121,7 +121,7 @@ controller.add = async (req, res) => {
 }
 
 controller.edit = async (req, res) => {
-    let { EditAdLocationId, EditAdLocationForm, EditLocationType, EditAdLocationDistrict, EditAdLocationWard, EditAdLocationAddress, EditAdLocationLongtitude, EditAdLocationLattitude, EditAdList } = req.body;
+    let { EditAdLocationId, EditAdLocationForm, EditAdType, EditLocationType, EditAdLocationDistrict, EditAdLocationWard, EditAdLocationAddress, EditAdLocationLongtitude, EditAdLocationLattitude } = req.body;
     const adLocationSnapShot = await client.db(dbName).collection("adLocations").findOne({ locationId: parseInt(EditAdLocationId) });
     
     // console.log( idHighest);
@@ -130,6 +130,7 @@ controller.edit = async (req, res) => {
         const updateData = {
             adForm: EditAdLocationForm ? EditAdLocationForm : adLocationSnapShot.adForm,
             locationType: EditLocationType ? EditLocationType : adLocationSnapShot.locationType,
+            adType: EditAdType ? EditAdType : adLocationSnapShot.adType,
             idQuan: EditAdLocationDistrict ? EditAdLocationDistrict : adLocationSnapShot.idQuan,
             idPhuong: EditAdLocationWard ? EditAdLocationWard : adLocationSnapShot.idPhuong,
             address: EditAdLocationAddress ? EditAdLocationAddress : adLocationSnapShot.address,
@@ -183,6 +184,7 @@ controller.delete = async (req, res) => {
         res.send("Change acceptance error!");
     }
 }
+
 
 module.exports = controller;
 
