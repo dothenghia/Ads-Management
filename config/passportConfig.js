@@ -99,9 +99,9 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
-        console.log(profile);
+        // console.log(profile);
         const user = await accountsModel.findOne({fbID: profile.id});
-        console.log(user);
+        // console.log(user);
         if (user == null) {
           return cb(null, false);
         }

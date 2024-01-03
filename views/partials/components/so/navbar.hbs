@@ -9,12 +9,14 @@
         </a>
 
         <div class="navbar-avatar">
-            <img src="/img/avatar.jpg" alt="avatar">
+            {{#with roleInfo}}
+            <img src="{{avatar}}" alt="avatar">
             <span>
                 {{#with roleInfo}}
                 {{name}} ({{areaName}})
                 {{/with}}
             </span>
+            {{/with}}
         </div>
 
         <div class="navbar-list">
