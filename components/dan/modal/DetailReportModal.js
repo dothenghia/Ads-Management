@@ -80,7 +80,11 @@ export default function DetailReportModal(detailReportInfo) {
                     <p>${detailReportInfo.content}</p>
 
                     <h3>Phản hồi từ cán bộ</h3>
-                    <p>${detailReportInfo.solution == "" ? '<i>Báo cáo của bạn đang được chờ xử lý</i>' : detailReportInfo.solution}</p>
+                    ${
+                        detailReportInfo.solution == "" ? 
+                        `<h1 class='extra-text text-center '>Báo cáo của bạn đang được xử lý</h1>` : 
+                        `<p>${detailReportInfo.solution}</p>`
+                    }
 
                     <h2>Hình ảnh báo cáo (${detailReportInfo.images.length})</h2>
                 </div>
@@ -112,7 +116,7 @@ export default function DetailReportModal(detailReportInfo) {
                     </div>
                 </div>`
                 :
-                `<h1 class='extra-text'>Không có hình ảnh đính kèm</h1>`
+                `<h1 class='extra-text text-center '>Không có hình ảnh đính kèm</h1>`
                 }
                 
 

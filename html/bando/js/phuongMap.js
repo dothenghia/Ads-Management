@@ -75,7 +75,7 @@ const trangchu = {
                 type: 'line',
                 source: 'line-source',
                 paint: {
-                    'line-color': 'rgba(200, 0, 0, 0.8)', // Màu của đường line
+                    'line-color': 'rgba(210, 0, 0, 0.8)', // Màu của đường line
                     'line-width': 3, // Độ rộng của đường line
                     'line-dasharray': [1, 1] // Độ dài và khoảng cách của các đường line
                 }
@@ -101,6 +101,7 @@ const trangchu = {
     fetchAdMarkers: async function () {
         let data = await fetch(`http://localhost:3000/bando/phuong/ddqc?idPhuongQuery=${idPhuong}&idQuanQuery=${idQuan}`)
         this.adLocationList = await data.json()
+        // console.log(this.adLocationList)
     },
 
     fetchReportMarkers: async function () {

@@ -72,11 +72,8 @@ export default function DetailAdModal(detailAdInfo) {
                             <p>${detailAdInfo.size}</p>
                         </div>
                         <div class="detail-ad-modal__info-col">
-                            <h2 style="margin-bottom: 4px;">Trạng thái Phản hồi</h2>
 
-                            <p style="margin-bottom: 4px;">${detailAdInfo.adStatus == '' ? 'Không có phản hồi' : detailAdInfo.adStatus}</p>
-
-                            </div>
+                        </div>
                     </div>
                 </div>
 

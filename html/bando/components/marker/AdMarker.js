@@ -35,7 +35,6 @@ export default function AdMarker(map) {
             'circle-stroke-width': 3,
             'circle-stroke-color': [
                 'case',
-                ['>', ['get', 'numberOfReports'], 0], reportColor, // Màu đỏ khi có báo cáo
                 ['==', ['get', 'planning'], true], primaryColorSubtle, // Màu xanh khi planning là true
                 ['==', ['get', 'planning'], false], chuaqhColorSubtle, // Màu xanh khi planning là true
                 '#FF6400'

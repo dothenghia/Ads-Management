@@ -37,7 +37,7 @@ export default function ReportCard(map, report) {
     function openDetailAdModal_ReportCard(id) {
         let {adId, locationId} = JSON.parse(decodeURIComponent(id));
 
-        fetch(`http://localhost:3000/dan/qc?locationId=${locationId}&adId=${adId}`)
+        fetch(`http://localhost:3000/bando/qc?locationId=${locationId}&adId=${adId}`)
             .then(res => res.json())
             .then(data => {
                 document.querySelector('.modal-root').innerHTML = DetailAdModal(data);

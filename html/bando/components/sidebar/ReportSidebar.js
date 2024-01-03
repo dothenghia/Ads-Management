@@ -62,7 +62,7 @@ export default function ReportSidebar(map, reportData) {
                     ${
                         qcReports.length === 0
                             ? `<div class="report-sidebar__empty">
-                                <img src="/assets/dan/illustration/empty.png" alt="empty">
+                                <img src="/bando/assets/illustration/empty.png" alt="empty">
                                 <h1>Bạn chưa gửi báo cáo nào</h1>
                             </div>`
                             : qcReports.map(rp => ReportCard(map, rp)).join('')
@@ -73,7 +73,7 @@ export default function ReportSidebar(map, reportData) {
                     ${
                         ddReports.length === 0
                             ? `<div class="report-sidebar__empty">
-                                <img src="/assets/dan/illustration/empty.png" alt="empty">
+                                <img src="/bando/assets/illustration/empty.png" alt="empty">
                                 <h1>Bạn chưa gửi báo cáo nào</h1>
                             </div>`
                             : ddReports.map(rp => ReportCard(map, rp)).join('')

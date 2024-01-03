@@ -82,30 +82,35 @@ export default function DetailReportModal(detailReportInfo) {
                 </div>
 
 
-                <div class="detail-report-modal__thumbnail">
-                    <div id="detail-report-modal__carousel-" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner" role="listbox">
+                ${
+                    detailReportInfo.images.length > 0 ?
+                    `<div class="detail-report-modal__thumbnail">
+                        <div id="detail-report-modal__carousel-" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner" role="listbox">
 
                             ${detailReportInfo.images.map((thumbnail, index) => {
-            return `
+                                return `
                                     <div class="carousel-item rounded-4 ${index == 0 && 'active'}">
                                         <img src=${thumbnail.url} class="rounded-4" alt=${thumbnail.url}>
                                     </div>
-                                    `
-        }).join('')
-        }
+                                `
+                                }).join('')
+                            }
 
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#detail-report-modal__carousel-" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#detail-report-modal__carousel-" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#detail-report-modal__carousel-" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#detail-report-modal__carousel-" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
+                    </div>`
+                    :
+                    `<h1 class='extra-text'>Không có hình ảnh đính kèm</h1>`
+                }
 
             </div>
         </div>
