@@ -15,7 +15,7 @@ async function getReportList() {
             localStorageReportList.includes(str)
         );
     });
-    console.log(filteredReports);
+    // console.log(filteredReports);
 
     return filteredReports;
 }

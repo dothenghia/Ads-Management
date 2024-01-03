@@ -6,7 +6,7 @@
 Nghĩa :
     Dân :
         - Sửa lại 1970 - [DONE]
-        - Sửa cách fetch data Dân
+        - Sửa cách fetch data Dân - [DONE]
         - Sửa cách fetch data Phường/Quận
         - Geocoding Search bar
         - Thống kê (Sở)
@@ -14,6 +14,9 @@ Nghĩa :
         - Đổi function trong Controller sang kiểu Model [ChờMấyKiaXongHếtRồiSửa]
         - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
+
+        [] Check cái Tạo AdLocation có AdType không ??
+        [] Check cái Tạo AdLocation thumbnail thêm s chưa ??
 
 Khoa : 
     Hải note: Chỗ địa điểm lúc t chỉnh sửa thì ko hiện tên của địa điểm đó lên

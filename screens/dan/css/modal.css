@@ -276,7 +276,12 @@
     color: var(--text-color);
     font-size: 15px;
 }
-
+.detail-report-modal__content h3 {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
 
 /* ------ Thumbnail ------ */
 .detail-report-modal__thumbnail {

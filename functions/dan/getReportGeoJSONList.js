@@ -12,8 +12,7 @@ async function getReportGeoJSONList() {
     const filteredReports = data.filter(report => {
         let str = report.properties.reportId.toString();
         return (
-            localStorageReportList.includes(str) ||
-            ['Từ chối', 'Đã xử lý'].includes(report.properties.status)
+            localStorageReportList.includes(str)
         );
     });
     // console.log(filteredReports);
