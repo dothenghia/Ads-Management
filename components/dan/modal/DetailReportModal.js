@@ -82,7 +82,7 @@ export default function DetailReportModal(detailReportInfo) {
                     <h3>Phản hồi từ cán bộ</h3>
                     ${
                         detailReportInfo.solution == "" ? 
-                        '<div style="text-align: center; margin-bottom: 6px;">Báo cáo của bạn đang được chờ xử lý</div>' : 
+                        `<h1 class='extra-text text-center '>Báo cáo của bạn đang được xử lý</h1>` : 
                         `<p>${detailReportInfo.solution}</p>`
                     }
 

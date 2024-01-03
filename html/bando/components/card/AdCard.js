@@ -17,15 +17,14 @@ function AdCard_Thumbnail(adInfo) {
         <div id="ad-card__carousel-${adInfo.adId}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
 
-                ${
-                    adInfo.thumbnails.map((thumbnail, index) => {
-                        return `
-                        <div class="carousel-item rounded-3 ${index==0 && 'active'}">
+                ${adInfo.thumbnails.map((thumbnail, index) => {
+        return `
+                        <div class="carousel-item rounded-3 ${index == 0 && 'active'}">
                             <img src=${thumbnail.url} class="rounded-3" alt=${thumbnail.url}>
                         </div>
                         `
-                    }).join('')
-                }
+    }).join('')
+        }
 
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#ad-card__carousel-${adInfo.adId}" data-bs-slide="prev">
@@ -43,8 +42,7 @@ function AdCard_Thumbnail(adInfo) {
 
 
 export default function AdCard(adInfo, adLocationData) {
-    // console.log(adInfo);
-    
+
     let extractData = {
         adId: adInfo.adId,
         locationId: adLocationData.locationId,
@@ -59,16 +57,14 @@ export default function AdCard(adInfo, adLocationData) {
         contractEndDate: adInfo.contractEndDate,
         size: adInfo.size,
         thumbnails: adInfo.thumbnails,
-        adStatus: adInfo.adStatus,
-        reportId: adInfo.reportId,
     }
 
     function openDetailAdModal_AdCard(ad) {
-        let detailAdInfo = JSON.parse(decodeURIComponent(ad));        
-        
+        let detailAdInfo = JSON.parse(decodeURIComponent(ad));
+
         document.querySelector('.modal-root').innerHTML = DetailAdModal(detailAdInfo);
     }
-    
+
 
     window.openDetailAdModal_AdCard = openDetailAdModal_AdCard;
 

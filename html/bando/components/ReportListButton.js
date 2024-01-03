@@ -1,7 +1,6 @@
 
 import ReportSidebar from './sidebar/ReportSidebar.js';
 // import getReportList from "/functions/dan/getReportList.js";
-// import getReportLength from "/functions/dan/getReportLength.js";
 
 export default function ReportListButton(map, boundary) {
 
