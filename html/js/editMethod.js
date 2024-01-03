@@ -1,3 +1,4 @@
+import { checkPassword } from "../../../config/bcryptConfig";
 var editBtn = document.querySelectorAll(".edit-button");
 if (editBtn != null) {
     editBtn.forEach((btn) => {
@@ -195,8 +196,13 @@ async function accPassSettings(e) {
     const data = Object.fromEntries(formData.entries())
 
     // console.log(data);
-    
-    //if (data.oldPassword) cái này t ko biêt mày lấy từ db sao, chủ yếu là check coi cái hashed password cũ có giống với cái data.oldpassword ko thế thôi, 
+    // Old Hashed pass nè
+    // var oldHashedPassword = document.getElementById('oldHashedPass').value;
+    // console.log("oldHashedPassword: ", oldHashedPassword);
+    // console.log('hehe')
+    // if (checkPassword(data.oldPassword,oldHashedPassword)){
+    //     console.log('hehe')
+    // }
     if (data.newPassword != data.confirmPassword) {
         $("#passWarn").prop("hidden", false)
         return;
@@ -204,9 +210,7 @@ async function accPassSettings(e) {
     var upload = document.getElementById('upload');
     var role = upload.dataset.role;
 
-    // Old Hashed pass nè
-    var oldHashedPassword = document.getElementById('oldHashedPass').value;
-    console.log("oldHashedPassword: ", oldHashedPassword);
+  
 
     let res = await fetch(`/${role}/thongtincanhan`, {
         method: 'PUT',

@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const oldPasswordInput = document.getElementById(oldpassword);
-    const newPasswordInput = document.getElementById(password);
-    const newConfirmPasswordInput = documment.getElementById(confirmpassword);
+    console.log('hehe')
+    const oldPasswordInput = document.getElementById('oldpassword');
+    const newPasswordInput = document.getElementById('newpassword');
+    const newConfirmPasswordInput = document.getElementById('confirmnewpassword');
     newConfirmPasswordInput.addEventListener('change', function () {
         if (newPasswordInput.value != newConfirmPasswordInput.value) {
             newConfirmPasswordInput.setCustomValidity('Mật khẩu phải trùng nhau!');

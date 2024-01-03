@@ -111,6 +111,7 @@ app.use('/phuong', checkAuthenticated, require("./routes/user/phuongRoute"));
 app.use('/quan', checkAuthenticated,require("./routes/user/quanRoute"));
 app.use('/so', checkAuthenticated, require("./routes/user/soRoute"));
 app.use('/logout', require("./routes/general/logoutRoute"));
+app.use('/changePassword',checkAuthenticated,require("./routes/general/changePasswordRoute"));
 app.use('/dan', require("./routes/user/danRoute")); // ROUTE DÂN
 app.use('/bando', require("./routes/user/bandoRoute")); // ROUTE DÂN
 
