@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set default location selectors' value to "all"
     var changeLocReqDistrict = document.querySelector("#newChangeLocReqDistrict");
     if (changeLocReqDistrict != null) {
-        zdocument.querySelector("#newChangeLocReqDistrict").value = "all";
+        document.querySelector("#newChangeLocReqDistrict").value = "all";
     }
 });
 

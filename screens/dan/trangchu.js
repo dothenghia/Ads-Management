@@ -93,11 +93,11 @@ const trangchu = {
 
     // ====== Fetch dữ liệu các Địa điểm QC và Địa điểm BC
     fetchAdMarkers: async function () {
-        this.adLocationList = await getAdLocationGeoJSONList();
+        // this.adLocationList = await getAdLocationGeoJSONList();
         // console.log(this.adLocationList)
     },
     fetchReportMarkers: async function () {
-        this.reportLocationList = await getReportGeoJSONList();
+        // this.reportLocationList = await getReportGeoJSONList();
         // console.log(this.reportLocationList)
     },
 
@@ -264,7 +264,7 @@ const trangchu = {
 
         await this.fetchAdMarkers();
         await this.fetchReportMarkers();
-        this.renderMarkers();
+        // this.renderMarkers();
 
         this.filterHandler();
         this.geocodingRandomPosotion();
