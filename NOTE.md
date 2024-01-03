@@ -7,16 +7,10 @@ Nghĩa :
     Dân :
         - Sửa lại 1970 - [DONE]
         - Sửa cách fetch data Dân - [DONE]
-        - Sửa cách fetch data Phường/Quận
+        - Sửa cách fetch data Phường/Quận - [DONE]
+        - Chỉnh lại mấy cái placeholder, text, ...
         - Geocoding Search bar
         - Thống kê (Sở)
-        - Chỉnh lại mấy cái placeholder, text, ...
-
-        * XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO
-        - Nhắc tụi nó Thêm Phường 15 của Quận 5
-
-        - Geocoding Search bar (Final)
-        - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
         - Sửa lỗi icon khi scoll
 
