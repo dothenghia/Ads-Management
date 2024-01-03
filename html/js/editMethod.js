@@ -174,8 +174,10 @@ async function accNamePhoneSettings(e) {
     const formData = new FormData(document.querySelector(".formInfoSettings"))
     const data = Object.fromEntries(formData.entries())
 
-    console.log("data:",data);
-    let res = await fetch('/so/thongtincanhan', {
+    var upload = document.getElementById('upload');
+    var role = upload.dataset.role;
+    // console.log("data:",data);
+    let res = await fetch(`/${role}/thongtincanhan`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -192,13 +194,17 @@ async function accPassSettings(e) {
     const formData = new FormData(document.querySelector(".formPassSettings"))
     const data = Object.fromEntries(formData.entries())
 
-    console.log(data);
+    // console.log(data);
+    
     //if (data.oldPassword) cái này t ko biêt mày lấy từ db sao, chủ yếu là check coi cái hashed password cũ có giống với cái data.oldpassword ko thế thôi, 
     if (data.newPassword != data.confirmPassword) {
         $("#passWarn").prop("hidden", false)
         return;
     }
-    let res = await fetch('/so/thongtincanhan', {
+    var upload = document.getElementById('upload');
+    var role = upload.dataset.role;
+    
+    let res = await fetch(`/${role}/thongtincanhan`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",

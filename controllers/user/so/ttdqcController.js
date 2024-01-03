@@ -202,6 +202,7 @@ controller.edit = async (req, res) => {
         let i = 0;
         let n = req.files.length;
 
+        console.log("Files:",req.files);
         if (n > 0) {
             await req.files.forEach(async (file) => {
                 if (file.mimetype.endsWith("png"))
@@ -211,7 +212,7 @@ controller.edit = async (req, res) => {
                 else
                     extension = "jpg";
                 // Upload the thumbnails to storage
-                let temp = bucket.file("thongtindiadiemquangcao/" + (EditAdLocationId) + "/thumbnail" + i + "." + extension);
+                let temp = bucket.file("thongtindiadiemquangcao/" + parseInt(EditAdLocationId) + "/thumbnail" + i + "." + extension);
                 await temp.save(file.buffer, {contentType: file.mimetype});
                 
                 let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
