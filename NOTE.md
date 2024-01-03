@@ -29,8 +29,8 @@ Nghĩa :
 
 Khoa : 
     Phường + Quận :
-        - Thêm nút lọc Phường cho Cán bộ Quận
-        - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
+        - Thêm nút lọc Phường cho Cán bộ Quận - [DONE]
+        - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang - [DONE]
         - Đổi function trong Controller sang kiểu Model
         - Đổi tên thêm "Tất cả" vào các nút filter - [DONE]
         - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn) - [DONE]
