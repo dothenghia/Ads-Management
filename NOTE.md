@@ -14,6 +14,7 @@ Nghĩa :
         - Đổi function trong Controller sang kiểu Model [ChờMấyKiaXongHếtRồiSửa]
         - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
+        - Sửa lỗi icon khi scoll
 
         [] Check cái Tạo AdLocation có AdType không ??
         [] Check cái Tạo AdLocation thumbnail thêm s chưa ??

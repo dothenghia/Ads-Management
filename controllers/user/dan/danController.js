@@ -61,7 +61,8 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
             let numberOfReports = 0;
             let numberOfAds = 0;
 
-            const adLocationStatus = await getAdLocationStatus(adLocationData.locationId, localStorageReportList);
+            const info = await getAdLocationStatus(adLocationData.locationId, localStorageReportList);
+            const adLocationStatus = info ? info.status : null;
             if (adLocationStatus !== null) numberOfReports++;
 
             if (adLocationData.adList && adLocationData.adList.length > 0) {
@@ -70,7 +71,8 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
 
                     if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
                         numberOfAds++;
-                        const adStatus = await getAdStatus(adLocationData.locationId, ad.adId, localStorageReportList);
+                        const adInfo = await getAdStatus(adLocationData.locationId, ad.adId, localStorageReportList);
+                        const adStatus = adInfo ? adInfo.status : null;
                         if (adStatus !== null) numberOfReports++;
                     }
                 }));
@@ -126,8 +128,9 @@ controller.getAdLocationInfoById = async (req, res) => {
 
         if (!adLocationData) { console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locaId); return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." }); }
 
-        adLocationData.locationStatus = await getAdLocationStatus(adLocationData.locationId, localStorageReportList);
-        if (adLocationData.locationStatus === null) adLocationData.locationStatus = "";
+        const info = await getAdLocationStatus(adLocationData.locationId, localStorageReportList);
+        adLocationData.locationStatus = info ? info.status : '';
+        adLocationData.reportId = info ? info.reportId : '';
 
         const { phuong, quan } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
         adLocationData.phuong = phuong;
@@ -142,8 +145,9 @@ controller.getAdLocationInfoById = async (req, res) => {
                 if (adLocationData.adList[i].contractStartDate <= new Date() && adLocationData.adList[i].contractEndDate >= new Date()) {
                     adLocationData.adList[i].contractStartDate = formatDate(adLocationData.adList[i].contractStartDate);
                     adLocationData.adList[i].contractEndDate = formatDate(adLocationData.adList[i].contractEndDate);
-                    adLocationData.adList[i].adStatus = await getAdStatus(adLocationData.locationId, ad.adId, localStorageReportList);
-                    if (adLocationData.adList[i].adStatus === null) adLocationData.adList[i].adStatus = "";
+                    let adInfo = await getAdStatus(adLocationData.locationId, ad.adId, localStorageReportList);
+                    adLocationData.adList[i].adStatus = adInfo ? adInfo.status : '';
+                    adLocationData.adList[i].reportId = adInfo ? adInfo.reportId : '';
                     adLocationData.newAdList.push(adLocationData.adList[i]);  // Thêm vào newAdList
                 }
             });

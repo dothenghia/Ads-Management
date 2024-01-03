@@ -76,7 +76,10 @@ async function getAdLocationStatus(locationId, localStorageReportList = []) {
             return null;
         }
 
-        return reportData.status;
+        return {
+            status: reportData.status,
+            reportId: reportData.reportId
+        };
     }
     catch (error) {
         console.error("Lỗi khi lấy status của Ad Location:", error);
@@ -97,7 +100,10 @@ async function getAdStatus(locationId, adId, localStorageReportList = []) {
             return null;
         }
 
-        return reportData.status;
+        return {
+            status: reportData.status,
+            reportId: reportData.reportId
+        };
     }
     catch (error) {
         console.error("Lỗi khi lấy status của Ad Location:", error);
