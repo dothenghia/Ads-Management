@@ -126,6 +126,25 @@ document.addEventListener("DOMContentLoaded", function () {
     let newPermissionReqButton = document.querySelector('#newChangeReqButton');
     if (newPermissionReqButton != null) {
         newPermissionReqButton.addEventListener('click', function() {
+            // Adjust location selector's data
+            let idQuan = newPermissionReqButton.dataset.idQuan;
+            if (idQuan != undefined) {
+                let districtChooser = document.querySelector('#newChangeReqDistrict');
+                districtChooser.value = idQuan;
+                districtChooser.disabled = true;
+                districtChooser.style.backgroundColor = "#d6d6d6";
+                districtChooser.dispatchEvent(new Event("change"));
+
+                let idPhuong = newPermissionReqButton.dataset.idPhuong;
+                if (idPhuong != undefined) {
+                    let wardChooser = document.querySelector('#newChangeReqWard');
+                    wardChooser.value = idPhuong;
+                    wardChooser.disabled = true;
+                    wardChooser.style.backgroundColor = "#d6d6d6";
+                    wardChooser.dispatchEvent(new Event("change"));
+                }
+            }
+
             // Show the modal
             $('#newChangeReqModal').modal('show');
         });
@@ -136,6 +155,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let urlParams = (new URL(window.location.href)).searchParams;
     if (urlParams.has("reasonId"))
         document.querySelector('#reasonFilter').value = urlParams.get("reasonId");
+    if (urlParams.has("addressId"))
+        document.querySelector('#addressFilter').value = urlParams.get("addressId");
     if (urlParams.has("statusId"))
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
     if (urlParams.has("roleId")) 
@@ -206,6 +227,14 @@ function reasonFilter(reasonId) {
         filters.set("reasonId", reasonId);
     else
         filters.delete("reasonId");
+    window.location.href = "?" + filters.toString();
+}
+
+function addressFilter(addressId) {
+    if (addressId != "all")
+        filters.set("addressId", addressId);
+    else
+        filters.delete("addressId");
     window.location.href = "?" + filters.toString();
 }
 

@@ -10,7 +10,7 @@
         <h1>Yêu cầu cấp phép</h1>
 
         <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn" id="newPermissionReqButton">Thêm yêu cầu cấp phép</button>
+            <button class="btn btn-outline-primary custom-btn" data-id-quan="{{#with account}}{{idQuan}}{{/with}}" id="newPermissionReqButton">Thêm yêu cầu cấp phép</button>
         </div>
     </div>
 
@@ -31,7 +31,14 @@
                     </th>
                     <th scope="col">Email</th>
                     <th scope="col">SĐT</th>
-                    <th scope="col">Địa điểm yêu cầu cấp phép</th>
+                    <th scope="col">
+                        <select id="addressFilter" name="" onchange="addressFilter(this.value)">
+                            <option value="all">Tất cả Địa điểm yêu cầu cấp phép</option>
+                            {{#each address}}
+                                <option value="{{value}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all">Tất cả Tình trạng xử lý</option>

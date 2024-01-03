@@ -25,9 +25,15 @@ controller.show = async (req, res) => {
         let areas = JSON.parse(dataFile);
         
         // Extract data from retrieved snapshots
-        let AdLocation = []; let AdArea = {};
+        let AdLocation = []; let AdArea = {}; let Address = [];
+        let addressId = [];
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
+
+            if (!addressId.includes(data.locationId)) {
+                addressId.push(data.locationId);
+                Address.push({name: data.address, value: data.locationId});
+            }
 
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
             if (!(docDistrict.idQuan in AdArea))
@@ -63,8 +69,6 @@ controller.show = async (req, res) => {
             // Check if matching area before extracting
             //idQuan
             let idQuan = currentAccount.idQuan;
-            // idPhuong
-            let idPhuong = currentAccount.idPhuong;
             for (loc in AdLocation) {
                 let locDetail = AdLocation[loc];
 
@@ -98,6 +102,9 @@ controller.show = async (req, res) => {
         let filterReasonId = req.query.reasonId;
         if (filterReasonId)
             ChangeLocReq = ChangeLocReq.filter((req) => req.reason == filterReasonId);
+        let filterAddressId = req.query.addressId;
+        if (filterAddressId)
+            ChangeLocReq = ChangeLocReq.filter((req) => req.oldLocationId == filterAddressId);
         let filterStatusId = req.query.statusId;
         if (filterStatusId)
             ChangeLocReq = ChangeLocReq.filter((req) => req.status == filterStatusId);
@@ -110,6 +117,7 @@ controller.show = async (req, res) => {
             "changeLocReq": ChangeLocReq,
             "adArea": AdArea,
             "adLocation": AdLocation,
+            "address": Address,
             body: function() {
                 return "screens/quan/yeucaudieuchinhdd";
             }

@@ -12,7 +12,7 @@
             <img src="/img/avatar.jpg" alt="avatar">
             <span>
                 {{#with account}}
-                    {{name}} ({{areaName}})
+                {{name}} ({{areaName}})
                 {{/with}}
             </span>
         </div>
@@ -28,7 +28,7 @@
                     <line x1="8" y1="2" x2="8" y2="18"></line>
                     <line x1="16" y1="6" x2="16" y2="22"></line>
                 </svg>
-                <span>Bản đồ</span>
+                <span>Trang chủ Bản đồ</span>
             </button>
 
             <button {{#if (equalNumber current 1)}} class="navbar-item active" {{else}}class="navbar-item"
@@ -40,29 +40,7 @@
                     <line x1="12" y1="16" x2="12" y2="12"></line>
                     <line x1="12" y1="8" x2="12.01" y2="8"></line>
                 </svg>
-                <span>Thông tin quảng cáo</span>
-            </button>
-
-            <button {{#if (equalNumber current 2)}} class="navbar-item active" {{else}}class="navbar-item"
-                {{#onclickRedirect 'yeucaudieuchinhqc' }}{{/onclickRedirect}}{{/if}}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-edit">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                </svg>
-                <span>Yêu cầu điều chỉnh QC</span>
-            </button>
-
-            <button {{#if (equalNumber current 3)}} class="navbar-item active" {{else}}class="navbar-item"
-                {{#onclickRedirect 'yeucaudieuchinhdd' }}{{/onclickRedirect}}{{/if}}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-edit">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                </svg>
-                <span>Yêu cầu điều chỉnh ĐĐ</span>
+                <span>Quản lý Bảng QC</span>
             </button>
 
             <button {{#if (equalNumber current 4)}} class="navbar-item active" {{else}}class="navbar-item"
@@ -73,27 +51,48 @@
                     <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
                     <line x1="4" y1="22" x2="4" y2="15"></line>
                 </svg>
-                <span>Báo cáo</span>
+                <span>Quản lý Báo cáo</span>
             </button>
 
             <button {{#if (equalNumber current 5)}} class="navbar-item active" {{else}}class="navbar-item"
                 {{#onclickRedirect 'yeucaucapphep' }}{{/onclickRedirect}}{{/if}}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-file-text">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
+                    class="feather feather-clipboard">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
                 </svg>
-                <span>Yêu cầu cấp phép</span>
+                <span>Quản lý Cấp phép QC</span>
             </button>
+
+            <button {{#if (equalNumber current 2)}} class="navbar-item active" {{else}}class="navbar-item"
+                {{#onclickRedirect 'yeucaudieuchinhqc' }}{{/onclickRedirect}}{{/if}}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-edit">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <span>Quản lý Điều chỉnh QC</span>
+            </button>
+
+            <button {{#if (equalNumber current 3)}} class="navbar-item active" {{else}}class="navbar-item"
+                {{#onclickRedirect 'yeucaudieuchinhdd' }}{{/onclickRedirect}}{{/if}}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-edit">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <span>Quản lý Điều chỉnh ĐĐ</span>
+            </button>
+
         </div>
     </div>
 
     <div class="navbar-logout">
-        <button {{#if (equalNumber current 8)}} class="navbar-item active" {{else}} class="navbar-item" {{#onclickRedirect 'thongtincanhan' }} {{/onclickRedirect}} {{/if}}>
+        <button {{#if (equalNumber current 8)}} class="navbar-item active" {{else}} class="navbar-item"
+            {{#onclickRedirect 'thongtincanhan' }} {{/onclickRedirect}} {{/if}}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-settings">

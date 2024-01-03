@@ -29,8 +29,8 @@ Nghĩa :
 
 Khoa : 
     Phường + Quận :
-        - Thêm nút lọc Phường cho Cán bộ Quận
-        - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
+        - Thêm nút lọc Phường cho Cán bộ Quận - [DONE]
+        - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang - [DONE]
         - Đổi function trong Controller sang kiểu Model
         - Đổi tên thêm "Tất cả" vào các nút filter - [DONE]
         - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn) - [DONE]
@@ -40,11 +40,7 @@ Khoa :
         - Trang Yêu cầu điều chỉnh QC : - [DONE]
             + Thêm cột Tên bảng QC - [DONE]
             + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách) - [DONE]
-<<<<<<< HEAD
-
-=======
         - Thời gian của Trang Báo cáo Phường ko sort được
->>>>>>> 57ba5de29d183849222e0ddda81ab348c983e295
 
 
 Bảo :

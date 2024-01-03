@@ -33,9 +33,15 @@ controller.show = async (req, res) => {
         adSnapshot.forEach((doc) => {
             Ad.push(doc);
         });
-        let AdLocation = [];
+        let AdLocation = []; let Address = [];
+        let addressId = [];
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
+
+            if (!addressId.includes(data.locationId)) {
+                addressId.push(data.locationId);
+                Address.push({name: data.address, value: data.locationId});
+            }
 
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
             if (!(docDistrict.idQuan in AdArea))
@@ -104,6 +110,9 @@ controller.show = async (req, res) => {
         let filterCoId = req.query.coId;
         if (filterCoId)
             PermissionReq = PermissionReq.filter((req) => req.co.name == filterCoId);
+        let filterAddressId = req.query.addressId;
+        if (filterAddressId)
+            PermissionReq = PermissionReq.filter((req) => req.locationId == filterAddressId);
         let filterStatusId = req.query.statusId;
         if (filterStatusId)
             PermissionReq = PermissionReq.filter((req) => req.status == filterStatusId);
@@ -117,6 +126,7 @@ controller.show = async (req, res) => {
             "ad": Ad,
             "adArea": AdArea,
             "adLocation": AdLocation,
+            "address": Address,
             body: function() {
                 return "screens/quan/yeucaucapphep";
             }
