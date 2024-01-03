@@ -152,7 +152,7 @@ controller.getAdLocationInfoById = async (req, res) => {
                 }
             });
 
-            adLocationData.adList = await Promise.all(adListPromises);
+            await Promise.all(adListPromises);
         }
 
 
@@ -168,35 +168,24 @@ controller.getAdInfoById = async (req, res) => {
     let { locationId, adId } = req.query; // Lấy tham số từ URL query string
     locationId = parseInt(locationId);
     adId = parseInt(adId);
+    const localStorageReportList = req.body.map(item => parseFloat(item));
 
     try {
         const db = client.db(dbName);
         const adLocationsCollection = db.collection('adLocations');
         const adsCollection = db.collection('ads');
 
-        // Truy vấn đến document của adLocation có locationId tương ứng
-        const adLocationQuery = { locationId: locationId };
-        const adLocationData = await adLocationsCollection.findOne(adLocationQuery);
+        const adLocationData = await adLocationsCollection.findOne({ locationId: locationId });
 
-        if (!adLocationData) {
-            console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locationId);
-            return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." });
-        }
+        if (!adLocationData) { console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locationId); return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." }); }
 
-        // Truy vấn đến document của ad có adId tương ứng
-        const adQuery = { adId: adId };
-        const adData = await adsCollection.findOne(adQuery);
+        const adData = await adsCollection.findOne({ adId: adId });
 
-        if (!adData) {
-            console.log("Không tìm thấy ad với adId:", adId);
-            return res.status(404).json({ error: "Không tìm thấy quảng cáo." });
-        }
-
-        if (adData.reportId != "") {
-            adData.adStatus = await getReportStatus(adData.reportId);
-        }
+        if (!adData) { console.log("Không tìm thấy ad với adId:", adId); return res.status(404).json({ error: "Không tìm thấy quảng cáo." }); }
 
         const { phuong, quan } = mappingRegion(adLocationData.idQuan, adLocationData.idPhuong);
+
+        const adInfo = await getAdStatus(adLocationData.locationId, adData.adId, localStorageReportList);
 
         const result = {
             adId: adData.adId,
@@ -212,8 +201,8 @@ controller.getAdInfoById = async (req, res) => {
             contractEndDate: formatDate(adData.contractEndDate),
             size: adData.size,
             thumbnails: adData.thumbnails,
-            adStatus: adData.adStatus || "",
-            reportId: adData.reportId,
+            adStatus: adInfo ? adInfo.status : '',
+            reportId: adInfo ? adInfo.reportId : '',
         };
 
         return res.status(200).json(result);
@@ -288,22 +277,6 @@ controller.getReportInfoById = async (req, res) => {
     }
 }
 
-// ~ ============== Done
-controller.getReportLength = async (req, res) => {
-    try {
-        const db = client.db(dbName);
-        const reportsCollection = db.collection('reports');
-
-        // Lấy số lượng documents trong collection 'reports'
-        const reportLength = await reportsCollection.countDocuments();
-
-        return res.json({ reportLength });
-    }
-    catch (error) {
-        console.error("Lỗi khi lấy số lượng documents:", error);
-        return res.status(500).json({ message: "Internal Server Error" });
-    }
-}
 
 // ~ ============== Done
 controller.getReportList = async (req, res) => {

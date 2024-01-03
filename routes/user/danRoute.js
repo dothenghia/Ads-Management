@@ -13,10 +13,9 @@ router.get("/ddbcbkgeojson", controller.getReportGeoJSONList);
 
 router.post("/ddqc/:locaId", controller.getAdLocationInfoById);
 
-router.get("/qc", controller.getAdInfoById); // PHẢI LẤY QUERY PARAMS
+router.post("/qc", controller.getAdInfoById); // PHẢI LẤY QUERY PARAMS
 router.get("/bc/:rpId", controller.getReportInfoById);
 
-router.get("/bclength", controller.getReportLength);
 router.get("/dsbc", controller.getReportList);
 
 router.post("/upload", controller.uploadData);
