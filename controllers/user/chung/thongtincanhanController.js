@@ -33,7 +33,7 @@ controller.show = async (req, res) => {
     const token = req.cookies.jwtToken;
     const decoded = await jwt.verify(token, "suffering");
     let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
-
+    
     try {
         
         //const result = await client.db(dbName).collection("accounts").updateMany({}, { $set: { avatar: Array() } });
@@ -48,7 +48,21 @@ controller.show = async (req, res) => {
         Account = Account.filter((user) =>  user.role == req.user.accountType);
         // console.log("account:",Account);
         let avatar = Account[0].avatar[0];
-        res.render("partials/screens/so/index", {
+
+        // Render navbar of specific role
+        let role;
+        switch (parseInt(currentRoleInfo.accountType)) {
+            case 1: 
+                role = "phuong";
+                break;
+            case 2: 
+                role = "quan";
+                break;
+            case 3:
+                role = "so";
+                break;
+        }
+        res.render(`partials/screens/${role}/index`, {
             "current": currentPage,
             "roleInfo": currentRoleInfo,
             "avatar": avatar,
@@ -68,8 +82,8 @@ controller.show = async (req, res) => {
 
 controller.edit = async (req, res) => {
     let { id, name, phone, newPassword, fbID, email} = req.body;
-    console.log(req);
-    console.log(id, name, phone, newPassword, fbID, email);
+    // console.log(req);
+    // console.log(id, name, phone, newPassword, fbID, email);
     try {
         const accountSnapshot = await client.db(dbName).collection("accounts").findOne({ _id: id });
         

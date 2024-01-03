@@ -16,9 +16,11 @@ if (editBtn != null) {
             let longitude = btn.dataset.longitude;
             let locationType = btn.dataset.locationType;
             let adForm = btn.dataset.adForm;
+            let adType = btn.dataset.adType;
 
             // Set data
             document.getElementById("EditAdLocationId").value = locationId;
+            document.getElementById("EditAdType").value = adType;
             document.getElementById("EditAdLocationForm").value = adForm;
             document.getElementById("EditLocationType").value = locationType;
             document.getElementById("EditAdLocationAddrs").value = address;

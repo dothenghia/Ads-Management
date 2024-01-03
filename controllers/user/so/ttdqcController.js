@@ -22,6 +22,7 @@ controller.show = async (req, res) => {
     
     let AdForm = []; let LocationType = [];
     let adFormId = []; let locationTypeId = [];
+    let adTypeId = []; let AdType = [];
     let AdLocation = []; let AdArea = {};
     adLocationSnapshot.forEach((doc) => {
         let data = doc;
@@ -34,6 +35,11 @@ controller.show = async (req, res) => {
         if (!adFormId.includes(data.adForm)) {
             adFormId.push(data.adForm);
             AdForm.push({value: data.adForm});
+        }
+        
+        if (!adTypeId.includes(data.adType)) {
+            adTypeId.push(data.adType);
+            AdType.push({value: data.adType});
         }
 
         // Lọc ra quận object trong JSON 
@@ -66,6 +72,10 @@ controller.show = async (req, res) => {
     if (filterLocationTypeId)
         AdLocation = AdLocation.filter((loc) => loc.locationType == filterLocationTypeId);
 
+    let filterAdTypeId = req.query.adTypeId;
+    if (filterAdTypeId)
+        AdLocation = AdLocation.filter((loc) => loc.adType == filterAdTypeId);
+
     let docDistrict = areas.districts;
     // District: Name + idQuan
     // Ward: Name + idPhuong
@@ -76,6 +86,7 @@ controller.show = async (req, res) => {
         "adForm": AdForm,
         "roleInfo": currentRoleInfo,
         "locationType": LocationType,
+        "adType": AdType,
         "adArea": docDistrict,
         "adLocation": AdLocation,
         body: function() {
@@ -85,7 +96,7 @@ controller.show = async (req, res) => {
 }
 
 controller.add = async (req, res) => {
-    let { newAdLocationForm, newLocationType, newAdLocationDistrict, newAdLocationWard, newAdLocationAddress, newAdLocationLongtitude, newAdLocationLattitude } = req.body;
+    let { newAdType, newAdLocationForm, newLocationType, newAdLocationDistrict, newAdLocationWard, newAdLocationAddress, newAdLocationLongtitude, newAdLocationLattitude } = req.body;
     const adLocationSnapShot = client.db(dbName).collection("adLocations");
     let idHighest =  (await adLocationSnapShot.find({}).sort({locationId:-1}).limit(1).toArray())[0].locationId;
 
@@ -98,14 +109,14 @@ controller.add = async (req, res) => {
             idQuan: newAdLocationDistrict,
             idPhuong: newAdLocationWard,
             address: newAdLocationAddress,
-            adType: "",
+            adType: newAdType,
             reportId: "",
             latitude: parseFloat(newAdLocationLattitude),
             longitude: parseFloat(newAdLocationLongtitude),
             adList: [],
             planning: true,
             locationId: idHighest + 1,
-            thumbnail: [],
+            thumbnails: [],
         };
 
         // await adLocationSnapShot.insertOne(newData);

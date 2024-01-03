@@ -48,6 +48,14 @@
                         </select>
                     </th>
                     <th scope="col">
+                        <select id="adTypeFilter" name="" onchange="adTypeFilter(this.value)">
+                            <option value="all">Loại quảng cáo</option>
+                            {{#each adType}}
+                            <option value="{{value}}">{{value}}</option>
+                            {{/each}}
+                        </select>
+                    </th>
+                    <th scope="col">
                         <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
                             <option value="all">Loại vị trí</option>
                             {{#each locationType}}
@@ -73,11 +81,12 @@
                         {{/if}}
                     </td>
                     <td scope="col">{{adForm}}</td>
+                    <td scope="col">{{adType}}</td>
                     <td scope="col">{{locationType}}</td>
                     <td scope="col">
                         <button class="edit-button" data-account-role="so" data-page="thongtindiadiemquangcao"
                             data-id="{{locationId}}" data-quan-id="{{idQuan}}" data-phuong-id="{{idPhuong}}"
-                            data-address="{{address}}" data-location-type="{{locationType}}" data-ad-form="{{adForm}}"
+                            data-address="{{address}}" data-location-type="{{locationType}}" data-ad-form="{{adForm}}" data-ad-type="{{adType}}"
                             data-longitude="{{longitude}}" data-latitude="{{latitude}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round"
@@ -125,9 +134,9 @@
                     </div>
                     <div class="modal-body" id="newAdLocationModalContent">
                         <div class="container-fluid">
-                            {{!-- Hình thức + Vị trí --}}
+                            {{!-- Hình thức + Loại quảng cáo + Vị trí --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationFormDiv">
+                                <div class="d-flex flex-column" style="min-width: 25%;" id="newAdLocationFormDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Hình thức<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
@@ -141,7 +150,28 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationFormDiv">
+                                <div class="d-flex flex-column" style="min-width: 40%;" id="newAdTypeDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                        id="newAdLocationCategoryTitle">Loại quảng cáo<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAdType" name="newAdType"
+                                            class="rounded-3 form-select">
+                                            <option value="">Loại quảng cáo</option>
+                                            <option value="Trụ bảng hiflex">Trụ bảng hiflex</option>
+                                            <option value="Trụ màn hình điện tử LED">Trụ màn hình điện tử LED</option>
+                                            <option value="Trụ hộp đèn">Trụ hộp đèn</option>
+                                            <option value="Bảng hiflex ốp tường">Bảng hiflex ốp tường</option>
+                                            <option value="Màn hình điện tử ốp tường">Màn hình điện tử ốp tường</option>
+                                            <option value="Trụ treo băng rôn dọc">Trụ treo băng rôn dọc</option>
+                                            <option value="Trụ treo băng rôn ngang">Trụ treo băng rôn ngang</option>
+                                            <option value="Trụ/Cụm pano">Trụ/Cụm pano</option>
+                                            <option value="Cổng chào">Cổng chào</option>
+                                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationFormDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Vị trí<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
@@ -275,9 +305,9 @@
                     </div>
                     <div class="modal-body" id="EditAdLocationModalContent">
                         <div class="container-fluid">
-                            {{!-- Hình thức + Vị trí --}}
+                            {{!-- Hình thức + Loại + Vị trí --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="d-flex flex-column" style="min-width: 50%;" id="EditAdLocationFormDiv">
+                                <div class="d-flex flex-column" style="min-width: 25%;" id="EditAdLocationFormDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="EditAdLocationCategoryTitle">Hình thức<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
@@ -291,7 +321,28 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 50%;" id="EditAdLocationFormDiv">
+                                <div class="d-flex flex-column" style="min-width: 40%;" id="EditAdTypeDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                        id="EditAdLocationCategoryTitle">Loại quảng cáo<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="EditAdType" name="EditAdType"
+                                            class="rounded-3 form-select">
+                                            <option value="">Loại quảng cáo</option>
+                                            <option value="Trụ bảng hiflex">Trụ bảng hiflex</option>
+                                            <option value="Trụ màn hình điện tử LED">Trụ màn hình điện tử LED</option>
+                                            <option value="Trụ hộp đèn">Trụ hộp đèn</option>
+                                            <option value="Bảng hiflex ốp tường">Bảng hiflex ốp tường</option>
+                                            <option value="Màn hình điện tử ốp tường">Màn hình điện tử ốp tường</option>
+                                            <option value="Trụ treo băng rôn dọc">Trụ treo băng rôn dọc</option>
+                                            <option value="Trụ treo băng rôn ngang">Trụ treo băng rôn ngang</option>
+                                            <option value="Trụ/Cụm pano">Trụ/Cụm pano</option>
+                                            <option value="Cổng chào">Cổng chào</option>
+                                            <option value="Trung tâm thương mại">Trung tâm thương mại</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="EditAdLocationFormDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="EditAdLocationCategoryTitle">Vị trí<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
