@@ -58,6 +58,25 @@ document.addEventListener("DOMContentLoaded", function () {
     let newPermissionReqButton = document.querySelector('#newChangeLocReqButton');
     if (newPermissionReqButton != null) {
         newPermissionReqButton.addEventListener('click', function() {
+            // Adjust location selector's data
+            let idQuan = newPermissionReqButton.dataset.idQuan;
+            if (idQuan != undefined) {
+                let districtChooser = document.querySelector('#newChangeLocReqDistrict');
+                districtChooser.value = idQuan;
+                districtChooser.disabled = true;
+                districtChooser.style.backgroundColor = "#d6d6d6";
+                districtChooser.dispatchEvent(new Event("change"));
+
+                let idPhuong = newPermissionReqButton.dataset.idPhuong;
+                if (idPhuong != undefined) {
+                    let wardChooser = document.querySelector('#newChangeLocReqWard');
+                    wardChooser.value = idPhuong;
+                    wardChooser.disabled = true;
+                    wardChooser.style.backgroundColor = "#d6d6d6";
+                    wardChooser.dispatchEvent(new Event("change"));
+                }
+            }
+
             // Show the modal
             $('#newChangeLocReqModal').modal('show');
         });
