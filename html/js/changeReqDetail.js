@@ -94,23 +94,28 @@ document.addEventListener("DOMContentLoaded", function () {
             $i("changeReqDetailNewNoThumbnails").style.display = "block"
         }
 
-        // Show confirm /cancel btn
-        if (status == 0) {
-            document.getElementById('changeReqDetailChoiceAccept').style.display = "block";
-            document.getElementById('changeReqDetailChoiceDeny').style.display = "block";
-        } else {
-            document.getElementById('changeReqDetailChoiceAccept').style.display = "none";
-            document.getElementById('changeReqDetailChoiceDeny').style.display = "none";
-        }
+        var accept = document.getElementById('changeReqDetailChoiceAccept');
+        var deny = document.getElementById('changeReqDetailChoiceDeny');
+        if (accept != null && deny != null) {
+            // Show confirm /cancel btn
+            if (status == 0) {
+                document.getElementById('changeReqDetailChoiceAccept').style.display = "block";
+                document.getElementById('changeReqDetailChoiceDeny').style.display = "block";
+            } else {
+                document.getElementById('changeReqDetailChoiceAccept').style.display = "none";
+                document.getElementById('changeReqDetailChoiceDeny').style.display = "none";
+            }
 
-        // Update the modal's button's event
-        document.getElementById('changeReqDetailChoiceAccept').addEventListener('click', () => {
-            acceptChange(accountRole, changeReqId);
-            updateAdsInfoData(accountRole, adOldDetails.adId, adNewDetails.size, adNewDetails.name, adNewDetails.thumbnails);
-        });
-        document.getElementById('changeReqDetailChoiceDeny').addEventListener('click', () => {
-            denyChange(accountRole, changeReqId);
-        });
+            // Update the modal's button's event
+            document.getElementById('changeReqDetailChoiceAccept').addEventListener('click', () => {
+                acceptChange(accountRole, changeReqId);
+                updateAdsInfoData(accountRole, adOldDetails.adId, adNewDetails.size, adNewDetails.name, adNewDetails.thumbnails);
+            });
+            document.getElementById('changeReqDetailChoiceDeny').addEventListener('click', () => {
+                denyChange(accountRole, changeReqId);
+            });
+        }
+        
 
         // Show the modal
         $('#changeReqDetailModal').modal('show');

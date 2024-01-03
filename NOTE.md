@@ -10,8 +10,12 @@ Nghĩa :
         - Sửa cách fetch data Phường/Quận
         - Geocoding Search bar
         - Thống kê (Sở)
-        - Chỉnh lại mấy cái placeholder, text, icon ...
-        - Đổi function trong Controller sang kiểu Model [ChờMấyKiaXongHếtRồiSửa]
+        - Chỉnh lại mấy cái placeholder, text, ...
+
+        * XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO
+        - Nhắc tụi nó Thêm Phường 15 của Quận 5
+
+        - Geocoding Search bar (Final)
         - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
         - Guide Marker (Optional)
         - Sửa lỗi icon khi scoll
@@ -21,24 +25,21 @@ Nghĩa :
 
 Khoa : 
     Hải note: Chỗ địa điểm lúc t chỉnh sửa thì ko hiện tên của địa điểm đó lên
+        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+        🚨🚨🚨 XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO 🚨🚨🚨
+        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
     Phường + Quận :
         - Thêm nút lọc Phường cho Cán bộ Quận
         - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
-        - Đổi function trong Controller sang kiểu Model [ChờMấyKiaXongHếtRồiSửa]
+        - Đổi function trong Controller sang kiểu Model
         - Đổi tên thêm "Tất cả" vào các nút filter
         - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn)
         - Trang Báo cáo : Phường/Quận/Sở luôn
-        - Đổi function trong Controller sang kiểu Model
-        - Đổi tên thêm "Tất cả" vào các nút filter (DONE)
-        - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn) (DONE)
-        - Trang Báo cáo : Phường/Quận/Sở luôn (DONE)
             + Xóa chữ "gần"
             + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC
-        - Trang Yêu cầu điều chỉnh :
-            + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách)
-            + Sửa lỗi Bấm nút Chi tiết trang điều chỉnh
-            + Sửa lỗi mất tên
+        - Trang Yêu cầu điều chỉnh QC :
             + Thêm cột Tên bảng QC
+            + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách)
 
 
 
@@ -50,9 +51,8 @@ Bảo :
             
         - Thêm trang `Quản lý Điều chỉnh QC`
         - Sửa lại tên các nút trên Sidebar cho rõ ràng
-        - Đồng bộ ngôn ngữ
-        - Thêm Avatar
-        - Navbar thêm cái chỉnh sửa thông tin
+       
+    
 
 
 
@@ -65,7 +65,16 @@ Hải :
 
 
 Tạo Tài khoản :
-    - Quận 1 - Phường Nguyễn Cư Trinh [Có]
-    - Quận 1 - Phường Cô Giang
-    - Quận 5 - Phường 4 [Có]
+    - Quận 1 - Phường Nguyễn Cư Trinh
+    - Quận 1 - Phường Phạm Ngũ Lão
+    - Quận 5 - Phường 4
     - Quận 5 - Phường 3
+
+
+
+Sau khi accept, dò theo locationId
+Add thêm adId mới
+-> ads
+reportId: ""
+size: ...
+name
