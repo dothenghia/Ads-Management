@@ -1,18 +1,19 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
 <link rel="stylesheet" href="/css/so/nhansu.css">
+<link rel="stylesheet" href="/css/modal.css">
 
 
 <div class="nhansu-container">
 
     {{!-- Header--}}
     <div class="nhansu-header">
-        <h1>Nhân sự</h1>
+        <h1>Quản lý Nhân sự</h1>
 
         <div class="d-flex">
             <button class="btn btn-outline-primary custom-btn" id="newAccountButton"  
                 data-bs-toggle="modal" data-bs-target="#newAccountModal">
-                    Thêm nhân sự
+                    Thêm cán bộ
             </button>
         </div>
     </div>
@@ -28,7 +29,8 @@
                     <th scope="col">Thông tin liên lạc</th>
                     <th scope="col">
                         <select id="roleFilter" name="" class="rounded-3" onchange="roleFilter(this.value)">
-                            <option value="all">Tất cả Chức vụ</option>
+                            <option value="all" selected disabled>Chức vụ</option>
+                            <option value="all">Tất cả</option>
                             {{#each userRole}}
                                 <option value="{{value}}">{{getAgentRole value}}</option>
                             {{/each}}
@@ -98,7 +100,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Bạn muốn xóa thông tin cán bộ này ?</h4>
+                    <h5 class="modal-title">Bạn muốn xóa thông tin Cán bộ này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 

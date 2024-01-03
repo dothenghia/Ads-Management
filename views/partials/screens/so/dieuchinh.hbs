@@ -8,7 +8,7 @@
 
     {{!-- Header--}}
     <div class="dieuchinh-header">
-        <h1>Yêu Cầu Điều Chỉnh</h1>
+        <h1>Quản lý Điều chỉnh Bảng Quảng cáo</h1>
     </div> 
 
     {{!-- Table --}}
@@ -19,7 +19,8 @@
                     <th scope="col">STT</th>
                     <th scope="col">
                         <select id="roleFilter" name="" onchange="roleFilter(this.value)">
-                            <option value="all">Đơn vị gửi yêu cầu</option>
+                            <option value="all" selected disabled>Đơn vị gửi yêu cầu</option>
+                            <option value="all">Tất cả</option>
                             {{#each senderRole}}
                                 <option value="{{value}}">{{getAgentRole value}}</option>
                             {{/each}}
@@ -29,7 +30,8 @@
                     {{!-- <th scope="col">Vị trí điều chỉnh</th> --}}
                     <th scope="col">
                         <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
-                            <option value="all">Lý do chỉnh sửa</option>
+                            <option value="all" selected disabled>Lý do chỉnh sửa</option>
+                            <option value="all">Tất cả</option>
                             {{#each reason}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -37,7 +39,8 @@
                     </th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tình trạng xử lý</option>
+                            <option value="all" selected disabled>Tình trạng xử lý</option>
+                            <option value="all">Tất cả</option>
                             <option value="0">Đang xử lý</option>
                             <option value="1">Đã xử lý</option>
                             <option value="2">Từ chối</option>
@@ -192,14 +195,14 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Bạn có chắc chắn?</h4>
+                    <h5 class="modal-title">Bạn muốn xóa Yêu cầu Điều chỉnh này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Đồng ý</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy thao tác</button>
                 </div>
 
             </div>
