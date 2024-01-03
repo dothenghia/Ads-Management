@@ -40,7 +40,7 @@ Khoa :
         - Trang Yêu cầu điều chỉnh QC : - [DONE]
             + Thêm cột Tên bảng QC - [DONE]
             + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách) - [DONE]
-
+        - Thời gian của Trang Báo cáo Phường ko sort được
 
 
 Bảo :

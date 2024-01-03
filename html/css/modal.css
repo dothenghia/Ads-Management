@@ -151,11 +151,21 @@
     background-color: #FBBFBF;
     color: #DC3545;
 }
+#changeReqDetailModal .modal-content #changeReqDetailChoice button:nth-of-type(1):hover {
+    border: 1px solid #DC3545;
+    background-color: #DC3545;
+    color: #fff;
+}
 
 #changeReqDetailModal .modal-content #changeReqDetailChoice button:nth-of-type(2) {
     border: 1px solid #C7EDD9;
     background-color: #C7EDD9;
     color: #41AF79;
+}
+#changeReqDetailModal .modal-content #changeReqDetailChoice button:nth-of-type(2):hover {
+    border: 1px solid #41AF79;
+    background-color: #41AF79;
+    color: #fff;
 }
 
 #changeReqDetailModal .modal-body #changeReqDetailOldThumbnails, #changeReqDetailModal .modal-body #changeReqDetailNewThumbnails {
@@ -395,11 +405,21 @@
     background-color: #FBBFBF;
     color: #DC3545;
 }
+#changeLocReqDetailModal .modal-content #changeLocReqDetailChoice button:nth-of-type(1):hover {
+    border: 1px solid #DC3545;
+    background-color: #DC3545;
+    color: #fff;
+}
 
 #changeLocReqDetailModal .modal-content #changeLocReqDetailChoice button:nth-of-type(2) {
     border: 1px solid #C7EDD9;
     background-color: #C7EDD9;
     color: #41AF79;
+}
+#changeLocReqDetailModal .modal-content #changeLocReqDetailChoice button:nth-of-type(2):hover {
+    border: 1px solid #41AF79;
+    background-color: #41AF79;
+    color: #fff;
 }
 
 #changeLocReqDetailModal .modal-body #changeLocReqDetailOldThumbnails, #changeLocReqDetailModal .modal-body #changeLocReqDetailNewThumbnails {
@@ -681,13 +701,22 @@
     background-color: #FBBFBF;
     color: #DC3545;
 }
+#permissionReqDetailModal .modal-content #permissionReqDetailChoice button:nth-of-type(1):hover {
+    border: 1px solid #DC3545;
+    background-color: #DC3545;
+    color: #fff;
+}
 
 #permissionReqDetailModal .modal-content #permissionReqDetailChoice button:nth-of-type(2) {
     border: 1px solid #C7EDD9;
     background-color: #C7EDD9;
     color: #41AF79;
 }
-
+#permissionReqDetailModal .modal-content #permissionReqDetailChoice button:nth-of-type(2):hover {
+    border: 1px solid #41AF79;
+    background-color: #41AF79;
+    color: #fff;
+}
 
 
 /* newPermissionReqModal */
@@ -1027,11 +1056,21 @@
     background-color: #FBBFBF;
     color: #DC3545;
 }
+#reportUpdateModal .modal-content #reportUpdateChoice button:nth-of-type(1):hover {
+    border: 1px solid #DC3545;
+    background-color: #DC3545;
+    color: #fff;
+}
 
 #reportUpdateModal .modal-content #reportUpdateChoice button:nth-of-type(2) {
     border: 1px solid #C7EDD9;
     background-color: #C7EDD9;
     color: #41AF79;
+}
+#reportUpdateModal .modal-content #reportUpdateChoice button:nth-of-type(2):hover {
+    border: 1px solid #41AF79;
+    background-color: #41AF79;
+    color: #fff;
 }
 
 #reportUpdateModal .modal-body #reportUpdateThumbnails {
