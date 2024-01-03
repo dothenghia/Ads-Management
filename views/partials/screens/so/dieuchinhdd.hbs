@@ -144,7 +144,27 @@
         </div>
     </div>
 
-    
+    <!-- The Delete Modal -->
+    <div class="modal fade" id="confirmationModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h6 class="modal-title">Bạn có muốn xoá yêu cầu này không</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn"
+                        data-bs-dismiss="modal">Hủy thao tác</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 {{!-- Custom JS script --}}

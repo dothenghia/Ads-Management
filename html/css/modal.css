@@ -1064,7 +1064,7 @@
 }
 
 #confirmationModal .modal-footer #confirmDeleteBtn {
-    width: 5vw;
+    width: 8vw;
     background-color: #0065FF;
     border: 0;
 }
@@ -1074,7 +1074,7 @@
 }
 
 #confirmationModal .modal-footer #cancelDeleteBtn {
-    width: 5vw;
+    width: 8vw;
     background-color: grey;
     border: 0;
 }

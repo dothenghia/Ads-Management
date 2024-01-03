@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/modal.css">
 <link rel="stylesheet" href="/css/so/nhansu.css">
 
 
@@ -91,9 +92,10 @@
         </table>
     </div>
 
-    <!-- The Permission Delete Modal -->
-    <div class="modal" id="confirmationModal">
-        <div class="modal-dialog">
+
+    <!-- The Delete Modal -->
+    <div class="modal fade" id="confirmationModal">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -169,7 +171,7 @@
                                         <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
                                     {{/each}}
                                 </select>
-                                <select id="phuongID" name="phuongID" class="rounded-3 form-select" hidden>
+                                <select id="phuongID" name="phuongID" class="rounded-3 form-select my-1" hidden>
                                     <option value="">Phường</option>
                                 </select>
                             </div>
@@ -295,6 +297,8 @@
             </div>
         </form>
     </div>
+    
+    
 </div>
 
 {{!-- Custom Delete Btn --}}
