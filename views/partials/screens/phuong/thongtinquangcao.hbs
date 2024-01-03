@@ -16,7 +16,7 @@
 
     {{!-- Header--}}
     <div class="shared-header">
-        <h1>Thông tin quảng cáo</h1>
+        <h1>Quản lý Bảng Quảng cáo</h1>
     </div>
 
 
@@ -30,7 +30,8 @@
                     <th scope="col">Địa Điểm</th>
                     <th scope="col">
                         <select id="adTypeFilter" name="" onchange="adTypeFilter(this.value)">
-                            <option value="all">Tất cả Loại quảng cáo</option>
+                            <option value="all" selected disabled>Loại quảng cáo</option>
+                            <option value="all">Tất cả</option>
                             {{#each adType}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -39,7 +40,8 @@
                     <th scope="col">Kích thước</th>
                     <th scope="col">
                         <select id="adFormFilter" name="" onchange="adFormFilter(this.value)">
-                            <option value="all">Tất cả Hình thức</option>
+                            <option value="all" selected disabled>Hình thức</option>
+                            <option value="all">Tất cả</option>
                             {{#each adForm}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -47,7 +49,8 @@
                     </th>
                     <th scope="col">
                         <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
-                            <option value="all">Tất cả Loại vị trí</option>
+                            <option value="all" selected disabled>Loại vị trí</option>
+                            <option value="all">Tất cả</option>
                             {{#each locationType}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}

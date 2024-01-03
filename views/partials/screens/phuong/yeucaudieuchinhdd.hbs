@@ -7,7 +7,7 @@
 
     {{!-- Header--}}
     <div class="shared-header">
-        <h1>Yêu cầu điều chỉnh địa điểm quảng cáo</h1>
+        <h1>Quản lý Điều chỉnh Địa điểm Quảng cáo</h1>
 
         <div class="d-flex">
             <button class="btn btn-outline-primary custom-btn" id="newChangeLocReqButton">Thêm yêu cầu điều chỉnh ĐĐQC</button>
@@ -26,7 +26,8 @@
                     <th scope="col">Lý do chỉnh sửa</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tất cả Tình trạng xử lý</option>
+                            <option value="all" selected disabled>Tình trạng xử lý</option>
+                            <option value="all">Tất cả</option>
                             <option value="0">Đang xử lý</option>
                             <option value="1">Đã xử lý</option>
                             <option value="2">Từ chối</option>
@@ -93,7 +94,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Địa điểm & Bảng QC</h5>
+                    <h5 class="modal-title">Thông tin điều chỉnh</h5>
                     <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="changeLocReqDetailContent">
@@ -261,12 +262,12 @@
 
 
 <script>
-    function convertDate(vietnameseDate){
-        let dateString = vietnameseDate.split(" ");
-        let day = dateString[1];
-        let month = dateString[3];
-        let year = dateString[5];
-        let date =  new Date(year + "-" + month + "-" + day);
+    function convertDate(vietnameseDate) {
+        let dateString = vietnameseDate.split("/");
+        let day = dateString[0];
+        let month = dateString[1];
+        let year = dateString[2];
+        let date = new Date(year + "-" + month + "-" + day);
         return date;
     }
     document.addEventListener('DOMContentLoaded', function () {

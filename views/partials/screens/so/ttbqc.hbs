@@ -16,7 +16,7 @@
 
     {{!-- Header--}}
     <div class="shared-header">
-        <h1>Thông tin quảng cáo</h1>
+        <h1>Quản lý Bảng Quảng cáo</h1>
     </div>
 
 
@@ -30,7 +30,8 @@
                     <th scope="col">Địa Điểm</th>
                     <th scope="col">
                         <select id="adTypeFilter" name="" onchange="adTypeFilter(this.value)">
-                            <option value="all">Loại quảng cáo</option>
+                            <option value="all" selected disabled>Loại quảng cáo</option>
+                            <option value="all">Tất cả</option>
                             {{#each adType}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -38,7 +39,8 @@
                     </th>
                     <th scope="col">
                         <select id="adFormFilter" name="" onchange="adFormFilter(this.value)">
-                            <option value="all">Hình thức</option>
+                            <option value="all" selected disabled>Hình thức</option>
+                            <option value="all">Tất cả</option>
                             {{#each adForm}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -46,7 +48,8 @@
                     </th>
                     <th scope="col">
                         <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
-                            <option value="all">Loại vị trí</option>
+                            <option value="all" selected disabled>Loại vị trí</option>
+                            <option value="all">Tất cả</option>
                             {{#each locationType}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -172,21 +175,21 @@
     
 
     
-<!-- The Permission Delete Modal -->
+    <!-- The Delete Modal -->
     <div class="modal fade" id="confirmationModal">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure?</h4>
+                    <h5 class="modal-title">Bạn muốn xóa thông tin Quảng cáo này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy thao tác</button>
                 </div>
 
             </div>

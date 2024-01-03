@@ -7,7 +7,7 @@
 
     {{!-- Header--}}
     <div class="shared-header">
-        <h1>Yêu cầu cấp phép</h1>
+        <h1>Quản lý Cấp phép Quảng cáo</h1>
     </div>
 
 
@@ -19,7 +19,8 @@
                     <th scope="col">STT</th>
                     <th scope="col">
                         <select id="coFilter" name="" onchange="coFilter(this.value)">
-                            <option value="all">Công ty</option>
+                            <option value="all" selected disabled>Tên công ty</option>
+                            <option value="all">Tất cả</option>
                             {{#each company}}
                                 <option value="{{name}}">{{name}}</option>
                             {{/each}}
@@ -30,7 +31,8 @@
                     <th scope="col">Địa điểm yêu cầu cấp phép</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tình trạng xử lý</option>
+                            <option value="all" selected disabled>Tình trạng xử lý</option>
+                            <option value="all">Tất cả</option>
                             <option value="0">Đang xử lý</option>
                             <option value="1">Đã xử lý</option>
                             <option value="2">Từ chối</option>
@@ -179,21 +181,21 @@
         </div>
     </div>
 
-    <!-- The Report Delete Modal -->
+    <!-- The Delete Modal -->
     <div class="modal fade" id="confirmationModal">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h6 class="modal-title">Bạn có muốn xoá yêu cầu cấp phép này không</h6>
+                    <h5 class="modal-title">Bạn muốn xoá Yêu cầu Cấp phép này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy thao tác</button>
                 </div>
 
             </div>
@@ -317,12 +319,10 @@
 
                             <div class="mb-3 d-flex flex-column justify-content-center align-items-center" id="drop-area">
                                 <p class=" fs-6 fw-semibold m-0">
-                                    Drag & Drop files here or 
+                                    Kéo thả file vào đây hoặc 
                                     <span class="text-primary text-decoration-underline" 
-                                        id="click-span" style="cursor: pointer;">
-                                        click
-                                    </span> 
-                                    to select
+                                        id="click-span" style="cursor: pointer;">Tải lên</span>
+                                    từ máy
                                 </p>
                                 <input type="file" id="fileInput" class="d-none" name="newPermissionReqThumbnailsUpdate" accept="image/png, image/jpeg" multiple>
                                 <div class="w-100">

@@ -7,10 +7,11 @@
 
     {{!-- Header--}}
     <div class="shared-header">
-        <h1>Yêu cầu điều chỉnh quảng cáo</h1>
+        <h1>Quản lý Điều chỉnh Bảng Quảng cáo</h1>
 
         <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn" id="newChangeReqButton">Thêm yêu cầu điều chỉnh QC</button>
+            <button class="btn btn-outline-primary custom-btn" id="newChangeReqButton">Thêm yêu cầu điều chỉnh
+                QC</button>
         </div>
     </div>
 
@@ -23,11 +24,13 @@
                     <th scope="col">STT</th>
                     <th scope="col">Tên</th>
                     <th scope="col">Địa điểm quảng cáo</th>
-                    <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
+                    <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right"
+                                id="arrow"></i></button></th>
                     <th scope="col">Lý do chỉnh sửa</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tất cả Tình trạng xử lý</option>
+                            <option value="all" selected disabled>Tình trạng xử lý</option>
+                            <option value="all">Tất cả</option>
                             <option value="0">Đang xử lý</option>
                             <option value="1">Đã xử lý</option>
                             <option value="2">Từ chối</option>
@@ -39,68 +42,88 @@
 
             <tbody>
                 {{#each changeReq}}
-                    <tr>
-                        <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">
-                            {{#with (arrayIndex (getAdInfo ../ad oldAdId) 0)}}
-                                {{name}}
-                            {{/with}}
-                        </td>
-                        <td scope="col">
-                            {{#with (getAdLocationFromAd ../adLocation oldAdId)}}
-                                {{address}}
-                            {{/with}}
-                        </td>
-                        <td scope="col">{{mongoDateToLocaleString date}}</td>
-                        <td scope="col">{{shortenString reason}}</td>
+                <tr>
+                    <td scope="col">{{addNumber @index 1}}</td>
+                    <td scope="col">
+                        {{#with (arrayIndex (getAdInfo ../ad oldAdId) 0)}}
+                        {{name}}
+                        {{/with}}
+                    </td>
+                    <td scope="col">
+                        {{#with (getAdLocationFromAd ../adLocation oldAdId)}}
+                        {{address}}
+                        {{/with}}
+                    </td>
+                    <td scope="col">{{mongoDateToLocaleString date}}</td>
+                    <td scope="col">{{shortenString reason}}</td>
 
-                        <td scope="col">
-                            {{#if (equalNumber status 0)}}
-                            <div class="status-tag status-tag-dangxuly">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
-                                <span class='status-tag__title'>Đang xử lý</span>
-                            </div>
-                            {{/if}}
+                    <td scope="col">
+                        {{#if (equalNumber status 0)}}
+                        <div class="status-tag status-tag-dangxuly">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-clock">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span class='status-tag__title'>Đang xử lý</span>
+                        </div>
+                        {{/if}}
 
-                            {{#if (equalNumber status 1)}}
-                            <div class="status-tag status-tag-daxuly">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path> <polyline points="22 4 12 14.01 9 11.01"></polyline> </svg>
-                                <span class='status-tag__title'>Đã xử lý</span>
-                            </div>
-                            {{/if}}
+                        {{#if (equalNumber status 1)}}
+                        <div class="status-tag status-tag-daxuly">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-check-circle">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span class='status-tag__title'>Đã xử lý</span>
+                        </div>
+                        {{/if}}
 
-                            {{#if (equalNumber status 2)}}
-                            <div class="status-tag status-tag-tuchoi">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"> <circle cx="12" cy="12" r="10"></circle> <line x1="15" y1="9" x2="9" y2="15"></line> <line x1="9" y1="9" x2="15" y2="15"></line> </svg>
-                                <span class='status-tag__title'>Từ chối</span>
-                            </div>
-                            {{/if}}
-                        </td>
-                        
-                        <td scope="col">
-                            <button class="table-detail-button" data-ad-old-details="{{toJSON (getAdInfo ../ad oldAdId)}}" data-ad-new-details="{{toJSON new}}" data-change-req-id={{changeReqId}} data-account-role="phuong" data-status={{status}} data-reason="{{reason}}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-info">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
+                        {{#if (equalNumber status 2)}}
+                        <div class="status-tag status-tag-tuchoi">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x-circle">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                            <span class='status-tag__title'>Từ chối</span>
+                        </div>
+                        {{/if}}
+                    </td>
+
+                    <td scope="col">
+                        <button class="table-detail-button" data-ad-old-details="{{toJSON (getAdInfo ../ad oldAdId)}}"
+                            data-ad-new-details="{{toJSON new}}" data-change-req-id={{changeReqId}}
+                            data-account-role="phuong" data-status={{status}} data-reason="{{reason}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-info">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
                 {{/each}}
             </tbody>
         </table>
     </div>
 
     <!-- Change request detail modal -->
-    <div class="modal fade" id="changeReqDetailModal" tabindex="-1" aria-labelledby="changeReqDetailModalLabel" aria-hidden="true">
+    <div class="modal fade" id="changeReqDetailModal" tabindex="-1" aria-labelledby="changeReqDetailModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Địa điểm & Bảng QC</h5>
-                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title">Thông tin điều chỉnh</h5>
+                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="changeReqDetailContent">
                     <div class="row justify-content-center" id="changeReqDetailTable">
@@ -130,12 +153,15 @@
                                             <div id="changeReqDetailOldNoThumbnails" style="display: none">
                                                 <h6>Không có hình ảnh để hiển thị</h6>
                                             </div>
-                                            <div id="changeReqDetailOldThumbnails" class="carousel slide" data-ride="carousel">
+                                            <div id="changeReqDetailOldThumbnails" class="carousel slide"
+                                                data-ride="carousel">
                                                 <div class="carousel-inner"></div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="prev">
+                                                <button class="carousel-control-prev" type="button"
+                                                    data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="prev">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                 </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="next">
+                                                <button class="carousel-control-next" type="button"
+                                                    data-bs-target="#changeReqDetailOldThumbnails" data-bs-slide="next">
                                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                 </button>
                                             </div>
@@ -144,12 +170,15 @@
                                             <div id="changeReqDetailNewNoThumbnails" style="display: none">
                                                 <h6>Không có hình ảnh để hiển thị</h6>
                                             </div>
-                                            <div id="changeReqDetailNewThumbnails" class="carousel slide" data-ride="carousel">
+                                            <div id="changeReqDetailNewThumbnails" class="carousel slide"
+                                                data-ride="carousel">
                                                 <div class="carousel-inner"></div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="prev">
+                                                <button class="carousel-control-prev" type="button"
+                                                    data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="prev">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                 </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="next">
+                                                <button class="carousel-control-next" type="button"
+                                                    data-bs-target="#changeReqDetailNewThumbnails" data-bs-slide="next">
                                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                 </button>
                                             </div>
@@ -162,7 +191,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -170,35 +199,41 @@
     </div>
 
     <!-- Create new change request modal -->
-    <div class="modal fade" id="newChangeReqModal" tabindex="-1" role="dialog" aria-labelledby="newChangeReqModalLabel" aria-hidden="true">
+    <div class="modal fade" id="newChangeReqModal" tabindex="-1" role="dialog" aria-labelledby="newChangeReqModalLabel"
+        aria-hidden="true">
         <form action="./yeucaudieuchinhqc/taomoi" method="POST" enctype="multipart/form-data">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
                 <div class="modal-content">
                     <div class="modal-header d-flex flex-column">
                         <div class="w-100 d-flex flex-row">
                             <h5 class="modal-title w-100 fw-bold" id="newChangeReqModalLabel">Mẫu Thêm Yêu Cầu Mới</h5>
-                            <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close w-5" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                     </div>
                     <div class="modal-body" id="newChangeReqModalContent">
                         <div class="container-fluid">
                             <!-- Địa Điểm  -->
-                            <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeReqCategoryTitle">Địa Điểm</p>
+                            <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                id="newChangeReqCategoryTitle">Địa Điểm</p>
                             <div class="row d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="col d-flex flex-column "> 
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeReqCategoryTitle">Quận<span class="text-danger">*</span></p>
+                                <div class="col d-flex flex-column ">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                        id="newChangeReqCategoryTitle">Quận<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <select name="newChangeReqDistrict" id="newChangeReqDistrict" onchange="displayWards(this)" required>
+                                        <select name="newChangeReqDistrict" id="newChangeReqDistrict"
+                                            onchange="displayWards(this)" required>
                                             <option value="all">Quận</option>
                                             {{#each adArea}}
-                                                <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                                            <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
                                             {{/each}}
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col d-flex flex-column">
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeReqCategoryTitle">Phường<span class="text-danger">*</span></p>
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                        id="newChangeReqCategoryTitle">Phường<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
                                         <select name="newChangeReqWard" id="newChangeReqWard" required>
                                             <option value="all">Phường</option>
@@ -207,7 +242,8 @@
                                 </div>
 
                                 <div class="col d-flex flex-column">
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeReqCategoryTitle">Quảng cáo<span class="text-danger">*</span></p>
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                        id="newChangeReqCategoryTitle">Quảng cáo<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
                                         <select name="newChangeReqAd" id="newChangeReqAd" required>
                                             <option value="all">Quảng cáo</option>
@@ -217,19 +253,24 @@
                             </div>
 
                             <div id="newChangeReqAllContent" style="display: none">
-                                <input type="text" value="" class="form-control" aria-label="Phone" id="newChangeReqId" name="newChangeReqId" style="display: none">
+                                <input type="text" value="" class="form-control" aria-label="Phone" id="newChangeReqId"
+                                    name="newChangeReqId" style="display: none">
                                 <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
                                     <div class="d-flex flex-column" style="min-width: 50%;">
-                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Tên Quảng Cáo Cũ</p>
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Tên Quảng
+                                            Cáo Cũ</p>
                                         <div class="input-group mb-3" style="padding-right: 12%;">
-                                            <input type="text" class="form-control" aria-label="Company" id="newChangeReqOldName" name="newChangeReqOldName" disabled>
+                                            <input type="text" class="form-control" aria-label="Company"
+                                                id="newChangeReqOldName" name="newChangeReqOldName" disabled>
                                         </div>
                                     </div>
 
-                                    <div class="d-flex flex-column " style="min-width: 50%;"> 
-                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeReqCategoryTitle">Kích Thước Cũ</p>
+                                    <div class="d-flex flex-column " style="min-width: 50%;">
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                            id="newChangeReqCategoryTitle">Kích Thước Cũ</p>
                                         <div class="input-group mb-3" style="padding-right: 10%;">
-                                            <input type="text" class="form-control" aria-label="Phone" id="newChangeReqOldSize" name="newChangeReqOldSize" disabled>
+                                            <input type="text" class="form-control" aria-label="Phone"
+                                                id="newChangeReqOldSize" name="newChangeReqOldSize" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -242,58 +283,76 @@
                                         </div>
                                         <div id="newChangeReqThumbnails" class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner"></div>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#newChangeReqThumbnails" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#newChangeReqThumbnails" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                </button>
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#newChangeReqThumbnails" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#newChangeReqThumbnails" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                    <div class="d-flex flex-column " style="min-width: 50%;"> 
-                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeReqCategoryTitle">Tên Quảng Cáo Mới <span class="text-danger">*</span></p>
+                                    <div class="d-flex flex-column " style="min-width: 50%;">
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                            id="newChangeReqCategoryTitle">Tên Quảng Cáo Mới <span
+                                                class="text-danger">*</span></p>
                                         <div class="input-group mb-3" style="padding-right: 12%;">
-                                            <input type="text" class="form-control" placeholder="Quảng Cáo 1" aria-label="PhoneNum" id="newChangeReqNewName" name="newChangeReqNewName" required>
+                                            <input type="text" class="form-control" placeholder="Quảng Cáo 1"
+                                                aria-label="PhoneNum" id="newChangeReqNewName"
+                                                name="newChangeReqNewName" required>
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-column" style="min-width: 50%;">
-                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newChangeReqCategoryTitle">Kích Thước Mới <span class="text-danger">*</span></p>
+                                        <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                            id="newChangeReqCategoryTitle">Kích Thước Mới <span
+                                                class="text-danger">*</span></p>
                                         <div class="input-group mb-3" style="padding-right: 10%;">
-                                            <input type="text" class="form-control" placeholder="10m x 20m" aria-label="Email" id="newChangeReqNewSize" name="newChangeReqNewSize" required>
+                                            <input type="text" class="form-control" placeholder="10m x 20m"
+                                                aria-label="Email" id="newChangeReqNewSize" name="newChangeReqNewSize"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mb-3 d-flex flex-column justify-content-center align-items-center" id="drop-area">
+                                <div class="mb-3 d-flex flex-column justify-content-center align-items-center"
+                                    id="drop-area">
                                     <p class=" fs-6 fw-semibold m-0">
-                                        Drag & Drop files here or 
-                                        <span class="text-primary text-decoration-underline" 
-                                            id="click-span" style="cursor: pointer;">
-                                            click
-                                        </span> 
-                                        to select
+                                        Kéo thả file vào đây hoặc
+                                        <span class="text-primary text-decoration-underline" id="click-span"
+                                            style="cursor: pointer;">Tải lên</span>
+                                        từ máy
                                     </p>
-                                    <input type="file" id="fileInput" class="d-none" name="newChangeReqThumbnailsUpdate" accept="image/png, image/jpeg" multiple>
+                                    <input type="file" id="fileInput" class="d-none" name="newChangeReqThumbnailsUpdate"
+                                        accept="image/png, image/jpeg" multiple>
                                     <div class="w-100">
                                         <ul id="file-list" class="d-none"></ul>
                                     </div>
                                 </div>
 
                                 <div class="d-flex flex-column w-100">
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Lí do chỉnh sửa <span class="text-danger">*</span></p>
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Lí do chỉnh sửa
+                                        <span class="text-danger">*</span>
+                                    </p>
                                     <div class="input-group mb-3">
-                                        <textarea class="form-control" placeholder="Nhập lí do" aria-label="ChangeReqReason" style="min-height: 100px;" name="ChangeReqReason" required></textarea>
+                                        <textarea class="form-control" placeholder="Nhập lí do"
+                                            aria-label="ChangeReqReason" style="min-height: 100px;"
+                                            name="ChangeReqReason" required></textarea>
                                     </div>
                                 </div>
-                                
-                                <button class="btn btn-outline-primary text-start" id="newChangeReqChoiceCreate" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                                    </svg>    
+
+                                <button class="btn btn-outline-primary text-start" id="newChangeReqChoiceCreate"
+                                    type="submit" autocomplete="off"
+                                    style="border: 2px solid; max-width: 60%; float:right;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-send" viewBox="0 0 16 16">
+                                        <path
+                                            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+                                    </svg>
                                     Gửi yêu cầu
                                 </button>
                             </div>
@@ -310,12 +369,12 @@
 <script src="/js/changeReqDetail.js"></script>
 
 <script>
-    function convertDate(vietnameseDate){
-        let dateString = vietnameseDate.split(" ");
-        let day = dateString[1];
-        let month = dateString[3];
-        let year = dateString[5];
-        let date =  new Date(year + "-" + month + "-" + day);
+    function convertDate(vietnameseDate) {
+        let dateString = vietnameseDate.split("/");
+        let day = dateString[0];
+        let month = dateString[1];
+        let year = dateString[2];
+        let date = new Date(year + "-" + month + "-" + day);
         return date;
     }
     document.addEventListener('DOMContentLoaded', function () {
@@ -327,11 +386,11 @@
             if (ascending)
                 buttonIcon.classList = 'bi bi-arrow-up';
             else buttonIcon.classList = 'bi bi-arrow-down'
-                
+
             const rows = Array.from(tbody.querySelectorAll('tr'));
 
             rows.sort(function (rowA, rowB) {
-                const cellA = rowA.cells[3].innerText; 
+                const cellA = rowA.cells[3].innerText;
                 const cellB = rowB.cells[3].innerText;
 
                 const dateA = convertDate(cellA);

@@ -1,3 +1,13 @@
+### ====== Tài khoản cán bộ ======
+## Quận 1 - Phường Nguyễn Cư Trinh
+    - username: pckq1hcm
+## Quận 1 - Phường Cầu Kho
+    - username: pnctq1hcm
+## Quận 5 - Phường 4
+    - username: p4q5hcm
+## Quận 5 - Phường 3
+    - username: p3q5hcm
+Pass: 123
 
 ### ====== PHÂN CÔNG ======
 
@@ -7,27 +17,17 @@ Nghĩa :
     Dân :
         - Sửa lại 1970 - [DONE]
         - Sửa cách fetch data Dân - [DONE]
-        - Sửa cách fetch data Phường/Quận
+        - Sửa cách fetch data Phường/Quận - [DONE]
+        - Chỉnh lại mấy cái placeholder, text, ... - [DONE]
         - Geocoding Search bar
         - Thống kê (Sở)
-        - Chỉnh lại mấy cái placeholder, text, ...
-
-        * XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO
-        - Nhắc tụi nó Thêm Phường 15 của Quận 5
-
-        - Geocoding Search bar (Final)
-        - Format lại các hàm Controller, Sửa lại res.json error lỗi rõ ràng hơn
-        - Guide Marker (Optional)
         - Sửa lỗi icon khi scoll
+        - Guide Marker (Optional)
 
         [] Check cái Tạo AdLocation có AdType không ??
         [] Check cái Tạo AdLocation thumbnail thêm s chưa ??
 
 Khoa : 
-    Hải note: Chỗ địa điểm lúc t chỉnh sửa thì ko hiện tên của địa điểm đó lên
-        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
-        🚨🚨🚨 XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO 🚨🚨🚨
-        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
     Phường + Quận :
         - Thêm nút lọc Phường cho Cán bộ Quận
         - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
@@ -40,17 +40,20 @@ Khoa :
         - Trang Yêu cầu điều chỉnh QC : - [DONE]
             + Thêm cột Tên bảng QC - [DONE]
             + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách) - [DONE]
+<<<<<<< HEAD
 
+=======
+        - Thời gian của Trang Báo cáo Phường ko sort được
+>>>>>>> 57ba5de29d183849222e0ddda81ab348c983e295
 
 
 Bảo :
     Sở :
-        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
-        🚨🚨🚨 XEM NOTION VỀ FLOW XỬ LÝ BÁO CÁO 🚨🚨🚨
-        🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
-            
-        - Thêm trang `Quản lý Điều chỉnh QC`
-        - Sửa lại tên các nút trên Sidebar cho rõ ràng
+        - Thêm trang `Quản lý Điều chỉnh QC` - [DONE]
+        - Sửa lại tên các nút trên Sidebar cho rõ ràng - [DONE]
+        - Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO
+        - Sửa lỗi Hiện tên Cán bộ trên Sidebar
+
        
     
 
@@ -64,17 +67,3 @@ Hải :
         - Phường/Quận : Người dân gửi báo cáo sẽ nhận được email thông báo về tình trạng và cách thức xử lý cho từng báo cáo một cách tự động //xong
 
 
-Tạo Tài khoản :
-    - Quận 1 - Phường Nguyễn Cư Trinh
-    - Quận 1 - Phường Phạm Ngũ Lão
-    - Quận 5 - Phường 4
-    - Quận 5 - Phường 3
-
-
-
-Sau khi accept, dò theo locationId
-Add thêm adId mới
--> ads
-reportId: ""
-size: ...
-name

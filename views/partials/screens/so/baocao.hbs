@@ -8,7 +8,7 @@
 
     {{!-- Header--}}
     <div class="baocao-header">
-        <h1>Báo Cáo</h1>
+        <h1>Quản lý Danh sách Báo cáo</h1>
     </div>
 
     {{!-- Table --}}
@@ -19,7 +19,8 @@
                     <th scope="col">STT</th>
                     <th scope="col">
                         <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
-                            <option value="all">Loại báo cáo</option>
+                            <option value="all" selected disabled>Loại báo cáo</option>
+                            <option value="all">Tất cả</option>
                             <option value="qc">Quảng cáo</option>
                             <option value="ddqc">Địa điểm Quảng cáo</option>
                             <option value="ddbk">Địa điểm Bất kỳ</option>
@@ -27,18 +28,20 @@
                     </th>
                     <th scope="col">
                         <select id="reportFormFilter" name="" onchange="reportFormFilter(this.value)">
-                            <option value="all">Hình thức báo cáo</option>
+                            <option value="all" selected disabled>Hình thức báo cáo</option>
+                            <option value="all">Tất cả</option>
                             <option value="Tố giác sai phạm">Tố giác sai phạm</option>
                             <option value="Đăng ký nội dung">Đăng ký nội dung</option>
                             <option value="Đóng góp ý kiến">Đóng góp ý kiến</option>
                             <option value="Giải đáp thắc mắc">Giải đáp thắc mắc</option>
                         </select>
                     </th>
-                    <th scope="col">Thời gian</th>
+                    <th scope="col">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
                     <th scope="col">Địa điểm</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tình trạng xử lý</option>
+                            <option value="all" selected disabled>Tình trạng xử lý</option>
+                            <option value="all">Tất cả</option>
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Đã xử lý">Đã xử lý</option>
                             <option value="Từ chối">Từ chối</option>
@@ -198,21 +201,21 @@
         </div>
     </div>
 
-    <!-- The Report Delete Modal -->
-    <div class="modal" id="confirmationModal">
+    <!-- The Delete Modal -->
+    <div class="modal fade" id="confirmationModal">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure?</h4>
+                    <h5 class="modal-title">Bạn muốn xóa thông tin Báo cáo này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy thao tác</button>
                 </div>
 
             </div>
@@ -228,3 +231,53 @@
 
 {{!-- Custom Delete Btn --}}
 <script src="/js/deleteMethod.js"></script>
+
+<script>
+    function convertDate(vietnameseDate) {
+        let dateString = vietnameseDate.split("/");
+        let day = dateString[0];
+        let month = dateString[1];
+        let year = dateString[2];
+        let date = new Date(year + "-" + month + "-" + day);
+        return date;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('table');
+        const tbody = table.querySelector('tbody');
+        let ascending = true;
+        buttonIcon = document.getElementById('arrow');
+        document.getElementById('sortButton').addEventListener('click', function () {
+            if (ascending)
+                buttonIcon.classList = 'bi bi-arrow-up';
+            else buttonIcon.classList = 'bi bi-arrow-down'
+                
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort(function (rowA, rowB) {
+                const cellA = rowA.cells[3].innerText; 
+                const cellB = rowB.cells[3].innerText;
+
+                const dateA = convertDate(cellA);
+                const dateB = convertDate(cellB);
+                //console.log('Date A: ' + dateA);
+                //console.log('Date B: ' + dateB);
+
+                if (ascending) {
+                    return dateA - dateB;
+                } else {
+                    return dateB - dateA;
+                }
+            });
+
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            rows.forEach(function (row) {
+                tbody.appendChild(row);
+            });
+
+            ascending = !ascending;
+        });
+    });
+</script>

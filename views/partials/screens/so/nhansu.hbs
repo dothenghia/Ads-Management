@@ -1,18 +1,20 @@
 <link rel="stylesheet" href="/css/custom-btn.css">
 <link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/modal.css">
 <link rel="stylesheet" href="/css/so/nhansu.css">
+<link rel="stylesheet" href="/css/modal.css">
 
 
 <div class="nhansu-container">
 
     {{!-- Header--}}
     <div class="nhansu-header">
-        <h1>Nhân sự</h1>
+        <h1>Quản lý Nhân sự</h1>
 
         <div class="d-flex">
             <button class="btn btn-outline-primary custom-btn" id="newAccountButton"  
                 data-bs-toggle="modal" data-bs-target="#newAccountModal">
-                    Thêm nhân sự
+                    Thêm cán bộ
             </button>
         </div>
     </div>
@@ -24,11 +26,12 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Họ tên</th>
+                    <th scope="col">Họ và tên</th>
                     <th scope="col">Thông tin liên lạc</th>
                     <th scope="col">
                         <select id="roleFilter" name="" class="rounded-3" onchange="roleFilter(this.value)">
-                            <option value="all">Chức vụ</option>
+                            <option value="all" selected disabled>Chức vụ</option>
+                            <option value="all">Tất cả</option>
                             {{#each userRole}}
                                 <option value="{{value}}">{{getAgentRole value}}</option>
                             {{/each}}
@@ -91,22 +94,22 @@
         </table>
     </div>
 
-    <!-- The Permission Delete Modal -->
-    <div class="modal" id="confirmationModal">
+
+    <!-- The Delete Modal -->
+    <div class="modal fade" id="confirmationModal">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure?</h4>
+                    <h5 class="modal-title">Bạn muốn xóa thông tin Cán bộ này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn"
-                        data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy thao tác</button>
                 </div>
 
             </div>
@@ -120,33 +123,33 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            Chỉnh sửa nhân sự
+                            Chỉnh sửa thông tin nhân sự
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row g-2">
                             <div class="col mb-3">
-                                <label for="hotenEdit" class="form-label">Họ Tên</label>
+                                <label for="hotenEdit" class="form-label">Họ và Tên</label>
                                 <input type="text" id="hotenEdit" name="name" class="form-control"
-                                    placeholder="Báo" required />
+                                    placeholder="Nhập họ và tên" required />
                             </div>
                             <div class="col mb-3">
                                 <label for="phoneEdit" class="form-label">Số Điện Thoại</label>
                                 <input type="text" id="phoneEdit" name="phone" class="form-control"
-                                    placeholder="12354" required />
+                                    placeholder="Nhập số điện thoại" required />
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col mb-3">
                                 <label for="usernameEdit" class="form-label">Tài Khoản</label>
                                 <input type="text" id="usernameEdit" name="username" class="form-control"
-                                    placeholder="12354" required />
+                                    placeholder="Nhập tên tài khoản" required />
                             </div>
                             <div class="col mb-3">
                                 <label for="passwordEdit" class="form-label">Mật Khẩu</label>
                                 <input type="text" id="passwordEdit" name="password" class="form-control"
-                                    placeholder="123" />
+                                    placeholder="Nhập mật khẩu" />
                             </div>
                         </div>
                         <div class="row g-2">
@@ -162,14 +165,14 @@
                             <div class="col mb-3">
                                 <label for="areaEdit" class="form-label">Khu Vực</label>
                                 <input type="text" id="areaEdit" name="area" class="form-control"
-                                    placeholder="Sở Văn Hóa Và Truyền THống" />
+                                    placeholder="Sở Văn Hóa Và Truyền Thống" />
                                 <select id="quanID" name="quanID" class="rounded-3 form-select" hidden>
                                     <option value="">Quận</option>
                                     {{#each (mapToArray adArea)}}
                                         <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
                                     {{/each}}
                                 </select>
-                                <select id="phuongID" name="phuongID" class="rounded-3 form-select" hidden>
+                                <select id="phuongID" name="phuongID" class="rounded-3 form-select my-1" hidden>
                                     <option value="">Phường</option>
                                 </select>
                             </div>
@@ -180,10 +183,10 @@
                         <input type="hidden" name="id" id="id" value="" />
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
                             id="closeBtnEdit">
-                            Close
+                            Đóng
                         </button>
                         <button type="submit" class="btn btn-primary">
-                            Save
+                            Lưu thông tin
                         </button>
                     </div>
                 </div>
@@ -198,7 +201,7 @@
                 <div class="modal-content">
                     <div class="modal-header d-flex flex-column">
                         <div class="w-100 d-flex flex-row">
-                            <h5 class="modal-title w-100 fw-bold" id="newAccountModalLabel">Mẫu Thêm Tài Khoản Mới</h5>
+                            <h5 class="modal-title w-100 fw-bold" id="newAccountModalLabel">Tạo Tài Khoản Mới</h5>
                             <button type="button" class="btn-close w-5" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                     </div>
@@ -208,23 +211,23 @@
                             {{!-- Họ tên + Sđt --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
                                 <div class="d-flex flex-column" style="min-width: 33%;" id="newAccountName">
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Họ Tên<span class="text-danger">*</span></p>
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Họ và Tên<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <input type="text" class="form-control" placeholder="Công Ty ABC" aria-label="Company" name="newAccountName" >
+                                        <input type="text" class="form-control" placeholder="Nhập họ và tên" aria-label="Company" name="newAccountName" >
                                     </div>
                                 </div>
 
                                 <div class="d-flex flex-column " style="min-width: 33%;"> 
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountCategoryTitle">Số điện thoại liên lạc<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="text" class="form-control" placeholder="0948361133" aria-label="Phone" id="newAccountPhone" name="newAccountPhone" >
+                                        <input type="text" class="form-control" placeholder="Nhập số điện thoại" aria-label="Phone" id="newAccountPhone" name="newAccountPhone" >
                                     </div>
                                 </div>
 
                                 <div class="d-flex flex-column " style="min-width: 33%;"> 
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountCategoryTitle">Email<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
-                                        <input type="email" class="form-control" placeholder="welcome@gmail" aria-label="Phone" id="newAccountEmail" name="newAccountEmail" >
+                                        <input type="email" class="form-control" placeholder="Nhập địa chỉ email" aria-label="Phone" id="newAccountEmail" name="newAccountEmail" >
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +238,7 @@
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;">Tài Khoản<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
                                         <input type="text" id="newAccountUserName" name="newAccountUserName" class="form-control"
-                                            placeholder="12354" required />
+                                            placeholder="Nhập tên tài khoản" required />
                                     </div>
                                 </div>
 
@@ -243,7 +246,7 @@
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;" id="newAccountPass">Mật Khẩu<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 10%;">
                                         <input type="text" id="passwordEdit" name="newAccountPass" class="form-control"
-                                            placeholder="123" required />
+                                            placeholder="Nhập mật khẩu" required />
                                     </div>
                                 </div>
                             </div>
@@ -286,7 +289,7 @@
 
                             {{!-- Nút Save --}}
                             <button class="btn btn-outline-primary text-start" id="newAccountCreate" type="submit" autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;"> 
-                                Lưu
+                                Tạo tài khoản
                             </button>
                         </div>
                     </div>
@@ -295,6 +298,8 @@
             </div>
         </form>
     </div>
+    
+    
 </div>
 
 {{!-- Custom Delete Btn --}}

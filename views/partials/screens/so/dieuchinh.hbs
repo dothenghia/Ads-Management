@@ -8,7 +8,7 @@
 
     {{!-- Header--}}
     <div class="dieuchinh-header">
-        <h1>Yêu Cầu Điều Chỉnh</h1>
+        <h1>Quản lý Điều chỉnh Bảng Quảng cáo</h1>
     </div> 
 
     {{!-- Table --}}
@@ -19,17 +19,19 @@
                     <th scope="col">STT</th>
                     <th scope="col">
                         <select id="roleFilter" name="" onchange="roleFilter(this.value)">
-                            <option value="all">Đơn vị gửi yêu cầu</option>
+                            <option value="all" selected disabled>Đơn vị gửi yêu cầu</option>
+                            <option value="all">Tất cả</option>
                             {{#each senderRole}}
                                 <option value="{{value}}">{{getAgentRole value}}</option>
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Thời gian</th>
+                    <th scope="col">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></th>
                     {{!-- <th scope="col">Vị trí điều chỉnh</th> --}}
                     <th scope="col">
                         <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
-                            <option value="all">Lý do chỉnh sửa</option>
+                            <option value="all" selected disabled>Lý do chỉnh sửa</option>
+                            <option value="all">Tất cả</option>
                             {{#each reason}}
                                 <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -37,7 +39,8 @@
                     </th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
-                            <option value="all">Tình trạng xử lý</option>
+                            <option value="all" selected disabled>Tình trạng xử lý</option>
+                            <option value="all">Tất cả</option>
                             <option value="0">Đang xử lý</option>
                             <option value="1">Đã xử lý</option>
                             <option value="2">Từ chối</option>
@@ -111,7 +114,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Địa điểm & Bảng QC</h5>
+                    <h5 class="modal-title">Thông tin điều chỉnh</h5>
                     <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="changeReqDetailContent">
@@ -185,21 +188,21 @@
         </div>
     </div>
 
-    <!-- The Change Request Delete Modal -->
-    <div class="modal" id="confirmationModal"> 
+    <!-- The Delete Modal -->
+    <div class="modal fade" id="confirmationModal">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Bạn có chắc chắn?</h4>
+                    <h5 class="modal-title">Bạn muốn xóa Yêu cầu Điều chỉnh này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Đồng ý</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy thao tác</button>
                 </div>
 
             </div>
@@ -215,3 +218,53 @@
 
 {{!-- Custom Delete Btn --}}
 <script src="/js/deleteMethod.js"></script>
+
+<script>
+    function convertDate(vietnameseDate) {
+        let dateString = vietnameseDate.split("/");
+        let day = dateString[0];
+        let month = dateString[1];
+        let year = dateString[2];
+        let date = new Date(year + "-" + month + "-" + day);
+        return date;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('table');
+        const tbody = table.querySelector('tbody');
+        let ascending = true;
+        buttonIcon = document.getElementById('arrow');
+        document.getElementById('sortButton').addEventListener('click', function () {
+            if (ascending)
+                buttonIcon.classList = 'bi bi-arrow-up';
+            else buttonIcon.classList = 'bi bi-arrow-down'
+                
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort(function (rowA, rowB) {
+                const cellA = rowA.cells[2].innerText; 
+                const cellB = rowB.cells[2].innerText;
+
+                const dateA = convertDate(cellA);
+                const dateB = convertDate(cellB);
+                //console.log('Date A: ' + dateA);
+                //console.log('Date B: ' + dateB);
+
+                if (ascending) {
+                    return dateA - dateB;
+                } else {
+                    return dateB - dateA;
+                }
+            });
+
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            rows.forEach(function (row) {
+                tbody.appendChild(row);
+            });
+
+            ascending = !ascending;
+        });
+    });
+</script>

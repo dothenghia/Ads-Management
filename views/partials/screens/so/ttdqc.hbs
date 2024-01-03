@@ -22,11 +22,11 @@
 
     {{!-- Header--}}
     <div class="shared-header">
-        <h1>Thông tin điểm quảng cáo</h1>
+        <h1>Quản lý Điểm đặt Quảng cáo</h1>
         <div class="d-flex">
             <button class="btn btn-outline-primary custom-btn" id="newAdLocationCreateBtn" data-bs-toggle="modal"
                 data-bs-target="#newAdLocationModal">
-                Thêm Địa Điểm Mới
+                Tạo Địa Điểm Mới
             </button>
         </div>
     </div>
@@ -41,7 +41,8 @@
                     <th scope="col">Địa Điểm</th>
                     <th scope="col">
                         <select id="adFormFilter" name="" onchange="adFormFilter(this.value)">
-                            <option value="all">Hình thức</option>
+                            <option value="all" selected disabled>Hình thức</option>
+                            <option value="all">Tất cả</option>
                             {{#each adForm}}
                             <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -49,7 +50,8 @@
                     </th>
                     <th scope="col">
                         <select id="adTypeFilter" name="" onchange="adTypeFilter(this.value)">
-                            <option value="all">Loại quảng cáo</option>
+                            <option value="all" selected disabled>Loại quảng cáo</option>
+                            <option value="all">Tất cả</option>
                             {{#each adType}}
                             <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -57,7 +59,8 @@
                     </th>
                     <th scope="col">
                         <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
-                            <option value="all">Loại vị trí</option>
+                            <option value="all" selected disabled>Loại vị trí</option>
+                            <option value="all">Tất cả</option>
                             {{#each locationType}}
                             <option value="{{value}}">{{value}}</option>
                             {{/each}}
@@ -86,8 +89,8 @@
                     <td scope="col">
                         <button class="edit-button" data-account-role="so" data-page="thongtindiadiemquangcao"
                             data-id="{{locationId}}" data-quan-id="{{idQuan}}" data-phuong-id="{{idPhuong}}"
-                            data-address="{{address}}" data-location-type="{{locationType}}" data-ad-form="{{adForm}}" data-ad-type="{{adType}}"
-                            data-longitude="{{longitude}}" data-latitude="{{latitude}}">
+                            data-address="{{address}}" data-location-type="{{locationType}}" data-ad-form="{{adForm}}"
+                            data-ad-type="{{adType}}" data-longitude="{{longitude}}" data-latitude="{{latitude}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-edit">
@@ -126,8 +129,7 @@
                 <div class="modal-content">
                     <div class="modal-header d-flex flex-column">
                         <div class="w-100 d-flex flex-row">
-                            <h5 class="modal-title w-100 fw-bold" id="newAdLocationModalLabel">Mẫu Thêm Địa Điểm Mới
-                            </h5>
+                            <h5 class="modal-title w-100 fw-bold" id="newAdLocationModalLabel">Tạo Địa điểm Quảng cáo mới</h5>
                             <button type="button" class="btn-close w-5" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -152,10 +154,10 @@
 
                                 <div class="d-flex flex-column" style="min-width: 40%;" id="newAdTypeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
-                                        id="newAdLocationCategoryTitle">Loại quảng cáo<span class="text-danger">*</span></p>
+                                        id="newAdLocationCategoryTitle">Loại quảng cáo<span class="text-danger">*</span>
+                                    </p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <select id="newAdType" name="newAdType"
-                                            class="rounded-3 form-select">
+                                        <select id="newAdType" name="newAdType" class="rounded-3 form-select">
                                             <option value="">Loại quảng cáo</option>
                                             <option value="Trụ bảng hiflex">Trụ bảng hiflex</option>
                                             <option value="Trụ màn hình điện tử LED">Trụ màn hình điện tử LED</option>
@@ -267,7 +269,7 @@
                             {{!-- Nút Save --}}
                             <button class="btn btn-outline-primary text-start" id="newAdLocationCreate" type="submit"
                                 autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;">
-                                Thêm
+                                Tạo địa điểm
                             </button>
                         </div>
                     </div>
@@ -323,10 +325,10 @@
 
                                 <div class="d-flex flex-column" style="min-width: 40%;" id="EditAdTypeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
-                                        id="EditAdLocationCategoryTitle">Loại quảng cáo<span class="text-danger">*</span></p>
+                                        id="EditAdLocationCategoryTitle">Loại quảng cáo<span
+                                            class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
-                                        <select id="EditAdType" name="EditAdType"
-                                            class="rounded-3 form-select">
+                                        <select id="EditAdType" name="EditAdType" class="rounded-3 form-select">
                                             <option value="">Loại quảng cáo</option>
                                             <option value="Trụ bảng hiflex">Trụ bảng hiflex</option>
                                             <option value="Trụ màn hình điện tử LED">Trụ màn hình điện tử LED</option>
@@ -396,7 +398,7 @@
                                             class="rounded-3 form-select">
                                             <option value="">Quận</option>
                                             {{#each adArea}}
-                                            <option value="{{idQuan}}" data-wards="{{toJSON wards}}" >{{name}}</option>
+                                            <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
                                             {{/each}}
                                         </select>
                                     </div>
@@ -440,7 +442,7 @@
                             <input type="hidden" class="form-control" id="EditAdLocationId" name="EditAdLocationId">
                             <button class="btn btn-outline-primary text-start" id="EditAdLocationCreate" type="submit"
                                 autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;">
-                                Lưu
+                                Lưu thông tin
                             </button>
                         </div>
                     </div>
@@ -468,15 +470,14 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Đồng Ý Xóa Dữ Liệu Vĩnh Viễn?</h4>
+                    <h5 class="modal-title">Bạn muốn xóa thông tin Địa điểm này ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác Nhận</button>
-                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn"
-                        data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-bs-dismiss="modal">Hủy thao tác</button>
                 </div>
 
             </div>
