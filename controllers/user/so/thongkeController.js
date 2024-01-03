@@ -9,8 +9,13 @@ controller.show = async (req, res) => {
     // Get current account
     const token = req.cookies.jwtToken;
     const decoded = await jwt.verify(token, "suffering");
-    let currentRoleInfo = { accountType: decoded.accountType, areaId: decoded.areaId, areaName: decoded.areaName, name: decoded.name };
-
+    let currentRoleInfo = { 
+        accountType: decoded.accountType, 
+        areaId: decoded.areaId, 
+        areaName: decoded.areaName, 
+        name: decoded.name,
+        avatar: decoded.avatar
+    };
     res.render("partials/screens/so/index", {
         "current": currentPage,
         "roleInfo": currentRoleInfo,

@@ -15,7 +15,10 @@ controller.show = async (req, res) => {
         const token = req.cookies.jwtToken;
         const decoded = await jwt.verify(token, "suffering");
         let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
-    
+        let currentRoleInfo = { 
+            name: decoded.name,
+            avatar: decoded.avatar
+        };
         // Get current page's data
         const changeLocReqSnapshot = await client.db(dbName).collection("changeLocReqs").find({}).toArray();
         const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
@@ -92,6 +95,7 @@ controller.show = async (req, res) => {
 
         res.render("partials/screens/so/index", {
             "current": currentPage,
+            "roleInfo": currentRoleInfo,
             "account": currentAccount,
             "reason": Reason,
             "status": Status,
