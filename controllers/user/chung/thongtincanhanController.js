@@ -43,7 +43,7 @@ controller.show = async (req, res) => {
     let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name, avatar: decoded.avatar };
     
 
-    console.log("currentRoleInfo:", currentRoleInfo);
+    // console.log("currentRoleInfo:", currentRoleInfo);
     try {
         
         //const result = await client.db(dbName).collection("accounts").updateMany({}, { $set: { avatar: Array() } });
@@ -56,8 +56,10 @@ controller.show = async (req, res) => {
             Account.push(data);
         }); 
         Account = Account.filter((user) =>  user.role == req.user.accountType && user.area == req.user.areaName);
+        // console.log("Account:", Account);
+        
         // console.log("account:",Account);
-        let avatar = Account[0].avatar[0];
+        let avatar = Account[0].avatar ? Account[0].avatar[0] : "";
 
         // Render navbar of specific role
         let role;

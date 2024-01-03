@@ -18,6 +18,8 @@ if (editBtn != null) {
             let adForm = btn.dataset.adForm;
             let adType = btn.dataset.adType;
 
+            console.log("locationId", locationId);
+
             // Set data
             document.getElementById("EditAdLocationId").value = locationId;
             document.getElementById("EditAdType").value = adType;
@@ -69,9 +71,61 @@ if (editBtn != null) {
             // open the modal
             const modal = new bootstrap.Modal(document.getElementById('EditAdLocationModal'));
             modal.show();
+            
+            // Style Drop area and allow to drop files
+            var fileStorage = [];
+
+            // JavaScript for handling drag-and-drop functionality
+            if (document.getElementById('edit-drop-area') != null) {
+                document.getElementById('edit-drop-area').addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    this.classList.add('hover');
+                });
+            
+                document.getElementById('edit-drop-area').addEventListener('dragleave', function (e) {
+                    e.preventDefault();
+                    this.classList.remove('hover');
+                });
+            
+                document.getElementById('edit-drop-area').addEventListener('drop', function (e) {
+                    e.preventDefault();
+                    this.classList.remove('hover');
+            
+                    var files = e.dataTransfer.files;
+                    handleFiles(files);
+                });
+            
+                // Handling file input change
+                document.getElementById('editfileInput').addEventListener('change', function () {
+                    var files = this.files;
+                    handleFiles(files);
+                });
+            
+                // Additional handling for clicking the drop area to trigger file input
+                document.getElementById('edit-click-span').addEventListener('click', function () {
+                    document.getElementById('editfileInput').click();
+                });
+            
+                function handleFiles(files) {
+                    var fileList = document.getElementById('edit-file-list');
+                    fileList.classList.remove('d-none');
+            
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        var listItem = document.createElement('li');
+                        listItem.className = 'file-item';
+                        listItem.textContent = file.name;
+                        fileList.appendChild(listItem);
+            
+                        fileStorage.push(file);
+                    }
+                }
+            } 
         });
     });
 }
+
+
 
 // Add data phuong base on Quan
 var adLocationDistrict = document.getElementById("EditAdLocationDistrict");
