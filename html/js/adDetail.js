@@ -81,6 +81,57 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#locationTypeFilter').value = urlParams.get("locationTypeId");
     if (urlParams.has("addressId"))
         document.querySelector('#addressFilter').value = urlParams.get("addressId");
+
+    // Style Drop area and allow to drop files
+    var fileStorage = [];
+
+    // JavaScript for handling drag-and-drop functionality
+    if (document.getElementById('drop-area') != null) {
+        document.getElementById('drop-area').addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.classList.add('hover');
+        });
+    
+        document.getElementById('drop-area').addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+        });
+    
+        document.getElementById('drop-area').addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+    
+            var files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+    
+        // Handling file input change
+        document.getElementById('fileInput').addEventListener('change', function () {
+            var files = this.files;
+            handleFiles(files);
+        });
+    
+        // Additional handling for clicking the drop area to trigger file input
+        document.getElementById('click-span').addEventListener('click', function () {
+            document.getElementById('fileInput').click();
+        });
+    
+        function handleFiles(files) {
+            var fileList = document.getElementById('file-list');
+            fileList.classList.remove('d-none');
+    
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = document.createElement('li');
+                listItem.className = 'file-item';
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+    
+                fileStorage.push(file);
+            }
+        }
+    }   
+    
 });
 
 // Filter functions

@@ -3,6 +3,7 @@ const currentPage = 8;
 
 const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
+const fs = require("fs");
 const dbName = 'Ads-Management';
 // Firebase
 const admin = require("../../../config/firebaseAdmin");
@@ -39,6 +40,10 @@ controller.show = async (req, res) => {
         name: decoded.name,
         avatar: decoded.avatar
     };
+    let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name, avatar: decoded.avatar };
+    
+
+    console.log("currentRoleInfo:", currentRoleInfo);
     try {
         
         //const result = await client.db(dbName).collection("accounts").updateMany({}, { $set: { avatar: Array() } });
@@ -49,8 +54,8 @@ controller.show = async (req, res) => {
         accountSnapshot.forEach((doc) => {
             let data = doc;
             Account.push(data);
-        });
-        Account = Account.filter((user) =>  user.role == req.user.accountType);
+        }); 
+        Account = Account.filter((user) =>  user.role == req.user.accountType && user.area == req.user.areaName);
         // console.log("account:",Account);
         let avatar = Account[0].avatar[0];
 
@@ -70,8 +75,10 @@ controller.show = async (req, res) => {
         res.render(`partials/screens/${role}/index`, {
             "current": currentPage,
             "roleInfo": currentRoleInfo,
+            "role": role,
             "avatar": avatar,
-            "account": Account[0],
+            "account": currentAccount,
+            "accountInfo": Account[0],
             body: function() {
                 return "screens/chung/thongtincanhan";
             }
@@ -143,6 +150,7 @@ controller.editAvatar = async (req, res) => {
             avatar: avatar
         };
 
+        console.log("avatar:", avatar);
         //update
         await client.db(dbName).collection("accounts").updateOne({ _id: id }, { $set: updateData });
 

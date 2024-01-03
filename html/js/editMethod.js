@@ -214,13 +214,14 @@ var upload = document.getElementById('upload')
 if (upload != null){
     upload.addEventListener('change', function () {
         var files = this.files;
+        var role = this.dataset.role;
         console.log("id: ", document.querySelector('.id').value ,files);
         var formData = new FormData();
     
         formData.append('avatar', files[0]);
         formData.append('id', document.querySelector('.id').value);
 
-        fetch('/so/thongtincanhan', {
+        fetch(`/${role}/thongtincanhan`, {
             method: 'POST',
             body: formData,
         })

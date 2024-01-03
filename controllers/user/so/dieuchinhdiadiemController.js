@@ -16,6 +16,9 @@ controller.show = async (req, res) => {
         const decoded = await jwt.verify(token, "suffering");
         let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
         let currentRoleInfo = { 
+            accountType: decoded.accountType, 
+            areaId: decoded.areaId, 
+            areaName: decoded.areaName, 
             name: decoded.name,
             avatar: decoded.avatar
         };

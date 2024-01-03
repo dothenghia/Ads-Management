@@ -167,25 +167,3 @@ if (adLocationDistrict != null) {
         });
     });
 }
-
-async function createAdLocation(e) {
-    e.preventDefault()
-
-    // Remove disable attribute
-    document.getElementById('newAdLocationLattitude').disabled = false;
-    document.getElementById('newAdLocationLongtitude').disabled = false;
-    const formData = new FormData(document.getElementById("newAdLocationCreateForm"))
-    const data = Object.fromEntries(formData.entries())
-
-    console.log(data);
-    //newAdLocationForm, newLocationType, newAdLocationDistrict, newAdLocationWard, newAdLocationAddress
-    let res = await fetch('/so/thongtindiadiemquangcao', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    })
-
-    location.reload();
-}

@@ -3,6 +3,8 @@ const currentPage = 1;
 
 const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
+// Firebase
+const admin = require("../../../config/firebaseAdmin");
 const dbName = 'Ads-Management';
 const fs = require("fs");
 
@@ -102,12 +104,16 @@ controller.show = async (req, res) => {
 
 controller.add = async (req, res) => {
     let { newAdType, newAdLocationForm, newLocationType, newAdLocationDistrict, newAdLocationWard, newAdLocationAddress, newAdLocationLongtitude, newAdLocationLattitude } = req.body;
-    const adLocationSnapShot = client.db(dbName).collection("adLocations");
+    const adLocationSnapShot = client.db(dbName).collection("testCollection");
     let idHighest =  (await adLocationSnapShot.find({}).sort({locationId:-1}).limit(1).toArray())[0].locationId;
 
-    // console.log( idHighest);
-    try {
-        
+    // console.log( req.files );
+    // console.log( newAdType );
+    let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
+    let i = 0;
+    let extension;
+
+    async function pushData(thumbnails) {
         const newData = {
             adForm: newAdLocationForm,
             locationType: newLocationType,
@@ -121,18 +127,46 @@ controller.add = async (req, res) => {
             adList: [],
             planning: true,
             locationId: idHighest + 1,
-            thumbnails: [],
+            thumbnails: thumbnails,
         };
 
         // await adLocationSnapShot.insertOne(newData);
-        await adLocationSnapShot.insertOne(newData);
+        const result = await adLocationSnapShot.insertOne(newData);
+        if (result.insertedId != null)
+            res.redirect("/so/thongtindiadiemquangcao");
+    }
+    // console.log( idHighest);
+    try {
+        let thumbnails = Array();
+        let i = 0;
+        let n = req.files.length;
 
-        res.send("Documents updated successfully");
+        if (n > 0) {
+            await req.files.forEach(async (file) => {
+                if (file.mimetype.endsWith("png"))
+                    extension = "png";
+                else if (file.mimetype.endsWith("jpeg"))
+                    extension = "jpeg";
+                else
+                    extension = "jpg";
+                // Upload the thumbnails to storage
+                let temp = bucket.file("thongtindiadiemquangcao/" + (idHighest + 1) + "/thumbnail" + i + "." + extension);
+                await temp.save(file.buffer, {contentType: file.mimetype});
+                
+                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
+                thumbnails.push({url: signedURL});
+                
+                i++;
+                if (i == n) pushData(thumbnails);
+            })
+        }
+        else pushData(thumbnails);
+
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
-    //res.send("Documents updated successfully");
+    // res.send("Documents updated successfully");
 
 }
 
@@ -141,8 +175,11 @@ controller.edit = async (req, res) => {
     const adLocationSnapShot = await client.db(dbName).collection("adLocations").findOne({ locationId: parseInt(EditAdLocationId) });
     
     // console.log( idHighest);
-    try {
-        
+    let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
+    let i = 0;
+    let extension;
+
+    async function updateNewData(thumbnails) {
         const updateData = {
             adForm: EditAdLocationForm ? EditAdLocationForm : adLocationSnapShot.adForm,
             locationType: EditLocationType ? EditLocationType : adLocationSnapShot.locationType,
@@ -152,12 +189,39 @@ controller.edit = async (req, res) => {
             address: EditAdLocationAddress ? EditAdLocationAddress : adLocationSnapShot.address,
             latitude: parseFloat(EditAdLocationLattitude ? EditAdLocationLattitude : adLocationSnapShot.latitude),
             longitude: parseFloat(EditAdLocationLongtitude ? EditAdLocationLongtitude : adLocationSnapShot.longitude),
+            thumbnails: thumbnails,
         };
 
-        // await adLocationSnapShot.insertOne(updateData);
-        await client.db(dbName).collection("adLocations").updateOne({ locationId: parseInt(EditAdLocationId) }, { $set: updateData });
+        // await adLocationSnapShot.insertOne(newData);
+        const result = await client.db(dbName).collection("testCollection").updateOne({ locationId: parseInt(EditAdLocationId) }, { $set: updateData });
+        if (result.upsertedId != null)
+            res.redirect("/so/thongtindiadiemquangcao");
+    }
+    try {
+        let thumbnails = Array();
+        let i = 0;
+        let n = req.files.length;
 
-        res.send("Documents updated successfully");
+        if (n > 0) {
+            await req.files.forEach(async (file) => {
+                if (file.mimetype.endsWith("png"))
+                    extension = "png";
+                else if (file.mimetype.endsWith("jpeg"))
+                    extension = "jpeg";
+                else
+                    extension = "jpg";
+                // Upload the thumbnails to storage
+                let temp = bucket.file("thongtindiadiemquangcao/" + (EditAdLocationId) + "/thumbnail" + i + "." + extension);
+                await temp.save(file.buffer, {contentType: file.mimetype});
+                
+                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
+                thumbnails.push({url: signedURL});
+                
+                i++;
+                if (i == n) updateNewData(thumbnails);
+            })
+        }
+        else updateNewData(adLocationSnapShot.thumbnails);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
