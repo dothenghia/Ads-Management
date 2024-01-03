@@ -195,7 +195,8 @@ controller.edit = async (req, res) => {
         // await adLocationSnapShot.insertOne(newData);
         const result = await client.db(dbName).collection("testCollection").updateOne({ locationId: parseInt(EditAdLocationId) }, { $set: updateData });
         if (result.upsertedId != null)
-            res.redirect("/so/thongtindiadiemquangcao");
+            // res.redirect("/so/thongtindiadiemquangcao");
+            res.send("Documents updated successfully");
     }
     try {
         let thumbnails = Array();

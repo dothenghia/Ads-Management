@@ -203,7 +203,11 @@ async function accPassSettings(e) {
     }
     var upload = document.getElementById('upload');
     var role = upload.dataset.role;
-    
+
+    // Old Hashed pass nè
+    var oldHashedPassword = document.getElementById('oldHashedPass').value;
+    console.log("oldHashedPassword: ", oldHashedPassword);
+
     let res = await fetch(`/${role}/thongtincanhan`, {
         method: 'PUT',
         headers: {
