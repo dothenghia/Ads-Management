@@ -78,22 +78,27 @@ export default function DetailReportModal(detailReportInfo) {
                 <div class="detail-report-modal__content">
                     <h2>Nội dung báo cáo</h2>
                     <p>${detailReportInfo.content}</p>
+
+                    <h3>Phản hồi từ cán bộ</h3>
+                    <p>${detailReportInfo.solution == "" ? '<i>Báo cáo của bạn đang được chờ xử lý</i>' : detailReportInfo.solution}</p>
+
                     <h2>Hình ảnh báo cáo (${detailReportInfo.images.length})</h2>
                 </div>
 
-
-                <div class="detail-report-modal__thumbnail">
+                ${
+                    detailReportInfo.images.length > 0 ?
+                `<div class="detail-report-modal__thumbnail">
                     <div id="detail-report-modal__carousel-" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" role="listbox">
 
-                            ${detailReportInfo.images.map((thumbnail, index) => {
-            return `
-                                    <div class="carousel-item rounded-4 ${index == 0 && 'active'}">
-                                        <img src=${thumbnail.url} class="rounded-4" alt=${thumbnail.url}>
-                                    </div>
-                                    `
-        }).join('')
-        }
+                        ${detailReportInfo.images.map((thumbnail, index) => {
+                            return `
+                                <div class="carousel-item rounded-4 ${index == 0 && 'active'}">
+                                    <img src=${thumbnail.url} class="rounded-4" alt=${thumbnail.url}>
+                                </div>
+                            `
+                            }).join('')
+                        }
 
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#detail-report-modal__carousel-" data-bs-slide="prev">
@@ -105,7 +110,11 @@ export default function DetailReportModal(detailReportInfo) {
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
-                </div>
+                </div>`
+                :
+                `<h1 class='extra-text'>Không có hình ảnh đính kèm</h1>`
+                }
+                
 
             </div>
         </div>

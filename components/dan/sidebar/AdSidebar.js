@@ -18,6 +18,16 @@ function AdSidebar_Thumbnail(adLocationData) {
         </div>
         `
     }
+    if (adLocationData.thumbnails.length == 0) {
+        return `
+        <div class="ad-sidebar__thumbnail chuaquyhoach">
+            <div class="ad-sidebar__tag">
+                ${StatusTag(adLocationData.locationStatus)}
+            </div>
+            <img src='/assets/dan/illustration/placeholder.png' alt='Khong co hinh anh' style="object-fit: cover;">
+        </div>
+        `
+    }
 
     return `
     <div class="ad-sidebar__thumbnail">
@@ -99,12 +109,12 @@ function AdSidebar_Info(adLocationData) {
         ${(adLocationData.locationStatus != '') ?
             `<button class="custom-btn custom-btn-fade w-100" onclick="openDetailReportModal_AdSidebar(${adLocationData.reportId})">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                Xem lại phản hồi địa điểm này
+                Xem lại báo cáo địa điểm này
             </button>`
             :
             `<button class="btn btn-outline-primary custom-btn w-100 " onclick="openReportFormModal_AdSidebar()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                Gửi phản hồi địa điểm này
+                Báo cáo địa điểm này
             </button>`
         }
         
@@ -148,7 +158,14 @@ export default function AdSidebar(adLocationData) {
                 
 
                 <div class="ad-sidebar__adlist">
-                    ${adLocationData.newAdList.map(ad => AdCard(ad, adLocationData)).join('')}
+                ${
+                    adLocationData.newAdList.length == 0 ?
+                    `<div class="report-sidebar__empty">
+                        <h1>Chưa có Quảng cáo tại đây</h1>
+                    </div>`
+                    :
+                    adLocationData.newAdList.map(ad => AdCard(ad, adLocationData)).join('')
+                }
                 </div>
 
             </div>

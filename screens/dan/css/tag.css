@@ -25,3 +25,10 @@
     background-color: var(--tuchoi-color-subtle);
     color: var(--tuchoi-color);
 }
+
+.extra-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-color);
+    margin-top: 4px;
+}

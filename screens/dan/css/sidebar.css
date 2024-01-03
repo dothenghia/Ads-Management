@@ -97,6 +97,7 @@
     width: 100%;
     aspect-ratio: 340/200;
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .ad-sidebar__thumbnail .carousel,

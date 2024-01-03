@@ -74,7 +74,7 @@ const trangchu = {
             <div class="captcha-box-root"></div>
 
             <div class="filter-switch-root">
-                <h1 class="filter-title">Quảng cáo</h1>
+                <h1 class="filter-title">Điểm Quảng cáo</h1>
                 <label class="filter-switch">
                     <input type="checkbox" id="filter-switch-ad" checked>
                     <span class="filter-switch__slider round"></span>
