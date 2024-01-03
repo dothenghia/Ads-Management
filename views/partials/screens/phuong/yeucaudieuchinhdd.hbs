@@ -42,7 +42,7 @@
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
                         <td scope="col">
-                            {{#with (getAdLocationFromAd ../adLocation oldLocationId)}}
+                            {{#with (getAdLocationById ../adLocation oldLocationId)}}
                                 {{address}}
                             {{/with}}
                         </td>

@@ -31,7 +31,14 @@
                     </th>
                     <th scope="col">Email</th>
                     <th scope="col">SĐT</th>
-                    <th scope="col">Địa điểm yêu cầu cấp phép</th>
+                    <th scope="col">
+                        <select id="addressFilter" name="" onchange="addressFilter(this.value)">
+                            <option value="all">Tất cả Địa điểm yêu cầu cấp phép</option>
+                            {{#each address}}
+                                <option value="{{value}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all">Tất cả Tình trạng xử lý</option>

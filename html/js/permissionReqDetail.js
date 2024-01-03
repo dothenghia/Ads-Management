@@ -111,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#coFilter').value = urlParams.get("coId");
     if (urlParams.has("statusId"))
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
+    if (urlParams.has("addressId"))
+        document.querySelector('#addressFilter').value = urlParams.get("addressId");
 
 
     // Set default location selectors' value to "all"
@@ -176,6 +178,14 @@ function coFilter(coId) {
         filters.set("coId", coId);
     else
         filters.delete("coId");
+    window.location.href = "?" + filters.toString();
+}
+
+function addressFilter(addressId) {
+    if (addressId != "all")
+        filters.set("addressId", addressId);
+    else
+        filters.delete("addressId");
     window.location.href = "?" + filters.toString();
 }
 

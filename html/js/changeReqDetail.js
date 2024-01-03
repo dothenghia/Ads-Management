@@ -136,6 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let urlParams = (new URL(window.location.href)).searchParams;
     if (urlParams.has("reasonId"))
         document.querySelector('#reasonFilter').value = urlParams.get("reasonId");
+    if (urlParams.has("addressId"))
+        document.querySelector('#addressFilter').value = urlParams.get("addressId");
     if (urlParams.has("statusId"))
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
     if (urlParams.has("roleId")) 
@@ -206,6 +208,14 @@ function reasonFilter(reasonId) {
         filters.set("reasonId", reasonId);
     else
         filters.delete("reasonId");
+    window.location.href = "?" + filters.toString();
+}
+
+function addressFilter(addressId) {
+    if (addressId != "all")
+        filters.set("addressId", addressId);
+    else
+        filters.delete("addressId");
     window.location.href = "?" + filters.toString();
 }
 

@@ -33,9 +33,15 @@ controller.show = async (req, res) => {
             Ad.push(doc);
         });
 
-        let AdLocation = []; let AdArea = {};
+        let AdLocation = []; let AdArea = {}; let Address = [];
+        let addressId = [];
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
+
+            if (!addressId.includes(data.locationId)) {
+                addressId.push(data.locationId);
+                Address.push({name: data.address, value: data.locationId});
+            }
 
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
             if (!(docDistrict.idQuan in AdArea))
@@ -72,8 +78,6 @@ controller.show = async (req, res) => {
             // Check if matching area before extracting
             //idQuan
             let idQuan = currentAccount.idQuan;
-            // idPhuong
-            let idPhuong = currentAccount.idPhuong;
             for (loc in AdLocation) {
                 let locDetail = AdLocation[loc];
 
@@ -113,11 +117,26 @@ controller.show = async (req, res) => {
         let filterReasonId = req.query.reasonId;
         if (filterReasonId)
             ChangeReq = ChangeReq.filter((req) => req.reason == filterReasonId);
+        let filterAddressId = req.query.addressId;
+        if (filterAddressId) {
+            ChangeReq = ChangeReq.filter((req) => {
+                for (loc in AdLocation) {
+                    let adList = AdLocation[loc].adList;
+
+                    for (ad in adList) {
+                        let adId = adList[ad].adId;
+
+                        if (adId == req.oldAdId && AdLocation[loc].locationId == filterAddressId) return true;
+                    }
+                }
+                return false;
+            });
+        }
         let filterStatusId = req.query.statusId;
         if (filterStatusId)
             ChangeReq = ChangeReq.filter((req) => req.status == filterStatusId);
 
-        res.render("partials/screens/phuong/index", {
+        res.render("partials/screens/quan/index", {
             "current": currentPage,
             "account": currentAccount,
             "reason": Reason,
@@ -126,8 +145,9 @@ controller.show = async (req, res) => {
             "ad": Ad,
             "adArea": AdArea,
             "adLocation": AdLocation,
+            "address": Address,
             body: function() {
-                return "screens/phuong/yeucaudieuchinh";
+                return "screens/quan/yeucaudieuchinh";
             }
         });
     } catch (error) {

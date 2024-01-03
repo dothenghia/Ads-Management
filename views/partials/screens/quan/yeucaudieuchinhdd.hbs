@@ -21,7 +21,14 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Địa điểm quảng cáo</th>
+                    <th scope="col">
+                        <select id="addressFilter" name="" onchange="addressFilter(this.value)">
+                            <option value="all">Tất cả Địa điểm quảng cáo</option>
+                            {{#each address}}
+                                <option value="{{value}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </th>
                     <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
                     <th scope="col">Lý do chỉnh sửa</th>
                     <th scope="col">
@@ -41,7 +48,7 @@
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
                         <td scope="col">
-                            {{#with (getAdLocationFromAd ../adLocation oldLocationId)}}
+                            {{#with (getAdLocationById ../adLocation oldLocationId)}}
                                 {{address}}
                             {{/with}}
                         </td>
