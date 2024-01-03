@@ -1,7 +1,8 @@
 
 // ! ĐIỀN ID QUẬN VÀ ID PHƯỜNG VÀO ĐÂY
-let idPhuong = 'phuong_04'
-let idQuan = 'quan_5'
+let dataset = document.querySelector("script#mapScript").dataset;
+let idPhuong = dataset.idPhuong;
+let idQuan = dataset.idQuan;
 // ! ================================
 
 // Import Functions

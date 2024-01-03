@@ -79,6 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#adFormFilter').value = urlParams.get("adFormId");
     if (urlParams.has("locationTypeId"))
         document.querySelector('#locationTypeFilter').value = urlParams.get("locationTypeId");
+    if (urlParams.has("addressId"))
+        document.querySelector('#addressFilter').value = urlParams.get("addressId");
 });
 
 // Filter functions
@@ -104,11 +106,18 @@ function locationTypeFilter(locationTypeId) {
         filters.delete("locationTypeId");
     window.location.href = "?" + filters.toString();
 }
+function addressFilter(addressId) {
+    if (addressId != "all")
+        filters.set("addressId", addressId);
+    else
+        filters.delete("addressId");
+    window.location.href = "?" + filters.toString();
+}
 
 // Process address
 async function getAreaInfo(longitude, latitude) {
     const token = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
     let fetchResult = await (await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${token}`)).json();
     
-    return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
+    return fetchResult.features[1].text + ", " + fetchResult.features[3].text;
 }

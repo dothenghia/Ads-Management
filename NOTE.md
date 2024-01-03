@@ -32,14 +32,14 @@ Khoa :
         - Thêm nút lọc Phường cho Cán bộ Quận
         - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang
         - Đổi function trong Controller sang kiểu Model
-        - Đổi tên thêm "Tất cả" vào các nút filter (DONE)
-        - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn) (DONE)
-        - Trang Báo cáo : Phường/Quận/Sở luôn (DONE)
-            + Xóa chữ "gần" (DONE)
-            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC (DONE)
-        - Trang Yêu cầu điều chỉnh QC : (DONE)
-            + Thêm cột Tên bảng QC (DONE)
-            + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách) (DONE)
+        - Đổi tên thêm "Tất cả" vào các nút filter - [DONE]
+        - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn) - [DONE]
+        - Trang Báo cáo : Phường/Quận/Sở luôn - [DONE]
+            + Xóa chữ "gần" - [DONE]
+            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC - [DONE]
+        - Trang Yêu cầu điều chỉnh QC : - [DONE]
+            + Thêm cột Tên bảng QC - [DONE]
+            + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách) - [DONE]
 
 
 

@@ -1,5 +1,5 @@
 const controller = {}
-const currentPage = 2;
+const currentPage = 3;
 
 const jwt = require("jsonwebtoken");
 // Firebase
@@ -17,8 +17,7 @@ controller.show = async (req, res) => {
         let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, areaName: decoded.areaName, name: decoded.name };
     
         // Get current page's data
-        const changeReqSnapshot = await client.db(dbName).collection("changeReqs").find({}).toArray();
-        const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
+        const changeLocReqSnapshot = await client.db(dbName).collection("changeLocReqs").find({}).toArray();
         const adLocationSnapshot = await client.db(dbName).collection("adLocations").find({}).toArray();
 
         // Get local data for HCM city's wards and districts
@@ -26,13 +25,6 @@ controller.show = async (req, res) => {
         let areas = JSON.parse(dataFile);
         
         // Extract data from retrieved snapshots
-        let Reason = []; let Status = [];
-        let reasonId = []; let statusId = [];
-        let Ad = [];
-        adSnapshot.forEach((doc) => {
-            Ad.push(doc);
-        });
-
         let AdLocation = []; let AdArea = {};
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
@@ -40,23 +32,22 @@ controller.show = async (req, res) => {
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
             if (!(docDistrict.idQuan in AdArea))
                 AdArea[docDistrict.idQuan] = {name: docDistrict.name, idQuan: docDistrict.idQuan, wards: {}};
-
+            
             let docWard = docDistrict.wards.filter((ward) => ward.idPhuong == doc.idPhuong)[0];
 
-            if (!(docWard.idPhuong in AdArea[docDistrict.idQuan].wards)) 
-                AdArea[docDistrict.idQuan].wards[docWard.idPhuong] = {name: docWard.name, idPhuong: docWard.idPhuong, ads: []};
-            
-            for (ad in data.adList) {
-                let adId = data.adList[ad].adId;
-                
-                let adObject = Ad.filter((currentAd) => currentAd.adId == adId)[0];
-                AdArea[docDistrict.idQuan].wards[docWard.idPhuong].ads.push(adObject);
+            if (!(docWard.idPhuong in AdArea[docDistrict.idQuan].wards)) {
+                AdArea[docDistrict.idQuan].wards[docWard.idPhuong] = {name: docWard.name, idPhuong: docWard.idPhuong, adLocations: []}
             }
+            
+            AdArea[docDistrict.idQuan].wards[docWard.idPhuong].adLocations.push(doc);
 
             AdLocation.push(data);
         });
-        let ChangeReq = [];
-        changeReqSnapshot.forEach((doc) => {
+
+        let Reason = []; let Status = [];
+        let reasonId = []; let statusId = [];
+        let ChangeLocReq = [];
+        changeLocReqSnapshot.forEach((doc) => {
             let data = doc;
 
             if (!reasonId.includes(data.reason)) {
@@ -77,16 +68,10 @@ controller.show = async (req, res) => {
             for (loc in AdLocation) {
                 let locDetail = AdLocation[loc];
 
-                let isFound = false;
-                for (ad in locDetail.adList) {
-                    let adDetail = locDetail.adList[ad];
-                    if (adDetail.adId == data.oldAdId && locDetail.idQuan == idQuan) {
-                        ChangeReq.push(data);
-                        isFound = true;
-                        break;
-                    }
+                if (locDetail.locationId == doc.oldLocationId && locDetail.idQuan == idQuan) {
+                    ChangeLocReq.push(data);
+                    break;
                 }
-                if (isFound) break;
             }
         });
 
@@ -112,22 +97,21 @@ controller.show = async (req, res) => {
         // Filters
         let filterReasonId = req.query.reasonId;
         if (filterReasonId)
-            ChangeReq = ChangeReq.filter((req) => req.reason == filterReasonId);
+            ChangeLocReq = ChangeLocReq.filter((req) => req.reason == filterReasonId);
         let filterStatusId = req.query.statusId;
         if (filterStatusId)
-            ChangeReq = ChangeReq.filter((req) => req.status == filterStatusId);
+            ChangeLocReq = ChangeLocReq.filter((req) => req.status == filterStatusId);
 
-        res.render("partials/screens/phuong/index", {
+        res.render("partials/screens/quan/index", {
             "current": currentPage,
             "account": currentAccount,
             "reason": Reason,
             "status": Status,
-            "changeReq": ChangeReq,
-            "ad": Ad,
+            "changeLocReq": ChangeLocReq,
             "adArea": AdArea,
             "adLocation": AdLocation,
             body: function() {
-                return "screens/phuong/yeucaudieuchinh";
+                return "screens/quan/yeucaudieuchinhdd";
             }
         });
     } catch (error) {
@@ -137,58 +121,30 @@ controller.show = async (req, res) => {
 }
 
 controller.createChangeReq = async (req, res) => {
-    const changeReqSnapshot = client.db(dbName).collection("changeReqs");
-    let changeReqHighest = (await changeReqSnapshot.find({}).sort({changeReqId:-1}).limit(1).toArray())[0].changeReqId
-
-    let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
-    let i = 0;
-    let extension;
-
-    async function pushData(req, thumbnails) {
+    const changeLocReqSnapshot = client.db(dbName).collection("changeLocReqs");
+    let changeLocReqHighest = (await changeLocReqSnapshot.find({}).sort({changeLocReqId:-1}).limit(1).toArray())[0].changeLocReqId
+    async function pushData(req) {
         let newData = {
             date: new Date(),
-            reason: req.body.ChangeReqReason,
-            changeReqId: changeReqHighest + 1,
+            reason: req.body.ChangeLocReqReason,
+            changeLocReqId: changeLocReqHighest + 1,
             senderRole: 1,
-            oldAdId: parseInt(req.body.newChangeReqId),
+            oldLocationId: parseInt(req.body.newChangeLocReqId),
             status: 0,
             new: {
-                name: req.body.newChangeReqNewName,
-                size: req.body.newChangeReqNewSize,
-                thumbnails: thumbnails
-            },
-            delete: false
+                adForm: req.body.newChangeLocReqNewAdForm,
+                adType: req.body.newChangeLocReqNewAdType,
+                locationType: req.body.newChangeLocReqNewLocationType,
+            }
         }
     
-        const result = await changeReqSnapshot.insertOne(newData); //upsert = update and insert
+        const result = await changeLocReqSnapshot.insertOne(newData); //upsert = update and insert
         if (result.insertedId != null)
-            res.redirect("/quan/yeucaudieuchinhqc");
+            res.redirect("/quan/yeucaudieuchinhdd");
     }
 
     try {
-        let thumbnails = Array();
-        let i = 0;
-        let n = req.files.length;
-        if (n > 0) {
-            await req.files.forEach(async (file) => {
-                if (file.mimetype.endsWith("png"))
-                    extension = "png";
-                else if (file.mimetype.endsWith("jpeg"))
-                    extension = "jpeg";
-                else
-                    extension = "jpg";
-                // Upload the thumbnails to storage
-                let temp = bucket.file("yeucaudieuchinhqc/" + (changeReqHighest + 1) + "/thumbnail" + i + "." + extension);
-                await temp.save(file.buffer, {contentType: file.mimetype});
-                
-                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
-                thumbnails.push({url: signedURL});
-                
-                i++;
-                if (i == n) pushData(req, thumbnails);
-            })
-        }
-        else pushData(req, thumbnails);
+        pushData(req);
     }
     catch (error) {
         console.log(error)
