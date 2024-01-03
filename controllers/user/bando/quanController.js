@@ -15,37 +15,21 @@ controller.ddqc = async (req, res) => {
         const db = client.db(dbName);
         const adLocationsCollection = db.collection('adLocations');
         const adsCollection = db.collection('ads');
-
-        // Lấy tất cả các documents trong collection 'adLocations'
         const adLocationDocs = await adLocationsCollection.find({ idQuan: idQuanQuery }).toArray();
 
-        // Sử dụng Promise.all để thực hiện nhiều truy vấn cùng một lúc
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
-            // Đếm số lượng reports của adLocation
-            let numberOfReports = 0;
             let numberOfAds = 0;
 
-            let adLocationStatus = await getReportStatus(adLocationData.reportId)
-            if (adLocationStatus !== null) {
-                numberOfReports = 1;
-            }
-
             if (adLocationData.adList && adLocationData.adList.length > 0) {
-                const adPromises = adLocationData.adList.map(async (ad) => {
+                await Promise.all(adLocationData.adList.map(async (ad) => {
                     const adDoc = await adsCollection.findOne({ adId: ad.adId });
 
-                    // Kiểm tra hợp lệ của contractStartDate và contractEndDate
                     if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
                         numberOfAds++;
-                        let adStatus = await getReportStatus(adDoc.reportId);
-                        if (adStatus !== null) {
-                            numberOfReports++;
-                        }
                     }
-                });
-                await Promise.all(adPromises);
+                }));
             }
-            return { ...adLocationData, numberOfReports, numberOfAds };
+            return { ...adLocationData, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
@@ -85,8 +69,6 @@ function convertAdToGeoJSON(adLocation) {
             quan,
             phuong,
 
-            numberOfReports: adLocation.numberOfReports,
-
             markerType: 'Ad' // Thêm cái này để filter marker trên map
         }
     };
@@ -117,25 +99,6 @@ async function convertReportToGeoJSON(report) {
     }
     catch (error) {
         console.error('Error in reverseGeocoding:', error);
-        return null;
-    }
-}
-
-// ========== Hàm lấy status của report theo reportId
-async function getReportStatus(reportId) {
-    try {
-        if (!reportId) return null;
-
-        const db = client.db(dbName);
-        const reportsCollection = db.collection('reports');
-        const reportData = await reportsCollection.findOne({ reportId: reportId });
-
-        if (!reportData) { console.log("Không tìm thấy report với reportId:", reportId); return null; }
-
-        return reportData.status;
-    }
-    catch (error) {
-        console.error("Lỗi lấy report status:", error);
         return null;
     }
 }
