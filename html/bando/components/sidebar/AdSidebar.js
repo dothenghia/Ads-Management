@@ -10,7 +10,18 @@ function AdSidebar_Thumbnail(adLocationData) {
             <div class="ad-sidebar__tag">
                 ${StatusTag(adLocationData.locationStatus)}
             </div>
-            <img src='/assets/dan/illustration/CQH_illustration.png' alt='Chua quy hoach'>
+            <img src='/bando/assets/illustration/CQH_illustration.png' alt='Chua quy hoach'>
+        </div>
+        `
+    }
+
+    if (adLocationData.thumbnails.length == 0) {
+        return `
+        <div class="ad-sidebar__thumbnail chuaquyhoach">
+            <div class="ad-sidebar__tag">
+                ${StatusTag(adLocationData.locationStatus)}
+            </div>
+            <img src='/bando/assets/illustration/placeholder.png' alt='Khong co hinh anh' style="object-fit: cover;">
         </div>
         `
     }
@@ -110,7 +121,14 @@ export default function AdSidebar(adLocationData) {
                 
 
                 <div class="ad-sidebar__adlist">
-                    ${adLocationData.newAdList.map(ad => AdCard(ad, adLocationData)).join('')}
+                ${
+                    adLocationData.newAdList.length == 0 ?
+                    `<div class="report-sidebar__empty">
+                        <h1>Chưa có Quảng cáo tại đây</h1>
+                    </div>`
+                    :
+                    adLocationData.newAdList.map(ad => AdCard(ad, adLocationData)).join('')
+                }
                 </div>
 
             </div>

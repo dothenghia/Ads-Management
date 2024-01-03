@@ -4,6 +4,14 @@ import StatusTag from '../tag/StatusTag.js'
 
 
 function AdCard_Thumbnail(adInfo) {
+    if (adInfo.thumbnails.length == 0) {
+        return `
+        <div class="ad-card__thumbnail rounded-3">
+            <img src='/bando/assets/illustration/placeholder.png' alt='Khong co hinh anh' style="object-fit: cover;">
+        </div>
+        `
+    }
+
     return `
     <div class="ad-card__thumbnail">
         <div id="ad-card__carousel-${adInfo.adId}" class="carousel slide" data-bs-ride="carousel">
