@@ -5,6 +5,7 @@ const {hashPassword,checkPassword} = require('../../config/bcryptConfig');
 jwtSecret = 'suffering';
 
 controller.show = (req, res) => {
+    
     res.render('general/changePassword', {
         layout: 'layout_general',
     });
@@ -28,7 +29,6 @@ controller.submit = async (req,res) => {
                     res.send('Người dùng không tồn tại');
                 }
             } catch (error) {
-          
                 res.status(500).send('Internal Server Error');
             }
         } else {

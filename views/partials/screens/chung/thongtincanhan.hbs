@@ -75,35 +75,8 @@
       </div>
       <div class="card mb-5 ">
         <h5 class="card-header">Thay Đổi Mật Khẩu</h5>
-        <div class="card-body">
-          <form class="formPassSettings" onsubmit="accPassSettings(event)">
-            <div id="passWarn" class="row" hidden>
-              <div class="mb-3 col-md-6">
-                <label class="form-label text-danger">Mật Khẩu Đã Nhập Không Khớp. Xin Thử Lại!!</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="oldPassword" class="form-label">Mật Khẩu Cũ</label>
-                <input class="form-control" type="password" id="oldPassword" name="oldPassword" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="newPassword" class="form-label">Mật Khẩu Mới</label>
-                <input class="form-control" type="password" id="newPassword" name="newPassword" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="confirmPassword" class="form-label">Xác Nhận Lại Mật Khẩu</label>
-                <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" />
-              </div>
-            </div>
-            <input type="hidden" name="id" class="id" value="{{accountInfo._id}}"/>
-            <input type="hidden" id="oldHashedPass" value="{{accountInfo.hashedpassword}}"/>
-            <button type="submit" class="btn btn-primary me-2">Lưu</button>
-          </form>
+        <div class="card-body d-flex justify-content-center">
+            <button class="btn btn-primary me-2" id="click-me">Đổi Mật Khẩu</button>
         </div>
       </div>
     </div>
