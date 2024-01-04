@@ -19,7 +19,7 @@ Nghĩa :
         - Sửa cách fetch data Dân - [DONE]
         - Sửa cách fetch data Phường/Quận - [DONE]
         - Chỉnh lại mấy cái placeholder, text, ... - [DONE]
-        - Geocoding Search bar
+        - Geocoding Search bar - [DONE]
         - Thống kê (Sở)
         - Sửa lỗi icon khi scoll
         - Guide Marker (Optional)
