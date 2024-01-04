@@ -142,23 +142,31 @@ controller.add = async (req, res) => {
         let n = req.files.length;
 
         if (n > 0) {
-            await req.files.forEach(async (file) => {
+            let i = 0;
+
+            for (const file of req.files) {
+                let extension;
+
                 if (file.mimetype.endsWith("png"))
                     extension = "png";
                 else if (file.mimetype.endsWith("jpeg"))
                     extension = "jpeg";
                 else
                     extension = "jpg";
+
                 // Upload the thumbnails to storage
                 let temp = bucket.file("thongtindiadiemquangcao/" + (idHighest + 1) + "/thumbnail" + i + "." + extension);
-                await temp.save(file.buffer, {contentType: file.mimetype});
-                
-                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
-                thumbnails.push({url: signedURL});
-                
-                i++;
-                if (i == n) pushData(thumbnails);
-            })
+                await temp.save(file.buffer, { contentType: file.mimetype });
+
+                let signedURL = await temp.getSignedUrl({ action: "read", expires: '2024-10-24' });
+                thumbnails.push({ url: signedURL });
+
+                i = i + 1;
+
+                if (i == req.files.length) {
+                    pushData(thumbnails);
+                }
+            }
         }
         else pushData(thumbnails);
 
@@ -178,6 +186,7 @@ controller.edit = async (req, res) => {
     let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
     let i = 0;
     let extension;
+    // console.log("body:",req.body);
 
     async function updateNewData(thumbnails) {
         const updateData = {
@@ -193,42 +202,55 @@ controller.edit = async (req, res) => {
         };
 
         // await adLocationSnapShot.insertOne(newData);
-        const result = await client.db(dbName).collection("testCollection").updateOne({ locationId: parseInt(EditAdLocationId) }, { $set: updateData });
-        if (result.upsertedId != null)
+        const result = await client.db(dbName).collection("adLocations").updateOne({ locationId: parseInt(EditAdLocationId) }, { $set: updateData });
             // res.redirect("/so/thongtindiadiemquangcao");
-            res.send("Documents updated successfully");
+        res.send("Documents updated successfully");
     }
+
     try {
         let thumbnails = Array();
-        let i = 0;
+        
         let n = req.files.length;
-
-        console.log("Files:",req.files);
+        console.log("n", n);
         if (n > 0) {
-            await req.files.forEach(async (file) => {
+            let i = 0;
+
+            for (const file of req.files) {
+                let extension;
+
                 if (file.mimetype.endsWith("png"))
                     extension = "png";
                 else if (file.mimetype.endsWith("jpeg"))
                     extension = "jpeg";
                 else
                     extension = "jpg";
+
                 // Upload the thumbnails to storage
-                let temp = bucket.file("thongtindiadiemquangcao/" + parseInt(EditAdLocationId) + "/thumbnail" + i + "." + extension);
-                await temp.save(file.buffer, {contentType: file.mimetype});
+                //let temp = bucket.file("thongtindiadiemquangcao/" + (idHighest + 1) + "/thumbnail" + i + "." + extension);
                 
-                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
-                thumbnails.push({url: signedURL});
-                
-                i++;
-                if (i == n) updateNewData(thumbnails);
-            })
+                let filePath = `thongtindiadiemquangcao/${parseInt(EditAdLocationId)}/thumbnail${i}.${extension}`;
+                console.log(filePath);
+
+                let temp = bucket.file(filePath);
+                await temp.save(file.buffer, { contentType: file.mimetype });
+
+                let signedURL = await temp.getSignedUrl({ action: "read", expires: '2024-10-24' });
+                thumbnails.push({ url: signedURL });
+
+                i = i + 1;
+
+                if (i == req.files.length) {
+                    updateNewData(thumbnails);
+                }
+            }
+
         }
         else updateNewData(adLocationSnapShot.thumbnails);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
-    //res.send("Documents updated successfully");
+    // res.send("Documents updated successfully");
 
 }
 

@@ -210,7 +210,7 @@ async function accPassSettings(e) {
     var upload = document.getElementById('upload');
     var role = upload.dataset.role;
 
-  
+
 
     let res = await fetch(`/${role}/thongtincanhan`, {
         method: 'PUT',
