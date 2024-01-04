@@ -1,6 +1,7 @@
 
 // ! ĐIỀN ID QUẬN VÀO ĐÂY
-let idQuan = 'quan_5'
+let dataset = document.querySelector("script#mapScript").dataset;
+let idQuan = dataset.idQuan;
 // ! ================================
 
 // Import Functions

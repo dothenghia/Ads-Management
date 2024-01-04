@@ -26,7 +26,7 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Thời gian</th>
+                    <th scope="col">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></th>
                     {{!-- <th scope="col">Vị trí điều chỉnh</th> --}}
                     <th scope="col">
                         <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
@@ -218,3 +218,53 @@
 
 {{!-- Custom Delete Btn --}}
 <script src="/js/deleteMethod.js"></script>
+
+<script>
+    function convertDate(vietnameseDate) {
+        let dateString = vietnameseDate.split("/");
+        let day = dateString[0];
+        let month = dateString[1];
+        let year = dateString[2];
+        let date = new Date(year + "-" + month + "-" + day);
+        return date;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('table');
+        const tbody = table.querySelector('tbody');
+        let ascending = true;
+        buttonIcon = document.getElementById('arrow');
+        document.getElementById('sortButton').addEventListener('click', function () {
+            if (ascending)
+                buttonIcon.classList = 'bi bi-arrow-up';
+            else buttonIcon.classList = 'bi bi-arrow-down'
+                
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort(function (rowA, rowB) {
+                const cellA = rowA.cells[2].innerText; 
+                const cellB = rowB.cells[2].innerText;
+
+                const dateA = convertDate(cellA);
+                const dateB = convertDate(cellB);
+                //console.log('Date A: ' + dateA);
+                //console.log('Date B: ' + dateB);
+
+                if (ascending) {
+                    return dateA - dateB;
+                } else {
+                    return dateB - dateA;
+                }
+            });
+
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            rows.forEach(function (row) {
+                tbody.appendChild(row);
+            });
+
+            ascending = !ascending;
+        });
+    });
+</script>

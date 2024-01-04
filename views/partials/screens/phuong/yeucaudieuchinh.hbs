@@ -10,7 +10,7 @@
         <h1>Quản lý Điều chỉnh Bảng Quảng cáo</h1>
 
         <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn" id="newChangeReqButton">Thêm yêu cầu điều chỉnh
+            <button class="btn btn-outline-primary custom-btn" data-id-phuong="{{#with account}}{{idPhuong}}{{/with}}" data-id-quan="{{#with account}}{{idQuan}}{{/with}}" id="newChangeReqButton">Thêm yêu cầu điều chỉnh
                 QC</button>
         </div>
     </div>
@@ -370,10 +370,10 @@
 
 <script>
     function convertDate(vietnameseDate) {
-        let dateString = vietnameseDate.split(" ");
-        let day = dateString[1];
-        let month = dateString[3];
-        let year = dateString[5];
+        let dateString = vietnameseDate.split("/");
+        let day = dateString[0];
+        let month = dateString[1];
+        let year = dateString[2];
         let date = new Date(year + "-" + month + "-" + day);
         return date;
     }

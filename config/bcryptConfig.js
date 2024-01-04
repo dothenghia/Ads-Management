@@ -12,7 +12,7 @@ async function hashPassword(password) {
 async function checkPassword(password, hashedPassword) {
   try {
     const matching = await bcrypt.compare(password, hashedPassword);
-    console.log('matchihg' + matching);
+    console.log('matching password: ' + matching);
     return matching;
   } catch (error) {
     throw error;

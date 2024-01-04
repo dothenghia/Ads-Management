@@ -1,8 +1,17 @@
+
+// Style Drop area and allow to drop files
+var fileStorage = [];
+
 var editBtn = document.querySelectorAll(".edit-button");
 if (editBtn != null) {
     editBtn.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             console.log("Edit button clicked");
+            // Clear fileStorage and restore initial state
+            fileStorage = [];
+            document.getElementById('editfileInput').value = "";
+            document.getElementById('edit-file-list').innerHTML = "";
+            document.getElementById('edit-file-list').outerHTML = '<ul id="edit-file-list" class="list-unstyled d-none"></ul>';
             // Page, account role
             let page = btn.dataset.page;
             let accountRole = btn.dataset.accountRole;
@@ -17,6 +26,8 @@ if (editBtn != null) {
             let locationType = btn.dataset.locationType;
             let adForm = btn.dataset.adForm;
             let adType = btn.dataset.adType;
+
+            console.log("locationId", locationId);
 
             // Set data
             document.getElementById("EditAdLocationId").value = locationId;
@@ -67,11 +78,63 @@ if (editBtn != null) {
             document.querySelector('#mapDisplay').style.display = 'none';
 
             // open the modal
+            
             const modal = new bootstrap.Modal(document.getElementById('EditAdLocationModal'));
             modal.show();
+            
+
+            
         });
     });
+    // JavaScript for handling drag-and-drop functionality
+    if (document.getElementById('edit-drop-area') != null) {
+        document.getElementById('edit-drop-area').addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.classList.add('hover');
+        });
+    
+        document.getElementById('edit-drop-area').addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+        });
+    
+        document.getElementById('edit-drop-area').addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+    
+            var files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+    
+        // Handling file input change
+        document.getElementById('editfileInput').addEventListener('change', function () {
+            var files = this.files;
+            handleFiles(files);
+        });
+    
+        // Additional handling for clicking the drop area to trigger file input
+        document.getElementById('edit-click-span').addEventListener('click', function () {
+            document.getElementById('editfileInput').click();
+        });
+    
+        function handleFiles(files) {
+            var fileList = document.getElementById('edit-file-list');
+            fileList.classList.remove('d-none');
+    
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = document.createElement('li');
+                listItem.className = 'file-item';
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+    
+                fileStorage.push(file);
+            }
+        }
+    } 
 }
+
+
 
 // Add data phuong base on Quan
 var adLocationDistrict = document.getElementById("EditAdLocationDistrict");
@@ -126,16 +189,13 @@ async function editAdLocation(e) {
     // Remove disable attribute
     document.getElementById('EditAdLocationLattitude').disabled = false;
     document.getElementById('EditAdLocationLongtitude').disabled = false;
-    const formData = new FormData(document.getElementById("EditAdLocationCreateForm"))
-    const data = Object.fromEntries(formData.entries())
+    var formData = new FormData(document.getElementById("EditAdLocationCreateForm"))
+    
+    // const data = Object.fromEntries(formData.entries())
 
-    console.log(data);
     let res = await fetch('/so/thongtindiadiemquangcao', {
         method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
+        body: formData
     })
 
     location.reload();

@@ -14,7 +14,7 @@ controller.show = async (req, res) => {
         // Get current account
         const token = req.cookies.jwtToken;
         const decoded = await jwt.verify(token, "suffering");
-        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name, avatar: decoded.avatar };
+        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, areaName: decoded.areaName, name: decoded.name };
     
         // Get current page's data
         const changeLocReqSnapshot = await client.db(dbName).collection("changeLocReqs").find({}).toArray();
@@ -25,9 +25,15 @@ controller.show = async (req, res) => {
         let areas = JSON.parse(dataFile);
         
         // Extract data from retrieved snapshots
-        let AdLocation = []; let AdArea = {};
+        let AdLocation = []; let AdArea = {}; let Address = [];
+        let addressId = [];
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
+
+            if (!addressId.includes(data.locationId)) {
+                addressId.push(data.locationId);
+                Address.push({name: data.address, value: data.locationId});
+            }
 
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
             if (!(docDistrict.idQuan in AdArea))
@@ -63,12 +69,10 @@ controller.show = async (req, res) => {
             // Check if matching area before extracting
             //idQuan
             let idQuan = currentAccount.idQuan;
-            // idPhuong
-            let idPhuong = currentAccount.idPhuong;
             for (loc in AdLocation) {
                 let locDetail = AdLocation[loc];
 
-                if (locDetail.locationId == doc.oldLocationId && locDetail.idQuan == idQuan && locDetail.idPhuong == idPhuong) {
+                if (locDetail.locationId == doc.oldLocationId && locDetail.idQuan == idQuan) {
                     ChangeLocReq.push(data);
                     break;
                 }
@@ -98,11 +102,14 @@ controller.show = async (req, res) => {
         let filterReasonId = req.query.reasonId;
         if (filterReasonId)
             ChangeLocReq = ChangeLocReq.filter((req) => req.reason == filterReasonId);
+        let filterAddressId = req.query.addressId;
+        if (filterAddressId)
+            ChangeLocReq = ChangeLocReq.filter((req) => req.oldLocationId == filterAddressId);
         let filterStatusId = req.query.statusId;
         if (filterStatusId)
             ChangeLocReq = ChangeLocReq.filter((req) => req.status == filterStatusId);
 
-        res.render("partials/screens/phuong/index", {
+        res.render("partials/screens/quan/index", {
             "current": currentPage,
             "account": currentAccount,
             "reason": Reason,
@@ -110,8 +117,9 @@ controller.show = async (req, res) => {
             "changeLocReq": ChangeLocReq,
             "adArea": AdArea,
             "adLocation": AdLocation,
+            "address": Address,
             body: function() {
-                return "screens/phuong/yeucaudieuchinhdd";
+                return "screens/quan/yeucaudieuchinhdd";
             }
         });
     } catch (error) {
@@ -140,7 +148,7 @@ controller.createChangeReq = async (req, res) => {
     
         const result = await changeLocReqSnapshot.insertOne(newData); //upsert = update and insert
         if (result.insertedId != null)
-            res.redirect("/phuong/yeucaudieuchinhdd");
+            res.redirect("/quan/yeucaudieuchinhdd");
     }
 
     try {

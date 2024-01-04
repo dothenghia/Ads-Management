@@ -14,7 +14,7 @@
               <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                 <span class="d-none d-sm-block">Tải lên ảnh mới</span>
                 <i class="bx bx-upload d-block d-sm-none"></i>
-                <input type="file" id="upload" name="avatar" class="account-file-input" hidden accept="image/png, image/jpeg" />
+                <input type="file" id="upload" data-role="{{role}}" name="avatar" class="account-file-input" hidden accept="image/png, image/jpeg" />
               </label>
               <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                 <i class="bx bx-reset d-block d-sm-none"></i>
@@ -32,7 +32,7 @@
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="name" class="form-label">Tên</label>
-                <input class="form-control" type="text" id="name" name="name" value="{{account.name}}" />
+                <input class="form-control" type="text" id="name" name="name" value="{{accountInfo.name}}" />
               </div>
               
               <div class="mb-3 col-md-6">
@@ -40,7 +40,7 @@
                 <div class="input-group input-group-merge">
                   <span class="input-group-text">VN (+84)</span>
                   <input type="text" id="phone" name="phone" class="form-control"
-                    placeholder="202 555 0111" value="{{account.phone}}" />
+                    placeholder="202 555 0111" value="{{accountInfo.phone}}" />
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@
                 <label class="form-label" for="phoneNumber">Facebook ID</label>
                 <div class="input-group input-group-merge">
                   <input type="text" id="fbID" name="fbID" class="form-control"
-                    placeholder="211813265517027" value="{{account.fbID}}" />
+                    placeholder="211813265517027" value="{{accountInfo.fbID}}" />
                 </div>
               </div>
 
@@ -58,51 +58,25 @@
                 <label class="form-label" for="phoneNumber">Email</label>
                 <div class="input-group input-group-merge">
                   <input type="text" id="email" name="email" class="form-control"
-                    placeholder="example@gmail.com" value="{{account.email}}" />
+                    placeholder="example@gmail.com" value="{{accountInfo.email}}" />
                 </div>
               </div>
 
             </div>
             
             <div class="mt-2">
-              <input type="hidden" name="id" class="id" value="{{account._id}}" />
+              <input type="hidden" name="id" class="id" value="{{accountInfo._id}}" />
               <button type="submit" class="btn btn-primary me-2">Lưu</button>
               <button type="reset" class="btn btn-outline-secondary">Hủy</button>
             </div>
           </form>
         </div>
-        <!-- /Account -->
+        <!-- /accountInfo -->
       </div>
       <div class="card mb-5 ">
         <h5 class="card-header">Thay Đổi Mật Khẩu</h5>
-        <div class="card-body">
-          <form class="formPassSettings" onsubmit="accPassSettings(event)">
-            <div id="passWarn" class="row" hidden>
-              <div class="mb-3 col-md-6">
-                <label class="form-label text-danger">Mật Khẩu Đã Nhập Không Khớp. Xin Thử Lại!!</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="oldPassword" class="form-label">Mật Khẩu Cũ</label>
-                <input class="form-control" type="password" id="oldPassword" name="oldPassword" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="newPassword" class="form-label">Mật Khẩu Mới</label>
-                <input class="form-control" type="password" id="newPassword" name="newPassword" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="confirmPassword" class="form-label">Xác Nhận Lại Mật Khẩu</label>
-                <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" />
-              </div>
-            </div>
-            <input type="hidden" name="id" class="id" value="{{account._id}}"/>
-            <button type="submit" class="btn btn-primary me-2">Lưu</button>
-          </form>
+        <div class="card-body d-flex justify-content-center">
+          <a href="/changePassword" target="_blank"><button class="btn btn-primary me-2" id="click-me">Đổi Mật Khẩu</button></a>
         </div>
       </div>
     </div>

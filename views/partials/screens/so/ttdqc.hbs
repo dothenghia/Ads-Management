@@ -124,7 +124,8 @@
     <!-- Create new location modal -->
     <div class="modal fade" id="newAdLocationModal" tabindex="-1" role="dialog"
         aria-labelledby="newAdLocationModalLabel" aria-hidden="true">
-        <form action="" id="newAdLocationCreateForm" onsubmit="createAdLocation(event)">
+        {{!-- <form action="" id="newAdLocationCreateForm" onsubmit="createAdLocation(event)"> --}}
+        <form action="./thongtindiadiemquangcao" id="newAdLocationCreateForm" method="POST" enctype="multipart/form-data">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
                 <div class="modal-content">
                     <div class="modal-header d-flex flex-column">
@@ -266,6 +267,19 @@
                                     </div>
                                 </div>
                             </div>
+                            {{!-- Hình ảnh  --}}
+                            <div class="mb-3 d-flex flex-column justify-content-center align-items-center" id="drop-area">
+                                <p class=" fs-6 fw-semibold m-0">
+                                    Kéo thả file vào đây hoặc 
+                                    <span class="text-primary text-decoration-underline" 
+                                        id="click-span" style="cursor: pointer;">Tải lên</span>
+                                    từ máy
+                                </p>
+                                <input type="file" id="fileInput" class="d-none" name="newAdLocationThumbnails" accept="image/png, image/jpeg" multiple>
+                                <div class="w-100">
+                                    <ul id="file-list" class="d-none"></ul>
+                                </div>
+                            </div>
                             {{!-- Nút Save --}}
                             <button class="btn btn-outline-primary text-start" id="newAdLocationCreate" type="submit"
                                 autocomplete="off" style="border: 2px solid; max-width: 60%; float:right;">
@@ -294,7 +308,7 @@
     <!-- Edit  location modal -->
     <div class="modal fade" id="EditAdLocationModal" tabindex="-1" role="dialog"
         aria-labelledby="EditAdLocationModalLabel" aria-hidden="true">
-        <form action="" id="EditAdLocationCreateForm" onsubmit="editAdLocation(event)">
+        <form  id="EditAdLocationCreateForm" onsubmit="editAdLocation(event)">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
                 <div class="modal-content">
                     <div class="modal-header d-flex flex-column">
@@ -438,6 +452,19 @@
                                     </div>
                                 </div>
                             </div>
+                            {{!-- Hình ảnh  --}}
+                            <div class="mb-3 d-flex flex-column justify-content-center align-items-center" id="edit-drop-area">
+                                <p class=" fs-6 fw-semibold m-0">
+                                    Kéo thả file vào đây hoặc 
+                                    <span class="text-primary text-decoration-underline" 
+                                        id="edit-click-span" style="cursor: pointer;">Tải lên</span>
+                                    từ máy
+                                </p>
+                                <input type="file" id="editfileInput" class="d-none" name="EditAdLocationThumbnails" accept="image/png, image/jpeg" multiple>
+                                <div class="w-100">
+                                    <ul id="edit-file-list" class="d-none"></ul>
+                                </div>
+                            </div>
                             {{!-- Nút Save --}}
                             <input type="hidden" class="form-control" id="EditAdLocationId" name="EditAdLocationId">
                             <button class="btn btn-outline-primary text-start" id="EditAdLocationCreate" type="submit"
@@ -490,7 +517,7 @@
 
 {{!-- Custom JS script --}}
 
-<script src="/js/adDetail.js"></script>
+
 
 <script src="/js/createMethod.js"></script>
 
@@ -499,3 +526,5 @@
 <script src="/js/mapConfig.js"></script>
 
 <script src="/js/editLocation.js"></script>
+
+<script src="/js/adDetail.js"></script>

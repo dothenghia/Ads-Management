@@ -21,8 +21,8 @@ controller.show = async (req, res) => {
     adSnapshot.forEach((doc) => {
         Ad.push(doc);
     });
-    let AdType = []; let AdForm = []; let LocationType = [];
-    let adTypeId = []; let adFormId = []; let locationTypeId = [];
+    let AdType = []; let AdForm = []; let LocationType = []; let Address = [];
+    let adTypeId = []; let adFormId = []; let locationTypeId = []; let addressId = [];
     let AdLocation = [];
     adLocationSnapshot.forEach((doc) => {
         let data = doc;
@@ -42,6 +42,11 @@ controller.show = async (req, res) => {
             AdType.push({value: data.adType});
         }
 
+        if (!addressId.includes(data.address)) {
+            addressId.push(data.address);
+            Address.push({value: data.address});
+        }
+
         // Check if matching area before extracting
         // idPhuong
         let idQuan = currentAccount.idQuan;
@@ -58,17 +63,21 @@ controller.show = async (req, res) => {
     let filterLocationTypeId = req.query.locationTypeId;
     if (filterLocationTypeId)
         AdLocation = AdLocation.filter((loc) => loc.locationType == filterLocationTypeId);
+    let filterAddressId = req.query.addressId;
+    if (filterAddressId)
+        AdLocation = AdLocation.filter((loc) => loc.address == filterAddressId);
 
-    res.render("partials/screens/phuong/index", {
+    res.render("partials/screens/quan/index", {
         "current": currentPage,
         "account": currentAccount,
         "ad": Ad,
         "adType": AdType,
         "adForm": AdForm,
+        "address": Address,
         "locationType": LocationType,
         "adLocation": AdLocation,
         body: function() {
-            return "screens/phuong/thongtinquangcao";
+            return "screens/quan/thongtinquangcao";
         }
     });
 }

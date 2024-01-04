@@ -100,6 +100,25 @@ document.addEventListener("DOMContentLoaded", function () {
     let newPermissionReqButton = document.querySelector('#newPermissionReqButton');
     if (newPermissionReqButton != null) {
         newPermissionReqButton.addEventListener('click', function() {
+            // Adjust location selector's data
+            let idQuan = newPermissionReqButton.dataset.idQuan;
+            if (idQuan != undefined) {
+                let districtChooser = document.querySelector('#newPermissionReqDistrict');
+                districtChooser.value = idQuan;
+                districtChooser.disabled = true;
+                districtChooser.style.backgroundColor = "#d6d6d6";
+                districtChooser.dispatchEvent(new Event("change"));
+
+                let idPhuong = newPermissionReqButton.dataset.idPhuong;
+                if (idPhuong != undefined) {
+                    let wardChooser = document.querySelector('#newPermissionReqWard');
+                    wardChooser.value = idPhuong;
+                    wardChooser.disabled = true;
+                    wardChooser.style.backgroundColor = "#d6d6d6";
+                    wardChooser.dispatchEvent(new Event("change"));
+                }
+            }
+
             // Show the modal
             $('#newPermissionReqModal').modal('show');
         });
@@ -111,6 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#coFilter').value = urlParams.get("coId");
     if (urlParams.has("statusId"))
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
+    if (urlParams.has("addressId"))
+        document.querySelector('#addressFilter').value = urlParams.get("addressId");
 
 
     // Set default location selectors' value to "all"
@@ -179,6 +200,14 @@ function coFilter(coId) {
     window.location.href = "?" + filters.toString();
 }
 
+function addressFilter(addressId) {
+    if (addressId != "all")
+        filters.set("addressId", addressId);
+    else
+        filters.delete("addressId");
+    window.location.href = "?" + filters.toString();
+}
+
 function statusFilter(statusId) {
     if (statusId != "all")
         filters.set("statusId", statusId);
@@ -193,9 +222,9 @@ async function getAreaInfo(longitude, latitude, type = 0) {
     let fetchResult = await (await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${token}`)).json();
     
     if (type == 0)  // Return only wards and districts
-        return fetchResult.features[3].text + ", " + fetchResult.features[1].text;
+        return fetchResult.features[1].text + ", " + fetchResult.features[3].text;
     else        // Return all details
-        return "Gần " + fetchResult.features[0].text + ", " + fetchResult.features[3].text + ", " + fetchResult.features[1].text;
+        return fetchResult.features[0].text + ", " + fetchResult.features[1].text + ", " + fetchResult.features[3].text;
 }
 
 // Create new reqs functions

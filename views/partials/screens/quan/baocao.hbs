@@ -3,16 +3,17 @@
 <link rel="stylesheet" href="/css/quan/shared.css">
 <link rel="stylesheet" href="/css/modal.css">
 
+<style>
+    .shared-header {
+        padding: 1.5rem 2rem;
+    }
+</style>
 
 <div class="shared-container">
 
     {{!-- Header--}}
     <div class="shared-header">
         <h1>Báo Cáo</h1>
-
-        <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn mx-3 ">Sửa báo cáo</button>
-        </div>
     </div>
 
 
@@ -22,91 +23,112 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="Loại báo cáo">Loại báo cáo</option>
-                            <option value="Quảng cáo">Quảng cáo</option>
-                            <option value="Địa điểm Quảng cáo">Địa điểm Quảng cáo</option>
-                            <option value="Địa điểm Bất kỳ">Địa điểm Bất kỳ</option>
+                        <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
+                            <option value="all">Tất cả Loại báo cáo</option>
+                            <option value="qc">Bảng quảng cáo</option>
+                            <option value="ddqc">Địa điểm Quảng cáo</option>
+                            <option value="ddbk">Địa điểm Bất kỳ</option>
                         </select>
                     </th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="Hình thức báo cáo">Hình thức báo cáo</option>
+                        <select id="reportFormFilter" name="" onchange="reportFormFilter(this.value)">
+                            <option value="all">Tất cả Hình thức báo cáo</option>
                             <option value="Tố giác sai phạm">Tố giác sai phạm</option>
                             <option value="Đăng ký nội dung">Đăng ký nội dung</option>
                             <option value="Đóng góp ý kiến">Đóng góp ý kiến</option>
                             <option value="Giải đáp thắc mắc">Giải đáp thắc mắc</option>
                         </select>
                     </th>
-                    <th scope="col">Thời gian</th>
+                    <th scope="col">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
                     <th scope="col">
-                        <select id="" name="">
-                            <option value="all">Địa điểm</option>
-                            <option value="1">Phường 1</option>
-                            <option value="2">Phường 2</option>
-                            <option value="3">Phường 3</option>
-                            <option value="4">Phường 4</option>
-                        </select>
-                    </th>
-                    <th scope="col">
-                        <select id="" name="">
-                            <option value="Tình trạng xử lý">Tình trạng xử lý</option>
+                        <select id="statusFilter" name="" onchange="statusFilter(this.value)">
+                            <option value="all">Tất cả Tình trạng xử lý</option>
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Đã xử lý">Đã xử lý</option>
                             <option value="Từ chối">Từ chối</option>
                         </select>
                     </th>
                     <th scope="col">Chi tiết</th>
+                    <th scope="col">Chỉnh sửa</th>
                 </tr>
             </thead>
 
             <tbody>
                 {{!-- Pass data vào --}}
-                {{#each report }}
-                <tr>
-                    <td scope="col">{{addNumber @index 1}}</td>
-                    <td scope="col">{{translateReportType reportType}}</td>
-                    <td scope="col">{{reportForm}}</td>
-                    <td scope="col">{{time}}</td>
-                    <td scope="col">{{getLocation ../adLocation locationId 1}}</td>
+                {{#each report}}
+                {{#if (checkIDValidate reportId)}}
+                    <tr>
+                        <td scope="col">{{addNumber @index 1}}</td>
+                        <td scope="col">
+                            {{#if (equalString reportType "ddbk")}}
+                                {{locationId}}
+                            {{else}}
+                                {{#if (equalString reportType "qc")}}
+                                    {{#with (arrayIndex (getAdInfo ../ad adId) 0)}}
+                                        {{name}}
+                                    {{/with}}
+                                {{else}}
+                                    {{getReportLocation ../adLocation locationId}}
+                                {{/if}}
+                            {{/if}}
+                        </td>
+                        <td scope="col">{{translateReportType reportType}}</td>
+                        <td scope="col">{{reportForm}}</td>
+                        <td scope="col">{{mongoDateToLocaleString time}}</td>
 
-                    <td scope="col">
-                        {{#if (getReportStatus status "Đang xử lý") }}
-                        <div class="status-tag status-tag-dangxuly">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
-                            <span class='status-tag__title'>{{status}}</span>
-                        </div>
+                        <td scope="col">
+                            {{#if (getReportStatus status "Đang xử lý") }}
+                            <div class="status-tag status-tag-dangxuly">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
+                                <span class='status-tag__title'>{{status}}</span>
+                            </div>
+                            {{/if}}
+
+                            {{#if (getReportStatus status "Đã xử lý") }}
+                            <div class="status-tag status-tag-daxuly">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path> <polyline points="22 4 12 14.01 9 11.01"></polyline> </svg>
+                                <span class='status-tag__title'>{{status}}</span>
+                            </div>
+                            {{/if}}
+
+                            {{#if (getReportStatus status "Từ chối") }}
+                            <div class="status-tag status-tag-tuchoi">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"> <circle cx="12" cy="12" r="10"></circle> <line x1="15" y1="9" x2="9" y2="15"></line> <line x1="9" y1="9" x2="15" y2="15"></line> </svg>
+                                <span class='status-tag__title'>{{status}}</span>
+                            </div>
+                            {{/if}}
+                        </td>
+
+                        <td scope="col">
+                            <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-areas="{{toJSON ../adArea}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-info">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                            </button>
+                        </td>
+                        
+                        {{!-- Sửa --}}
+                        {{#if (getReportStatus status "Đang xử lý")}}
+                            <td scope="col">
+                                <button type="button" class="table-detail-button" id="reportUpdateButton" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-areas="{{toJSON ../adArea}}" data-id="{{reportId}}" data-account-role="phuong">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" stroke="#0065FF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/></svg>
+                                </button>
+                            </td>
+                        {{else}}
+                            <td scope="col">
+                                <button type="button" class="table-detail-button" id="reportUpdateButton" disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16 "stroke="#abaaa7" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/></svg>
+                                </button>
+                            </td>
                         {{/if}}
-
-                        {{#if (getReportStatus status "Đã xử lý") }}
-                        <div class="status-tag status-tag-daxuly">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path> <polyline points="22 4 12 14.01 9 11.01"></polyline> </svg>
-                            <span class='status-tag__title'>{{status}}</span>
-                        </div>
-                        {{/if}}
-
-                        {{#if (getReportStatus status "Từ chối") }}
-                        <div class="status-tag status-tag-tuchoi">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"> <circle cx="12" cy="12" r="10"></circle> <line x1="15" y1="9" x2="9" y2="15"></line> <line x1="9" y1="9" x2="15" y2="15"></line> </svg>
-                            <span class='status-tag__title'>{{status}}</span>
-                        </div>
-                        {{/if}}
-                    </td>
-
-                    <td scope="col">
-                        <button class="table-detail-button" data-report-details="{{toJSON (getReportInfo ../report reportId)}}" data-report-address="{{getLocation ../adLocation locationId 0}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-info">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            </svg>
-                        </button>
-                    </td>
-
-                </tr>
+                    </tr>
+                {{/if}}
                 {{/each}}
             </tbody>
         </table>
@@ -182,6 +204,92 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row" id="reportDetailCategoryRow">
+                        <div class="col">
+                            <h6 id="reportDetailCategoryTitle">Phương thức xử lý</h6>
+                            <h6 id="reportDetailSolution"></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report update modal -->
+    <div class="modal fade" id="reportUpdateModal" tabindex="-1" aria-labelledby="reportUpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="reportUpdateModalLabel">
+                        Thông tin chi tiết
+                    </h6>
+                    <button type="button" class="row align-items-start btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="reportUpdateModalContent">
+                    <i class="bi bi-geo-alt" id="reportUpdateAddress"></i>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Hình thức báo cáo</h6>
+                            <h6 id="reportUpdateForm"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Tình trạng xử lý</h6>
+                            <h6 id="reportUpdateStatus"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Thời gian gửi</h6>
+                            <h6 id="reportUpdateTime"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Họ và tên</h6>
+                            <h6 id="reportUpdateFullname"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Email</h6>
+                            <h6 id="reportUpdateEmail"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Số điện thoại</h6>
+                            <h6 id="reportUpdatePhone"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <div class="col">
+                            <h6 id="reportUpdateCategoryTitle">Nội dung báo cáo</h6>
+                            <h6 id="reportUpdateContent"></h6>
+                        </div>
+                    </div>
+                    <div class="row" id="reportUpdateCategoryRow">
+                        <h6 id="reportUpdateCategoryTitle">Hình ảnh quảng cáo</h6>
+                        <div class="row">
+                            <div id="reportUpdateNoThumbnails" style="display: none">
+                                <h6>Không có hình ảnh để hiển thị</h6>
+                            </div>
+                            <div id="reportUpdateThumbnails" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner"></div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#reportUpdateThumbnails" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#reportUpdateThumbnails" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" id="reportUpdateCategoryRow">
+                            <div class="col">
+                                <h6 id="reportUpdateCategoryTitle">Phương thức xử lý</h6>
+                                <textarea type="text" id="reportUpdateSolution"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end" id="reportUpdateChoice">
+                    <button id="reportUpdateChoiceDeny" onclick="" class="col-2">Từ chối</button>
+                    <button id="reportUpdateChoiceAccept" onclick="" class="col-2">Gửi xử lý</button>
                 </div>
             </div>
         </div>
@@ -190,3 +298,56 @@
 
 {{!-- Custom JS script --}}
 <script src="/js/reportDetail.js"></script>
+
+{{!-- Custom Delete Btn --}}
+<script src="/js/reportsDelete.js"></script>
+
+<script>
+    function convertDate(vietnameseDate){
+        let dateString = vietnameseDate.split(" ");
+        let day = dateString[1];
+        let month = dateString[3];
+        let year = dateString[5];
+        let date =  new Date(year + "-" + month + "-" + day);
+        return date;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('table');
+        const tbody = table.querySelector('tbody');
+        let ascending = true;
+        buttonIcon = document.getElementById('arrow');
+        document.getElementById('sortButton').addEventListener('click', function () {
+            if (ascending)
+                buttonIcon.classList = 'bi bi-arrow-up';
+            else buttonIcon.classList = 'bi bi-arrow-down'
+                
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort(function (rowA, rowB) {
+                const cellA = rowA.cells[4].innerText; 
+                const cellB = rowB.cells[4].innerText;
+
+                const dateA = convertDate(cellA);
+                const dateB = convertDate(cellB);
+                //console.log('Date A: ' + dateA);
+                //console.log('Date B: ' + dateB);
+
+                if (ascending) {
+                    return dateA - dateB;
+                } else {
+                    return dateB - dateA;
+                }
+            });
+
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            rows.forEach(function (row) {
+                tbody.appendChild(row);
+            });
+
+            ascending = !ascending;
+        });
+    });
+</script>

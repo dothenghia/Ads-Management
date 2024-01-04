@@ -143,13 +143,26 @@ controller.add = async (req, res) => {
     let idHighest = parseInt( (await accountSnapShot.find({}).sort({_id:-1}).limit(1).toArray())[0]._id );
 
     // console.log( idHighest);
-    
+    // Get local data for HCM city's wards and districts
+    const dataFile = await fs.promises.readFile("./html/data/hochiminh.json");
+    let areas = JSON.parse(dataFile);
+    var areaName = "Sở";
+    if (newAccountDistrict != "" && newAccountDistrict != null) {
+        let docDistrict = areas.districts.filter((district) => district.idQuan == newAccountDistrict)[0];
+        // console.log(docDistrict);
+        areaName = docDistrict.name;
+        if (newAccountWard != "" && newAccountWard != null) {
+            let docWard = docDistrict.wards.filter((ward) => ward.idPhuong == newAccountWard)[0];
+            areaName = docWard.name + ", " + docDistrict.name;
+            // console.log(docWard);
+        }
+    }
     try {
         
         const newData = {
             _id: (idHighest + 1).toString(),
             date: new Date(),
-            area: "HCM",
+            area: areaName,
             fbID: "",
             microsoftEmail: "",
             name: newAccountName ? newAccountName : "No name",
