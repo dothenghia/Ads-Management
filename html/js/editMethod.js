@@ -215,11 +215,11 @@ if (upload != null){
     });
 }
 
-document.getElementById("click-me").addEventListener("click", () => {
-    var res = fetch('/changePassword', {
-        method: 'GET',
-    });
-});
+// document.getElementById("click-me").addEventListener("click", () => {
+//     var res = fetch('/changePassword', {
+//         method: 'GET',
+//     });
+// });
 /* 
     Note: 
         - Đầu tiên ta sẽ append những options cho phường với tên quận tương ứng, rồi gán giá trị cho phường
