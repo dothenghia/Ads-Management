@@ -74,19 +74,19 @@
 .tsbc-content h2 {
     margin-top: 12px;
     margin-left: 12px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     color: var(--text-color);
 }
 .tsbc-content h3 {
     margin-left: 12px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--subtitle-color);
 }
 .tsbc-content h4 {
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     padding: 8px 8px;
     border-radius: 100px;
@@ -95,12 +95,56 @@
 }
 .tsbc-content h5 {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
+    position: relative;
+    margin-left: 12px;
 }
 .tgsp {background-color: var(--tgsp-color) !important;}
 .dknd {background-color: var(--dknd-color) !important;}
 .dgyk {background-color: var(--dgyk-color) !important;}
 .gdtm {background-color: var(--gdtm-color) !important;}
-.dangxuly {color: var(--dangxuly-color) !important;}
-.daxuly {color: var(--daxuly-color) !important;}
-.tuchoi {color: var(--tuchoi-color) !important;}
+
+
+.dangxuly1::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--dangxuly-color);
+}
+.daxuly1::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--daxuly-color);
+}
+.tuchoi1::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--tuchoi-color);
+}
+
+@media screen and (max-width: 1230px) {
+    .tsbc-chart {
+        max-width: 400px;
+    }
+    .tsbc-content h4 {
+        font-size: 15px;
+        padding: 8px 6px;
+    }
+    .tsbc-content h5 {
+        font-size: 14px;
+    }
+}
