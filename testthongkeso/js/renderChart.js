@@ -28,12 +28,13 @@ function renderBigTSBCChart(chartData) {
             responsive: true,
             borderWidth: 14,
             borderColor: 'transparent',
-            borderRadius: 12,
-            spacing: 8,
+            borderRadius: 8,
+            spacing: 4,
             cutout: 110,
         }
     });
     document.querySelector('.tsbc-text').innerHTML = chartData.tgsp + chartData.dknd + chartData.dgyk + chartData.gdtm;
+    return myPieChart;
 }
 
 // @ ========== Tố giác sai phạm
@@ -46,7 +47,6 @@ function renderMiniTGSPChart(chartData) {
         }]
     };
     var tgspCanvas = document.getElementById('tsbc-canvas-tgsp');
-    const spacingValue = (chartData.dangxuly === 0 && chartData.daxuly === 0) || (chartData.dangxuly === 0 && chartData.tuchoi === 0) || (chartData.daxuly === 0 && chartData.tuchoi === 0) ? 0 : 2;
 
     var myPieChart = new Chart(tgspCanvas, {
         type: 'doughnut', // Type : 'doughnut', 'pie', 'bar', 'line', 'radar', 'polarArea', 'bubble', 'scatter'
@@ -56,7 +56,7 @@ function renderMiniTGSPChart(chartData) {
             borderWidth: 10,
             borderColor: 'transparent',
             borderRadius: 4,
-            spacing: spacingValue,
+            spacing: 1,
             cutout: 45,
         }
     });
@@ -64,6 +64,7 @@ function renderMiniTGSPChart(chartData) {
     document.querySelector('.tgsp-text.dangxuly1 span').innerHTML = chartData.dangxuly;
     document.querySelector('.tgsp-text.daxuly1 span').innerHTML = chartData.daxuly;
     document.querySelector('.tgsp-text.tuchoi1 span').innerHTML = chartData.tuchoi;
+    return myPieChart;
 }
 
 // @ ========== Đăng ký nội dung
@@ -76,7 +77,6 @@ function renderMiniDKNDChart(chartData) {
         }]
     };
     var dkndCanvas = document.getElementById('tsbc-canvas-dknd');
-    const spacingValue = (chartData.dangxuly === 0 && chartData.daxuly === 0) || (chartData.dangxuly === 0 && chartData.tuchoi === 0) || (chartData.daxuly === 0 && chartData.tuchoi === 0) ? 0 : 2;
     var myPieChart = new Chart(dkndCanvas, {
         type: 'doughnut', // Type : 'doughnut', 'pie', 'bar', 'line', 'radar', 'polarArea', 'bubble', 'scatter'
         data: dkndData, // Data
@@ -85,7 +85,7 @@ function renderMiniDKNDChart(chartData) {
             borderWidth: 10,
             borderColor: 'transparent',
             borderRadius: 4,
-            spacing: spacingValue,
+            spacing: 1,
             cutout: 45,
         }
     });
@@ -93,6 +93,7 @@ function renderMiniDKNDChart(chartData) {
     document.querySelector('.dknd-text.dangxuly1 span').innerHTML = chartData.dangxuly;
     document.querySelector('.dknd-text.daxuly1 span').innerHTML = chartData.daxuly;
     document.querySelector('.dknd-text.tuchoi1 span').innerHTML = chartData.tuchoi;
+    return myPieChart;
 }
 
 // @ ========== Đóng góp ý kiến
@@ -105,7 +106,6 @@ function renderMiniDGYKChart(chartData) {
         }]
     };
     var dgykCanvas = document.getElementById('tsbc-canvas-dgyk');
-    const spacingValue = (chartData.dangxuly === 0 && chartData.daxuly === 0) || (chartData.dangxuly === 0 && chartData.tuchoi === 0) || (chartData.daxuly === 0 && chartData.tuchoi === 0) ? 0 : 2;
     var myPieChart = new Chart(dgykCanvas, {
         type: 'doughnut', // Type : 'doughnut', 'pie', 'bar', 'line', 'radar', 'polarArea', 'bubble', 'scatter'
         data: dgykData, // Data
@@ -114,7 +114,7 @@ function renderMiniDGYKChart(chartData) {
             borderWidth: 10,
             borderColor: 'transparent',
             borderRadius: 4,
-            spacing: spacingValue,
+            spacing: 1,
             cutout: 45,
         }
     });
@@ -122,6 +122,7 @@ function renderMiniDGYKChart(chartData) {
     document.querySelector('.dgyk-text.dangxuly1 span').innerHTML = chartData.dangxuly;
     document.querySelector('.dgyk-text.daxuly1 span').innerHTML = chartData.daxuly;
     document.querySelector('.dgyk-text.tuchoi1 span').innerHTML = chartData.tuchoi;
+    return myPieChart;
 }
 
 // @ ========== Giải đáp thắc mắc
@@ -134,7 +135,6 @@ function renderMiniGDTMChart(chartData) {
         }]
     };
     var gdtmCanvas = document.getElementById('tsbc-canvas-gdtm');
-    const spacingValue = (chartData.dangxuly === 0 && chartData.daxuly === 0) || (chartData.dangxuly === 0 && chartData.tuchoi === 0) || (chartData.daxuly === 0 && chartData.tuchoi === 0) ? 0 : 2;
     var myPieChart = new Chart(gdtmCanvas, {
         type: 'doughnut', // Type : 'doughnut', 'pie', 'bar', 'line', 'radar', 'polarArea', 'bubble', 'scatter'
         data: gdtmData, // Data
@@ -143,7 +143,7 @@ function renderMiniGDTMChart(chartData) {
             borderWidth: 10,
             borderColor: 'transparent',
             borderRadius: 4,
-            spacing: spacingValue,
+            spacing: 1,
             cutout: 45,
         }
     });
@@ -151,6 +151,7 @@ function renderMiniGDTMChart(chartData) {
     document.querySelector('.gdtm-text.dangxuly1 span').innerHTML = chartData.dangxuly;
     document.querySelector('.gdtm-text.daxuly1 span').innerHTML = chartData.daxuly;
     document.querySelector('.gdtm-text.tuchoi1 span').innerHTML = chartData.tuchoi;
+    return myPieChart;
 }
 
 export {

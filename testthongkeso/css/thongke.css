@@ -64,12 +64,22 @@
     font-size: 18px;
     font-weight: 600;
 }
+.tsbc-content select {
+    border: solid 1px var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 15px;
+    color: var(--text-color);
+}
 .tsbc-content input {
     border: solid 1px var(--border-color);
     border-radius: 6px;
     padding: 6px 10px;
     font-size: 15px;
     color: var(--text-color);
+}
+.tsbc-input-root input {
+    margin-left: 6px;
 }
 .tsbc-content h2 {
     margin-top: 12px;
