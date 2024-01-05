@@ -48,7 +48,6 @@ Bảo :
         - Thêm trang `Quản lý Điều chỉnh QC` - [DONE]
         - Sửa lại tên các nút trên Sidebar cho rõ ràng - [DONE]
         - Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO
-        - Sửa lỗi Hiện tên Cán bộ trên Sidebar
 
        
     

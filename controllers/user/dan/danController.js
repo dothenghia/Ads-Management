@@ -284,9 +284,7 @@ controller.getReportList = async (req, res) => {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
-        const reportQuery = {};
-
-        const reportDocs = await reportsCollection.find(reportQuery).toArray();
+        const reportDocs = await reportsCollection.find({}).toArray();
 
         const detailedReports = await Promise.all(reportDocs.map(async (reportData) => {
             if (reportData.reportType === 'qc') {
