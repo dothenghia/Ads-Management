@@ -151,6 +151,7 @@
 
 .random-popup__info {
     padding: 0px 0px 0px 10px;
+    width: 100%;
 }
 .random-popup__info h1 {
     font-size: 16px;

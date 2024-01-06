@@ -19,7 +19,7 @@ Nghĩa :
         - Sửa cách fetch data Dân - [DONE]
         - Sửa cách fetch data Phường/Quận - [DONE]
         - Chỉnh lại mấy cái placeholder, text, ... - [DONE]
-        - Geocoding Search bar
+        - Geocoding Search bar - [DONE]
         - Thống kê (Sở)
         - Sửa lỗi icon khi scoll
         - Guide Marker (Optional)
@@ -48,7 +48,6 @@ Bảo :
         - Thêm trang `Quản lý Điều chỉnh QC` - [DONE]
         - Sửa lại tên các nút trên Sidebar cho rõ ràng - [DONE]
         - Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO
-        - Sửa lỗi Hiện tên Cán bộ trên Sidebar
 
        
     
