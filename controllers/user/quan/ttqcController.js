@@ -11,6 +11,20 @@ controller.show = async (req, res) => {
     const token = req.cookies.jwtToken;
     const decoded = await jwt.verify(token, "suffering");
     let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, areaName: decoded.areaName, name: decoded.name };
+    // Get current account's wardlist
+    let wardList;
+    if (currentAccount.idQuan == "quan_1") {
+        wardList = [
+            {value: "phuong_nguyen_cu_trinh", name: "Phường Nguyễn Cư Trinh"},
+            {value: "phuong_cau_kho", name: "Phường Cầu Kho"}
+        ];
+    }
+    else {
+        wardList = [
+            {value: "phuong_04", name: "Phường 4"},
+            {value: "phuong_03", name: "Phường 3"}
+        ];
+    }
 
     // Get current page's data
     const adSnapshot = await client.db(dbName).collection("ads").find({}).toArray();
@@ -21,8 +35,8 @@ controller.show = async (req, res) => {
     adSnapshot.forEach((doc) => {
         Ad.push(doc);
     });
-    let AdType = []; let AdForm = []; let LocationType = []; let Address = [];
-    let adTypeId = []; let adFormId = []; let locationTypeId = []; let addressId = [];
+    let AdType = []; let AdForm = []; let LocationType = [];
+    let adTypeId = []; let adFormId = []; let locationTypeId = [];
     let AdLocation = [];
     adLocationSnapshot.forEach((doc) => {
         let data = doc;
@@ -42,11 +56,6 @@ controller.show = async (req, res) => {
             AdType.push({value: data.adType});
         }
 
-        if (!addressId.includes(data.address)) {
-            addressId.push(data.address);
-            Address.push({value: data.address});
-        }
-
         // Check if matching area before extracting
         // idPhuong
         let idQuan = currentAccount.idQuan;
@@ -63,9 +72,9 @@ controller.show = async (req, res) => {
     let filterLocationTypeId = req.query.locationTypeId;
     if (filterLocationTypeId)
         AdLocation = AdLocation.filter((loc) => loc.locationType == filterLocationTypeId);
-    let filterAddressId = req.query.addressId;
-    if (filterAddressId)
-        AdLocation = AdLocation.filter((loc) => loc.address == filterAddressId);
+    let filterWardId = req.query.wardId;
+    if (filterWardId)
+        AdLocation = AdLocation.filter((loc) => loc.idPhuong == filterWardId);
 
     res.render("partials/screens/quan/index", {
         "current": currentPage,
@@ -73,7 +82,7 @@ controller.show = async (req, res) => {
         "ad": Ad,
         "adType": AdType,
         "adForm": AdForm,
-        "address": Address,
+        "ward": wardList,
         "locationType": LocationType,
         "adLocation": AdLocation,
         body: function() {

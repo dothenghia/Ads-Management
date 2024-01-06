@@ -79,8 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#adFormFilter').value = urlParams.get("adFormId");
     if (urlParams.has("locationTypeId"))
         document.querySelector('#locationTypeFilter').value = urlParams.get("locationTypeId");
-    if (urlParams.has("addressId"))
-        document.querySelector('#addressFilter').value = urlParams.get("addressId");
+    if (urlParams.has("wardId"))
+        document.querySelector('#wardFilter').value = urlParams.get("wardId");
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
@@ -157,11 +157,11 @@ function locationTypeFilter(locationTypeId) {
         filters.delete("locationTypeId");
     window.location.href = "?" + filters.toString();
 }
-function addressFilter(addressId) {
-    if (addressId != "all")
-        filters.set("addressId", addressId);
+function wardFilter(wardId) {
+    if (wardId != "all")
+        filters.set("wardId", wardId);
     else
-        filters.delete("addressId");
+        filters.delete("wardId");
     window.location.href = "?" + filters.toString();
 }
 

@@ -132,6 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#statusFilter').value = urlParams.get("statusId");
     if (urlParams.has("addressId"))
         document.querySelector('#addressFilter').value = urlParams.get("addressId");
+    if (urlParams.has("wardId"))
+        document.querySelector('#wardFilter').value = urlParams.get("wardId");
 
 
     // Set default location selectors' value to "all"
@@ -213,6 +215,14 @@ function statusFilter(statusId) {
         filters.set("statusId", statusId);
     else
         filters.delete("statusId");
+    window.location.href = "?" + filters.toString();
+}
+
+function wardFilter(wardId) {
+    if (wardId != "all")
+        filters.set("wardId", wardId);
+    else
+        filters.delete("wardId");
     window.location.href = "?" + filters.toString();
 }
 

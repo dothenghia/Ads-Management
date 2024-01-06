@@ -22,9 +22,9 @@
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">
-                        <select id="addressFilter" name="" onchange="addressFilter(this.value)">
+                        <select id="wardFilter" name="" onchange="wardFilter(this.value)">
                             <option value="all">Tất cả Địa điểm quảng cáo</option>
-                            {{#each address}}
+                            {{#each ward}}
                                 <option value="{{value}}">{{name}}</option>
                             {{/each}}
                         </select>
