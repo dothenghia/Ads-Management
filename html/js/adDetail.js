@@ -209,8 +209,10 @@ function addressFilter(addressId) {
 function idQuanFilter(idQuan) {
     if (idQuan != "all")
         filters.set("idQuan", idQuan);
-    else
+    else {
         filters.delete("idQuan");
+        filters.delete("idPhuong");
+    }
     window.location.href = "?" + filters.toString();
 }
 function idPhuongFilter(idPhuong) {
