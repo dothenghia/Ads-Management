@@ -53,7 +53,7 @@ const trangchu = {
     // ====== Render các Component và thẻ Root của Trang chủ
     renderHomePage: function () {
         document.getElementById('main').innerHTML = `
-            ${Header()}
+            ${Header(trangchu.map)}
 
             <div class="report-list-button-root"></div>
             
@@ -218,7 +218,7 @@ const trangchu = {
             var coordinates = e.lngLat.toArray();
 
             trangchu.map._markers.forEach(marker => {
-                if (marker._element.id == 'random-marker') {
+                if (marker._element.id == 'random-marker' || marker._element.id == 'search-marker') {
                     marker.remove();
                 }
             })
@@ -241,7 +241,7 @@ const trangchu = {
 
                         name: location.features[0].text,
 
-                        region: `${location.features[1].text}, ${location.features[3].text}, ${location.features[4].text}`,
+                        region: `${location.features[1].text}, ${location.features[3].text}`,
                     }
 
                     return extractData;

@@ -1,3 +1,4 @@
+
 var editBtn = document.querySelectorAll(".edit-button");
 if (editBtn != null) {
     editBtn.forEach((btn) => {
@@ -188,37 +189,6 @@ async function accNamePhoneSettings(e) {
     location.reload();
 }
 
-async function accPassSettings(e) {
-    e.preventDefault()
-
-    const formData = new FormData(document.querySelector(".formPassSettings"))
-    const data = Object.fromEntries(formData.entries())
-
-    // console.log(data);
-    
-    //if (data.oldPassword) cái này t ko biêt mày lấy từ db sao, chủ yếu là check coi cái hashed password cũ có giống với cái data.oldpassword ko thế thôi, 
-    if (data.newPassword != data.confirmPassword) {
-        $("#passWarn").prop("hidden", false)
-        return;
-    }
-    var upload = document.getElementById('upload');
-    var role = upload.dataset.role;
-
-    // Old Hashed pass nè
-    var oldHashedPassword = document.getElementById('oldHashedPass').value;
-    console.log("oldHashedPassword: ", oldHashedPassword);
-
-    let res = await fetch(`/${role}/thongtincanhan`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    })
-
-    location.reload();
-}
-
 // Upload image
 var upload = document.getElementById('upload')
 if (upload != null){
@@ -245,6 +215,11 @@ if (upload != null){
     });
 }
 
+// document.getElementById("click-me").addEventListener("click", () => {
+//     var res = fetch('/changePassword', {
+//         method: 'GET',
+//     });
+// });
 /* 
     Note: 
         - Đầu tiên ta sẽ append những options cho phường với tên quận tương ứng, rồi gán giá trị cho phường

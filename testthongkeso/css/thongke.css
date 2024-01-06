@@ -1,0 +1,160 @@
+#thongke-container {
+    margin-top: 40px;
+    padding: 0 28px;
+    min-height: 100vh;
+}
+
+.thongke-row {
+    display: flex;
+    justify-content: space-between;
+}
+.thongke-col {
+    margin: 0 8px;
+    width: 50%;
+
+    /* background-color: salmon; */
+}
+
+
+/* ================================== */
+.thongke-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding: 0px 12px;
+    color: var(--title-color);
+}
+
+
+/* ====== Section Tổng só Báo cáo ====== */
+.tsbc-chart {
+    max-width: 420px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.tsbc-mini-chart {
+    max-width: 160px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.tsbc-text, .tsbc-mini-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -38%);
+    color: var(--text-color);
+    font-size: 56px;
+    font-weight: 600;
+    text-align: center;
+}
+.tsbc-mini-text {
+    font-size: 28px;
+}
+
+.tsbc-content {
+    width: 100%;
+    height: 100%;
+    margin-left: 20px;
+}
+.tsbc-content label {
+    margin-left: 12px;
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 600;
+}
+.tsbc-content select {
+    border: solid 1px var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 15px;
+    color: var(--text-color);
+}
+.tsbc-content input {
+    border: solid 1px var(--border-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 15px;
+    color: var(--text-color);
+}
+.tsbc-input-root input {
+    margin-left: 6px;
+}
+.tsbc-content h2 {
+    margin-top: 12px;
+    margin-left: 12px;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.tsbc-content h3 {
+    margin-left: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--subtitle-color);
+}
+.tsbc-content h4 {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 8px 8px;
+    border-radius: 100px;
+    margin-left: -8px;
+    color: white;
+}
+.tsbc-content h5 {
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+    margin-left: 12px;
+}
+.tgsp {background-color: var(--tgsp-color) !important;}
+.dknd {background-color: var(--dknd-color) !important;}
+.dgyk {background-color: var(--dgyk-color) !important;}
+.gdtm {background-color: var(--gdtm-color) !important;}
+
+
+.dangxuly1::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--dangxuly-color);
+}
+.daxuly1::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--daxuly-color);
+}
+.tuchoi1::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--tuchoi-color);
+}
+
+@media screen and (max-width: 1230px) {
+    .tsbc-chart {
+        max-width: 400px;
+    }
+    .tsbc-content h4 {
+        font-size: 15px;
+        padding: 8px 6px;
+    }
+    .tsbc-content h5 {
+        font-size: 14px;
+    }
+}

@@ -16,6 +16,7 @@
     table tbody tr td {
         padding: calc(.5rem + 6px) calc(.5rem + 12px) !important;
     }
+
 </style>
 
 <div class="shared-container">
@@ -23,11 +24,39 @@
     {{!-- Header--}}
     <div class="shared-header">
         <h1>Quản lý Điểm đặt Quảng cáo</h1>
-        <div class="d-flex">
-            <button class="btn btn-outline-primary custom-btn" id="newAdLocationCreateBtn" data-bs-toggle="modal"
+        <div class="d-flex" style="min-width: 35%">
+            <div style="min-width: 33%;">
+                <button class="btn btn-outline-primary custom-btn" id="newAdLocationCreateBtn" data-bs-toggle="modal"
                 data-bs-target="#newAdLocationModal">
                 Tạo Địa Điểm Mới
-            </button>
+                </button>
+            </div>
+            
+            <div style="min-width: 25%; padding-right: 20px;">
+                <div class="input-group">
+                    <select id="filterAdLocationDistrict" name="filterAdLocationDistrict"
+                        class="rounded-3 form-select border border-primary text-primary"
+                        onchange="idQuanFilter(this.value)">
+                        <option value="all" selected disabled>Quận</option>
+                        <option value="all">Tất Cả</option>
+                        {{#each Area}}
+                        <option value="{{idQuan}}" data-wards="{{toJSON wards}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div style="min-width: 33%;">
+                <div class="input-group" >
+                    <select id="filterAdLocationWard" name="filterAdLocationWard"
+                        class="rounded-3 form-select border border-primary text-primary"
+                        onchange="idPhuongFilter(this.value)">
+                        <option value="all" selected disabled>Phường</option>
+                        <option value="all">Tất Cả</option>
+                    </select>
+                </div>
+            </div>
+            
+            
         </div>
     </div>
 
@@ -308,7 +337,7 @@
     <!-- Edit  location modal -->
     <div class="modal fade" id="EditAdLocationModal" tabindex="-1" role="dialog"
         aria-labelledby="EditAdLocationModalLabel" aria-hidden="true">
-        <form  action="./thongtindiadiemquangcao" id="EditAdLocationCreateForm" method="PUT" enctype="multipart/form-data">
+        <form  id="EditAdLocationCreateForm" onsubmit="editAdLocation(event)">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 70%;">
                 <div class="modal-content">
                     <div class="modal-header d-flex flex-column">
@@ -528,3 +557,4 @@
 <script src="/js/editLocation.js"></script>
 
 <script src="/js/adDetail.js"></script>
+

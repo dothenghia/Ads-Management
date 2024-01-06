@@ -1,0 +1,41 @@
+/* DÙNG CHO NGƯỜI DÂN VÀ TRANG index.html ở ngoài Root */
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --primary-color : #0D6EFD;
+    --primary-color-subtle : #75ADFF;
+    --primary-color-light : #CFE2FF;
+
+    --chuaqh-color : #0BC4E9;
+    --chuaqh-color-subtle : #9EEAF9;
+    --chuaqh-color-light : #D7F8FF;
+
+    --report-color : #DC3545;
+    --report-color-subtle : #e8828e;
+
+    --border-color : #DEE2E6;
+    
+    --title-color : #212529;
+    --subtitle-color : #878787;
+    --text-color : #444444;
+
+    --tgsp-color : #DC3545;
+    --dknd-color : #F6BA45;
+    --dgyk-color : #F448CE;
+    --gdtm-color : #9747FF;
+
+    --dangxuly-color : #FF6400;
+    --dangxuly-color-subtle : #FFC4A3;
+    --daxuly-color : #41AF79;
+    --daxuly-color-subtle : #C7EDD9;
+    --tuchoi-color : #DC3545;
+    --tuchoi-color-subtle : #FBBFBF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+}

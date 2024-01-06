@@ -1,8 +1,17 @@
+
+// Style Drop area and allow to drop files
+var fileStorage = [];
+
 var editBtn = document.querySelectorAll(".edit-button");
 if (editBtn != null) {
     editBtn.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             console.log("Edit button clicked");
+            // Clear fileStorage and restore initial state
+            fileStorage = [];
+            document.getElementById('editfileInput').value = "";
+            document.getElementById('edit-file-list').innerHTML = "";
+            document.getElementById('edit-file-list').outerHTML = '<ul id="edit-file-list" class="list-unstyled d-none"></ul>';
             // Page, account role
             let page = btn.dataset.page;
             let accountRole = btn.dataset.accountRole;
@@ -69,60 +78,60 @@ if (editBtn != null) {
             document.querySelector('#mapDisplay').style.display = 'none';
 
             // open the modal
+            
             const modal = new bootstrap.Modal(document.getElementById('EditAdLocationModal'));
             modal.show();
             
-            // Style Drop area and allow to drop files
-            var fileStorage = [];
 
-            // JavaScript for handling drag-and-drop functionality
-            if (document.getElementById('edit-drop-area') != null) {
-                document.getElementById('edit-drop-area').addEventListener('dragover', function (e) {
-                    e.preventDefault();
-                    this.classList.add('hover');
-                });
             
-                document.getElementById('edit-drop-area').addEventListener('dragleave', function (e) {
-                    e.preventDefault();
-                    this.classList.remove('hover');
-                });
-            
-                document.getElementById('edit-drop-area').addEventListener('drop', function (e) {
-                    e.preventDefault();
-                    this.classList.remove('hover');
-            
-                    var files = e.dataTransfer.files;
-                    handleFiles(files);
-                });
-            
-                // Handling file input change
-                document.getElementById('editfileInput').addEventListener('change', function () {
-                    var files = this.files;
-                    handleFiles(files);
-                });
-            
-                // Additional handling for clicking the drop area to trigger file input
-                document.getElementById('edit-click-span').addEventListener('click', function () {
-                    document.getElementById('editfileInput').click();
-                });
-            
-                function handleFiles(files) {
-                    var fileList = document.getElementById('edit-file-list');
-                    fileList.classList.remove('d-none');
-            
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
-                        var listItem = document.createElement('li');
-                        listItem.className = 'file-item';
-                        listItem.textContent = file.name;
-                        fileList.appendChild(listItem);
-            
-                        fileStorage.push(file);
-                    }
-                }
-            } 
         });
     });
+    // JavaScript for handling drag-and-drop functionality
+    if (document.getElementById('edit-drop-area') != null) {
+        document.getElementById('edit-drop-area').addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.classList.add('hover');
+        });
+    
+        document.getElementById('edit-drop-area').addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+        });
+    
+        document.getElementById('edit-drop-area').addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.classList.remove('hover');
+    
+            var files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+    
+        // Handling file input change
+        document.getElementById('editfileInput').addEventListener('change', function () {
+            var files = this.files;
+            handleFiles(files);
+        });
+    
+        // Additional handling for clicking the drop area to trigger file input
+        document.getElementById('edit-click-span').addEventListener('click', function () {
+            document.getElementById('editfileInput').click();
+        });
+    
+        function handleFiles(files) {
+            var fileList = document.getElementById('edit-file-list');
+            fileList.classList.remove('d-none');
+    
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var listItem = document.createElement('li');
+                listItem.className = 'file-item';
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+    
+                fileStorage.push(file);
+            }
+        }
+    } 
 }
 
 
@@ -173,6 +182,43 @@ if (adLocationWard != null) {
     });
 }
 
+// // Add data phuong base on Quan to filter select
+// var filteradLocationDistrict = document.getElementById("filterAdLocationDistrict");
+// if (filteradLocationDistrict != null) {
+//     filteradLocationDistrict.addEventListener("change", (e) => {
+//         // Lấy value của option quận đang chọn (e.target)
+//         var selectedOption = e.target.options[e.target.selectedIndex];
+    
+//         // console.log("Quan",selectedOption);
+//         // console.log("Phuong",selectedOption.dataset.wards);
+//         // Lọc ra những phường theo quận đang chọn
+//         var newPhuongOptions = [];
+//         // Access the data-wards attribute using dataset
+//         if (selectedOption != null && selectedOption != undefined) {
+//             // Các phường của quận đang chọn
+//             var dataWardsValue = JSON.parse(selectedOption.dataset.wards); // Có thể chưa chọn j
+//             // console.log("dataWardsValue", dataWardsValue)
+//             if (dataWardsValue != undefined || dataWardsValue != null)
+//                 // Loop qua các key để add vào newPhuongOptions
+//                 Object.values(dataWardsValue).forEach(function (phuong) {
+//                     // console.log("phuong", phuong);
+//                     newPhuongOptions.push({value: phuong.idPhuong, text: phuong.name});
+//                 });
+//         }
+    
+//         var phuongElement = document.getElementById("filterAdLocationWard");
+//         // Clear existing options (optional)
+//         phuongElement.innerHTML = '<option value="">Phường</option>';
+    
+//         // Add new options
+//         newPhuongOptions.forEach(function (optionData) {
+//             var option = document.createElement('option');
+//             option.value = optionData.value;
+//             option.text = optionData.text;
+//             phuongElement.appendChild(option);
+//         });
+//     });
+// }
 
 async function editAdLocation(e) {
     e.preventDefault()
@@ -180,16 +226,13 @@ async function editAdLocation(e) {
     // Remove disable attribute
     document.getElementById('EditAdLocationLattitude').disabled = false;
     document.getElementById('EditAdLocationLongtitude').disabled = false;
-    const formData = new FormData(document.getElementById("EditAdLocationCreateForm"))
-    const data = Object.fromEntries(formData.entries())
+    var formData = new FormData(document.getElementById("EditAdLocationCreateForm"))
+    
+    // const data = Object.fromEntries(formData.entries())
 
-    console.log(data);
     let res = await fetch('/so/thongtindiadiemquangcao', {
         method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
+        body: formData
     })
 
     location.reload();

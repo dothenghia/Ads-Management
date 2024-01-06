@@ -18,7 +18,11 @@ async function checkAuthenticated(req, res, next) {
         }
 
         // Ensure case sensitivity based on your requirements
-        const path = req.originalUrl.toLowerCase();
+        const path = req.originalUrl;
+        console.log('Path: ' + path)
+        if (path.startsWith('/changePassword')){
+            return next();
+        }
         switch (accountType) {
             case '1':
                 if (path.startsWith('/phuong')) {
