@@ -69,7 +69,7 @@ controller.show = async (req, res) => {
 
         AdLocation.push(data);
     });
-
+    // console.log(AdArea);
     // Filters
     let filterAdFormId = req.query.adFormId;
     if (filterAdFormId)
@@ -83,6 +83,13 @@ controller.show = async (req, res) => {
     if (filterAdTypeId)
         AdLocation = AdLocation.filter((loc) => loc.adType == filterAdTypeId);
 
+    let filterDistrictId = req.query.idQuan;
+    if (filterDistrictId)
+        AdLocation = AdLocation.filter((loc) => loc.idQuan == filterDistrictId);
+    let filterWardId = req.query.idPhuong;
+    if (filterWardId)
+        AdLocation = AdLocation.filter((loc) => loc.idPhuong == filterWardId);
+
     let docDistrict = areas.districts;
     // District: Name + idQuan
     // Ward: Name + idPhuong
@@ -95,6 +102,7 @@ controller.show = async (req, res) => {
         "locationType": LocationType,
         "adType": AdType,
         "adArea": docDistrict,
+        "Area": AdArea,
         "adLocation": AdLocation,
         body: function() {
             return "screens/so/ttdqc";

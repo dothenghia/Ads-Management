@@ -182,6 +182,43 @@ if (adLocationWard != null) {
     });
 }
 
+// // Add data phuong base on Quan to filter select
+// var filteradLocationDistrict = document.getElementById("filterAdLocationDistrict");
+// if (filteradLocationDistrict != null) {
+//     filteradLocationDistrict.addEventListener("change", (e) => {
+//         // Lấy value của option quận đang chọn (e.target)
+//         var selectedOption = e.target.options[e.target.selectedIndex];
+    
+//         // console.log("Quan",selectedOption);
+//         // console.log("Phuong",selectedOption.dataset.wards);
+//         // Lọc ra những phường theo quận đang chọn
+//         var newPhuongOptions = [];
+//         // Access the data-wards attribute using dataset
+//         if (selectedOption != null && selectedOption != undefined) {
+//             // Các phường của quận đang chọn
+//             var dataWardsValue = JSON.parse(selectedOption.dataset.wards); // Có thể chưa chọn j
+//             // console.log("dataWardsValue", dataWardsValue)
+//             if (dataWardsValue != undefined || dataWardsValue != null)
+//                 // Loop qua các key để add vào newPhuongOptions
+//                 Object.values(dataWardsValue).forEach(function (phuong) {
+//                     // console.log("phuong", phuong);
+//                     newPhuongOptions.push({value: phuong.idPhuong, text: phuong.name});
+//                 });
+//         }
+    
+//         var phuongElement = document.getElementById("filterAdLocationWard");
+//         // Clear existing options (optional)
+//         phuongElement.innerHTML = '<option value="">Phường</option>';
+    
+//         // Add new options
+//         newPhuongOptions.forEach(function (optionData) {
+//             var option = document.createElement('option');
+//             option.value = optionData.value;
+//             option.text = optionData.text;
+//             phuongElement.appendChild(option);
+//         });
+//     });
+// }
 
 async function editAdLocation(e) {
     e.preventDefault()
