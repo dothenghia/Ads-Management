@@ -14,7 +14,21 @@ controller.show = async (req, res) => {
         // Get current account
         const token = req.cookies.jwtToken;
         const decoded = await jwt.verify(token, "suffering");
-        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name };
+        let currentAccount = { accountType: decoded.accountType, idQuan: decoded.idQuan, idPhuong: decoded.idPhuong, areaName: decoded.areaName, name: decoded.name, avatar: decoded.avatar };
+        // Get current account's wardlist
+        let wardList;
+        if (currentAccount.idQuan == "quan_1") {
+            wardList = [
+                {value: "phuong_nguyen_cu_trinh", name: "Phường Nguyễn Cư Trinh"},
+                {value: "phuong_cau_kho", name: "Phường Cầu Kho"}
+            ];
+        }
+        else {
+            wardList = [
+                {value: "phuong_04", name: "Phường 4"},
+                {value: "phuong_03", name: "Phường 3"}
+            ];
+        }
     
         // Get current page's data
         // Get latest snapshot of requested MongoDB collections
@@ -33,15 +47,9 @@ controller.show = async (req, res) => {
         adSnapshot.forEach((doc) => {
             Ad.push(doc);
         });
-        let AdLocation = []; let Address = [];
-        let addressId = [];
+        let AdLocation = [];
         adLocationSnapshot.forEach((doc) => {
             let data = doc;
-
-            if (!addressId.includes(data.locationId)) {
-                addressId.push(data.locationId);
-                Address.push({name: data.address, value: data.locationId});
-            }
 
             let docDistrict = areas.districts.filter((district) => district.idQuan == doc.idQuan)[0];
             if (!(docDistrict.idQuan in AdArea))
@@ -110,12 +118,20 @@ controller.show = async (req, res) => {
         let filterCoId = req.query.coId;
         if (filterCoId)
             PermissionReq = PermissionReq.filter((req) => req.co.name == filterCoId);
-        let filterAddressId = req.query.addressId;
-        if (filterAddressId)
-            PermissionReq = PermissionReq.filter((req) => req.locationId == filterAddressId);
         let filterStatusId = req.query.statusId;
         if (filterStatusId)
             PermissionReq = PermissionReq.filter((req) => req.status == filterStatusId);
+        let filterWardId = req.query.wardId;
+        if (filterWardId)
+            PermissionReq = PermissionReq.filter((req) => {
+                for (loc in AdLocation) {
+                    if (AdLocation[loc].idPhuong == filterWardId && req.locationId == AdLocation[loc].locationId) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
 
         res.render("partials/screens/quan/index", {
             "current": currentPage,
@@ -123,10 +139,10 @@ controller.show = async (req, res) => {
             "company": Company,
             "status": Status,
             "permissionReq": PermissionReq,
+            "ward": wardList,
             "ad": Ad,
             "adArea": AdArea,
             "adLocation": AdLocation,
-            "address": Address,
             body: function() {
                 return "screens/quan/yeucaucapphep";
             }

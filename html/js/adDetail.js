@@ -71,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    
+
     // Change filter buttons to match current filters
     let urlParams = (new URL(window.location.href)).searchParams;
     if (urlParams.has("adTypeId"))
@@ -79,8 +81,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#adFormFilter').value = urlParams.get("adFormId");
     if (urlParams.has("locationTypeId"))
         document.querySelector('#locationTypeFilter').value = urlParams.get("locationTypeId");
-    if (urlParams.has("addressId"))
-        document.querySelector('#addressFilter').value = urlParams.get("addressId");
+    if (urlParams.has("wardId"))
+        document.querySelector('#wardFilter').value = urlParams.get("wardId");
+    if (urlParams.has("idQuan"))
+        document.querySelector('#filterAdLocationDistrict').value = urlParams.get("idQuan");
+    if (urlParams.has("idPhuong"))
+        document.querySelector('#filterAdLocationWard').value = urlParams.get("idPhuong");
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
@@ -132,6 +138,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }   
     
+    // Add data phuong base on Quan to filter select
+    var filteradLocationDistrict = document.getElementById("filterAdLocationDistrict");
+    if (filteradLocationDistrict != null) {
+        
+            // Lấy value của option quận đang chọn (e.target)
+            var selectedOption = filteradLocationDistrict.options[filteradLocationDistrict.selectedIndex];
+        
+            // console.log("Quan",selectedOption);
+            // console.log("Phuong",selectedOption.dataset.wards);
+            // Lọc ra những phường theo quận đang chọn
+            var newPhuongOptions = [];
+            // Access the data-wards attribute using dataset
+            if (selectedOption != null && selectedOption != undefined && selectedOption.dataset.wards != undefined) {
+                // Các phường của quận đang chọn
+                var dataWardsValue = JSON.parse(selectedOption.dataset.wards); // Có thể chưa chọn j
+                // console.log("dataWardsValue", dataWardsValue)
+                if (dataWardsValue != undefined || dataWardsValue != null)
+                    // Loop qua các key để add vào newPhuongOptions
+                    Object.values(dataWardsValue).forEach(function (phuong) {
+                        // console.log("phuong", phuong);
+                        newPhuongOptions.push({value: phuong.idPhuong, text: phuong.name});
+                    });
+            }
+        
+            var phuongElement = document.getElementById("filterAdLocationWard");
+            // Clear existing options (optional)
+            phuongElement.innerHTML = '<option value="">Phường</option>';
+        
+            // Add new options
+            newPhuongOptions.forEach(function (optionData) {
+                var option = document.createElement('option');
+                option.value = optionData.value;
+                option.text = optionData.text;
+                phuongElement.appendChild(option);
+            });
+    }
 });
 
 // Filter functions
@@ -157,11 +199,27 @@ function locationTypeFilter(locationTypeId) {
         filters.delete("locationTypeId");
     window.location.href = "?" + filters.toString();
 }
-function addressFilter(addressId) {
-    if (addressId != "all")
-        filters.set("addressId", addressId);
+function wardFilter(wardId) {
+    if (wardId != "all")
+        filters.set("wardId", wardId);
     else
-        filters.delete("addressId");
+        filters.delete("wardId");
+    window.location.href = "?" + filters.toString();
+}
+function idQuanFilter(idQuan) {
+    if (idQuan != "all")
+        filters.set("idQuan", idQuan);
+    else {
+        filters.delete("idQuan");
+        filters.delete("idPhuong");
+    }
+    window.location.href = "?" + filters.toString();
+}
+function idPhuongFilter(idPhuong) {
+    if (idPhuong != "all")
+        filters.set("idPhuong", idPhuong);
+    else
+        filters.delete("idPhuong");
     window.location.href = "?" + filters.toString();
 }
 
