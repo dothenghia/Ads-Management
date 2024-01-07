@@ -17,7 +17,8 @@ const permissionReqSchema = new mongoose.Schema({
   thumbnails: [{
     url: { type: String, required: true }
   }]
-});
+},{ collection: 'permissionReqs' }
+);
 
 const permissionReqsModel = mongoose.model('permissionReqs', permissionReqSchema);
 

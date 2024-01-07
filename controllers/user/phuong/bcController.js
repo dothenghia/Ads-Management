@@ -4,6 +4,7 @@ const currentPage = 4;
 const jwt = require("jsonwebtoken");
 const {client}  = require("../../../config/mongodbConfig");
 const adLocationsModel = require('../../../models/adLocationsModel');
+
 const fs = require("fs");
 const axios = require("axios");
 
@@ -25,7 +26,7 @@ const transporter = nodemailer.createTransport({
 async function sendEmailToUser(userEmail, solution, status, locationID, latitude, longitude){
     var locationName;
     if (locationID && locationID != ""){
-        const location = await adLocationsModel.findOne({locationID: locationID});
+        const location = await adLocationsModel.findOne({locationId: parseInt(locationID)});
         locationName = location.address;
     }
     else{

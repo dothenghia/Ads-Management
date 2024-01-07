@@ -10,7 +10,8 @@ const adSchema = new mongoose.Schema({
   thumbnails: [{
     url: { type: String, required: true }
   }]
-});
+},{ collection: 'ads' }
+);
 
 const adsModel = mongoose.model('ads', adSchema);
 

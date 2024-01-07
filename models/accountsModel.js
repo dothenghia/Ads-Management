@@ -16,7 +16,8 @@ const accountsSchema = new mongoose.Schema({
     microsoftEmail: { type: String },
     delete: { type: Boolean, default: false },
     avatar: { type: Array, default: [] },
-});
+},{ collection: 'accounts' }
+);
 
 const accountsModel = mongoose.model('accounts', accountsSchema);
 
