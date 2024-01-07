@@ -12,7 +12,8 @@ const changeLocReqSchema = new mongoose.Schema({
   },
   changeLocReqId: { type: Number, required: true },
   oldLocationId: { type: Number, required: true }
-});
+},{ collection: 'changeLocReqs' }
+);
 
 const changeLocReqsModel = mongoose.model('changeLocReqs', changeLocReqSchema);
 

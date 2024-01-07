@@ -14,7 +14,8 @@ const changeReqSchema = new mongoose.Schema({
       url: { type: String, required: true }
     }]
   }
-});
+},{ collection: 'changeReqs' }
+);
 
 const changeReqsModel = mongoose.model('changeReqs', changeReqSchema);
 

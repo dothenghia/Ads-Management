@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 async function sendEmailToUser(userEmail, solution, status, locationID, latitude, longitude){
     var locationName;
     if (locationID && locationID != ""){
-        const location = await adLocationsModel.findOne({locationID: locationID});
+        const location = await adLocationsModel.findOne({locationId: parseInt(locationID)});
         locationName = location.address;
     }
     else{

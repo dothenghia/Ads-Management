@@ -5,7 +5,6 @@ const imageSchema = new mongoose.Schema({
 });
 
 const reportSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId },
   reportForm: { type: String, required: true },
   images: [imageSchema],
   reportId: { type: Number, required: true },
@@ -21,7 +20,8 @@ const reportSchema = new mongoose.Schema({
   longitude: { type: String },
   status: { type: String, required: true },
   solution: { type: String }
-});
+},{ collection: 'reports' }
+);
 
 const reportsModel = mongoose.model('reports', reportSchema);
 
