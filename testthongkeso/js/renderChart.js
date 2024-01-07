@@ -8,6 +8,10 @@ let gdtmColor = '#9747FF';
 let dangxulyColor = '#FF6400';
 let daxulyColor = '#41AF79';
 let tuchoiColor = '#DC3545';
+let dangxulyColorSubtle = '#FFC4A3';
+let daxulyColorSubtle = '#C7EDD9';
+let tuchoiColorSubtle = '#FBBFBF';
+
 
 // @ ========== Tổng số Báo cáo theo THỜI GIAN
 function renderBigTSBCChart(chartData) {
@@ -154,10 +158,59 @@ function renderMiniGDTMChart(chartData) {
     return myPieChart;
 }
 
+
+
+function renderBarChart(quanList, reportCountList) {
+    var bckvCanvas = document.getElementById('bckv-canvas');
+    var barChart = new Chart(bckvCanvas, {
+        type: 'bar',
+        data: {
+            labels: quanList,
+            datasets: [
+                {
+                    label: 'Đang xử lý',
+                    data: reportCountList['Đang xử lý'],
+                    backgroundColor: dangxulyColorSubtle,
+                    borderColor: dangxulyColor,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Đã xử lý',
+                    data: reportCountList['Đã xử lý'],
+                    backgroundColor: daxulyColorSubtle,
+                    borderColor: daxulyColor,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Từ chối',
+                    data: reportCountList['Từ chối'],
+                    backgroundColor: tuchoiColorSubtle,
+                    borderColor: tuchoiColor,
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: true
+                },
+                x: {
+                    stacked: true
+                }
+            }
+        }
+    });
+}
+
+
 export {
     renderBigTSBCChart,
     renderMiniTGSPChart,
     renderMiniDKNDChart,
     renderMiniDGYKChart,
-    renderMiniGDTMChart
+    renderMiniGDTMChart,
+
+    renderBarChart
 }

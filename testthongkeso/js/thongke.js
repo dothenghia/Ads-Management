@@ -4,7 +4,9 @@ import {
     renderMiniTGSPChart,
     renderMiniDKNDChart,
     renderMiniDGYKChart,
-    renderMiniGDTMChart
+    renderMiniGDTMChart,
+
+    renderBarChart,
 } from "./renderChart.js";
 
 const thongke = {
@@ -32,7 +34,7 @@ const thongke = {
         thongke.reportData = await response.json();
     },
 
-    // ====== Render UI
+    // ====== calculateData
     calculateData: function () {
         // * ==================== Tổng số Báo cáo theo THỜI GIAN ====================
         thongke.tsbcData = { tgsp: 0, dknd: 0, dgyk: 0, gdtm: 0 }
@@ -304,3 +306,153 @@ const thongke = {
 
 thongke.start();
 
+const khuvuc = {
+    // ====== Hàm Khởi tạo các State
+    init: function () {
+        this.reportData = [];
+        this.bckvOption = { type: 'district', year: null, month: null, date: null, quan: null, phuong: null };
+
+        this.locationList = [];
+        this.quanList = [];
+        this.phuongList = [];
+
+        this.bckvData = []
+
+        document.querySelector('.bckv-input-root')
+    },
+
+    // ====== Fetch dữ liệu các BC
+    fetchData: async function () {
+        const response = await fetch('http://localhost:3000/dan/dsbc');
+        khuvuc.reportData = await response.json();
+    },
+
+    // ====== Group Location
+    groupLocation: function () {
+        this.quanList = [...new Set(this.reportData.map(report => report.quan))];
+        this.phuongList = [...new Set(this.reportData.map(report => report.phuong))];
+        this.locationList = this.quanList.map(quan => {
+            const uniquePhuongSet = new Set();
+            this.reportData.forEach(report => {
+                if (report.quan === quan) {
+                    const phuong = getActualPhuong(report.phuong);
+                    uniquePhuongSet.add(phuong);
+                }
+            });
+
+            const phuongList = [...uniquePhuongSet];
+
+            return {
+                quan: quan,
+                phuong: phuongList
+            };
+        });
+        console.log(this.locationList);
+    },
+
+    // ====== calculateData
+    calculateData: function () {
+        const reportByQuanAndStatus = {};
+
+        khuvuc.reportData.forEach(report => {
+            const quan = report.quan;
+            const status = report.status;
+
+            if (!reportByQuanAndStatus[quan]) {
+                reportByQuanAndStatus[quan] = {};
+            }
+
+            if (!reportByQuanAndStatus[quan][status]) {
+                reportByQuanAndStatus[quan][status] = 1;
+            } else {
+                reportByQuanAndStatus[quan][status]++;
+            }
+        });
+
+        const quanList = Object.keys(reportByQuanAndStatus);
+        const reportCountByStatusList = {
+            'Đã xử lý': [],
+            'Đang xử lý': [],
+            'Từ chối': [],
+        };
+
+        quanList.forEach(quan => {
+            const reportCounts = reportByQuanAndStatus[quan];
+
+            reportCountByStatusList['Đã xử lý'].push(reportCounts['Đã xử lý'] || 0);
+            reportCountByStatusList['Đang xử lý'].push(reportCounts['Đang xử lý'] || 0);
+            reportCountByStatusList['Từ chối'].push(reportCounts['Từ chối'] || 0);
+        });
+
+        renderBarChart(quanList, reportCountByStatusList);
+    },
+
+    // ====== Start
+    start: async function () {
+        this.init();
+        await this.fetchData(); // Once
+        this.groupLocation();
+        this.calculateData();
+    }
+}
+
+khuvuc.start();
+
+
+function getActualPhuong(phuong) {
+    // Thêm logic xử lý để lấy tên phường thực sự dựa trên tên đưa vào
+    // Ví dụ, nếu tên phường bắt đầu bằng 'Phường ', ta cắt bỏ phần đầu để lấy phần còn lại
+    if (phuong.startsWith('Phường ')) {
+        return phuong.substring(7);
+    }
+    return phuong;
+}
+
+let chartData = [
+    {
+        quan: 'Quận 1',
+        phuong: [
+            {
+                name: 'Phường Nguyễn Cư Trinh',
+                data: {
+                    tgsp: 0,
+                    dknd: 0,
+                    dgyk: 0,
+                    gdtm: 0
+                }
+            },
+            {
+                name: 'Phường Cô Giang',
+                data: {
+                    tgsp: 0,
+                    dknd: 0,
+                    dgyk: 0,
+                    gdtm: 0
+                }
+            }
+        ]
+    },
+    {
+        quan: 'Quận 5',
+        phuong: [
+            {
+                name: 'Phường 1',
+                data: {
+                    tgsp: 0,
+                    dknd: 0,
+                    dgyk: 0,
+                    gdtm: 0
+                }
+            },
+            {
+                name: 'Phường 2',
+                data: {
+                    tgsp: 0,
+                    dknd: 0,
+                    dgyk: 0,
+                    gdtm: 0
+                }
+            }
+        ]
+    }
+]

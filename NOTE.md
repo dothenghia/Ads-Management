@@ -26,6 +26,7 @@ Nghĩa :
 
         [] Check cái Tạo AdLocation có AdType không ??
         [] Check cái Tạo AdLocation thumbnail thêm s chưa ??
+        [] Danh sách sẽ lọc được theo địa điểm như là theo Quận/Phường
 
 Khoa : 
     Phường + Quận :
