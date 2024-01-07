@@ -85,8 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#wardFilter').value = urlParams.get("wardId");
     if (urlParams.has("idQuan"))
         document.querySelector('#filterAdLocationDistrict').value = urlParams.get("idQuan");
-    if (urlParams.has("idPhuong"))
-        document.querySelector('#filterAdLocationWard').value = urlParams.get("idPhuong");
+    if (urlParams.has("locationPlanningState"))
+        document.querySelector('#locationPlanningFilter').value = urlParams.get("locationPlanningState");
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
@@ -174,6 +174,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 phuongElement.appendChild(option);
             });
     }
+
+    if (urlParams.has("idPhuong"))
+        document.querySelector('#filterAdLocationWard').value = urlParams.get("idPhuong");
 });
 
 // Filter functions
@@ -220,6 +223,13 @@ function idPhuongFilter(idPhuong) {
         filters.set("idPhuong", idPhuong);
     else
         filters.delete("idPhuong");
+    window.location.href = "?" + filters.toString();
+}
+function locationPlanningFilter(locationPlanningState) {
+    if ( locationPlanningState != "all")
+        filters.set("locationPlanningState", locationPlanningState );
+    else
+        filters.delete("locationPlanningState");
     window.location.href = "?" + filters.toString();
 }
 

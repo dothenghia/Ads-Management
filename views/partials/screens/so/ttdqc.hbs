@@ -60,7 +60,6 @@
         </div>
     </div>
 
-
     {{!-- Table --}}
     <div class="shared-table-container">
         <table class="table table-hover">
@@ -95,6 +94,15 @@
                             {{/each}}
                         </select>
                     </th>
+                    <th scope="col">
+                        <select id="locationPlanningFilter" name="" onchange="locationPlanningFilter(this.value)">
+                            <option value="all" selected disabled>Tình Trạng Quy Hoạch</option>
+                            <option value="all">Tất cả</option>
+                            {{#each adPlanning}}
+                            <option value="{{value}}">{{convertState value}}</option>
+                            {{/each}}
+                        </select>
+                    </th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -115,11 +123,13 @@
                     <td scope="col">{{adForm}}</td>
                     <td scope="col">{{adType}}</td>
                     <td scope="col">{{locationType}}</td>
+                    <td scope="col">{{convertState planning}}</td>
                     <td scope="col">
                         <button class="edit-button" data-account-role="so" data-page="thongtindiadiemquangcao"
                             data-id="{{locationId}}" data-quan-id="{{idQuan}}" data-phuong-id="{{idPhuong}}"
                             data-address="{{address}}" data-location-type="{{locationType}}" data-ad-form="{{adForm}}"
-                            data-ad-type="{{adType}}" data-longitude="{{longitude}}" data-latitude="{{latitude}}">
+                            data-ad-type="{{adType}}" data-longitude="{{longitude}}" data-latitude="{{latitude}}"
+                            data-planning="{{planning}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-edit">
@@ -168,7 +178,7 @@
                         <div class="container-fluid">
                             {{!-- Hình thức + Loại quảng cáo + Vị trí --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="d-flex flex-column" style="min-width: 25%;" id="newAdLocationFormDiv">
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationFormDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Hình thức<span class="text-danger">*</span></p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
@@ -182,7 +192,7 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 40%;" id="newAdTypeDiv">
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdTypeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Loại quảng cáo<span class="text-danger">*</span>
                                     </p>
@@ -225,7 +235,7 @@
                             </div>
                             {{!-- Kinh độ vĩ độ --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationLongtitudeDiv">
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationLongtitudeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Kinh Độ</p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
@@ -235,13 +245,26 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 50%;" id="newAdLocationLattitudeDiv">
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationLattitudeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Vĩ Độ</p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
                                         <input type="text" class="form-control" id="newAdLocationLattitude"
                                             placeholder="108.2" aria-label="Company" name="newAdLocationLattitude"
                                             disabled>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="newAdLocationPlanningDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                        id="newAdLocationCategoryTitle">Tình Trạng Quy Hoạch<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="newAdLocationPlanning" name="newAdLocationPlanning"
+                                            class="rounded-3 form-select">
+                                            <option value="">Tình Trạng Quy Hoạch</option>
+                                            <option value="Đang Quy Hoạch">Đang Quy Hoạch</option>
+                                            <option value="Đã Quy Hoạch">Đã Quy Hoạch</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -409,7 +432,7 @@
                             </div>
                             {{!-- Kinh độ vĩ độ --}}
                             <div class="d-flex flex-row justify-content-between" style="margin-bottom: 8px;">
-                                <div class="d-flex flex-column" style="min-width: 50%;"
+                                <div class="d-flex flex-column" style="min-width: 33%;"
                                     id="EditAdLocationLongtitudeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="EditAdLocationCategoryTitle">Kinh Độ</p>
@@ -420,13 +443,26 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex flex-column" style="min-width: 50%;" id="EditAdLocationLattitudeDiv">
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="EditAdLocationLattitudeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="EditAdLocationCategoryTitle">Vĩ Độ</p>
                                     <div class="input-group mb-3" style="padding-right: 12%;">
                                         <input type="text" class="form-control" id="EditAdLocationLattitude"
                                             placeholder="108.2" aria-label="Company" name="EditAdLocationLattitude"
                                             disabled>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column" style="min-width: 33%;" id="EditAdLocationPlanningDiv">
+                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                        id="EditAdLocationCategoryTitle">Tình Trạng Quy Hoạch<span class="text-danger">*</span></p>
+                                    <div class="input-group mb-3" style="padding-right: 12%;">
+                                        <select id="EditAdLocationPlanning" name="EditAdLocationPlanning"
+                                            class="rounded-3 form-select">
+                                            <option value="">Tình Trạng Quy Hoạch</option>
+                                            <option value="Đang Quy Hoạch">Đang Quy Hoạch</option>
+                                            <option value="Đã Quy Hoạch">Đã Quy Hoạch</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

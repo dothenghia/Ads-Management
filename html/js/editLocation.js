@@ -26,6 +26,7 @@ if (editBtn != null) {
             let locationType = btn.dataset.locationType;
             let adForm = btn.dataset.adForm;
             let adType = btn.dataset.adType;
+            let planning = btn.dataset.planning;
 
             console.log("locationId", locationId);
 
@@ -37,6 +38,7 @@ if (editBtn != null) {
             document.getElementById("EditAdLocationAddrs").value = address;
             document.getElementById("EditAdLocationLattitude").value = latitude;
             document.getElementById("EditAdLocationLongtitude").value = longitude;
+            document.getElementById("EditAdLocationPlanning").value = planning == "true" ? "Đã Quy Hoạch" : "Đang Quy Hoạch";
 
             // Special
             var adLocationDistrict = document.getElementById("EditAdLocationDistrict");
