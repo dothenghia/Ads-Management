@@ -15,51 +15,47 @@ Pass: 123
 
 Nghĩa :
     Dân :
-        - Sửa lại 1970 - [DONE]
-        - Sửa cách fetch data Dân - [DONE]
-        - Sửa cách fetch data Phường/Quận - [DONE]
-        - Chỉnh lại mấy cái placeholder, text, ... - [DONE]
-        - Geocoding Search bar - [DONE]
         - Thống kê (Sở)
+        - Trang Bản đồ Phường/Quận :
+            + Sửa lỗi fetch Data adLocation 235 NVC (Check thêm adId = "" cho adLocation)
+            + Sửa lỗi reportMarker NCTrinh
+        - Filter Điểm QH và Chưa QH
         - Sửa lỗi icon khi scoll
+        - Sửa độ dài tên cán bộ
         - Guide Marker (Optional)
-
-        [] Check cái Tạo AdLocation có AdType không ??
-        [] Check cái Tạo AdLocation thumbnail thêm s chưa ??
-        [] Danh sách sẽ lọc được theo địa điểm như là theo Quận/Phường
 
 Khoa : 
     Phường + Quận :
-        - Thêm nút lọc Phường cho Cán bộ Quận - [DONE]
-        - Lọc ra những báo cáo của Phường/Quận tương ứng cho mọi trang - [DONE]
-        - Đổi function trong Controller sang kiểu Model
-        - Đổi tên thêm "Tất cả" vào các nút filter - [DONE]
-        - Sửa lại Tên Cán bộ thành email đăng nhập (cho ngắn) - [DONE]
-        - Trang Báo cáo : Phường/Quận/Sở luôn - [DONE]
-            + Xóa chữ "gần" - [DONE]
-            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC - [DONE]
-        - Trang Yêu cầu điều chỉnh QC : - [DONE]
-            + Thêm cột Tên bảng QC - [DONE]
-            + Sửa lại Phần Lý do chỉnh sửa (Theo 1 trong 2 cách) - [DONE]
-        - Thời gian của Trang Báo cáo Phường ko sort được
+        - Đổi function trong Controller sang kiểu Model            
+        - Trang Quản lý Bảng QC :
+            + Bị lỗi Duplicate cột 
+        - Trang Cấp phép QC :
+            + Bị lỗi duplicate Hình 
+        - Trang Điều chỉnh Điểm QC :
+            + Hình thức và mấy kia là Dropdown
+        - Chỉnh lại ratio của các hình trong Modal
+        - Lỗi Gửi mail undefined
+        - Sửa lỗi Avatar
 
 
 Bảo :
     Sở :
-        - Thêm trang `Quản lý Điều chỉnh QC` - [DONE]
-        - Sửa lại tên các nút trên Sidebar cho rõ ràng - [DONE]
-        - Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO
-
-       
-    
+        - Đổi function trong Controller sang kiểu Model            
+        - Trang Quản Lý Tạo điểm QC :
+            + Sửa lỗi Dropdown Phường
+            + Style lại đẹp đẹp
+            + Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO
+            + Thêm vào cột Tình trạng Quy hoạch : Đã quy hoạch/Chưa quy hoạch
+            + Chỉnh cái điểm Quảng cáo NguyễnTrãi-NguyễnCưTrinh thành Đã quy hoạch và thêm hình vào
+        - Chỉnh lại kích thước các cột dữ liệu
+        - Trang Quản lý Báo cáo :
+            => Kiếm th Khoa chỉ
+            + Xóa chữ "gần"
+            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC
+        - Trang Điều chỉnh ĐĐ :
+            + Sửa lỗi Từ chối duplicate
 
 
 
 Hải :
-    - PHỤ TH BẢO
-    Cán bộ :
-        - Sort //xong
-    Database :
-        - Phường/Quận : Người dân gửi báo cáo sẽ nhận được email thông báo về tình trạng và cách thức xử lý cho từng báo cáo một cách tự động //xong
-
 
