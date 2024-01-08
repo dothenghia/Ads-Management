@@ -3,11 +3,19 @@
 var map = L.map('map');
 map.setView([10.762929812031853, 106.68248270284181], 13); // Set the initial center and zoom level
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
+//style theo kiểu của mapbox, bên trên là style theo kiểu openstreetmap, nhớ bỏ cái style của openstreetmap thay bằng style này 
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
+    id: 'mapbox/streets-v12', 
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ'  
+  }).addTo(map);
 var marker = L.marker([10.762929812031853, 106.68248270284181]).addTo(map)
     .bindPopup('A sample location.');
 
