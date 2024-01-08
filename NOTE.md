@@ -57,7 +57,8 @@ Bảo :
             + Sửa lỗi Từ chối duplicate - Tự nhiên hết lỗi :D
 
 
-
+        - Trang QLBáo cáo thêm tên người gửi
+        - Trang QLBáo cáo bị lỗi sort ngày
 
 Hải :
 
