@@ -33,9 +33,13 @@ function handleNewLocationInputChange() {
             console.log("map:",map);
             map.setView([10.762929812031853, 106.68248270284181], 13);
 
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/streets-v12', 
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ'  
             }).addTo(map);
 
             marker = L.marker([10.762929812031853, 106.68248270284181]).addTo(map)
@@ -77,9 +81,13 @@ function handleEditLocationInputChange() {
             map = L.map('Editmap');
             map.setView([10.762929812031853, 106.68248270284181], 13);
 
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/streets-v12', 
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ'  
             }).addTo(map);
 
             marker = L.marker([10.762929812031853, 106.68248270284181]).addTo(map)
