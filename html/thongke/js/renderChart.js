@@ -205,6 +205,51 @@ function renderBarChart(quanList, quanChartData) {
     return barChart;
 }
 
+function renderPhuongChart(phuongList, phuongChartData) {
+    var bckvCanvas = document.getElementById('bcphuong-canvas');
+    var barChart = new Chart(bckvCanvas, {
+        type: 'bar',
+        data: {
+            labels: phuongList,
+            datasets: [
+                {
+                    label: 'Đã xử lý',
+                    data: phuongChartData['Đã xử lý'],
+                    backgroundColor: daxulyColorSubtle,
+                    borderColor: daxulyColor,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Đang xử lý',
+                    data: phuongChartData['Đang xử lý'],
+                    backgroundColor: dangxulyColorSubtle,
+                    borderColor: dangxulyColor,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Từ chối',
+                    data: phuongChartData['Từ chối'],
+                    backgroundColor: tuchoiColorSubtle,
+                    borderColor: tuchoiColor,
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: true
+                },
+                x: {
+                    stacked: true
+                }
+            }
+        }
+    });
+    return barChart;
+}
+
 
 export {
     renderBigTSBCChart,
@@ -213,5 +258,6 @@ export {
     renderMiniDGYKChart,
     renderMiniGDTMChart,
 
-    renderBarChart
+    renderBarChart,
+    renderPhuongChart
 }

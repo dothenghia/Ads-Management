@@ -7,6 +7,7 @@ import {
     renderMiniGDTMChart,
 
     renderBarChart,
+    renderPhuongChart
 } from "./renderChart.js";
 
 const thongke = {
@@ -326,7 +327,7 @@ const khuvuc = {
     fetchData: async function () {
         const response = await fetch('http://localhost:3000/dan/dsbc');
         khuvuc.reportData = await response.json();
-        console.log(khuvuc.reportData);
+        // console.log(khuvuc.reportData);
     },
 
     // ====== calculateData
@@ -373,12 +374,12 @@ const khuvuc = {
             khuvuc.quanChartData['Từ chối'].push(reportCounts['Từ chối'] || 0);
         });
 
-        console.log(khuvuc.quanData, khuvuc.quanList, khuvuc.quanChartData)
+        // console.log(khuvuc.quanData, khuvuc.quanList, khuvuc.quanChartData)
     },
 
     // ====== Render UI
     renderUI: function () {
-        khuvuc.bckvChart = renderBarChart(khuvuc.quanList, this.quanChartData);
+        khuvuc.bckvChart = renderBarChart(khuvuc.quanList, khuvuc.quanChartData);
     },
 
     // ====== Update Chart
@@ -477,60 +478,204 @@ const khuvuc = {
 khuvuc.start();
 
 
+
+const kvphuong = {
+    // ====== Hàm Khởi tạo các State
+    init: function () {
+        this.reportData = [];
+        this.bcphuongOption = { quan: null, time: 'all', year: null, month: null, date: null };
+
+        this.phuongChart = null;
+
+        this.quanData = null
+        this.quanList = null;
+        this.phuongData = null
+        this.phuongList = null;
+        this.chartData = null;
+    },
+
+    // ====== Fetch dữ liệu các BC
+    fetchData: async function () {
+        const response = await fetch('http://localhost:3000/dan/dsbc');
+        kvphuong.reportData = await response.json();
+        // console.log(kvphuong.reportData);
+    },
+
+    // ====== Render Quận Select
+    renderQuanSelect: function () {
+        let optionHtml = '';
+        kvphuong.quanList.map((quan, index) => {
+            optionHtml += `<option value="${quan}" ${kvphuong.bcphuongOption.quan === quan ? 'selected' : ''}>${quan}</option>`;
+        })
+        document.getElementById('bcphuong-district').innerHTML = optionHtml;
+    },
+
+    // ====== calculateData
+    calculateData: async function () {
+        kvphuong.quanData = {
+            'Quận 1': {},
+            'Quận 5': {},
+        };
+
+        kvphuong.reportData.forEach(report => {
+            switch (kvphuong.bcphuongOption.time) {
+                case 'all':
+                    if (!kvphuong.quanData[report.quan]) { kvphuong.quanData[report.quan] = {}; }
+                    if (!kvphuong.quanData[report.quan][getActualPhuong(report.phuong)]) { kvphuong.quanData[report.quan][getActualPhuong(report.phuong)] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                    kvphuong.quanData[report.quan][getActualPhuong(report.phuong)][report.status]++;
+                    break;
+                case 'year':
+                    if (report.time.includes(`năm ${kvphuong.bcphuongOption.year}`)) {
+                        if (!kvphuong.quanData[report.quan]) { kvphuong.quanData[report.quan] = {}; }
+                        if (!kvphuong.quanData[report.quan][getActualPhuong(report.phuong)]) { kvphuong.quanData[report.quan][getActualPhuong(report.phuong)] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                        kvphuong.quanData[report.quan][getActualPhuong(report.phuong)][report.status]++;
+                    }
+                    break;
+                case 'month':
+                    if (report.time.includes(`tháng ${kvphuong.bcphuongOption.month} năm ${kvphuong.bcphuongOption.year}`)) {
+                        if (!kvphuong.quanData[report.quan]) { kvphuong.quanData[report.quan] = {}; }
+                        if (!kvphuong.quanData[report.quan][getActualPhuong(report.phuong)]) { kvphuong.quanData[report.quan][getActualPhuong(report.phuong)] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                        kvphuong.quanData[report.quan][getActualPhuong(report.phuong)][report.status]++;
+                    }
+                    break;
+                case 'date':
+                    if (report.time.includes(`Ngày ${kvphuong.bcphuongOption.date} tháng ${kvphuong.bcphuongOption.month} năm ${kvphuong.bcphuongOption.year}`)) {
+                        if (!kvphuong.quanData[report.quan]) { kvphuong.quanData[report.quan] = {}; }
+                        if (!kvphuong.quanData[report.quan][getActualPhuong(report.phuong)]) { kvphuong.quanData[report.quan][getActualPhuong(report.phuong)] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                        kvphuong.quanData[report.quan][getActualPhuong(report.phuong)][report.status]++;
+                    }
+                    break;
+            }
+        });
+
+        kvphuong.quanList = Object.keys(kvphuong.quanData);
+        kvphuong.renderQuanSelect();
+
+        kvphuong.phuongData = kvphuong.quanData[kvphuong.bcphuongOption.quan || kvphuong.quanList[0]];
+        kvphuong.phuongList = Object.keys(kvphuong.phuongData);
+        kvphuong.chartData = { 'Đã xử lý': [], 'Đang xử lý': [], 'Từ chối': [], };
+
+        kvphuong.phuongList.forEach(phuong => {
+            const reportCounts = kvphuong.phuongData[phuong];
+            kvphuong.chartData['Đã xử lý'].push(reportCounts['Đã xử lý'] || 0);
+            kvphuong.chartData['Đang xử lý'].push(reportCounts['Đang xử lý'] || 0);
+            kvphuong.chartData['Từ chối'].push(reportCounts['Từ chối'] || 0);
+        });
+
+        console.log(kvphuong.phuongData, kvphuong.phuongList, kvphuong.chartData)
+    },
+
+    // ====== Render UI
+    renderUI: function () {
+        let newPhuongListLabel = kvphuong.phuongList.map(phuong => {
+            return `Phường ${phuong}`
+        });
+        kvphuong.phuongChart = renderPhuongChart(newPhuongListLabel, kvphuong.chartData);
+    },
+
+
+    // ====== Update Chart
+    updateChart: function () {
+        kvphuong.phuongChart.config.data.datasets[0].data = kvphuong.chartData['Đã xử lý'];
+        kvphuong.phuongChart.config.data.datasets[1].data = kvphuong.chartData['Đang xử lý'];
+        kvphuong.phuongChart.config.data.datasets[2].data = kvphuong.chartData['Từ chối'];
+        kvphuong.phuongChart.config.data.labels = kvphuong.phuongList.map(phuong => {
+            return `Phường ${phuong}`
+        });
+        kvphuong.phuongChart.update();
+    },
+
+    // ====== Select Option Handler
+    selectOptionHandler: function () {
+        let quanSelect = document.getElementById("bcphuong-district");
+        let bcphuongSelect = document.getElementById("bcphuong-time");
+        let bcphuongInputRoot = document.querySelector('.bcphuong-input-root');
+
+        bcphuongSelect.addEventListener("change", function () {
+            const selectedValue = bcphuongSelect.value;
+
+            while (bcphuongInputRoot.firstChild) { bcphuongInputRoot.removeChild(bcphuongInputRoot.firstChild); }
+
+            if (selectedValue === 'year') {
+                const label = document.createElement('label');
+                label.setAttribute('for', 'bcphuong-year');
+                label.textContent = 'Chọn Năm';
+                const input = document.createElement('input');
+                input.setAttribute('type', 'number'); input.setAttribute('id', 'bcphuong-year'); input.setAttribute('min', '2023'); input.setAttribute('max', '2024');
+                input.setAttribute('value', new Date().getFullYear()); // Năm hiện tại
+                bcphuongInputRoot.appendChild(label); bcphuongInputRoot.appendChild(input);
+            }
+            if (selectedValue === 'month') {
+                const label = document.createElement('label');
+                label.setAttribute('for', 'bcphuong-month');
+                label.textContent = 'Chọn Tháng';
+                const input = document.createElement('input'); input.setAttribute('type', 'month'); input.setAttribute('id', 'bcphuong-month');
+                const currentMonth = new Date().toISOString().split('-').slice(0, 2).join('-');
+                input.setAttribute('value', currentMonth); // Tháng hiện tại
+                bcphuongInputRoot.appendChild(label); bcphuongInputRoot.appendChild(input);
+            }
+            if (selectedValue === 'date') {
+                const label = document.createElement('label');
+                label.setAttribute('for', 'bcphuong-date');
+                label.textContent = 'Chọn Ngày';
+                const input = document.createElement('input'); input.setAttribute('type', 'date'); input.setAttribute('id', 'bcphuong-date');
+                const currentDate = new Date().toISOString().split('T')[0];
+                input.setAttribute('value', currentDate);
+                bcphuongInputRoot.appendChild(label); bcphuongInputRoot.appendChild(input);
+            }
+        });
+
+
+        document.getElementById("bcphuong-btn").onclick = function () {
+            const selectedValue = bcphuongSelect.value;
+            let quan = quanSelect.value;
+            if (selectedValue === 'all') {
+                kvphuong.bcphuongOption = { quan: quan, time: 'all', year: null, month: null, date: null };
+            }
+            if (selectedValue === 'year') {
+                const year = document.getElementById('bcphuong-year').value;
+                kvphuong.bcphuongOption = { quan: quan, time: 'year', year: year, month: null, date: null };
+            }
+            if (selectedValue === 'month') {
+                const monthValue = document.getElementById('bcphuong-month').value;
+                let year = monthValue.split('-')[0];
+                let month = monthValue.split('-')[1];
+                kvphuong.bcphuongOption = { quan: quan, time: 'month', year: year, month: month, date: null };
+            }
+            if (selectedValue === 'date') {
+                const dateValue = document.getElementById('bcphuong-date').value;
+                let year = dateValue.split('-')[0];
+                let month = dateValue.split('-')[1];
+                let date = dateValue.split('-')[2];
+                kvphuong.bcphuongOption = { quan: quan, time: 'date', year: year, month: month, date: date };
+            }
+
+            console.log(kvphuong.bcphuongOption)
+            kvphuong.calculateData();
+            kvphuong.updateChart();
+        }
+    },
+
+
+
+    // ====== Start
+    start: async function () {
+        this.init();
+        await this.fetchData(); // Once
+
+        await this.calculateData();
+        this.renderUI(); // Once
+
+        this.selectOptionHandler();
+    }
+}
+
+kvphuong.start();
+
 function getActualPhuong(phuong) {
-    // Thêm logic xử lý để lấy tên phường thực sự dựa trên tên đưa vào
-    // Ví dụ, nếu tên phường bắt đầu bằng 'Phường ', ta cắt bỏ phần đầu để lấy phần còn lại
     if (phuong.startsWith('Phường ')) {
         return phuong.substring(7);
     }
     return phuong;
 }
 
-let chartData = [
-    {
-        quan: 'Quận 1',
-        phuong: [
-            {
-                name: 'Phường Nguyễn Cư Trinh',
-                data: {
-                    tgsp: 0,
-                    dknd: 0,
-                    dgyk: 0,
-                    gdtm: 0
-                }
-            },
-            {
-                name: 'Phường Cô Giang',
-                data: {
-                    tgsp: 0,
-                    dknd: 0,
-                    dgyk: 0,
-                    gdtm: 0
-                }
-            }
-        ]
-    },
-    {
-        quan: 'Quận 5',
-        phuong: [
-            {
-                name: 'Phường 1',
-                data: {
-                    tgsp: 0,
-                    dknd: 0,
-                    dgyk: 0,
-                    gdtm: 0
-                }
-            },
-            {
-                name: 'Phường 2',
-                data: {
-                    tgsp: 0,
-                    dknd: 0,
-                    dgyk: 0,
-                    gdtm: 0
-                }
-            }
-        ]
-    }
-]

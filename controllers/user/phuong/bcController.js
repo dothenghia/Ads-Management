@@ -145,13 +145,15 @@ controller.show = async (req, res) => {
                 let phuong = fetchResult.features[1].text;
                 if (!phuong.startsWith("Phường")) phuong = "Phường " + phuong;
                 let phuongObject = quanObject.wards.filter((ward) => ward.name == phuong)[0];
-                let idPhuong = phuongObject ? phuongObject.idPhuong: "";
+                if (phuongObject != undefined) {
+                    let idPhuong = phuongObject.idPhuong;
 
-                if (currentAccount.idQuan == idQuan && currentAccount.idPhuong == idPhuong) {
-                    Report.push(data);
+                    if (currentAccount.idQuan == idQuan && currentAccount.idPhuong == idPhuong) {
+                        Report.push(data);
+                    }
+                    
+                    data.locationId = fetchResult.features[0].text;
                 }
-                
-                data.locationId = fetchResult.features[0].text;
             }
             
         }));
