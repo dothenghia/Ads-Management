@@ -25,10 +25,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Địa Điểm</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 2em;">STT</th>
+                    <th scope="col" style="width: 17em;">Tên</th>
+                    <th scope="col" style="width: 20em;">Địa Điểm</th>
+                    <th scope="col" style="width: 10em;">
                         <select id="adTypeFilter" name="" onchange="adTypeFilter(this.value)">
                             <option value="all" selected disabled>Loại quảng cáo</option>
                             <option value="all">Tất cả</option>
@@ -37,8 +37,8 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Kích thước</th>
-                    <th scope="col">
+                    
+                    <th scope="col" style="width: 10em;">
                         <select id="adFormFilter" name="" onchange="adFormFilter(this.value)">
                             <option value="all" selected disabled>Hình thức</option>
                             <option value="all">Tất cả</option>
@@ -47,7 +47,7 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">
+                    <th scope="col" style="width: 5em;">
                         <select id="locationTypeFilter" name="" onchange="locationTypeFilter(this.value)">
                             <option value="all" selected disabled>Loại vị trí</option>
                             <option value="all">Tất cả</option>
@@ -56,7 +56,7 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Chi tiết</th>
+                    <th scope="col" style="width: 5em;">Chi tiết</th>
                 </tr>
             </thead>
 
@@ -66,19 +66,16 @@
                 {{#each adLocation}}
                     {{#each adList}}
                         <tr>
-                            <td scope="col">{{getGlobal 'adIndex'}}</td>
+                            <td scope="col" style="width: 2em;">{{getGlobal 'adIndex'}}</td>
                             {{#each (getAdInfo ../../ad adId)}}
-                                <td scope="col">{{name}}</td>
+                                <td scope="col" style="width: 5em;">{{name}}</td>
                             {{/each}}
-                            <td scope="col"> {{getLocation ../../adLocation ../locationId 2}}</td>
-                            <td scope="col">{{../adType}}</td>
-                            {{#each (getAdInfo ../../ad adId)}}
-                                <td scope="col">{{size}}</td>
-                            {{/each}}
-                            <td scope="col">{{../adForm}}</td>
-                            <td scope="col">{{../locationType}}</td>
+                            <td scope="col" style="width: 5em;"> {{getLocation ../../adLocation ../locationId 2}}</td>
+                            <td scope="col" style="width: 5em;">{{../adType}}</td>
+                            <td scope="col" style="width: 5em;">{{../adForm}}</td>
+                            <td scope="col" style="width: 5em;">{{../locationType}}</td>
                             
-                            <td scope="col">
+                            <td scope="col" style="width: 5em;">
                                 <button class="table-detail-button" data-ad-location-details="{{toJSON (arrayIndex ../../adLocation @../index)}}" data-ad-address="{{getLocation ../../adLocation ../locationId 0}}" data-ad-details="{{toJSON (getAdInfo ../../ad adId)}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

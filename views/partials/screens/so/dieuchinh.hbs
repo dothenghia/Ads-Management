@@ -16,8 +16,8 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 2em;">STT</th>
+                    <th scope="col" style="width: 15em">
                         <select id="roleFilter" name="" onchange="roleFilter(this.value)">
                             <option value="all" selected disabled>Đơn vị gửi yêu cầu</option>
                             <option value="all">Tất cả</option>
@@ -26,9 +26,9 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></th>
-                    {{!-- <th scope="col">Vị trí điều chỉnh</th> --}}
-                    <th scope="col">
+                    <th scope="col" style="width: 15em">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></th>
+                    {{!-- Vị trí điều chỉnh --}}
+                    <th scope="col" style="width: 15em">
                         <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
                             <option value="all" selected disabled>Lý do chỉnh sửa</option>
                             <option value="all">Tất cả</option>
@@ -37,7 +37,7 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">
+                    <th scope="col" style="width: 15em">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all" selected disabled>Tình trạng xử lý</option>
                             <option value="all">Tất cả</option>
@@ -46,9 +46,9 @@
                             <option value="2">Từ chối</option>
                         </select>
                     </th>
-                    <th scope="col">Chi tiết</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col" style="width: 5em">Chi tiết</th>
+                    <th scope="col" style="width: 5em"></th>
+                    {{!-- <th scope="col" style="width: 5em"></th> --}}
                 </tr>
             </thead>
 
@@ -58,12 +58,12 @@
                 {{!-- Only show when delete is false  --}}
                 
                     <tr>
-                        <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">Cán bộ {{getAgentRole senderRole}}</td>
-                        <td scope="col">{{mongoDateToLocaleString date}}</td>
-                        {{!-- <td scope="col">{{getLocation../adLocation locationId 2}}</td> --}}
-                        <td scope="col">{{reason}}</td>
-                        <td scope="col">
+                        <td scope="col" style="width: 2em;">{{addNumber @index 1}}</td>
+                        <td scope="col" style="width: 15em;">Cán bộ {{getAgentRole senderRole}}</td>
+                        <td scope="col" style="width: 15em;">{{mongoDateToLocaleString date}}</td>
+                        {{!-- Vtri Điều chỉnh --}}
+                        <td scope="col" style="width: 15em;">{{reason}}</td>
+                        <td scope="col" style="width: 15em;">
                             {{#if (getReportStatus status 0) }}
                             <div class="status-tag status-tag-dangxuly">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
@@ -86,7 +86,7 @@
                             {{/if}}
                         </td>
 
-                        <td scope="col">
+                        <td scope="col" style="width: 2em;">
                             <button class="table-detail-button" data-ad-old-details="{{toJSON (getAdInfo ../ad oldAdId)}}" data-ad-new-details="{{toJSON new}}" data-change-req-id={{changeReqId}} data-account-role="so" data-status={{status}} data-reason="{{reason}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -97,7 +97,7 @@
                                 </svg>
                             </button>
                         </td>
-                        <td scope="col">
+                        <td scope="col" style="width: 2em;">
                             <button class="delete-button" data-id="{{changeReqId}}" data-account-role="so" data-page="dieuchinh"> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                             </button>

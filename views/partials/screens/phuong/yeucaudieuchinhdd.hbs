@@ -20,11 +20,11 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Địa điểm quảng cáo</th>
-                    <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
-                    <th scope="col">Lý do chỉnh sửa</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 2em;">STT</th>
+                    <th scope="col" style="width: 17em;">Địa điểm quảng cáo</th>
+                    <th scope="col" style="width: 17em;">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
+                    <th scope="col" style="width: 15em;">Lý do chỉnh sửa</th>
+                    <th scope="col" style="width: 10em;">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all" selected disabled>Tình trạng xử lý</option>
                             <option value="all">Tất cả</option>
@@ -33,23 +33,23 @@
                             <option value="2">Từ chối</option>
                         </select>
                     </th>
-                    <th scope="col">Chi tiết</th>
+                    <th scope="col" style="width: 5em;">Chi tiết</th>
                 </tr>
             </thead>
 
             <tbody>
                 {{#each changeLocReq}}
                     <tr>
-                        <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">
+                        <td scope="col" style="width: 2em;">{{addNumber @index 1}}</td>
+                        <td scope="col" style="width: 2em;">
                             {{#with (getAdLocationById ../adLocation oldLocationId)}}
                                 {{address}}
                             {{/with}}
                         </td>
-                        <td scope="col">{{mongoDateToLocaleString date}}</td>
-                        <td scope="col">{{shortenString reason}}</td>
+                        <td scope="col" style="width: 2em;">{{mongoDateToLocaleString date}}</td>
+                        <td scope="col" style="width: 2em;">{{shortenString reason}}</td>
 
-                        <td scope="col">
+                        <td scope="col" style="width: 2em;">
                             {{#if (equalNumber status 0)}}
                             <div class="status-tag status-tag-dangxuly">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
@@ -72,7 +72,7 @@
                             {{/if}}
                         </td>
                         
-                        <td scope="col">
+                        <td scope="col" style="width: 2em;">
                             <button class="table-detail-button" data-loc-old-details="{{toJSON (getAdLocationInfo ../adLocation oldLocationId)}}" data-loc-new-details="{{toJSON new}}" data-change-req-id={{changeLocReqId}} data-account-role="phuong" data-status={{status}} data-reason="{{reason}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -103,9 +103,9 @@
                             <table class="table table-primary">
                                 <thead>
                                     <tr>
-                                        <th scope="col"> </th>
-                                        <th scope="col">Thông tin cũ</th>
-                                        <th scope="col">Thông tin mới</th>
+                                        <th scope="col" style="width: 2em;"> </th>
+                                        <th scope="col" style="width: 2em;">Thông tin cũ</th>
+                                        <th scope="col" style="width: 2em;">Thông tin mới</th>
                                     </tr>
                                 </thead>
                                 <tbody>

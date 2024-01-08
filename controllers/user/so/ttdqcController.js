@@ -123,7 +123,7 @@ controller.show = async (req, res) => {
 
 controller.add = async (req, res) => {
     let { newAdType, newAdLocationForm, newLocationType, newAdLocationPlanning,newAdLocationDistrict, newAdLocationWard, newAdLocationAddress, newAdLocationLongtitude, newAdLocationLattitude } = req.body;
-    const adLocationSnapShot = client.db(dbName).collection("testCollection");
+    const adLocationSnapShot = client.db(dbName).collection("adLocations");
     let idHighest =  (await adLocationSnapShot.find({}).sort({locationId:-1}).limit(1).toArray())[0].locationId;
 
     // console.log( req.files );
@@ -159,7 +159,7 @@ controller.add = async (req, res) => {
     try {
         let thumbnails = Array();
         let i = 0;
-        let n = req.files.length;
+        let n = req.files ? req.files.length : 0;
 
         if (n > 0) {
             let i = 0;

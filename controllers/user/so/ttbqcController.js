@@ -105,7 +105,7 @@ controller.add = async (req, res) => {
     try {
         let thumbnails = Array();
         req.body.thumbnails.forEach((thumbnail) => {
-            // console.log(thumbnail);
+            console.log(thumbnail);
             thumbnails.push(thumbnail);
         });
         let {reportId, size, contractStartDate, contractEndDate, adName} = req.body.data;
