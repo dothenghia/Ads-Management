@@ -21,6 +21,7 @@ controller.show = async (req, res) => {
     adSnapshot.forEach((doc) => {
         Ad.push(doc);
     });
+   
     let AdType = []; let AdForm = []; let LocationType = [];
     let adTypeId = []; let adFormId = []; let locationTypeId = [];
     let AdLocation = [];
@@ -59,6 +60,7 @@ controller.show = async (req, res) => {
     if (filterLocationTypeId)
         AdLocation = AdLocation.filter((loc) => loc.locationType == filterLocationTypeId);
 
+        console.log("data:", Ad);
     res.render("partials/screens/phuong/index", {
         "current": currentPage,
         "account": currentAccount,

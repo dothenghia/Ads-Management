@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
                     <th scope="col">
                         <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
                             <option value="all" selected disabled>Loại báo cáo</option>
@@ -37,7 +38,6 @@
                         </select>
                     </th>
                     <th scope="col">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
-                    <th scope="col">Địa điểm</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all" selected disabled>Tình trạng xử lý</option>
@@ -59,16 +59,22 @@
                 
                     <tr>
                         <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">{{translateReportType reportType}}</td>
-                        <td scope="col">{{reportForm}}</td>
-                        <td scope="col">{{mongoDateToLocaleString time}}</td>
                         <td scope="col">
                             {{#if (equalString reportType "ddbk")}}
                                 {{locationId}}
                             {{else}}
-                                {{getReportLocation ../adLocation locationId}}
+                                {{#if (equalString reportType "qc")}}
+                                    {{#with (arrayIndex (getAdInfo ../ad adId) 0)}}
+                                        {{name}}
+                                    {{/with}}
+                                {{else}}
+                                    {{getReportLocation ../adLocation locationId}}
+                                {{/if}}
                             {{/if}}
                         </td>
+                        <td scope="col">{{translateReportType reportType}}</td>
+                        <td scope="col">{{reportForm}}</td>
+                        <td scope="col">{{mongoDateToLocaleString time}}</td>
 
                         <td scope="col">
                             {{#if (getReportStatus status "Đang xử lý") }}

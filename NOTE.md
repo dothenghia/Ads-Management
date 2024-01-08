@@ -43,18 +43,19 @@ Bảo :
     Sở :
         - Đổi function trong Controller sang kiểu Model            
         - Trang Quản Lý Tạo điểm QC :
-            + Sửa lỗi Dropdown Phường
+            + Sửa lỗi Dropdown Phường - Done
             + Style lại đẹp đẹp
-            + Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO
-            + Thêm vào cột Tình trạng Quy hoạch : Đã quy hoạch/Chưa quy hoạch
+            + Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO - Done
+            + Thêm vào cột Tình trạng Quy hoạch : Đã quy hoạch/Chưa quy hoạch - DOne
             + Chỉnh cái điểm Quảng cáo NguyễnTrãi-NguyễnCưTrinh thành Đã quy hoạch và thêm hình vào
         - Chỉnh lại kích thước các cột dữ liệu
         - Trang Quản lý Báo cáo :
             => Kiếm th Khoa chỉ
-            + Xóa chữ "gần"
+            + Xóa chữ "gần" - Done
             + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC
         - Trang Điều chỉnh ĐĐ :
-            + Sửa lỗi Từ chối duplicate
+            + Sửa lỗi Từ chối duplicate - Tự nhiên hết lỗi :D
+
 
 
 

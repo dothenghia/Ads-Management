@@ -32,22 +32,24 @@ controller.show = async (req, res) => {
     adLocationSnapshot.forEach((doc) => {
         let data = doc;
 
-        if (!locationTypeId.includes(data.locationType)) {
-            locationTypeId.push(data.locationType);
-            LocationType.push({value: data.locationType});
-        }
+        if (data.adList.length > 0) {
+            if (!locationTypeId.includes(data.locationType)) {
+                locationTypeId.push(data.locationType);
+                LocationType.push({value: data.locationType});
+            }
 
-        if (!adFormId.includes(data.adForm)) {
-            adFormId.push(data.adForm);
-            AdForm.push({value: data.adForm});
-        }
+            if (!adFormId.includes(data.adForm)) {
+                adFormId.push(data.adForm);
+                AdForm.push({value: data.adForm});
+            }
 
-        if (!adTypeId.includes(data.adType)) {
-            adTypeId.push(data.adType);
-            AdType.push({value: data.adType});
-        }
+            if (!adTypeId.includes(data.adType)) {
+                adTypeId.push(data.adType);
+                AdType.push({value: data.adType});
+            }
 
-        AdLocation.push(data);
+            AdLocation.push(data);
+        }
     });
 
     // Filters

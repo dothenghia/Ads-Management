@@ -31,6 +31,7 @@ controller.show = async (req, res) => {
     let adFormId = []; let locationTypeId = [];
     let adTypeId = []; let AdType = [];
     let AdLocation = []; let AdArea = {};
+    let Adplanning = []; let AdplanningId = [];
     adLocationSnapshot.forEach((doc) => {
         let data = doc;
 
@@ -47,6 +48,11 @@ controller.show = async (req, res) => {
         if (!adTypeId.includes(data.adType)) {
             adTypeId.push(data.adType);
             AdType.push({value: data.adType});
+        }
+
+        if (!AdplanningId.includes(data.planning)) {
+            AdplanningId.push(data.planning);
+            Adplanning.push({value: data.planning});
         }
 
         // Lọc ra quận object trong JSON 
@@ -89,6 +95,10 @@ controller.show = async (req, res) => {
     let filterWardId = req.query.idPhuong;
     if (filterWardId)
         AdLocation = AdLocation.filter((loc) => loc.idPhuong == filterWardId);
+    let filterPlanning = req.query.locationPlanningState;
+    if (filterPlanning) 
+        AdLocation = AdLocation.filter((loc) => { var state = (filterPlanning === 'true'); return loc.planning == state});
+        
 
     let docDistrict = areas.districts;
     // District: Name + idQuan
@@ -102,6 +112,7 @@ controller.show = async (req, res) => {
         "locationType": LocationType,
         "adType": AdType,
         "adArea": docDistrict,
+        "adPlanning": Adplanning,
         "Area": AdArea,
         "adLocation": AdLocation,
         body: function() {
@@ -111,7 +122,7 @@ controller.show = async (req, res) => {
 }
 
 controller.add = async (req, res) => {
-    let { newAdType, newAdLocationForm, newLocationType, newAdLocationDistrict, newAdLocationWard, newAdLocationAddress, newAdLocationLongtitude, newAdLocationLattitude } = req.body;
+    let { newAdType, newAdLocationForm, newLocationType, newAdLocationPlanning,newAdLocationDistrict, newAdLocationWard, newAdLocationAddress, newAdLocationLongtitude, newAdLocationLattitude } = req.body;
     const adLocationSnapShot = client.db(dbName).collection("testCollection");
     let idHighest =  (await adLocationSnapShot.find({}).sort({locationId:-1}).limit(1).toArray())[0].locationId;
 
@@ -120,6 +131,7 @@ controller.add = async (req, res) => {
     let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
     let i = 0;
     let extension;
+    
 
     async function pushData(thumbnails) {
         const newData = {
@@ -133,7 +145,7 @@ controller.add = async (req, res) => {
             latitude: parseFloat(newAdLocationLattitude),
             longitude: parseFloat(newAdLocationLongtitude),
             adList: [],
-            planning: true,
+            planning: newAdLocationPlanning == "Đã Quy Hoạch" ? true : false,
             locationId: idHighest + 1,
             thumbnails: thumbnails,
         };
@@ -187,13 +199,16 @@ controller.add = async (req, res) => {
 }
 
 controller.edit = async (req, res) => {
-    let { EditAdLocationId, EditAdLocationForm, EditAdType, EditLocationType, EditAdLocationDistrict, EditAdLocationWard, EditAdLocationAddress, EditAdLocationLongtitude, EditAdLocationLattitude } = req.body;
+    let { EditAdLocationId, EditAdLocationForm, EditAdLocationPlanning, EditAdType, EditLocationType, EditAdLocationDistrict, EditAdLocationWard, EditAdLocationAddress, EditAdLocationLongtitude, EditAdLocationLattitude } = req.body;
     const adLocationSnapShot = await client.db(dbName).collection("adLocations").findOne({ locationId: parseInt(EditAdLocationId) });
     
     // console.log( idHighest);
     let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
     let i = 0;
     let extension;
+    // console.log("EditAdLocationId:",EditAdLocationId);
+    // console.log("EditAdLocationForm:",EditAdLocationForm);
+    // console.log("EditAdType:",EditAdType);
     // console.log("body:",req.body);
 
     async function updateNewData(thumbnails) {
@@ -206,6 +221,7 @@ controller.edit = async (req, res) => {
             address: EditAdLocationAddress ? EditAdLocationAddress : adLocationSnapShot.address,
             latitude: parseFloat(EditAdLocationLattitude ? EditAdLocationLattitude : adLocationSnapShot.latitude),
             longitude: parseFloat(EditAdLocationLongtitude ? EditAdLocationLongtitude : adLocationSnapShot.longitude),
+            planning: EditAdLocationPlanning ? EditAdLocationPlanning == "Đã Quy Hoạch" ? true : false : adLocationSnapShot.planning,
             thumbnails: thumbnails,
         };
 
@@ -218,7 +234,7 @@ controller.edit = async (req, res) => {
     try {
         let thumbnails = Array();
         
-        let n = req.files.length;
+        let n = req.files ? req.files.length : 0;
         console.log("n", n);
         if (n > 0) {
             let i = 0;

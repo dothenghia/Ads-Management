@@ -10,7 +10,7 @@ document.querySelectorAll(".delete-button").forEach((btn) => {
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
             console.log("OK");
-            deleteElement(accountRole, page,id);
+            deleteElement(accountRole,page,id);
             modal.hide();
         });
 

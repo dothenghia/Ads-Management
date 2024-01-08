@@ -21,6 +21,7 @@ const helpers = {
     "getAgentRole": require("./functions/so/getAgentRole"),
     "isUdfNullBlank": require("./functions/so/isUdfNullBlank"), //? Đây là hàm để check null
     "wrapInObject": require("./functions/so/wrapInObject"), //? Đây là hàm để wrap nhiều tham số thành 1 object
+    "convertState": require("./functions/so/convertState"), //? Đây là hàm để convert state Quy Hoạch sang chữ
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
@@ -90,6 +91,7 @@ app.engine('hbs', expressHbs.engine({
         isUdfNullBlank: helpers.isUdfNullBlank.isUdfNullBlank,
         isArrayEmpty: helpers.isUdfNullBlank.isArrayEmpty,
         wrapInObject: helpers.wrapInObject.wrapInObject,
+        convertState: helpers.convertState.convertState,
 
         // Phường
         getLocation: helpers.getAd.getLocation,
