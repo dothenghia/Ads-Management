@@ -202,6 +202,7 @@ function renderBarChart(quanList, reportCountList) {
             }
         }
     });
+    return barChart;
 }
 
 

@@ -16,11 +16,12 @@ Pass: 123
 Nghĩa :
     Dân :
         - Thống kê (Sở)
+        - Sửa lỗi fetch Data adLocation 235 NVC (Check thêm adId = "" cho adLocation)
         - Trang Bản đồ Phường/Quận :
-            + Sửa lỗi fetch Data adLocation 235 NVC (Check thêm adId = "" cho adLocation)
             + Sửa lỗi reportMarker NCTrinh
-        - Filter Điểm QH và Chưa QH
         - Sửa lỗi icon khi scoll
+        - Filter Điểm QH và Chưa QH
+        - Đổi function trong Controller sang kiểu Model            
         - Sửa độ dài tên cán bộ
         - Guide Marker (Optional)
 

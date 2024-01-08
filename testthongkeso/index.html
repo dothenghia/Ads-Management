@@ -63,8 +63,8 @@
 
                 <div class="thongke-row mt-3 ">
                     <div class="thongke-col">
-                        <div class="thongke-row">
-                            <div class="thongke-col">
+                        <div class="thongke-row justify-content-start ">
+                            <div class="thongke-col statis-width">
                                 <h4 class="tgsp">Tố giác sai phạm</h4>
                                 <h5 class="dangxuly1 tgsp-text">Đang xử lý: <span></span></h5>
                                 <h5 class="daxuly1 tgsp-text">Đã xử lý: <span></span></h5>
@@ -78,8 +78,8 @@
                     </div>
 
                     <div class="thongke-col">
-                        <div class="thongke-row">
-                            <div class="thongke-col">
+                        <div class="thongke-row justify-content-start ">
+                            <div class="thongke-col statis-width">
                                 <h4 class="dknd">Đăng ký nội dung</h4>
                                 <h5 class="dangxuly1 dknd-text">Đang xử lý: <span></span></h5>
                                 <h5 class="daxuly1 dknd-text">Đã xử lý: <span></span></h5>
@@ -95,8 +95,8 @@
 
                 <div class="thongke-row mt-3 ">
                     <div class="thongke-col">
-                        <div class="thongke-row">
-                            <div class="thongke-col">
+                        <div class="thongke-row justify-content-start ">
+                            <div class="thongke-col statis-width">
                                 <h4 class="dgyk">Đóng góp ý kiến</h4>
                                 <h5 class="dangxuly1 dgyk-text">Đang xử lý: <span></span></h5>
                                 <h5 class="daxuly1 dgyk-text">Đã xử lý: <span></span></h5>
@@ -110,8 +110,8 @@
                     </div>
 
                     <div class="thongke-col">
-                        <div class="thongke-row">
-                            <div class="thongke-col">
+                        <div class="thongke-row justify-content-start ">
+                            <div class="thongke-col statis-width">
                                 <h4 class="gdtm">Giải đáp thắc mắc</h4>
                                 <h5 class="dangxuly1 gdtm-text">Đang xử lý: <span></span></h5>
                                 <h5 class="daxuly1 gdtm-text">Đã xử lý: <span></span></h5>
@@ -136,10 +136,16 @@
 
         <section class="bckv-content">
             <div class="d-flex align-items-center ">
-                <label for="bckv-select">Chọn khu vực</label>
-                <select name="bckv-type" id="bckv-select" style="margin-left: 6px;">
+                <label for="bckv-region">Chọn loại khu vực</label>
+                <select name="bckv-type" id="bckv-region" style="margin-left: 6px;">
                     <option value="district">Theo Quận</option>
                     <option value="ward">Theo Phường</option>
+                </select>
+
+                <label for="bckv-time">Chọn thời gian</label>
+                <select name="bckv-type" id="bckv-time" style="margin-left: 6px;">
+                    <option value="month">Theo Tháng</option>
+                    <option value="date">Theo Ngày</option>
                 </select>
 
                 <div class="bckv-input-root" style="display: inline-block;"></div>

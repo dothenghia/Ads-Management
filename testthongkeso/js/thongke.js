@@ -297,6 +297,7 @@ const thongke = {
     start: async function () {
         this.init();
         await this.fetchData(); // Once
+
         this.calculateData();
         this.renderUI(); // Once
 
@@ -310,89 +311,63 @@ const khuvuc = {
     // ====== Hàm Khởi tạo các State
     init: function () {
         this.reportData = [];
-        this.bckvOption = { type: 'district', year: null, month: null, date: null, quan: null, phuong: null };
+        // this.bckvOption = { region: 'district', time: 'month', year: null, month: null, date: null };
 
-        this.locationList = [];
-        this.quanList = [];
-        this.phuongList = [];
+        this.bckvChart = null;
 
-        this.bckvData = []
-
-        document.querySelector('.bckv-input-root')
+        this.quanData = null;
+        this.quanList = null;
+        this.quanChartData = null;
     },
 
     // ====== Fetch dữ liệu các BC
     fetchData: async function () {
         const response = await fetch('http://localhost:3000/dan/dsbc');
         khuvuc.reportData = await response.json();
-    },
-
-    // ====== Group Location
-    groupLocation: function () {
-        this.quanList = [...new Set(this.reportData.map(report => report.quan))];
-        this.phuongList = [...new Set(this.reportData.map(report => report.phuong))];
-        this.locationList = this.quanList.map(quan => {
-            const uniquePhuongSet = new Set();
-            this.reportData.forEach(report => {
-                if (report.quan === quan) {
-                    const phuong = getActualPhuong(report.phuong);
-                    uniquePhuongSet.add(phuong);
-                }
-            });
-
-            const phuongList = [...uniquePhuongSet];
-
-            return {
-                quan: quan,
-                phuong: phuongList
-            };
-        });
-        console.log(this.locationList);
+        console.log(khuvuc.reportData);
     },
 
     // ====== calculateData
-    calculateData: function () {
-        const reportByQuanAndStatus = {};
+    calculateData: async function () {
+        khuvuc.quanData = {};
 
         khuvuc.reportData.forEach(report => {
             const quan = report.quan;
             const status = report.status;
 
-            if (!reportByQuanAndStatus[quan]) {
-                reportByQuanAndStatus[quan] = {};
+            if (!khuvuc.quanData[quan]) {
+                khuvuc.quanData[quan] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, };
             }
-
-            if (!reportByQuanAndStatus[quan][status]) {
-                reportByQuanAndStatus[quan][status] = 1;
-            } else {
-                reportByQuanAndStatus[quan][status]++;
-            }
+            khuvuc.quanData[quan][status]++;
         });
 
-        const quanList = Object.keys(reportByQuanAndStatus);
-        const reportCountByStatusList = {
-            'Đã xử lý': [],
-            'Đang xử lý': [],
-            'Từ chối': [],
-        };
+        khuvuc.quanList = Object.keys(khuvuc.quanData);
+        khuvuc.quanChartData = { 'Đã xử lý': [], 'Đang xử lý': [], 'Từ chối': [], };
 
-        quanList.forEach(quan => {
-            const reportCounts = reportByQuanAndStatus[quan];
-
-            reportCountByStatusList['Đã xử lý'].push(reportCounts['Đã xử lý'] || 0);
-            reportCountByStatusList['Đang xử lý'].push(reportCounts['Đang xử lý'] || 0);
-            reportCountByStatusList['Từ chối'].push(reportCounts['Từ chối'] || 0);
+        khuvuc.quanList.forEach(quan => {
+            const reportCounts = khuvuc.quanData[quan];
+            khuvuc.quanChartData['Đã xử lý'].push(reportCounts['Đã xử lý'] || 0);
+            khuvuc.quanChartData['Đang xử lý'].push(reportCounts['Đang xử lý'] || 0);
+            khuvuc.quanChartData['Từ chối'].push(reportCounts['Từ chối'] || 0);
         });
 
-        renderBarChart(quanList, reportCountByStatusList);
+        console.log(khuvuc.quanData, khuvuc.quanList, khuvuc.quanChartData)
+    },
+
+    // ====== Render UI
+    renderUI: function () {
+        khuvuc.bckvChart = renderBarChart(khuvuc.quanList, this.quanChartData);
     },
 
     // ====== Start
     start: async function () {
         this.init();
         await this.fetchData(); // Once
-        this.groupLocation();
-        this.calculateData();
+
+        await this.calculateData();
+        this.renderUI(); // Once
+
+
     }
 }
 
