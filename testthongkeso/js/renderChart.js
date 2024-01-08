@@ -160,7 +160,7 @@ function renderMiniGDTMChart(chartData) {
 
 
 
-function renderBarChart(quanList, reportCountList) {
+function renderBarChart(quanList, quanChartData) {
     var bckvCanvas = document.getElementById('bckv-canvas');
     var barChart = new Chart(bckvCanvas, {
         type: 'bar',
@@ -168,22 +168,22 @@ function renderBarChart(quanList, reportCountList) {
             labels: quanList,
             datasets: [
                 {
-                    label: 'Đang xử lý',
-                    data: reportCountList['Đang xử lý'],
-                    backgroundColor: dangxulyColorSubtle,
-                    borderColor: dangxulyColor,
-                    borderWidth: 2
-                },
-                {
                     label: 'Đã xử lý',
-                    data: reportCountList['Đã xử lý'],
+                    data: quanChartData['Đã xử lý'],
                     backgroundColor: daxulyColorSubtle,
                     borderColor: daxulyColor,
                     borderWidth: 2
                 },
                 {
+                    label: 'Đang xử lý',
+                    data: quanChartData['Đang xử lý'],
+                    backgroundColor: dangxulyColorSubtle,
+                    borderColor: dangxulyColor,
+                    borderWidth: 2
+                },
+                {
                     label: 'Từ chối',
-                    data: reportCountList['Từ chối'],
+                    data: quanChartData['Từ chối'],
                     backgroundColor: tuchoiColorSubtle,
                     borderColor: tuchoiColor,
                     borderWidth: 2

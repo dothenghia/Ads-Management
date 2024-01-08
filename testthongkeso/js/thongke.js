@@ -184,6 +184,7 @@ const thongke = {
         });
     },
 
+    // ====== Render UI
     renderUI: function () {
         thongke.tsbcChart = renderBigTSBCChart(thongke.tsbcData);
         thongke.tgspChart = renderMiniTGSPChart(thongke.tgspData);
@@ -231,6 +232,7 @@ const thongke = {
     selectOptionHandler: function () {
         let tsbcSelect = document.getElementById("tsbc-select");
         let tsbcInputRoot = document.querySelector('.tsbc-input-root');
+
         tsbcSelect.addEventListener("change", function () {
             const selectedValue = tsbcSelect.value;
 
@@ -311,7 +313,7 @@ const khuvuc = {
     // ====== Hàm Khởi tạo các State
     init: function () {
         this.reportData = [];
-        // this.bckvOption = { region: 'district', time: 'month', year: null, month: null, date: null };
+        this.bckvOption = { time: 'all', year: null, month: null, date: null };
 
         this.bckvChart = null;
 
@@ -329,16 +331,36 @@ const khuvuc = {
 
     // ====== calculateData
     calculateData: async function () {
-        khuvuc.quanData = {};
+        khuvuc.quanData = {
+            'Quận 1': { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, },
+            'Quận 5': { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, },
+        };
 
         khuvuc.reportData.forEach(report => {
-            const quan = report.quan;
-            const status = report.status;
-
-            if (!khuvuc.quanData[quan]) {
-                khuvuc.quanData[quan] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, };
+            switch (khuvuc.bckvOption.time) {
+                case 'all':
+                    if (!khuvuc.quanData[report.quan]) { khuvuc.quanData[report.quan] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                    khuvuc.quanData[report.quan][report.status]++;
+                    break;
+                case 'year':
+                    if (report.time.includes(`năm ${khuvuc.bckvOption.year}`)) {
+                        if (!khuvuc.quanData[report.quan]) { khuvuc.quanData[report.quan] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                        khuvuc.quanData[report.quan][report.status]++;
+                    }
+                    break;
+                case 'month':
+                    if (report.time.includes(`tháng ${khuvuc.bckvOption.month} năm ${khuvuc.bckvOption.year}`)) {
+                        if (!khuvuc.quanData[report.quan]) { khuvuc.quanData[report.quan] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                        khuvuc.quanData[report.quan][report.status]++;
+                    }
+                    break;
+                case 'date':
+                    if (report.time.includes(`Ngày ${khuvuc.bckvOption.date} tháng ${khuvuc.bckvOption.month} năm ${khuvuc.bckvOption.year}`)) {
+                        if (!khuvuc.quanData[report.quan]) { khuvuc.quanData[report.quan] = { 'Đã xử lý': 0, 'Đang xử lý': 0, 'Từ chối': 0, }; }
+                        khuvuc.quanData[report.quan][report.status]++;
+                    }
+                    break;
             }
-            khuvuc.quanData[quan][status]++;
         });
 
         khuvuc.quanList = Object.keys(khuvuc.quanData);
@@ -359,6 +381,87 @@ const khuvuc = {
         khuvuc.bckvChart = renderBarChart(khuvuc.quanList, this.quanChartData);
     },
 
+    // ====== Update Chart
+    updateChart: function () {
+        khuvuc.bckvChart.config.data.datasets[0].data = khuvuc.quanChartData['Đã xử lý'];
+        khuvuc.bckvChart.config.data.datasets[1].data = khuvuc.quanChartData['Đang xử lý'];
+        khuvuc.bckvChart.config.data.datasets[2].data = khuvuc.quanChartData['Từ chối'];
+        khuvuc.bckvChart.config.data.labels = khuvuc.quanList;
+        khuvuc.bckvChart.update();
+    },
+
+
+    // ====== Select Option Handler
+    selectOptionHandler: function () {
+        let bckvSelect = document.getElementById("bckv-time");
+        let bckvInputRoot = document.querySelector('.bckv-input-root');
+
+        bckvSelect.addEventListener("change", function () {
+            const selectedValue = bckvSelect.value;
+
+            while (bckvInputRoot.firstChild) { bckvInputRoot.removeChild(bckvInputRoot.firstChild); }
+
+            if (selectedValue === 'year') {
+                const label = document.createElement('label');
+                label.setAttribute('for', 'bckv-year');
+                label.textContent = 'Chọn Năm';
+                const input = document.createElement('input');
+                input.setAttribute('type', 'number'); input.setAttribute('id', 'bckv-year'); input.setAttribute('min', '2023'); input.setAttribute('max', '2024');
+                input.setAttribute('value', new Date().getFullYear()); // Năm hiện tại
+                bckvInputRoot.appendChild(label); bckvInputRoot.appendChild(input);
+            }
+            if (selectedValue === 'month') {
+                const label = document.createElement('label');
+                label.setAttribute('for', 'bckv-month');
+                label.textContent = 'Chọn Tháng';
+                const input = document.createElement('input'); input.setAttribute('type', 'month'); input.setAttribute('id', 'bckv-month');
+                const currentMonth = new Date().toISOString().split('-').slice(0, 2).join('-');
+                input.setAttribute('value', currentMonth); // Tháng hiện tại
+                bckvInputRoot.appendChild(label); bckvInputRoot.appendChild(input);
+            }
+            if (selectedValue === 'date') {
+                const label = document.createElement('label');
+                label.setAttribute('for', 'bckv-date');
+                label.textContent = 'Chọn Ngày';
+                const input = document.createElement('input'); input.setAttribute('type', 'date'); input.setAttribute('id', 'bckv-date');
+                const currentDate = new Date().toISOString().split('T')[0];
+                input.setAttribute('value', currentDate);
+                bckvInputRoot.appendChild(label); bckvInputRoot.appendChild(input);
+            }
+        });
+
+        document.getElementById("bckv-btn").onclick = function () {
+            const selectedValue = bckvSelect.value;
+            if (selectedValue === 'all') {
+                khuvuc.bckvOption = { time: 'all', year: null, month: null, date: null };
+            }
+            if (selectedValue === 'year') {
+                const year = document.getElementById('bckv-year').value;
+                khuvuc.bckvOption = { time: 'year', year: year, month: null, date: null };
+            }
+            if (selectedValue === 'month') {
+                const monthValue = document.getElementById('bckv-month').value;
+                let year = monthValue.split('-')[0];
+                let month = monthValue.split('-')[1];
+                khuvuc.bckvOption = { time: 'month', year: year, month: month, date: null };
+            }
+            if (selectedValue === 'date') {
+                const dateValue = document.getElementById('bckv-date').value;
+                let year = dateValue.split('-')[0];
+                let month = dateValue.split('-')[1];
+                let date = dateValue.split('-')[2];
+                khuvuc.bckvOption = { time: 'date', year: year, month: month, date: date };
+            }
+
+
+            console.log(khuvuc.bckvOption)
+            khuvuc.calculateData();
+            khuvuc.updateChart();
+        }
+    },
+
+
+
     // ====== Start
     start: async function () {
         this.init();
@@ -367,7 +470,7 @@ const khuvuc = {
         await this.calculateData();
         this.renderUI(); // Once
 
-
+        this.selectOptionHandler();
     }
 }
 

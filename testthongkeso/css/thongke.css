@@ -184,3 +184,6 @@
     color: var(--text-color);
     margin-left: 6px;
 }
+.bckv-chart {
+    padding: 0 40px;
+}
