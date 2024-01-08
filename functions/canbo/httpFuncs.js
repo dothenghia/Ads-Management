@@ -108,7 +108,7 @@ function getAdLocationById(adLocationData, locationId) {
 
 function mongoDateToLocaleString(date) {
     let dateObject = new Date(date);
-    return "" + dateObject.getDate().toString().padStart(2, 0) + "/" + (dateObject.getMonth() + 1).toString().padStart(2, 0) + "/" + dateObject.getFullYear();
+    return "Ngày " + dateObject.getDate().toString().padStart(2, 0) + " Tháng " + (dateObject.getMonth() + 1).toString().padStart(2, 0) + " Năm " + dateObject.getFullYear();
 }
 
 module.exports = {

@@ -16,9 +16,9 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 2em;">STT</th>
+                    <th scope="col" style="width: 20em;">Tên</th>
+                    <th scope="col" style="width: 10em;">
                         <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
                             <option value="all" selected disabled>Loại báo cáo</option>
                             <option value="all">Tất cả</option>
@@ -27,7 +27,7 @@
                             <option value="ddbk">Địa điểm Bất kỳ</option>
                         </select>
                     </th>
-                    <th scope="col">
+                    <th scope="col" style="width: 10em;">
                         <select id="reportFormFilter" name="" onchange="reportFormFilter(this.value)">
                             <option value="all" selected disabled>Hình thức báo cáo</option>
                             <option value="all">Tất cả</option>
@@ -37,8 +37,8 @@
                             <option value="Giải đáp thắc mắc">Giải đáp thắc mắc</option>
                         </select>
                     </th>
-                    <th scope="col">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
-                    <th scope="col">
+                    <th scope="col" style="width: 15em;">Thời gian <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
+                    <th scope="col" style="width: 10em;">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all" selected disabled>Tình trạng xử lý</option>
                             <option value="all">Tất cả</option>
@@ -47,8 +47,8 @@
                             <option value="Từ chối">Từ chối</option>
                         </select>
                     </th>
-                    <th scope="col">Chi tiết</th>
-                    <th scope="col"></th>
+                    <th scope="col" style="width: 5em;">Chi tiết</th>
+                    <th scope="col" style="width: 5em;"></th>
                 </tr>
             </thead>
 
@@ -240,10 +240,10 @@
 
 <script>
     function convertDate(vietnameseDate) {
-        let dateString = vietnameseDate.split("/");
-        let day = dateString[0];
-        let month = dateString[1];
-        let year = dateString[2];
+        let dateString = vietnameseDate.split(" ");
+        let day = dateString[1];
+        let month = dateString[3];
+        let year = dateString[5];
         let date = new Date(year + "-" + month + "-" + day);
         return date;
     }
@@ -260,8 +260,8 @@
             const rows = Array.from(tbody.querySelectorAll('tr'));
 
             rows.sort(function (rowA, rowB) {
-                const cellA = rowA.cells[3].innerText; 
-                const cellB = rowB.cells[3].innerText;
+                const cellA = rowA.cells[4].innerText; 
+                const cellB = rowB.cells[4].innerText;
 
                 const dateA = convertDate(cellA);
                 const dateB = convertDate(cellB);
