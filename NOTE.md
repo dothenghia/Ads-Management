@@ -51,7 +51,7 @@ Bảo :
         - Trang Quản lý Báo cáo :
             => Kiếm th Khoa chỉ
             + Xóa chữ "gần" - Done
-            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC
+            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC - Done
         - Trang Điều chỉnh ĐĐ :
             + Sửa lỗi Từ chối duplicate - Tự nhiên hết lỗi :D
 

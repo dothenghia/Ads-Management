@@ -22,6 +22,7 @@ const helpers = {
     "isUdfNullBlank": require("./functions/so/isUdfNullBlank"), //? Đây là hàm để check null
     "wrapInObject": require("./functions/so/wrapInObject"), //? Đây là hàm để wrap nhiều tham số thành 1 object
     "convertState": require("./functions/so/convertState"), //? Đây là hàm để convert state Quy Hoạch sang chữ
+    "translateDate": require("./functions/so/translateDate"), //? Đây là hàm để convert dAte
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
@@ -92,6 +93,7 @@ app.engine('hbs', expressHbs.engine({
         isArrayEmpty: helpers.isUdfNullBlank.isArrayEmpty,
         wrapInObject: helpers.wrapInObject.wrapInObject,
         convertState: helpers.convertState.convertState,
+        translateDate: helpers.translateDate.translateDate,
 
         // Phường
         getLocation: helpers.getAd.getLocation,
