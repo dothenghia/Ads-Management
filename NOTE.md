@@ -9,9 +9,13 @@
     - username: p3q5hcm
 Pass: 123
 
-### ====== PHÂN CÔNG ======
-
-- 
+### ====== HỌP ======
+- Trang QLBáo cáo :
+    + thêm tên người gửi
+    + của Quận thì thêm cột Phường mấy dô
+    + bị lỗi sort ngày (Chả biết tại sao, lúc bị lúc ko - hình như nếu mở cả 2 thì bị)
+- Sửa lỗi cấu trúc thumbnails Trang QL Điểm QC => Check lại có trang nào xem thumbnails Điểm QC ko
+- Code đang chạy ổn thì đừng chuyển sang Model nhìu quá, chỉ cần có đoạn require ở khúc trên đầu, và chuyển 2 3 cái dễ dễ thoi
 
 Nghĩa :
     Dân :
@@ -56,11 +60,8 @@ Bảo :
         - Trang Điều chỉnh ĐĐ :
             + Sửa lỗi Từ chối duplicate - Tự nhiên hết lỗi :D
 
-
-        - Trang QLBáo cáo :
-            + thêm tên người gửi
-            + của Quận thì thêm cột Phường mấy dô
-            + bị lỗi sort ngày (Chả biết tại sao, lúc bị lúc ko - hình như nếu mở cả 2 thì bị)
-
 Hải :
+
+
+
 

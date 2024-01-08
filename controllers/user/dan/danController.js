@@ -1,4 +1,8 @@
 
+const adLocationsModel = require("../../../models/adLocationsModel.js");
+const reportsModel = require("../../../models/reportsModel.js");
+const adsModel = require("../../../models/adsModel.js");
+
 const { client } = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 
@@ -50,12 +54,8 @@ controller.uploadData = async (req, res) => {
 controller.getAdLocationGeoJSONList = async (req, res) => {
     try {
         const localStorageReportList = req.body.map(item => parseFloat(item));
-        // console.log("localStorageReportList:", localStorageReportList);
 
-        const db = client.db(dbName);
-        const adLocationsCollection = db.collection('adLocations');
-        const adsCollection = db.collection('ads');
-        const adLocationDocs = await adLocationsCollection.find().toArray();
+        const adLocationDocs = await adLocationsModel.find({}); // Sử dụng hàm từ adLocationsModel
 
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
             let numberOfReports = 0;
@@ -67,7 +67,7 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
 
             if (adLocationData.adList && adLocationData.adList.length > 0) {
                 await Promise.all(adLocationData.adList.map(async (ad) => {
-                    const adDoc = await adsCollection.findOne({ adId: ad.adId });
+                    const adDoc = await adsModel.findOne({ adId: parseInt(ad.adId) }); // Sử dụng hàm từ adsModel
 
                     if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
                         numberOfAds++;
@@ -78,7 +78,7 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
                 }));
             }
 
-            return { ...adLocationData, numberOfReports, numberOfAds };
+            return { ...adLocationData._doc, numberOfReports, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
@@ -95,10 +95,7 @@ controller.getAdLocationGeoJSONList = async (req, res) => {
 // ~ ============== DONE
 controller.getReportGeoJSONList = async (req, res) => {
     try {
-        const db = client.db(dbName);
-        const reportsCollection = db.collection('reports');
-
-        const reportDocs = await reportsCollection.find({ reportType: 'ddbk' }).toArray();
+        const reportDocs = await reportsModel.find({ reportType: 'ddbk' });
 
         const reportLocationGeoJSONList = [];
 
@@ -119,12 +116,10 @@ controller.getReportGeoJSONList = async (req, res) => {
 controller.getAdLocationInfoById = async (req, res) => {
     const locaId = parseInt(req.params.locaId);
     const localStorageReportList = req.body.map(item => parseFloat(item));
-    // console.log("localStorageReportList:", localStorageReportList);
 
     try {
-        const db = client.db(dbName);
-        const adLocationsCollection = db.collection('adLocations');
-        const adLocationData = await adLocationsCollection.findOne({ locationId: locaId });
+        let adLocationData = await adLocationsModel.findOne({ locationId: locaId });
+        adLocationData = adLocationData.toObject();
 
         if (!adLocationData) { console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locaId); return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." }); }
 
@@ -171,15 +166,11 @@ controller.getAdInfoById = async (req, res) => {
     const localStorageReportList = req.body.map(item => parseFloat(item));
 
     try {
-        const db = client.db(dbName);
-        const adLocationsCollection = db.collection('adLocations');
-        const adsCollection = db.collection('ads');
-
-        const adLocationData = await adLocationsCollection.findOne({ locationId: locationId });
+        const adLocationData = await adLocationsModel.findOne({ locationId: locationId });
 
         if (!adLocationData) { console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locationId); return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." }); }
 
-        const adData = await adsCollection.findOne({ adId: adId });
+        const adData = await adsModel.findOne({ adId: adId });
 
         if (!adData) { console.log("Không tìm thấy ad với adId:", adId); return res.status(404).json({ error: "Không tìm thấy quảng cáo." }); }
 
@@ -219,15 +210,12 @@ controller.getReportInfoById = async (req, res) => {
     try {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
-        const reportQuery = { reportId: rpId };
-        const reportDocs = await reportsCollection.findOne(reportQuery);
+        const reportData = await reportsCollection.findOne({ reportId: rpId });
 
-        if (!reportDocs) {
+        if (!reportData) {
             console.log("Không tìm thấy report với reportId:", rpId);
             return res.status(404).json({ message: "Report not found" });
         }
-
-        const reportData = reportDocs;
 
         // Nếu là báo cáo về QUẢNG CÁO
         if (reportData.reportType == 'qc') {
