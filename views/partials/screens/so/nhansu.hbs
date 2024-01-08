@@ -25,10 +25,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Họ và tên</th>
-                    <th scope="col">Thông tin liên lạc</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 2em;">STT</th>
+                    <th scope="col" style="width: 15em;">Họ và tên</th>
+                    <th scope="col" style="width: 10em;">Thông tin liên lạc</th>
+                    <th scope="col" style="width: 10em;">
                         <select id="roleFilter" name="" class="rounded-3" onchange="roleFilter(this.value)">
                             <option value="all" selected disabled>Chức vụ</option>
                             <option value="all">Tất cả</option>
@@ -37,10 +37,10 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Khu Vực</th>
-                    <th scope="col">Tài Khoản</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col" style="width: 17em;">Khu Vực</th>
+                    <th scope="col" style="width: 10em;">Tài Khoản</th>
+                    <th scope="col" style="width: 5em;"></th>
+                    <th scope="col" style="width: 5em;"></th>
                 </tr>
             </thead>
 
@@ -49,21 +49,21 @@
                 {{#each account }}
                 
                     <tr>
-                        <td scope="col">{{addNumber @index 1}}</td>
-                        <td scope="col">{{name}}</td>
-                        <td scope="col">{{phone}}</td>
-                        <td scope="col">
+                        <td scope="col" style="width: 2em;">{{addNumber @index 1}}</td>
+                        <td scope="col" style="width: 15em;">{{name}}</td>
+                        <td scope="col" style="width: 10em;">{{phone}}</td>
+                        <td scope="col" style="width: 10em;">
                             Cán Bộ {{getAgentRole role}}
                         </td>
-                        <td scope="col">
+                        <td scope="col" style="width: 17em;">
                             {{#if (translateAgentArea ../adArea quan_id phuong_id)}}
                                 {{translateAgentArea ../adArea quan_id phuong_id}}
                             {{else}}
                                 No data
                             {{/if}}
                         </td>
-                        <td scope="col">{{isUdfNullBlank username}}</td>
-                        <td scope="col">
+                        <td scope="col" style="width: 10em;">{{isUdfNullBlank username}}</td>
+                        <td scope="col" style="width: 5em;">
                             <button class="edit-button" data-id="{{_id}}" data-name="{{name}}" data-phone="{{phone}}" data-role="{{role}}" data-area="{{quan_id}}-{{phuong_id}}" data-user-name="{{username}}" data-password="{{password}}" data-account-role="so" data-page="nhansu">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -73,7 +73,7 @@
                                 </svg>
                             </button>
                         </td>
-                        <td scope="col">
+                        <td scope="col" style="width: 5em;">
                             <button class="delete-button" data-id="{{_id}}" data-account-role="so" data-page="nhansu">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round"

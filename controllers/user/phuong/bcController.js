@@ -141,11 +141,11 @@ controller.show = async (req, res) => {
                 let fetchResult = fetchRawResult.data;
                 let quan = fetchResult.features[3].text;
                 let quanObject = areas.districts.filter((district) => district.name == quan)[0];
-                let idQuan = quanObject.idQuan;
+                let idQuan = quanObject ? quanObject.idQuan : "";
                 let phuong = fetchResult.features[1].text;
                 if (!phuong.startsWith("Phường")) phuong = "Phường " + phuong;
                 let phuongObject = quanObject.wards.filter((ward) => ward.name == phuong)[0];
-                let idPhuong = phuongObject.idPhuong;
+                let idPhuong = phuongObject ? phuongObject.idPhuong: "";
 
                 if (currentAccount.idQuan == idQuan && currentAccount.idPhuong == idPhuong) {
                     Report.push(data);

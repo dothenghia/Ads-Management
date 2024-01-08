@@ -109,7 +109,7 @@ async function createAcc(e) {
         body: JSON.stringify(data)
     })
 
-    location.reload();
+    //location.reload();
 }
 
 /* For Địa Điểm quảng cáo */
