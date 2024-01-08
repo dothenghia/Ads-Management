@@ -18,7 +18,9 @@ export default function ReportListButton(map, boundary) {
     fetch('http://localhost:3000/dan/dsbc')
         .then(response => response.json())
         .then(data => {
-            const filteredReportMarkers = data.filter(point => isPointInsideBoundary(point, boundary));
+            const filteredReportMarkers = data.filter(point => {
+                return (point.status == "Đang xử lý" && isPointInsideBoundary(point, boundary))
+            });
 
             document.querySelector('.report-list-button__length').innerHTML = filteredReportMarkers.length;
         })
@@ -29,7 +31,9 @@ export default function ReportListButton(map, boundary) {
         fetch('http://localhost:3000/dan/dsbc')
         .then(response => response.json())
         .then(data => {
-            const filteredReportMarkers = data.filter(point => isPointInsideBoundary(point, boundary));
+            const filteredReportMarkers = data.filter(point => {
+                return (point.status == "Đang xử lý" && isPointInsideBoundary(point, boundary))
+            });
             // console.log(filteredReportMarkers);
 
             document.querySelector('.sidebar-root').innerHTML = ReportSidebar(map, filteredReportMarkers)

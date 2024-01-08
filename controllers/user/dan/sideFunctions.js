@@ -68,7 +68,7 @@ async function getAdLocationStatus(locationId, localStorageReportList = []) {
         const db = client.db(dbName);
         const reportsCollection = db.collection('reports');
 
-        const reportQuery = { locationId: locationId, reportId: { $in: localStorageReportList } };
+        const reportQuery = { locationId: locationId, adId: "", reportId: { $in: localStorageReportList } };
         const reportData = await reportsCollection.findOne(reportQuery);
 
         if (!reportData) {

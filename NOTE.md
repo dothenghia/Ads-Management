@@ -16,15 +16,14 @@ Pass: 123
 Nghĩa :
     Dân :
         - Thống kê (Sở) - [DONE]
-        - Sửa lỗi fetch Data adLocation 235 NVC (Check thêm adId = "" cho adLocation)
-        - Trang Bản đồ Phường/Quận :
-            + Sửa lỗi reportMarker NCTrinh
-        - Sửa lỗi icon khi scoll
-        - Filter Điểm QH và Chưa QH
-        - Đổi function trong Controller sang kiểu Model [2h]        
+        - Sửa lỗi fetch Data adLocation 235 NVC (Check thêm adId = "" cho adLocation) - [DONE]
+        - Trang Bản đồ Phường/Quận : + Sửa lỗi reportMarker NCTrinh - [DONE]
+        - Đổi function trong Controller sang kiểu Model [2h]
         - Sửa độ dài tên cán bộ
         - Deploy
-        - Guide Marker (Optional)
+
+        - Filter Điểm QH và Chưa QH (Thảo luận lại)
+        - Sửa lỗi icon khi scoll (Để cuối, tại có lúc bị có lúc ko bị)
 
 Khoa : 
     Phường + Quận :
@@ -58,8 +57,10 @@ Bảo :
             + Sửa lỗi Từ chối duplicate - Tự nhiên hết lỗi :D
 
 
-        - Trang QLBáo cáo thêm tên người gửi
-        - Trang QLBáo cáo bị lỗi sort ngày
+        - Trang QLBáo cáo :
+            + thêm tên người gửi
+            + của Quận thì thêm cột Phường mấy dô
+            + bị lỗi sort ngày (Chả biết tại sao, lúc bị lúc ko - hình như nếu mở cả 2 thì bị)
 
 Hải :
 
