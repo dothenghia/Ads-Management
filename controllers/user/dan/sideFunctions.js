@@ -1,3 +1,8 @@
+
+const adLocationsModel = require("../../../models/adLocationsModel.js");
+const reportsModel = require("../../../models/reportsModel.js");
+const adsModel = require("../../../models/adsModel.js");
+
 const { client } = require("../../../config/mongodbConfig");
 const dbName = 'Ads-Management';
 

@@ -1,4 +1,8 @@
 
+const adLocationsModel = require("../../../models/adLocationsModel.js");
+const reportsModel = require("../../../models/reportsModel.js");
+const adsModel = require("../../../models/adsModel.js");
+
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
 const { client } = require("../../../config/mongodbConfig");
@@ -12,24 +16,21 @@ controller.ddqc = async (req, res) => {
     let { idPhuongQuery, idQuanQuery } = req.query; // Lấy tham số từ URL query string
 
     try {
-        const db = client.db(dbName);
-        const adLocationsCollection = db.collection('adLocations');
-        const adsCollection = db.collection('ads');
-        const adLocationDocs = await adLocationsCollection.find({ idPhuong: idPhuongQuery, idQuan: idQuanQuery }).toArray();
+        const adLocationDocs = await adLocationsModel.find({ idPhuong: idPhuongQuery, idQuan: idQuanQuery });
 
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
             let numberOfAds = 0;
 
             if (adLocationData.adList && adLocationData.adList.length > 0) {
                 await Promise.all(adLocationData.adList.map(async (ad) => {
-                    const adDoc = await adsCollection.findOne({ adId: ad.adId });
+                    const adDoc = await adsModel.findOne({ adId: ad.adId });
 
                     if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
                         numberOfAds++;
                     }
                 }));
             }
-            return { ...adLocationData, numberOfAds };
+            return { ...adLocationData._doc, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
@@ -47,10 +48,7 @@ controller.ddqc = async (req, res) => {
 // Cứ lấy về hết, Bên phía client sẽ filter theo tọa độ boundary của Phường đó
 controller.ddbcbk = async (req, res) => {
     try {
-        const db = client.db(dbName);
-        const reportsCollection = db.collection('reports');
-
-        const reportDocs = await reportsCollection.find({ reportType: 'ddbk', status: 'Đang xử lý' }).toArray();
+        const reportDocs = await reportsModel.find({ reportType: 'ddbk', status: 'Đang xử lý' });
 
         const reportLocationGeoJSONList = [];
 
@@ -73,9 +71,8 @@ controller.getAdLocationInfoById = async (req, res) => {
     const locaId = parseInt(req.params.locaId);
 
     try {
-        const db = client.db(dbName);
-        const adLocationsCollection = db.collection('adLocations');
-        const adLocationData = await adLocationsCollection.findOne({ locationId: locaId });
+        let adLocationData = await adLocationsModel.findOne({ locationId: locaId });
+        adLocationData = adLocationData.toObject();
 
         if (!adLocationData) { console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locaId); return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." }); }
 
@@ -111,15 +108,11 @@ controller.getAdInfoById = async (req, res) => {
     adId = parseInt(adId);
 
     try {
-        const db = client.db(dbName);
-        const adLocationsCollection = db.collection('adLocations');
-        const adsCollection = db.collection('ads');
-
-        const adLocationData = await adLocationsCollection.findOne({ locationId: locationId });
+        const adLocationData = await adLocationsModel.findOne({ locationId: locationId });
 
         if (!adLocationData) { console.log("Không tìm thấy địa điểm quảng cáo với locationId:", locationId); return res.status(404).json({ error: "Không tìm thấy địa điểm quảng cáo." }); }
 
-        const adData = await adsCollection.findOne({ adId: adId });
+        const adData = await adsModel.findOne({ adId: adId });
 
         if (!adData) { console.log("Không tìm thấy ad với adId:", adId); return res.status(404).json({ error: "Không tìm thấy quảng cáo." }); }
 

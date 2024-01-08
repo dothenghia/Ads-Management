@@ -1,4 +1,8 @@
 
+const adLocationsModel = require("../../../models/adLocationsModel.js");
+const reportsModel = require("../../../models/reportsModel.js");
+const adsModel = require("../../../models/adsModel.js");
+
 const mappingRegion = require('../../mappingRegion.js')
 const reverseGeocoding = require('../../reverseGeocoding.js')
 const { client } = require("../../../config/mongodbConfig");
@@ -12,24 +16,21 @@ controller.ddqc = async (req, res) => {
     let { idQuanQuery } = req.query; // Lấy tham số từ URL query string
 
     try {
-        const db = client.db(dbName);
-        const adLocationsCollection = db.collection('adLocations');
-        const adsCollection = db.collection('ads');
-        const adLocationDocs = await adLocationsCollection.find({ idQuan: idQuanQuery }).toArray();
+        const adLocationDocs = await adLocationsModel.find({ idQuan: idQuanQuery });
 
         const adLocationPromises = adLocationDocs.map(async (adLocationData) => {
             let numberOfAds = 0;
 
             if (adLocationData.adList && adLocationData.adList.length > 0) {
                 await Promise.all(adLocationData.adList.map(async (ad) => {
-                    const adDoc = await adsCollection.findOne({ adId: ad.adId });
+                    const adDoc = await adsModel.findOne({ adId: ad.adId });
 
                     if (adDoc.contractStartDate <= new Date() && adDoc.contractEndDate >= new Date()) {
                         numberOfAds++;
                     }
                 }));
             }
-            return { ...adLocationData, numberOfAds };
+            return { ...adLocationData._doc, numberOfAds };
         });
 
         const results = await Promise.all(adLocationPromises);
