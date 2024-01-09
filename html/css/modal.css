@@ -67,9 +67,10 @@
 #adDetailModal .modal-body #adDetailThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #adDetailModal .modal-body #adDetailNoThumbnails {
@@ -175,9 +176,10 @@
 #changeReqDetailModal .modal-body #changeReqDetailOldThumbnails .carousel-item img, #changeReqDetailModal .modal-body #changeReqDetailNewThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #changeReqDetailModal .modal-body #changeReqDetailOldNoThumbnails, #changeReqDetailModal .modal-body #changeReqDetailNewNoThumbnails {
@@ -312,9 +314,10 @@
 #newChangeReqModal .modal-body #newChangeReqThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #newChangeReqModal .modal-body #newChangeReqNoThumbnails {
@@ -419,9 +422,10 @@
 #changeLocReqDetailModal .modal-body #changeLocReqDetailOldThumbnails .carousel-item img, #changeLocReqDetailModal .modal-body #changeLocReqDetailNewThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #changeLocReqDetailModal .modal-body #changeLocReqDetailOldNoThumbnails, #changeLocReqDetailModal .modal-body #changeLocReqDetailNewNoThumbnails {
@@ -569,9 +573,10 @@
 #newChangeLocReqModal .modal-body #newChangeLocReqThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #newChangeLocReqModal .modal-body #newChangeLocReqNoThumbnails {
@@ -665,9 +670,10 @@
 #permissionReqDetailModal .modal-body #permissionReqDetailThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #permissionReqDetailModal .modal-body #permissionReqDetailNoThumbnails {
@@ -841,9 +847,10 @@
 #newPermissionReqModal .modal-body #newPermissionReqThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #newPermissionReqModal .modal-body #newPermissionReqNoThumbnails {
@@ -924,9 +931,10 @@
 #reportDetailModal .modal-body #reportDetailThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #reportDetailModal .modal-body #reportDetailNoThumbnails {
@@ -1063,9 +1071,10 @@
 #reportUpdateModal .modal-body #reportUpdateThumbnails .carousel-item img {
     border: 1px solid white;
     border-radius: 20px;
-    width: 20vw !important;
-    height: 35vh;
-    margin: auto;
+    width: 20vw;
+    max-width: 500px;
+    aspect-ratio: 5 / 3;
+    margin: 0 auto 24px;
 }
 
 #reportUpdateModal .modal-body #reportUpdateNoThumbnails {
