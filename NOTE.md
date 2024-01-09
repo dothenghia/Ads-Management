@@ -12,56 +12,50 @@ Pass: 123
 ### ====== HỌP ======
 - Trang QLBáo cáo :
     + thêm tên người gửi
+    + Thời gian rút gọn lại
     + của Quận thì thêm cột Phường mấy dô
-    + bị lỗi sort ngày (Chả biết tại sao, lúc bị lúc ko - hình như nếu mở cả 2 thì bị)
-- Sửa lỗi cấu trúc thumbnails Trang QL Điểm QC => Check lại có trang nào xem thumbnails Điểm QC ko
+
 - Code đang chạy ổn thì đừng chuyển sang Model nhìu quá, chỉ cần có đoạn require ở khúc trên đầu, và chuyển 2 3 cái dễ dễ thoi
 
 Nghĩa :
     Dân :
-        - Thống kê (Sở) - [DONE]
-        - Sửa lỗi fetch Data adLocation 235 NVC (Check thêm adId = "" cho adLocation) - [DONE]
-        - Trang Bản đồ Phường/Quận : + Sửa lỗi reportMarker NCTrinh - [DONE]
-        - Đổi function trong Controller sang kiểu Model [2h]
+        - Sửa lại icon (Nếu có QC thì có chữ QC)
         - Sửa độ dài tên cán bộ
         - Deploy
+        - Style lại 2 cái Modal Trang QL ĐQC (Sở)
 
-        - Filter Điểm QH và Chưa QH (Thảo luận lại)
         - Sửa lỗi icon khi scoll (Để cuối, tại có lúc bị có lúc ko bị)
 
 Khoa : 
     Phường + Quận :
-        - Đổi function trong Controller sang kiểu Model            
-        - Trang Quản lý Bảng QC :
-            + Bị lỗi Duplicate cột 
+        - Đổi function trong Controller sang kiểu Model
         - Trang Cấp phép QC :
             + Bị lỗi duplicate Hình 
-        - Trang Điều chỉnh Điểm QC :
+            + Những cái đã Duyệt thì ẩn nút thùng rác
+        - Trang Điều chỉnh Điểm QC/QC :
+            + Bị lỗi duplicate Hình 
             + Hình thức và mấy kia là Dropdown
         - Chỉnh lại ratio của các hình trong Modal
-        - Lỗi Gửi mail undefined
-        - Sửa lỗi Avatar
-
+        - Set fix width column của Quận Modal với Table
 
 Bảo :
     Sở :
         - Đổi function trong Controller sang kiểu Model            
         - Trang Quản Lý Tạo điểm QC :
-            + Sửa lỗi Dropdown Phường - Done
             + Style lại đẹp đẹp
-            + Thêm `Hình ảnh` và `Quy hoạch` lúc tạo ĐIỂM QUẢNG CÁO - Done
-            + Thêm vào cột Tình trạng Quy hoạch : Đã quy hoạch/Chưa quy hoạch - DOne
-            + Chỉnh cái điểm Quảng cáo NguyễnTrãi-NguyễnCưTrinh thành Đã quy hoạch và thêm hình vào
+            + Fix lại số cho ngắn
+            + Fix lỗi NaN long lat   
         - Chỉnh lại kích thước các cột dữ liệu
         - Trang Quản lý Báo cáo :
             => Kiếm th Khoa chỉ
             + Xóa chữ "gần" - Done
             + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC - Done
-        - Trang Điều chỉnh ĐĐ :
-            + Sửa lỗi Từ chối duplicate - Tự nhiên hết lỗi :D
-
+            + Thêm cột Quận
+        - Trang Quản lý Nhân sự :
+            + Thêm nút sort cho Khu vực
+            + Sửa lỗi Tạo Nhân sự
 Hải :
+    - Sửa lại toàn bộ các cột thời gian thành dạng dd/mm/yyyy
 
 
-
-
+Cần có ít nhất 20 điểm đặt QC và ít nhất 20 bảng QC đã được cấp phép, nằm rải rác ở 2 phường khác nhau
