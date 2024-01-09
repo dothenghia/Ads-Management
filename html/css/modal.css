@@ -1106,3 +1106,60 @@
 #confirmationModal .modal-footer #cancelDeleteBtn:hover {
     background-color: rgb(85, 84, 84);
 }
+
+
+/* AdLocation */
+
+#EditAdLocationModal {
+    --bs-modal-width: 60vw;
+}
+
+#EditAdLocationModal .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 12px !important;
+}
+
+#EditAdLocationModal .modal-content .modal-header {
+    background-color: white; 
+    border-radius: 12px 12px 0 0 !important;
+    padding: 2vh 1.2vw 1.2vh 1.2vw;
+    color: #0065FF;
+}
+
+#EditAdLocationModal .modal-content .modal-body {
+    background-color: white; 
+    border-radius: 0 0 12px 12px !important;
+    padding: 1.2vh 3vw 1vh 3vw;
+    font-size: 18px;
+}
+#EditAdLocationBtn {
+    padding-top: 2vh;
+}
+
+#newAdLocationModal {
+    --bs-modal-width: 60vw;
+}
+
+#newAdLocationModal .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 12px !important;
+}
+
+#newAdLocationModal .modal-content .modal-header {
+    background-color: white; 
+    border-radius: 12px 12px 0 0 !important;
+    padding: 2vh 1.2vw 1.2vh 1.2vw;
+    color: #0065FF;
+}
+
+#newAdLocationModal .modal-content .modal-body {
+    background-color: white; 
+    border-radius: 0 0 12px 12px !important;
+    padding: 1.2vh 3vw 1vh 3vw;
+    font-size: 18px;
+}
+#newAdLocationBtn {
+    padding-top: 2vh;
+}

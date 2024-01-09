@@ -9,13 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener('click', function () {
         // Get the data-ad-details attribute containing the specific data as a string
         // Parse the string into a JavaScript object
+        
         var adOldDetails = JSON.parse(button.dataset.adOldDetails)[0];
         var adNewDetails = JSON.parse(button.dataset.adNewDetails);
         var changeReqId = button.dataset.changeReqId;
         var accountRole = button.dataset.accountRole;
         var status = button.dataset.status;
         var reason = button.dataset.reason;
-
+        
+        console.log("adOldDetails: ",adOldDetails);
         // Update the modal content with the specific data
         $i('changeReqDetailOldName').textContent = adOldDetails.name;
         $i('changeReqDetailNewName').textContent = adNewDetails.name;

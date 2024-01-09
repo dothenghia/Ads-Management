@@ -1,10 +1,12 @@
 #mapDisplay, #EditmapDisplay {
     display: none;
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 15%;
+    /* position: absolute; */
+    /* top: calc(100% + 10px); */
+    margin-left: auto;
+    margin-right: auto;
     width: 75%;
     border-radius: 20px;
+    margin-bottom: 12px;
 }
 
 #Newmap, #Editmap {

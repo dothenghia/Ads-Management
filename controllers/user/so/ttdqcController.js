@@ -179,7 +179,7 @@ controller.add = async (req, res) => {
                 await temp.save(file.buffer, { contentType: file.mimetype });
 
                 let signedURL = await temp.getSignedUrl({ action: "read", expires: '2024-10-24' });
-                thumbnails.push({ url: signedURL });
+                thumbnails.push({ url: signedURL[0] });
 
                 i = i + 1;
 
@@ -259,7 +259,7 @@ controller.edit = async (req, res) => {
                 await temp.save(file.buffer, { contentType: file.mimetype });
 
                 let signedURL = await temp.getSignedUrl({ action: "read", expires: '2024-10-24' });
-                thumbnails.push({ url: signedURL });
+                thumbnails.push({ url: signedURL[0] });
 
                 i = i + 1;
 
