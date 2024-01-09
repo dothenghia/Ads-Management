@@ -132,7 +132,8 @@ controller.add = async (req, res) => {
     let i = 0;
     let extension;
     
-
+    console.log("newAdLocationlong:",newAdLocationLongtitude);
+    console.log("newAdLocationlat:",newAdLocationLattitude);
     async function pushData(thumbnails) {
         const newData = {
             adForm: newAdLocationForm,
