@@ -167,3 +167,17 @@ if (adLocationDistrict != null) {
         });
     });
 }
+
+let newAdLocaitonCreate = document.getElementById('newAdLocationCreateForm');
+if (newAdLocaitonCreate) {
+    newAdLocaitonCreate.addEventListener('submit', function(event) {
+        event.preventDefault();
+        document.getElementById('newAdLocationLattitude').disabled = false;
+        document.getElementById('newAdLocationLongtitude').disabled = false;
+
+        // console.log(document.getElementById('newAdLocationLattitude').value);
+        // console.log(document.getElementById('newAdLocationLongtitude').value);
+        
+        newAdLocaitonCreate.submit();
+    });
+}
