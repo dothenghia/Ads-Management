@@ -128,6 +128,7 @@
 #changeReqDetailModal .modal-content .modal-body #changeReqDetailTable table td {
     text-align: start;
     padding-left: 2vw !important;
+    width: 25vw !important;
 }
 
 #changeReqDetailModal .modal-content .modal-body #changeReqDetailTable table thead th:not(:last-of-type), tbody th, tbody th + td {

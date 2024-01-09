@@ -170,23 +170,31 @@ controller.createChangeReq = async (req, res) => {
         let i = 0;
         let n = req.files.length;
         if (n > 0) {
-            await req.files.forEach(async (file) => {
+            let i = 0;
+
+            for (const file of req.files) {
+                let extension;
+
                 if (file.mimetype.endsWith("png"))
                     extension = "png";
                 else if (file.mimetype.endsWith("jpeg"))
                     extension = "jpeg";
                 else
                     extension = "jpg";
+
                 // Upload the thumbnails to storage
                 let temp = bucket.file("yeucaudieuchinhqc/" + (changeReqHighest + 1) + "/thumbnail" + i + "." + extension);
-                await temp.save(file.buffer, {contentType: file.mimetype});
-                
-                let signedURL = await temp.getSignedUrl({action: "read", expires: '2024-10-24'});
-                thumbnails.push({url: signedURL[0]});
-                
-                i++;
-                if (i == n) pushData(req, thumbnails);
-            })
+                await temp.save(file.buffer, { contentType: file.mimetype });
+
+                let signedURL = await temp.getSignedUrl({ action: "read", expires: '2024-10-24' });
+                thumbnails.push({ url: signedURL[0] });
+
+                i = i + 1;
+
+                if (i == req.files.length) {
+                    pushData(req, thumbnails);
+                }
+            }
         }
         else pushData(req, thumbnails);
     }
