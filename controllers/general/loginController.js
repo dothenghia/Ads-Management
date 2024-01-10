@@ -74,10 +74,10 @@ controller.googleSignInCallback = (req, res, next) => {
                 res.redirect('/phuong/bando');
                 break;
             case '2':
-                res.redirect('/quan'); 
+                res.redirect('/quan/bando'); 
                 break;
             case '3':
-                res.redirect('/so');
+                res.redirect('/so/thongtinquangcao');
                 break;
             default:
                 res.redirect('/');
@@ -100,10 +100,10 @@ controller.facebookSignInCallback = (req, res, next) => {
                 res.redirect('/phuong/bando');
                 break;
             case '2':
-                res.redirect('/quan'); 
+                res.redirect('/quan/bando'); 
                 break;
             case '3':
-                res.redirect('/so');
+                res.redirect('/so/thongtinquangcao');
                 break;
             default:
                 res.redirect('/');
