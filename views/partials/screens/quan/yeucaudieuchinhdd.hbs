@@ -29,7 +29,7 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></button></th>
+                    <th scope="col">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-down" id="arrow"></i></button></th>
                     <th scope="col">Lý do chỉnh sửa</th>
                     <th scope="col">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
@@ -309,7 +309,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const table = document.querySelector('table');
         const tbody = table.querySelector('tbody');
-        let ascending = true;
+        let ascending = false;
         buttonIcon = document.getElementById('arrow');
         document.getElementById('sortButton').addEventListener('click', function () {
             if (ascending)
@@ -333,7 +333,9 @@
                     return dateB - dateA;
                 }
             });
-
+            rows.forEach(function (row, index) {
+                row.cells[0].textContent = index + 1; 
+            });
             while (tbody.firstChild) {
                 tbody.removeChild(tbody.firstChild);
             }
@@ -344,5 +346,6 @@
 
             ascending = !ascending;
         });
+        document.getElementById('sortButton').click();
     });
 </script>

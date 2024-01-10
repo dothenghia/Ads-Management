@@ -36,6 +36,7 @@
                                 <option value="{{value}}">{{getAgentRole value}}</option>
                             {{/each}}
                         </select>
+                        <button id="sortButton"><i class="bi bi-arrow-down" id="arrow"></i></button>
                     </th>
                     <th scope="col" style="width: 17em;">Khu Vực</th>
                     <th scope="col" style="width: 10em;">Tài Khoản</th>
@@ -313,3 +314,46 @@
 
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('table');
+        const tbody = table.querySelector('tbody');
+        let ascending = false;
+        buttonIcon = document.getElementById('arrow');
+        document.getElementById('sortButton').addEventListener('click', function () {
+            if (ascending)
+                buttonIcon.classList = 'bi bi-arrow-up';
+            else buttonIcon.classList = 'bi bi-arrow-down'
+                
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort(function (rowA, rowB) {
+                const cellA = rowA.cells[3].innerText; 
+                const cellB = rowB.cells[3].innerText;  
+                //console.log('cellA: ' + cellA);
+                //console.log('cellB: ' + cellB);
+                //console.log(cellA.localeCompare(cellB));
+                if (ascending) {
+                return cellA.localeCompare(cellB);
+                } else {
+                    return cellB.localeCompare(cellA);
+                }
+            });
+            rows.forEach(function (row, index) {
+                row.cells[0].textContent = index + 1; 
+            });
+
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            rows.forEach(function (row) {
+                tbody.appendChild(row);
+            });
+
+            ascending = !ascending;
+        });
+        document.getElementById('sortButton').click();
+    });
+</script>

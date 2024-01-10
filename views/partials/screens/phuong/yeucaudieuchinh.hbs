@@ -24,7 +24,7 @@
                     <th scope="col" style="width: 2em;">STT</th>
                     <th scope="col" style="width: 15em;">Tên</th>
                     <th scope="col" style="width: 15em;">Địa điểm quảng cáo</th>
-                    <th scope="col" style="width: 15em;">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right"
+                    <th scope="col" style="width: 15em;">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-down"
                                 id="arrow"></i></button></th>
                     <th scope="col" style="width: 17em;">Lý do chỉnh sửa</th>
                     <th scope="col" style="width: 10em;">
@@ -380,7 +380,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const table = document.querySelector('table');
         const tbody = table.querySelector('tbody');
-        let ascending = true;
+        let ascending = false;
         buttonIcon = document.getElementById('arrow');
         document.getElementById('sortButton').addEventListener('click', function () {
             if (ascending)
@@ -404,7 +404,9 @@
                     return dateB - dateA;
                 }
             });
-
+            rows.forEach(function (row, index) {
+                row.cells[0].textContent = index + 1; 
+            });
             while (tbody.firstChild) {
                 tbody.removeChild(tbody.firstChild);
             }
@@ -415,5 +417,6 @@
 
             ascending = !ascending;
         });
+        document.getElementById('sortButton').click();
     });
 </script>
