@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show the modal
             $('#newPermissionReqModal').modal('show');
         });
-}
+    }
 
     // Change filter buttons to match current filters
     let urlParams = (new URL(window.location.href)).searchParams;

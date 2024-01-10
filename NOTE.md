@@ -29,14 +29,16 @@ Nghĩa :
 Khoa : 
     Phường + Quận :
         - Đổi function trong Controller sang kiểu Model
-        - Trang Cấp phép QC :
-            + Bị lỗi duplicate Hình 
-            + Những cái đã Duyệt thì ẩn nút thùng rác
-        - Trang Điều chỉnh Điểm QC/QC :
-            + Bị lỗi duplicate Hình 
-            + Hình thức và mấy kia là Dropdown
-        - Chỉnh lại ratio của các hình trong Modal
-        - Set fix width column của Quận Modal với Table
+        - Trang thông tin QC: - [DONE]
+            + Thêm nút thêm YCCP - [DONE]
+        - Trang Cấp phép QC : - [DONE]
+            + Bị lỗi duplicate Hình - [DONE]
+            + Những cái đã Duyệt thì ẩn nút thùng rác - [DONE]
+        - Trang Điều chỉnh Điểm QC/QC : - [DONE]
+            + Bị lỗi duplicate Hình - [DONE]
+            + Hình thức và mấy kia là Dropdown - [DONE]
+        - Chỉnh lại ratio của các hình trong Modal - [DONE]
+        - Set fix width column của Quận Modal với Table - [DONE]
 
 Bảo :
     Sở :
