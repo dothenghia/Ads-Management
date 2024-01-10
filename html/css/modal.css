@@ -1,3 +1,7 @@
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(47%) sepia(14%) saturate(0%) hue-rotate(261deg) brightness(103%) contrast(90%);
+}
+
 /* adDetailModal */
 
 #adDetailModal {
