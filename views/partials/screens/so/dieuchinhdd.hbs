@@ -18,7 +18,7 @@
                 <tr>
                     <th scope="col" style="width: 2em;">STT</th>
                     <th scope="col" style="width: 20em;">Địa điểm quảng cáo</th>
-                    <th scope="col" style="width: 15em;">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-right" id="arrow"></i></th>
+                    <th scope="col" style="width: 15em;">Thời điểm gửi yêu cầu <button id="sortButton"><i class="bi bi-arrow-down" id="arrow"></i></th>
                     <th scope="col" style="width: 10em;">Lý do chỉnh sửa</th>
                     <th scope="col" style="width: 15em;">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
@@ -215,7 +215,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const table = document.querySelector('table');
         const tbody = table.querySelector('tbody');
-        let ascending = true;
+        let ascending = false;
         buttonIcon = document.getElementById('arrow');
         document.getElementById('sortButton').addEventListener('click', function () {
             if (ascending)
@@ -239,7 +239,9 @@
                     return dateB - dateA;
                 }
             });
-
+            rows.forEach(function (row, index) {
+                row.cells[0].textContent = index + 1; 
+            }); 
             while (tbody.firstChild) {
                 tbody.removeChild(tbody.firstChild);
             }
@@ -250,5 +252,6 @@
 
             ascending = !ascending;
         });
+        document.getElementById('sortButton').click();
     });
 </script>
