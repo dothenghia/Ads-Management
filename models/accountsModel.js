@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const accountsSchema = new mongoose.Schema({
-    _id: { type: String, required: true},
+    _id: { type: String},
     date: { type: Date },
     area: { type: String },
     role: { type: String },
