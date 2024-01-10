@@ -15,7 +15,7 @@ export default function ReportListButton(map, boundary) {
 
     document.querySelector('.report-list-button-root').appendChild(button);
 
-    fetch('http://localhost:3000/dan/dsbc')
+    fetch('https://adsmap-group07.onrender.com/dan/dsbc')
         .then(response => response.json())
         .then(data => {
             const filteredReportMarkers = data.filter(point => {
@@ -28,7 +28,7 @@ export default function ReportListButton(map, boundary) {
 
 
     button.onclick = function () {
-        fetch('http://localhost:3000/dan/dsbc')
+        fetch('https://adsmap-group07.onrender.com/dan/dsbc')
         .then(response => response.json())
         .then(data => {
             const filteredReportMarkers = data.filter(point => {

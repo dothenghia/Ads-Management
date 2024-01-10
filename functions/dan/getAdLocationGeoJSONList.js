@@ -5,7 +5,7 @@ async function getAdLocationGeoJSONList() {
 
     let localStorageReportList = JSON.parse(localStorage.getItem('reportIdList')) || [];
 
-    const response = await fetch('http://localhost:3000/dan/ddqcgeojson', {
+    const response = await fetch('https://adsmap-group07.onrender.com/dan/ddqcgeojson', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

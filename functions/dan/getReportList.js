@@ -5,7 +5,7 @@ async function getReportList() {
 
     let localStorageReportList = JSON.parse(localStorage.getItem('reportIdList')) || [];
 
-    const response = await fetch('http://localhost:3000/dan/dsbc');
+    const response = await fetch('https://adsmap-group07.onrender.com/dan/dsbc');
     const data = await response.json();
     // console.log(data);
 

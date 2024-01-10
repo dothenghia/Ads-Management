@@ -70,7 +70,7 @@ export default function AdMarker(map) {
         let markerInfo = e.features[0];
         // console.log(markerInfo.properties);
 
-        fetch(`http://localhost:3000/bando/ddqc/${markerInfo.properties.locationId}`)
+        fetch(`https://adsmap-group07.onrender.com/bando/ddqc/${markerInfo.properties.locationId}`)
             .then(response => response.json())
             .then(adLocationInfo => {
                 // console.log(adLocationInfo)

@@ -2,7 +2,7 @@
 
 async function getReportInfoById(rpId) {
 
-    const response = await fetch(`http://localhost:3000/dan/bc/${rpId}`);
+    const response = await fetch(`https://adsmap-group07.onrender.com/dan/bc/${rpId}`);
     const data = await response.json();
     // console.log(data);
 

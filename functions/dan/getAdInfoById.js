@@ -4,7 +4,7 @@ async function getAdInfoById(locationId, adId) {
 
     let localStorageReportList = JSON.parse(localStorage.getItem('reportIdList')) || [];
     
-    const response = await fetch(`http://localhost:3000/dan/qc?locationId=${locationId}&adId=${adId}`, {
+    const response = await fetch(`https://adsmap-group07.onrender.com/dan/qc?locationId=${locationId}&adId=${adId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -126,7 +126,7 @@ export default function ReportMarker(map) {
     map.on('click', 'ReportMarker-circle', (e) => {
         let infomationOfMarker = e.features[0];
 
-        fetch(`http://localhost:3000/dan/bc/${infomationOfMarker.properties.reportId}`)
+        fetch(`https://adsmap-group07.onrender.com/dan/bc/${infomationOfMarker.properties.reportId}`)
             .then(response => response.json())
             .then(reportInfo => {
                 // console.log(reportInfo)

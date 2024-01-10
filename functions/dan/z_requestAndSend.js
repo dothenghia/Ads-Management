@@ -19,7 +19,7 @@ const jsonData = {
     // ... other key-value pairs
 };
 
-fetch('http://localhost:3000/uploadData', {
+fetch('https://adsmap-group07.onrender.com/uploadData', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ app.get("/get-all", async (req, res) => {
 });
 
 'request = AJAX của client side '
-fetch('http://localhost:3000/get-all')
+fetch('https://adsmap-group07.onrender.com/get-all')
     .then(response => response.json())
     .then(data => {
         console.log('Data received from server:', data);

@@ -24,7 +24,7 @@ Nghĩa :
         - Deploy - [DONE]
         - Check merge branch - [DONE]
         - Style lại 2 cái Modal Trang QL ĐQC (Sở) - [DONE]
-        - Đổi lch3000 thành render...
+        - Đổi lch3000 thành render trong passportConfig.js
         - Check Data đàng quàng sạch sẽ
 Khoa : 
     Phường + Quận :

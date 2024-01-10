@@ -100,13 +100,13 @@ const trangchu = {
 
     // ====== Fetch dữ liệu các Địa điểm QC và Địa điểm BC
     fetchAdMarkers: async function () {
-        let data = await fetch(`http://localhost:3000/bando/phuong/ddqc?idPhuongQuery=${idPhuong}&idQuanQuery=${idQuan}`)
+        let data = await fetch(`https://adsmap-group07.onrender.com/bando/phuong/ddqc?idPhuongQuery=${idPhuong}&idQuanQuery=${idQuan}`)
         this.adLocationList = await data.json()
         // console.log(this.adLocationList)
     },
 
     fetchReportMarkers: async function () {
-        let data = await fetch(`http://localhost:3000/bando/ddbcbk`)
+        let data = await fetch(`https://adsmap-group07.onrender.com/bando/ddbcbk`)
         let tempList = await data.json()
         // console.log(tempList)
 

@@ -28,7 +28,7 @@ export default function ReportCard(map, report) {
     window.moveToLocation_ReportCard = moveToLocation_ReportCard;
 
     function openDetailReportModal_ReportCard(id) {
-        fetch(`http://localhost:3000/dan/bc/${id}}`)
+        fetch(`https://adsmap-group07.onrender.com/dan/bc/${id}}`)
             .then(res => res.json())
             .then(data => {
                 document.querySelector('.modal-root').innerHTML = DetailReportModal(data);
@@ -37,7 +37,7 @@ export default function ReportCard(map, report) {
     function openDetailAdModal_ReportCard(id) {
         let {adId, locationId} = JSON.parse(decodeURIComponent(id));
 
-        fetch(`http://localhost:3000/bando/qc?locationId=${locationId}&adId=${adId}`)
+        fetch(`https://adsmap-group07.onrender.com/bando/qc?locationId=${locationId}&adId=${adId}`)
             .then(res => res.json())
             .then(data => {
                 document.querySelector('.modal-root').innerHTML = DetailAdModal(data);

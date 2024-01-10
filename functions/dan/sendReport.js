@@ -2,7 +2,7 @@
 
 async function sendReport(uploadData) {
 
-    const response = await fetch(`http://localhost:3000/dan/upload`, {
+    const response = await fetch(`https://adsmap-group07.onrender.com/dan/upload`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

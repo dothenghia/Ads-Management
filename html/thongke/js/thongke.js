@@ -31,7 +31,7 @@ const thongke = {
 
     // ====== Fetch dữ liệu các BC
     fetchData: async function () {
-        const response = await fetch('http://localhost:3000/dan/dsbc');
+        const response = await fetch('https://adsmap-group07.onrender.com/dan/dsbc');
         thongke.reportData = await response.json();
     },
 
@@ -325,7 +325,7 @@ const khuvuc = {
 
     // ====== Fetch dữ liệu các BC
     fetchData: async function () {
-        const response = await fetch('http://localhost:3000/dan/dsbc');
+        const response = await fetch('https://adsmap-group07.onrender.com/dan/dsbc');
         khuvuc.reportData = await response.json();
         // console.log(khuvuc.reportData);
     },
@@ -496,7 +496,7 @@ const kvphuong = {
 
     // ====== Fetch dữ liệu các BC
     fetchData: async function () {
-        const response = await fetch('http://localhost:3000/dan/dsbc');
+        const response = await fetch('https://adsmap-group07.onrender.com/dan/dsbc');
         kvphuong.reportData = await response.json();
         // console.log(kvphuong.reportData);
     },
