@@ -95,6 +95,7 @@ passport.use(
       clientID: '1400257290595933',
       clientSecret: 'da7bd5babdf58ddedbbb077972a81299',
       callbackURL: 'https://adsmap-group07.onrender.com/auth/facebook/callback',
+      profileFields: ['id', 'displayName', 'email'],
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
