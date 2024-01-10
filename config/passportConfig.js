@@ -15,16 +15,15 @@ passport.use(
     try {
       const user = await accountsModel.findOne({ username: username });
 
-      if (user.empty) {
+      if (!user) {
         return done(null, false);
       }
-      console.log(user);
+      console.log('user: ' + user);
       
-      
-      if (!bcryptConfig.checkPassword(password,user.hashedpassword)) {
+      if (!await bcryptConfig.checkPassword(password,user.hashedpassword)) {
         return done(null, false);
       }
-
+  
       return done(null, user);
     } catch (error) {
       return done(error);
@@ -40,7 +39,7 @@ const opts = {
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
   try {
     const user = await accountsModel.findOne({_id: jwt_payload.sub});
-    if (!user.exists) {
+    if (!user) {
       return done(null, false);
     }
 
@@ -79,7 +78,7 @@ passport.use(new GoogleStrategy({
     try {
       const user = await accountsModel.findOne({email: profile.emails[0].value});
 
-      if (user == null) {
+      if (!user) {
         return cb(null, false);
       }
 
@@ -102,7 +101,7 @@ passport.use(
         // console.log(profile);
         const user = await accountsModel.findOne({fbID: profile.id});
         // console.log(user);
-        if (user == null) {
+        if (!user) {
           return cb(null, false);
         }
         return cb(null, user);

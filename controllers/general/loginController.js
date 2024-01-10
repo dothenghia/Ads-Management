@@ -19,9 +19,7 @@ controller.submit = (req, res, next) => {
         if (err || !user) {
             return res.render('./general/login', { layout: 'layout_general', error: 'Sai tên đăng nhập hoặc mật khẩu.' });
         }
-
         const token = generateToken(user);
-       
     
         res.cookie('jwtToken', token, { httpOnly: true });
         console.log(originalUrl);
