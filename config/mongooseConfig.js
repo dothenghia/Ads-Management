@@ -19,9 +19,9 @@ mongoose.connection.on('open', () => {
   console.log('MongoDB connection opened');
 });
 
-mongoose.connection.on('disconnected', () => {
-  console.log('Disconnected from MongoDB');
-});
+// mongoose.connection.on('disconnected', () => {
+//   console.log('Disconnected from MongoDB');
+// });
 
 const closeMongoDBConnection = async () => {
   try {

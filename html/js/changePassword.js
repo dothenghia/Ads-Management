@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('hehe')
     const oldPasswordInput = document.getElementById('oldpassword');
     const newPasswordInput = document.getElementById('newpassword');
     const newConfirmPasswordInput = document.getElementById('confirmnewpassword');
