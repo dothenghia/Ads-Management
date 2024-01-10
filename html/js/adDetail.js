@@ -71,6 +71,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    /* View permission request detail button */
+    let newPermissionReqButton = document.querySelector('#newPermissionReqButton');
+    if (newPermissionReqButton != null) {
+        newPermissionReqButton.addEventListener('click', function() {
+            // Adjust location selector's data
+            let idQuan = newPermissionReqButton.dataset.idQuan;
+            if (idQuan != undefined) {
+                let districtChooser = document.querySelector('#newPermissionReqDistrict');
+                districtChooser.value = idQuan;
+                districtChooser.disabled = true;
+                districtChooser.style.backgroundColor = "#d6d6d6";
+                districtChooser.dispatchEvent(new Event("change"));
+
+                let idPhuong = newPermissionReqButton.dataset.idPhuong;
+                if (idPhuong != undefined) {
+                    let wardChooser = document.querySelector('#newPermissionReqWard');
+                    wardChooser.value = idPhuong;
+                    wardChooser.disabled = true;
+                    wardChooser.style.backgroundColor = "#d6d6d6";
+                    wardChooser.dispatchEvent(new Event("change"));
+                }
+            }
+
+            // Show the modal
+            $('#newPermissionReqModal').modal('show');
+        });
+    }
     
 
     // Change filter buttons to match current filters
@@ -91,52 +118,31 @@ document.addEventListener("DOMContentLoaded", function () {
     // Style Drop area and allow to drop files
     var fileStorage = [];
 
-    // JavaScript for handling drag-and-drop functionality
-    if (document.getElementById('drop-area') != null) {
-        document.getElementById('drop-area').addEventListener('dragover', function (e) {
-            e.preventDefault();
-            this.classList.add('hover');
-        });
-    
-        document.getElementById('drop-area').addEventListener('dragleave', function (e) {
-            e.preventDefault();
-            this.classList.remove('hover');
-        });
-    
-        document.getElementById('drop-area').addEventListener('drop', function (e) {
-            e.preventDefault();
-            this.classList.remove('hover');
-    
-            var files = e.dataTransfer.files;
-            handleFiles(files);
-        });
-    
-        // Handling file input change
-        document.getElementById('fileInput').addEventListener('change', function () {
-            var files = this.files;
-            handleFiles(files);
-        });
-    
-        // Additional handling for clicking the drop area to trigger file input
-        document.getElementById('click-span').addEventListener('click', function () {
-            document.getElementById('fileInput').click();
-        });
-    
-        function handleFiles(files) {
-            var fileList = document.getElementById('file-list');
-            fileList.classList.remove('d-none');
-    
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var listItem = document.createElement('li');
-                listItem.className = 'file-item';
-                listItem.textContent = file.name;
-                fileList.appendChild(listItem);
-    
-                fileStorage.push(file);
-            }
+    // Handling file input change
+    document.getElementById('fileInput').addEventListener('change', function () {
+        var files = this.files;
+        handleFiles(files);
+    });
+
+    // Additional handling for clicking the drop area to trigger file input
+    document.getElementById('click-span').addEventListener('click', function () {
+        document.getElementById('fileInput').click();
+    });
+
+    function handleFiles(files) {
+        var fileList = document.getElementById('file-list');
+        fileList.classList.remove('d-none');
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var listItem = document.createElement('li');
+            listItem.className = 'file-item';
+            listItem.textContent = file.name;
+            fileList.appendChild(listItem);
+
+            fileStorage.push(file);
         }
-    }   
+    } 
     
     // Add data phuong base on Quan to filter select
     var filteradLocationDistrict = document.getElementById("filterAdLocationDistrict");
@@ -231,6 +237,62 @@ function locationPlanningFilter(locationPlanningState) {
     else
         filters.delete("locationPlanningState");
     window.location.href = "?" + filters.toString();
+}
+
+// Create new reqs functions
+function displayWards(selectElement) {
+    let selectedOptions = selectElement.selectedOptions[0];
+    console.log(selectElement.selectedOptions);
+    let wardSelect = document.querySelector("#newPermissionReqWard");
+    wardSelect.addEventListener('change', () => displayAddresses(document.querySelector('#newPermissionReqWard')));
+    if (selectedOptions.value == "") {
+        while (wardSelect.children.length > 1) {
+            wardSelect.removeChild(wardSelect.lastChild);
+        }
+    }
+    else {
+        let districtWards = JSON.parse(selectedOptions.dataset.wards)
+        // Destroy old children (except the first one) first
+        while (wardSelect.children.length > 1) {
+            wardSelect.removeChild(wardSelect.lastChild);
+        }
+        districtWards.forEach((ward) => {
+            let option = document.createElement("option");
+            option.value = ward.idPhuong;
+            option.text = ward.name;
+            option.dataset.addresses = JSON.stringify(ward.adLocations);
+            wardSelect.appendChild(option);
+        })
+    }
+    
+    // Reset address selector as well
+    let addressSelect = document.querySelector("#newPermissionReqAddress");
+    addressSelect.value = ""
+    while (addressSelect.children.length > 1) {
+        addressSelect.removeChild(addressSelect.lastChild);
+    }
+}
+function displayAddresses(selectElement) {
+    let selectedOptions = selectElement.selectedOptions[0];
+    let addressSelect = document.querySelector("#newPermissionReqAddress");
+    if (selectedOptions.value == "") {
+        while (addressSelect.children.length > 1) {
+            addressSelect.removeChild(addressSelect.lastChild);
+        }
+    }
+    else {
+        let wardAddresses = JSON.parse(selectedOptions.dataset.addresses)
+        // Destroy old children (except the first one) first
+        while (addressSelect.children.length > 1) {
+            addressSelect.removeChild(addressSelect.lastChild);
+        }
+        wardAddresses.forEach((address) => {
+            let option = document.createElement("option");
+            option.value = address.locationId;
+            option.innerText = address.address;
+            addressSelect.appendChild(option);
+        })
+    }
 }
 
 // Process address
