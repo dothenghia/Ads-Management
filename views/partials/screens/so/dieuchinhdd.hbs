@@ -205,10 +205,10 @@
 
 <script>
     function convertDate(vietnameseDate) {
-        let dateString = vietnameseDate.split(" ");
-        let day = dateString[1];
-        let month = dateString[3];
-        let year = dateString[5];
+        let dateString = vietnameseDate.split("/");
+        let day = dateString[0];
+        let month = dateString[1];
+        let year = dateString[2];
         let date = new Date(year + "-" + month + "-" + day);
         return date;
     }
