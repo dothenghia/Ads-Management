@@ -56,7 +56,7 @@ function mapToArray(map) {
 }
 
 function equalString(string1, string2) {
-    console.log(string1 == string2);
+    // console.log(string1 == string2);
     return string1 == string2;
 }
 

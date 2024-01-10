@@ -159,6 +159,7 @@
             </tbody>
         </table>
     </div>
+    
 
     <!-- Create new location modal -->
     <div class="modal fade" id="newAdLocationModal" tabindex="-1" role="dialog"
@@ -192,6 +193,7 @@
                                     </div>
                                 </div>
 
+    
                                 <div class="d-flex flex-column" style="min-width: 33%;" id="newAdTypeDiv">
                                     <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Loại quảng cáo<span class="text-danger">*</span>
@@ -343,8 +345,11 @@
                             </div>
                             {{!-- Hình ảnh  --}}
                             <div class="d-flex flex-column" style="min-width: 30%; clear:right" id="newAdLocationWardDiv">
-                                    <p class="fs-6 fw-semibold lh-base m-0" style="padding-bottom: 5px;"
+                                    <div class="d-flex flex-row justify-content-between align-items-center my-1">
+                                        <p class="fs-6 fw-semibold lh-base pt-3" style="padding-bottom: 5px;"
                                         id="newAdLocationCategoryTitle">Hình Ảnh Địa Điểm<span class="text-danger">*</span></p>
+                                        <button type="button" class="btn btn-outline-primary text-start" id="imageResetBtn">Reset</button>
+                                    </div>
                                     <div class="mb-3 d-flex flex-column justify-content-center align-items-center" id="drop-area">
                                         <p class=" fs-6 fw-semibold m-0">
                                             Kéo thả file vào đây hoặc 
@@ -613,9 +618,6 @@
 
 
 {{!-- Custom JS script --}}
-
-
-
 <script src="/js/createMethod.js"></script>
 
 <script src="/js/deleteMethod.js"></script>

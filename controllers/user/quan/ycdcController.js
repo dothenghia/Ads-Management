@@ -167,7 +167,7 @@ controller.show = async (req, res) => {
 controller.createChangeReq = async (req, res) => {
     const changeReqSnapshot = client.db(dbName).collection("changeReqs");
     let changeReqHighest = (await changeReqSnapshot.find({}).sort({changeReqId:-1}).limit(1).toArray())[0].changeReqId
-        console.log(req.files)
+        // console.log(req.files)
 
     let bucket = admin.storage().bucket("firstproject-90f9e.appspot.com");
     let i = 0;

@@ -18,6 +18,7 @@
                 <tr>
                     <th scope="col" style="width: 2em;">STT</th>
                     <th scope="col" style="width: 20em;">Tên</th>
+                    <th scope="col" style="width: 10em;">Khu Vực</th>
                     <th scope="col" style="width: 10em;">
                         <select id="reportTypeFilter" onchange="reportTypeFilter(this.value)">
                             <option value="all" selected disabled>Loại báo cáo</option>
@@ -70,6 +71,12 @@
                                 {{else}}
                                     {{getReportLocation ../adLocation locationId}}
                                 {{/if}}
+                            {{/if}}
+                        </td>
+                        <td scope="col">
+                            {{#if (equalString reportType "ddbk")}}
+                            {{else}}
+                                {{translateLocation ../districts (getAdLocationInfo ../adLocation locationId)}}
                             {{/if}}
                         </td>
                         <td scope="col">{{translateReportType reportType}}</td>

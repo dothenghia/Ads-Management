@@ -152,7 +152,7 @@ controller.editAvatar = async (req, res) => {
             avatar: avatar
         };
 
-        console.log("avatar:", avatar);
+        // console.log("avatar:", avatar);
         //update
         await client.db(dbName).collection("accounts").updateOne({ _id: id }, { $set: updateData });
 
