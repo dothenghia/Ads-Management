@@ -22,8 +22,10 @@ Nghĩa :
         - Sửa lại icon (Nếu có QC thì có chữ QC) - [DONE]
         - Sửa độ dài tên cán bộ - [DONE]
         - Deploy - [DONE]
-        - Style lại 2 cái Modal Trang QL ĐQC (Sở)
-
+        - Check merge branch - [DONE]
+        - Style lại 2 cái Modal Trang QL ĐQC (Sở) - [DONE]
+        - Đổi lch3000 thành render...
+        - Check Data đàng quàng sạch sẽ
 Khoa : 
     Phường + Quận :
         - Đổi function trong Controller sang kiểu Model

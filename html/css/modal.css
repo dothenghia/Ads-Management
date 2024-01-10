@@ -2,6 +2,23 @@
     filter: invert(47%) sepia(14%) saturate(0%) hue-rotate(261deg) brightness(103%) contrast(90%);
 }
 
+#EditchooseCoordinate,
+#NewchooseCoordinate {
+    padding: 6px 6px;
+    height: fit-content;
+    margin-left: 6px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+#EditchooseCoordinate:hover,
+#NewchooseCoordinate:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
 /* adDetailModal */
 
 #adDetailModal {
