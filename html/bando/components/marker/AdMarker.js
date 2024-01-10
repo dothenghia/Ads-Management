@@ -42,7 +42,7 @@ export default function AdMarker(map) {
         }
     });
 
-    // Tạo layer hiển thị chữ QC khi planning là true
+    // Tạo layer hiển thị chữ QC khi numberOfAds > 0
     map.addLayer({
         id: 'AdMarker-text',
         type: 'symbol',
@@ -50,7 +50,7 @@ export default function AdMarker(map) {
         filter: ['all',
             ['!', ['has', 'point_count']], // Loại bỏ những điểm là cluster và planning là false
             ['==', ['get', 'markerType'], 'Ad'], // Chỉ hiển thị dữ liệu có markerType là 'Ad'
-            ['==', ['get', 'planning'], true], // Loại bỏ những điểm là cluster và planning là false
+            ['>', ['get', 'numberOfAds'], 0],
         ],
         layout: {
             'text-field': 'QC',
