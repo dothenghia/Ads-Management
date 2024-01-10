@@ -35,6 +35,7 @@ function renderBigTSBCChart(chartData) {
             borderRadius: 8,
             spacing: 4,
             cutout: 110,
+            maintainAspectRatio: false,
         }
     });
     document.querySelector('.tsbc-text').innerHTML = chartData.tgsp + chartData.dknd + chartData.dgyk + chartData.gdtm;
@@ -62,6 +63,7 @@ function renderMiniTGSPChart(chartData) {
             borderRadius: 4,
             spacing: 1,
             cutout: 45,
+            maintainAspectRatio: false,
         }
     });
     document.querySelector('#tsbc-canvas-tgsp + .tsbc-mini-text').innerHTML = chartData.dangxuly + chartData.daxuly + chartData.tuchoi;
@@ -91,6 +93,7 @@ function renderMiniDKNDChart(chartData) {
             borderRadius: 4,
             spacing: 1,
             cutout: 45,
+            maintainAspectRatio: false,
         }
     });
     document.querySelector('#tsbc-canvas-dknd + .tsbc-mini-text').innerHTML = chartData.dangxuly + chartData.daxuly + chartData.tuchoi;
@@ -120,6 +123,7 @@ function renderMiniDGYKChart(chartData) {
             borderRadius: 4,
             spacing: 1,
             cutout: 45,
+            maintainAspectRatio: false,
         }
     });
     document.querySelector('#tsbc-canvas-dgyk + .tsbc-mini-text').innerHTML = chartData.dangxuly + chartData.daxuly + chartData.tuchoi;
@@ -149,6 +153,7 @@ function renderMiniGDTMChart(chartData) {
             borderRadius: 4,
             spacing: 1,
             cutout: 45,
+            maintainAspectRatio: false,
         }
     });
     document.querySelector('#tsbc-canvas-gdtm + .tsbc-mini-text').innerHTML = chartData.dangxuly + chartData.daxuly + chartData.tuchoi;
@@ -194,10 +199,30 @@ function renderBarChart(quanList, quanChartData) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            size: 16 // Set the font size for x-axis labels here
+                        }
+                    }
                 },
                 x: {
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            size: 16 // Set the font size for x-axis labels here
+                        }
+                    }
+                }
+            },
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 20 // Set the font size here
+                        }
+                    }
                 }
             }
         }
@@ -239,10 +264,30 @@ function renderPhuongChart(phuongList, phuongChartData) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            size: 16 // Set the font size for x-axis labels here
+                        }
+                    }
                 },
                 x: {
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            size: 16 // Set the font size for x-axis labels here
+                        }
+                    }
+                }
+            },
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 20 // Set the font size here
+                        }
+                    }
                 }
             }
         }

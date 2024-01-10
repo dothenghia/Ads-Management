@@ -19,12 +19,10 @@ Pass: 123
 
 Nghĩa :
     Dân :
-        - Sửa lại icon (Nếu có QC thì có chữ QC)
-        - Sửa độ dài tên cán bộ
-        - Deploy
+        - Sửa lại icon (Nếu có QC thì có chữ QC) - [DONE]
+        - Sửa độ dài tên cán bộ - [DONE]
+        - Deploy - [DONE]
         - Style lại 2 cái Modal Trang QL ĐQC (Sở)
-
-        - Sửa lỗi icon khi scoll (Để cuối, tại có lúc bị có lúc ko bị)
 
 Khoa : 
     Phường + Quận :
