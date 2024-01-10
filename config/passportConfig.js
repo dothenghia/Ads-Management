@@ -72,7 +72,7 @@ const generateToken = (user) => {
 passport.use(new GoogleStrategy({
   clientID: '131586726827-29e0i882m9v3ojjdeqhdgshq7maaiqao.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  callbackURL: 'https://adsmap-group07.onrender.com/auth/google/callback',
 },
   async (accessToken, refreshToken, profile, cb) => {
     try {
