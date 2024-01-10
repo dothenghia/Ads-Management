@@ -1,21 +1,20 @@
 const mongoose = require('mongoose');
 
 const changeReqSchema = new mongoose.Schema({
-  date: { type: Date, required: true },
-  reason: { type: String, required: true },
-  changeReqId: { type: Number, required: true },
-  senderRole: { type: Number, required: true },
-  status: { type: Number, required: true },
-  oldAdId: { type: Number, required: true },
+  date: { type: Date },
+  reason: { type: String },
+  changeReqId: { type: Number },
+  senderRole: { type: Number },
+  status: { type: Number },
+  oldAdId: { type: Number },
   new: {
-    name: { type: String, required: true },
-    size: { type: String, required: true },
+    name: { type: String },
+    size: { type: String },
     thumbnails: [{
-      url: { type: String, required: true }
+      url: { type: String }
     }]
   }
-},{ collection: 'changeReqs' }
-);
+}, { collection: 'changeReqs' });
 
 const changeReqsModel = mongoose.model('changeReqs', changeReqSchema);
 

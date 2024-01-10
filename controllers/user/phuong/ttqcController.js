@@ -105,7 +105,7 @@ controller.show = async (req, res) => {
     if (filterLocationTypeId)
         AdLocation = AdLocation.filter((loc) => loc.locationType == filterLocationTypeId);
 
-        console.log("data:", Ad);
+        // console.log("data:", Ad);
     res.render("partials/screens/phuong/index", {
         "current": currentPage,
         "account": currentAccount,

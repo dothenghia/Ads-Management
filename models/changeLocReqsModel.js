@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 
 const changeLocReqSchema = new mongoose.Schema({
-  date: { type: Date, required: true },
-  reason: { type: String, required: true },
-  senderRole: { type: Number, required: true },
-  status: { type: Number, required: true },
+  date: { type: Date },
+  reason: { type: String },
+  senderRole: { type: Number },
+  status: { type: Number },
   new: {
-    adForm: { type: String, required: true },
-    adType: { type: String, required: true },
-    locationType: { type: String, required: true }
+    adForm: { type: String },
+    adType: { type: String },
+    locationType: { type: String }
   },
-  changeLocReqId: { type: Number, required: true },
-  oldLocationId: { type: Number, required: true }
-},{ collection: 'changeLocReqs' }
-);
+  changeLocReqId: { type: Number },
+  oldLocationId: { type: Number }
+}, { collection: 'changeLocReqs' });
 
 const changeLocReqsModel = mongoose.model('changeLocReqs', changeLocReqSchema);
 

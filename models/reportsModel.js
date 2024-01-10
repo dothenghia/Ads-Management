@@ -1,27 +1,26 @@
 const mongoose = require('mongoose');
 
 const imageSchema = new mongoose.Schema({
-    url: { type: String, required: true }
+    url: { type: String }
 });
 
 const reportSchema = new mongoose.Schema({
-    reportForm: { type: String, required: true },
+    reportForm: { type: String },
     images: [imageSchema],
-    reportId: { type: Number, required: true },
+    reportId: { type: Number },
     latitude: { type: String },
-    content: { type: String, required: true },
-    reportType: { type: String, required: true },
+    content: { type: String },
+    reportType: { type: String },
     adId: { type: String },
-    phone: { type: String, required: true },
-    locationId: { type: Number, required: true },
-    time: { type: Date, required: true },
-    fullname: { type: String, required: true },
-    email: { type: String, required: true },
+    phone: { type: String },
+    locationId: { type: Number },
+    time: { type: Date },
+    fullname: { type: String },
+    email: { type: String },
     longitude: { type: String },
-    status: { type: String, required: true },
+    status: { type: String },
     solution: { type: String }
-}, { collection: 'reports' }
-);
+}, { collection: 'reports' });
 
 const reportsModel = mongoose.model('reports', reportSchema);
 

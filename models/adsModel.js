@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 
 const adSchema = new mongoose.Schema({
-  adId: { type: Number, required: true },
-  size: { type: String, required: true },
-  reportId: { type: String }, // Assuming reportId is of string type, adjust if needed
-  contractStartDate: { type: Date, required: true },
-  name: { type: String, required: true },
-  contractEndDate: { type: Date, required: true },
+  adId: { type: Number },
+  size: { type: String },
+  reportId: { type: String }, 
+  contractStartDate: { type: Date },
+  name: { type: String },
+  contractEndDate: { type: Date },
   thumbnails: [{
-    url: { type: String, required: true }
+    url: { type: String }
   }]
-},{ collection: 'ads' }
-);
+}, { collection: 'ads' });
 
 const adsModel = mongoose.model('ads', adSchema);
 
