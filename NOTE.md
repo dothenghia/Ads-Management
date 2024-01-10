@@ -15,8 +15,6 @@ Pass: 123
     + Thời gian rút gọn lại
     + của Quận thì thêm cột Phường mấy dô
 
-- Code đang chạy ổn thì đừng chuyển sang Model nhìu quá, chỉ cần có đoạn require ở khúc trên đầu, và chuyển 2 3 cái dễ dễ thoi
-
 Nghĩa :
     Dân :
         - Sửa lại icon (Nếu có QC thì có chữ QC) - [DONE]
@@ -26,9 +24,9 @@ Nghĩa :
         - Style lại 2 cái Modal Trang QL ĐQC (Sở) - [DONE]
         - Đổi lch3000 thành render trong passportConfig.js
         - Check Data đàng quàng sạch sẽ
+        - Tạo Data ĐQC
 Khoa : 
     Phường + Quận :
-        - Đổi function trong Controller sang kiểu Model
         - Trang thông tin QC: - [DONE]
             + Thêm nút thêm YCCP - [DONE]
         - Trang Cấp phép QC : - [DONE]
@@ -42,7 +40,6 @@ Khoa :
 
 Bảo :
     Sở :
-        - Đổi function trong Controller sang kiểu Model            
         - Trang Quản Lý Tạo điểm QC :
             + Style lại đẹp đẹp 
             + Fix lại số cho ngắn - [DONE]
