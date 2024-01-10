@@ -20,7 +20,7 @@ document.querySelectorAll(".report-delete-button").forEach((btn) => {
 });
 
 async function deleteReport(accountRole, id) {
-    console.log("im in");
+    // console.log("im in");
     let res = await fetch(`/${accountRole}/baocao/${id}`, {
         method: "DELETE",
     });

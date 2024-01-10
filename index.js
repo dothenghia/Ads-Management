@@ -23,6 +23,7 @@ const helpers = {
     "wrapInObject": require("./functions/so/wrapInObject"), //? Đây là hàm để wrap nhiều tham số thành 1 object
     "convertState": require("./functions/so/convertState"), //? Đây là hàm để convert state Quy Hoạch sang chữ
     "translateDate": require("./functions/so/translateDate"), //? Đây là hàm để convert dAte
+    "translateLocation": require("./functions/so/translateAgentArea"),
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
@@ -88,6 +89,7 @@ app.engine('hbs', expressHbs.engine({
         getReportLocation: helpers.reportLocation.getReportLocation,
         getReportStatus: helpers.reportStatus.getReportStatus,
         translateAgentArea: helpers.translateAgentArea.translateAgentArea,
+        translateLocation: helpers.translateAgentArea.translateLocation,
         getAgentRole: helpers.getAgentRole.getAgentRole,
         isUdfNullBlank: helpers.isUdfNullBlank.isUdfNullBlank,
         isArrayEmpty: helpers.isUdfNullBlank.isArrayEmpty,

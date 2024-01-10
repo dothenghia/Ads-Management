@@ -183,6 +183,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (urlParams.has("idPhuong"))
         document.querySelector('#filterAdLocationWard').value = urlParams.get("idPhuong");
+
+
+    var resetImageBtn = document.getElementById("imageResetBtn");
+    if (resetImageBtn) {
+        resetImageBtn.addEventListener("click", function () {
+            fileStorage = [];
+            document.getElementById('fileInput').value = "";
+            document.getElementById('file-list').innerHTML = "";
+            document.getElementById('file-list').outerHTML = '<ul id="file-list" class="list-unstyled d-none"></ul>';
+        });
+    }
 });
 
 // Filter functions

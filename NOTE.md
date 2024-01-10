@@ -44,15 +44,15 @@ Bảo :
     Sở :
         - Đổi function trong Controller sang kiểu Model            
         - Trang Quản Lý Tạo điểm QC :
-            + Style lại đẹp đẹp
-            + Fix lại số cho ngắn
-            + Fix lỗi NaN long lat   
+            + Style lại đẹp đẹp 
+            + Fix lại số cho ngắn - [DONE]
+            + Fix lỗi NaN long lat - [DONE]
         - Chỉnh lại kích thước các cột dữ liệu
         - Trang Quản lý Báo cáo :
             => Kiếm th Khoa chỉ
             + Xóa chữ "gần" - Done
             + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC - Done
-            + Thêm cột Quận
+            + Thêm cột Quận 
         - Trang Quản lý Nhân sự :
             + Thêm nút sort cho Khu vực
             + Sửa lỗi Tạo Nhân sự

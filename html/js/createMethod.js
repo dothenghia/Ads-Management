@@ -11,6 +11,8 @@ if (accountBtn != null){
         // Disable "disable" attribute
         document.getElementById('newAccountDistrict').disabled = false;
         document.getElementById('newAccountWard').disabled = false;
+
+
     });
 }
     
@@ -109,7 +111,7 @@ async function createAcc(e) {
         body: JSON.stringify(data)
     })
 
-    //location.reload();
+    location.reload();
 }
 
 /* For Địa Điểm quảng cáo */
@@ -127,6 +129,12 @@ if (adLocationBtn != null) {
         
         // Set display none to the map
         document.querySelector('#mapDisplay').style.display = 'none';
+        document.querySelector('#EditmapDisplay').style.display = 'none';
+
+        // Clear fileStorage and restore initial state
+        document.getElementById('fileInput').value = "";
+        document.getElementById('file-list').innerHTML = "";
+        document.getElementById('file-list').outerHTML = '<ul id="file-list" class="list-unstyled d-none"></ul>';
     });
 }
 

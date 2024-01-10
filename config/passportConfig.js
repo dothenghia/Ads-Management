@@ -18,7 +18,7 @@ passport.use(
       if (!user) {
         return done(null, false);
       }
-      console.log('user: ' + user);
+      // console.log('user: ' + user);
       
       if (!await bcryptConfig.checkPassword(password,user.hashedpassword)) {
         return done(null, false);
@@ -50,7 +50,7 @@ passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
 }));
 
 const generateToken = (user) => {
-  console.log(user);
+  // console.log(user);
 
   let idQuan = "";
   let idPhuong = "";

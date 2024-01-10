@@ -106,6 +106,8 @@ controller.show = async (req, res) => {
         }
         AdArea = temp;
 
+        let Districts = areas.districts; // All District
+
         // Filters
         let filterReportTypeId = req.query.reportTypeId;
         if (filterReportTypeId)
@@ -126,6 +128,7 @@ controller.show = async (req, res) => {
             "report": Report,
             "ad": Ad,
             "adArea": AdArea,
+            "districts": Districts,
             "adLocation": AdLocation,
             body: function() {
                 return "screens/so/baocao";
