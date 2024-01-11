@@ -40,8 +40,8 @@
                     </th>
                     <th scope="col" style="width: 17em;">Khu Vực</th>
                     <th scope="col" style="width: 10em;">Tài Khoản</th>
-                    <th scope="col" style="width: 5em;"></th>
-                    <th scope="col" style="width: 5em;"></th>
+                    <th scope="col" style="width: 5em;">Chỉnh Sửa</th>
+                    <th scope="col" style="width: 5em;">Xóa</th>
                 </tr>
             </thead>
 
@@ -74,6 +74,8 @@
                                 </svg>
                             </button>
                         </td>
+                        {{#if (equalString (getAgentRole role) "Sở")}}
+                        {{else}}
                         <td scope="col" style="width: 5em;">
                             <button class="delete-button" data-id="{{_id}}" data-account-role="so" data-page="nhansu">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -88,6 +90,7 @@
                                 </svg>
                             </button>
                         </td>
+                        {{/if}}
                     </tr>
                 
                 {{/each}}

@@ -20,8 +20,8 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 2em;">STT</th>
+                    <th scope="col" style="width: 19em;">
                         <select id="coFilter" name="" onchange="coFilter(this.value)">
                             <option value="all">Tất cả Công ty</option>
                             {{#each company}}
@@ -29,9 +29,9 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">Email</th>
-                    <th scope="col">SĐT</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 10em;">Email</th>
+                    <th scope="col" style="width: 10em;">SĐT</th>
+                    <th scope="col" style="width: 20em;">
                         <select id="wardFilter" name="" onchange="wardFilter(this.value)">
                             <option value="all">Tất cả Địa điểm yêu cầu cấp phép</option>
                             {{#each ward}}
@@ -39,7 +39,7 @@
                             {{/each}}
                         </select>
                     </th>
-                    <th scope="col">
+                    <th scope="col" style="width: 15em;">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
                             <option value="all">Tất cả Tình trạng xử lý</option>
                             <option value="0">Đang xử lý</option>
@@ -47,8 +47,8 @@
                             <option value="2">Từ chối</option>
                         </select>
                     </th>
-                    <th scope="col">Chi tiết</th>
-                    <th scope="col">Xoá</th>
+                    <th scope="col" style="width: 5em;">Chi tiết</th>
+                    <th scope="col" style="width: 5em;">Xoá</th>
                 </tr>
             </thead>
 
@@ -56,14 +56,14 @@
                 {{!-- Pass data vào --}}
                 {{#each permissionReq}}
                     <tr>
-                        <td scope="col">{{addNumber @index 1}}</td>
+                        <td scope="col" style="width: 2em;">{{addNumber @index 1}}</td>
                         {{#with co}}
-                            <td scope="col">{{name}}</td>
-                            <td scope="col">{{email}}</td>
-                            <td scope="col">{{phone}}</td>
+                            <td scope="col" style="width: 10em;">{{name}}</td>
+                            <td scope="col" style="width: 10em;">{{email}}</td>
+                            <td scope="col" style="width: 10em;">{{phone}}</td>
                         {{/with}}
-                        <td scope="col">{{getLocation ../adLocation locationId 2}}</td>
-                        <td scope="col">
+                        <td scope="col" style="width: 20em;">{{getLocation ../adLocation locationId 2}}</td>
+                        <td scope="col" style="width: 15em;">
                             {{#if (equalNumber status 0) }}
                             <div class="status-tag status-tag-dangxuly">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"> <circle cx="12" cy="12" r="10"></circle> <polyline points="12 6 12 12 16 14"></polyline> </svg>
@@ -87,7 +87,7 @@
                         </td>
 
                         {{!-- Chi tiết --}}
-                        <td scope="col">
+                        <td scope="col" style="width: 5em;">
                             <button class="table-detail-button" data-permission-req-details="{{toJSON (arrayIndex ../permissionReq @index)}}" data-ad-location-details="{{toJSON (getAdLocationInfo ../adLocation locationId)}}" data-ad-details="{{toJSON (getAdInfo ../ad adId)}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -101,13 +101,13 @@
 
                         {{!-- Xóa --}}
                         {{#if (equalNumber status 0)}}
-                            <td scope="col">
+                            <td scope="col" style="width: 5em;">
                                 <button class="delete-button" data-id="{{permissionReqId}}" data-account-role="phuong" data-page="yeucaucapphep"> 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0065FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                 </button>
                             </td>
                         {{else}}
-                            <td scope="col">
+                            <td scope="col" style="width: 5em;">
                                 <button class="delete-button" disabled> 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#abaaa7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                 </button>

@@ -121,9 +121,12 @@ if (adLocationBtn != null) {
     adLocationBtn.addEventListener("click", (e) => {
         // Set every things back to default value
         document.getElementById('newAdLocationForm').value = "";
+        document.getElementById('newAdType').value = "";
         document.getElementById('newLocationType').value = "";
         document.getElementById('newAdLocationDistrict').value = "";
         document.getElementById('newAdLocationWard').value = "";
+        
+        document.getElementById('newAdLocationPlanning').value = "";
         document.getElementById('newAdLocationLongtitude').value = "";
         document.getElementById('newAdLocationLattitude').value = "";
         

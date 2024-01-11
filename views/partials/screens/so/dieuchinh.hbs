@@ -29,13 +29,7 @@
                     <th scope="col" style="width: 15em">Thời gian <button id="sortButton"><i class="bi bi-arrow-down" id="arrow"></i></th>
                     {{!-- Vị trí điều chỉnh --}}
                     <th scope="col" style="width: 15em">
-                        <select id="reasonFilter" name="" onchange="reasonFilter(this.value)">
-                            <option value="all" selected disabled>Lý do chỉnh sửa</option>
-                            <option value="all">Tất cả</option>
-                            {{#each reason}}
-                                <option value="{{value}}">{{value}}</option>
-                            {{/each}}
-                        </select>
+                        Lý do chỉnh sửa
                     </th>
                     <th scope="col" style="width: 15em">
                         <select id="statusFilter" name="" onchange="statusFilter(this.value)">
