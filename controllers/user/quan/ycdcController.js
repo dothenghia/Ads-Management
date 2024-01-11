@@ -178,7 +178,7 @@ controller.createChangeReq = async (req, res) => {
             date: new Date(),
             reason: req.body.ChangeReqReason,
             changeReqId: changeReqHighest + 1,
-            senderRole: 1,
+            senderRole: 2,
             oldAdId: parseInt(req.body.newChangeReqId),
             status: 0,
             new: {
