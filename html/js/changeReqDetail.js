@@ -373,7 +373,7 @@ async function acceptChange(accountRole, id) {
         body: JSON.stringify({ id: id }),
     });
     
-    location.reload();
+    
 }
 
 async function denyChange(accountRole, id) {
@@ -408,5 +408,5 @@ async function updateAdsInfoData(accountRole, adId,  size,  adName, thumbnails) 
         }),
     });
 
-    
+    location.reload();
 }

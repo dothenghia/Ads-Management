@@ -36,16 +36,16 @@ function translateAgentArea(Obj, idQuan, idPhuong) {
 
 function translateLocation(Obj, adLocationObj) {
     // console.log("Obj:",Obj.wards);
-    console.log("Location:",adLocationObj);
+    // console.log("Location:",adLocationObj);
     var address = "";
     
     // console.log(Obj);
     var idQuan = adLocationObj[0] ? adLocationObj[0].idQuan : "";
     var idPhuong = adLocationObj[0] ? adLocationObj[0].idPhuong : "";
-    console.log(idQuan);
-    console.log(idPhuong);
+    // console.log(idQuan);
+    // console.log(idPhuong);
     if (idQuan == "" && idPhuong == "") {
-        return "Khu Vực Không Xác Định";
+        return "Khu Vực Không Xác Định"; 
     }
     else if (idQuan != "" && idPhuong == "") {
         if (Array.isArray(Obj)) {

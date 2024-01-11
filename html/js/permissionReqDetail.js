@@ -303,7 +303,7 @@ async function acceptChange(accountRole, id) {
         body: JSON.stringify({ id: id }),
     });
     
-    location.reload();
+    // location.reload();
 }
 
 async function denyChange(accountRole, id) {
@@ -351,4 +351,6 @@ async function updateAdsInfoData(accountRole, locationId, reportId, size, contra
             }),
         });
     }
+
+    location.reload();
 }
