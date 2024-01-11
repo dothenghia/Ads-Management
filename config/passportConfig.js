@@ -99,13 +99,14 @@ passport.use(
     async (accessToken, refreshToken, profile, cb) => {
       try {
         // console.log(profile);
-        const user = await accountsModel.findOne({fbID: parseInt(profile.id)});
+        const user = await accountsModel.findOne({fbID: profile.id});
         // console.log(user);
         if (!user) {  
           return cb(null, false);
         }
         return cb(null, user);
       } catch (error) {
+        console.error('Error of Facebook login:', error);
         return cb(error);
       }
     }
