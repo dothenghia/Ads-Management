@@ -24,6 +24,7 @@ const helpers = {
     "convertState": require("./functions/so/convertState"), //? Đây là hàm để convert state Quy Hoạch sang chữ
     "translateDate": require("./functions/so/translateDate"), //? Đây là hàm để convert dAte
     "translateLocation": require("./functions/so/translateAgentArea"),
+    "getRandomAddrs": require("./functions/so/getRandomAddrs"),
 
     // Phường
     "getAd": require("./functions/phuong/getAd"),
@@ -96,6 +97,7 @@ app.engine('hbs', expressHbs.engine({
         wrapInObject: helpers.wrapInObject.wrapInObject,
         convertState: helpers.convertState.convertState,
         translateDate: helpers.translateDate.translateDate,
+        getRandomAddrs: helpers.getRandomAddrs.getRandomAddrs,
 
         // Phường
         getLocation: helpers.getAd.getLocation,

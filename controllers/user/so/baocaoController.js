@@ -36,6 +36,7 @@ controller.show = async (req, res) => {
         let ReportType = []; let ReportForm = []; let Status = [];
         let reportTypeId = []; let reportFormId = []; let statusId = [];
         let Report = []; let AdArea = {};
+        let RandomAddrsList = [];
         await Promise.all(reportSnapshot.map(async (doc) => {
             let data = doc;
 
@@ -53,6 +54,14 @@ controller.show = async (req, res) => {
                 statusId.push(data.status);
                 Status.push({value: data.status});
             }
+
+            if (data.reportType == "ddbk") {
+                RandomAddrsList.push({
+                    id: data._id,
+                    area: await getAreaInfo(data.longitude, data.latitude, 0)
+                });
+            }
+            
 
             Report.push(data);
 
@@ -130,6 +139,7 @@ controller.show = async (req, res) => {
             "adArea": AdArea,
             "districts": Districts,
             "adLocation": AdLocation,
+            "randomAddrs": RandomAddrsList,
             body: function() {
                 return "screens/so/baocao";
             }
@@ -193,5 +203,17 @@ controller.delete = async (req, res) => {
     }
 }
 
+// Process address
+async function getAreaInfo(longitude, latitude, type = 0) {
+    const token = 'pk.eyJ1Ijoia2l6bmxoIiwiYSI6ImNsbzBnbGdnMzBmN3EyeG83OGNuazU1c3oifQ.L5tt4RHOL3zcsWEFsCBRTQ';
+    let fetchResult = await (await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${token}`)).json();
+    
+    console.log(longitude, latitude)
+    console.log(fetchResult.features)
+    if (type == 0)  // Return only wards and districts
+        return fetchResult.features[1].text + ", " + fetchResult.features[3].text;
+    else        // Return all details
+        return fetchResult.features[0].text + ", " + fetchResult.features[1].text + ", " + fetchResult.features[3].text;
+}
 
 module.exports = controller;

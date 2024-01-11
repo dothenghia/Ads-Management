@@ -75,6 +75,7 @@
                         </td>
                         <td scope="col">
                             {{#if (equalString reportType "ddbk")}}
+                                {{getRandomAddrs ../randomAddrs _id}}
                             {{else}}
                                 {{translateLocation ../districts (getAdLocationInfo ../adLocation locationId)}}
                             {{/if}}
