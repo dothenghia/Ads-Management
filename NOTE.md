@@ -22,7 +22,7 @@ Nghĩa :
         - Deploy - [DONE]
         - Check merge branch - [DONE]
         - Style lại 2 cái Modal Trang QL ĐQC (Sở) - [DONE]
-        - Đổi lch3000 thành render trong passportConfig.js
+        - Render ko build lại khi push code mới
         - Check Data đàng quàng sạch sẽ
         - Tạo Data ĐQC
 Khoa : 
