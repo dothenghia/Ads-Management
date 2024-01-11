@@ -24,7 +24,7 @@ function handleNewLocationInputChange() {
 
     if (selectedDistrict !== '' && selectedWard !== '') {
         var addrs = document.getElementById('newAdLocationAddrs') ? document.getElementById('newAdLocationAddrs').value : "";
-        const locationInput = addrs +  ' ' + selectedWardText + ' ' + selectedDistrictText;
+        const locationInput = selectedWardText + ' ' + selectedDistrictText;
         
         document.querySelector('#EditmapDisplay').style.display = 'block';
         
@@ -52,7 +52,7 @@ function handleNewLocationInputChange() {
             document.getElementById('Editmap').innerHTML = "";
         }
 
-        geocode(locationInput);
+        geocode(locationInput, addrs);
     }
 }
 
@@ -72,7 +72,7 @@ function handleEditLocationInputChange() {
     if (selectedDistrict !== '' && selectedWard !== '') {
         var addrs = document.getElementById('EditAdLocationAddrs') ? document.getElementById('EditAdLocationAddrs').value : "";
         
-        var locationInput = addrs + ' '+ selectedWardText + ' ' + selectedDistrictText ;
+        var locationInput = selectedWardText + ' ' + selectedDistrictText ;
         // console.log("Before Location",locationInput);
         // console.log("Location",locationInput);
         document.querySelector('#mapDisplay').style.display = 'block';
@@ -98,18 +98,19 @@ function handleEditLocationInputChange() {
                 marker.setLatLng(newCenter);
             });
             document.getElementById('Newmap').innerHTML = "";
-        }
+        } 
         
-        geocode(locationInput);
+        geocode(locationInput, addrs);
     }
 }
 
 // Function to handle geocode logic
-function geocode(locationInput) {
-    console.log("Location:",locationInput);
+function geocode(locationInput, addrs) {
+    console.log("Location:",addrs + ' ' + locationInput);
     
+    var fullInput = addrs + ' ' + locationInput;
     // Open street map
-    var apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationInput)}&format=json&limit=1`;
+    var apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(fullInput)}&format=json&limit=1`;
 
     fetch(apiUrl)
         .then(response => response.json())
@@ -128,8 +129,34 @@ function geocode(locationInput) {
                 
                 changeMarkerToSearchAddress(lat,lon);
             } else {
-                // Display a message if no location is found
-                console.log("Location not found.");
+                // Display a message if no location is found and recorrect the input
+                console.log("Location With Addrs not found.");
+                var reCorrectApiUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationInput)}&format=json&limit=1`;
+                fetch(reCorrectApiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check if a location is found
+                        if (data && data.length > 0) {
+                            //Nhớ coi kĩ cái data, trong document cũng có việc, mà coi nó log ra như nào thì dễ hơn
+                            console.log("data:", data);
+                            var location = data[0];
+                            var displayName = location.display_name;
+                            var lat = location.lat;
+                            var lon = location.lon;
+
+                            // Display the location information
+                            console.log(`Location: ${displayName}\nLatitude: ${lat}\nLongitude: ${lon}`);
+                            
+                            changeMarkerToSearchAddress(lat,lon);
+                        } else {
+                            // Display a message if no location is found
+                            console.log("Location not found.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while geocoding.');
+                    });
             }
         })
         .catch(error => {
