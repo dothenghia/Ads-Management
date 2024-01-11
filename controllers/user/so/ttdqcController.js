@@ -282,10 +282,11 @@ controller.edit = async (req, res) => {
 controller.addNewAd = async (req, res) => {
     const adLocationSnapShot = await client.db(dbName).collection("adLocations").findOne({ locationId: parseInt(req.params.id) });
     var adList = adLocationSnapShot.adList;
-    // console.log(adLocationSnapShot);
-    // console.log(adList);
+    //console.log(adLocationSnapShot);
+    // console.log("Before",adList);
     if (adList == null) adList = [];
     adList.push({adId: req.body.adId});
+    // console.log("After",adList);
     try {
         await client.db(dbName).collection("adLocations").updateOne({ locationId: parseInt(req.params.id) }, { $set: { adList: adList } });
         res.send("Documents updated successfully");
