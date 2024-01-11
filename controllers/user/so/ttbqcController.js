@@ -99,7 +99,7 @@ controller.add = async (req, res) => {
 
     const adSnapshot = client.db(dbName).collection("ads");
     let idHighest = parseInt( (await adSnapshot.find({}).sort({adId:-1}).limit(1).toArray())[0].adId );
-    let adId = idHighest + 1;
+    let adId = parseInt(generateADId());
     // console.log(req.body.data);
     // console.log(req.body.thumbnails);
     try {
@@ -163,6 +163,19 @@ controller.edit = async (req, res) => {
         console.log(error)
         res.send("Edit error");
     }
+}
+
+function generateADId() {
+    // Lấy ngày tháng năm và thời gian hiện tại
+    let currentDate = new Date();
+    let day = currentDate.getDate().toString().padStart(2, '0');
+    let month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
+    let year = currentDate.getFullYear().toString();
+    let hours = currentDate.getHours().toString().padStart(2, '0');
+    let minutes = currentDate.getMinutes().toString().padStart(2, '0');
+    let seconds = currentDate.getSeconds().toString().padStart(2, '0');
+    // let milliseconds = currentDate.getMilliseconds();
+    return `${year}${month}${day}${hours}${minutes}${seconds}`;
 }
 module.exports = controller;
 
