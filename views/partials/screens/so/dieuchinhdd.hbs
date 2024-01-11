@@ -39,8 +39,8 @@
                 <tr>
                     <td scope="col" style="width: 2em;">{{addNumber @index 1}}</td>
                     <td scope="col" style="width: 20em;">
-                        {{#with (getAdLocationFromAd ../adLocation oldLocationId)}}
-                        {{address}}
+                        {{#with (getAdLocationById ../adLocation oldLocationId)}}
+                            {{address}}
                         {{/with}}
                     </td>
                     <td scope="col" style="width: 15em;">{{mongoDateToLocaleString date}}</td>
