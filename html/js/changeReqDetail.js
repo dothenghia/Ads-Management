@@ -169,28 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Style Drop area and allow to drop files
     var fileStorage = [];
-    // JavaScript for handling drag-and-drop functionality
-    if (document.getElementById('drop-area') != null) {
-        document.getElementById('drop-area').addEventListener('dragover', function (e) {
-            e.preventDefault();
-            this.classList.add('hover');
-        });
-    
-        document.getElementById('drop-area').addEventListener('dragleave', function (e) {
-            e.preventDefault();
-            this.classList.remove('hover');
-        });
-    
-        document.getElementById('drop-area').addEventListener('drop', function (e) {
-            e.preventDefault();
-            this.classList.remove('hover');
-    
-            var files = e.dataTransfer.files;
-            handleFiles(files);
-        });
-    }
-    
-
     // Handling file input change
     if (document.getElementById('fileInput') != null)
         document.getElementById('fileInput').addEventListener('change', function () {
