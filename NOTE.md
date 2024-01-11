@@ -10,51 +10,13 @@
 Pass: 123
 
 ### ====== HỌP ======
-- Trang QLBáo cáo :
-    + thêm tên người gửi
-    + Thời gian rút gọn lại
-    + của Quận thì thêm cột Phường mấy dô
+- Reverse Geocoding DDBK Trang Báo cáo Sở
+- Xử lý Báo cáo bên Quận ko dùng đc
 
-Nghĩa :
-    Dân :
-        - Sửa lại icon (Nếu có QC thì có chữ QC) - [DONE]
-        - Sửa độ dài tên cán bộ - [DONE]
-        - Deploy - [DONE]
-        - Check merge branch - [DONE]
-        - Style lại 2 cái Modal Trang QL ĐQC (Sở) - [DONE]
-        - Render ko build lại khi push code mới
-        - Check Data đàng quàng sạch sẽ
-        - Tạo Data ĐQC
-Khoa : 
-    Phường + Quận :
-        - Trang thông tin QC: - [DONE]
-            + Thêm nút thêm YCCP - [DONE]
-        - Trang Cấp phép QC : - [DONE]
-            + Bị lỗi duplicate Hình - [DONE]
-            + Những cái đã Duyệt thì ẩn nút thùng rác - [DONE]
-        - Trang Điều chỉnh Điểm QC/QC : - [DONE]
-            + Bị lỗi duplicate Hình - [DONE]
-            + Hình thức và mấy kia là Dropdown - [DONE]
-        - Chỉnh lại ratio của các hình trong Modal - [DONE]
-        - Set fix width column của Quận Modal với Table - [DONE]
-
-Bảo :
-    Sở :
-        - Trang Quản Lý Tạo điểm QC :
-            + Style lại đẹp đẹp 
-            + Fix lại số cho ngắn - [DONE]
-            + Fix lỗi NaN long lat - [DONE]
-        - Chỉnh lại kích thước các cột dữ liệu
-        - Trang Quản lý Báo cáo :
-            => Kiếm th Khoa chỉ
-            + Xóa chữ "gần" - Done
-            + Đổi thành TÊN BẢNG QUẢNG CÁO đối với các Báo cáo Bảng QC - Done
-            + Thêm cột Quận 
-        - Trang Quản lý Nhân sự :
-            + Thêm nút sort cho Khu vực
-            + Sửa lỗi Tạo Nhân sự
-Hải :
-    - Sửa lại toàn bộ các cột thời gian thành dạng dd/mm/yyyy
-
+Phường + Quận :
+    - Trang thông tin QC:
+        + Thêm chữ 'Hình ảnh quảng cáo' Vào modal
+    - Trang Điều chỉnh QC :
+        + Thêm chữ 'Hình ảnh quảng cáo' Vào modal
 
 Cần có ít nhất 20 điểm đặt QC và ít nhất 20 bảng QC đã được cấp phép, nằm rải rác ở 2 phường khác nhau
