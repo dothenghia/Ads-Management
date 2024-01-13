@@ -1,8 +1,16 @@
 const { passport, generateToken } = require('../../config/passportConfig');
+// require('dotenv').config();
+// database_url = process.env.DATABASE_URL;
+// database_name = process.env.DATABASE_NAME;
+// indexing = database_url.indexOf('?');
+// full_url = database_url.slice(0,indexing) + database_name +  database_url.slice(indexing)
+// console.log(full_url)
 
 const controller = {}
 originalUrl = null;
 controller.show = (req, res) => {
+    // console.log(database_url);
+    // console.log(full_url);
     const statusCode = req.query.status || 200;
     originalUrl = req.query.returnTo;
     if (statusCode == '500'){

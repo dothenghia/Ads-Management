@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
-
-const uri = 'mongodb+srv://admin:2XvAi2UYqzSAhCRz@ads-management.skofr5r.mongodb.net/Ads-Management?retryWrites=true&w=majority';
+require('dotenv').config();
+database_url = process.env.DATABASE_URL;
+database_name = process.env.DATABASE_NAME;
+indexing = database_url.indexOf('?');
+full_url = database_url.slice(0,indexing) + database_name +  database_url.slice(indexing)
+// console.log(full_url)
+const uri = full_url;
 
 const connectToMongoDB = async () => {
   try {

@@ -7,6 +7,7 @@ const port = 3000;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const checkAuthenticated =  require("./controllers/middleware/authenticateJWT");
+require('dotenv').config()
 const helpers = {
     // Chung
     "mathOps": require("./functions/canbo/mathOps"),
@@ -137,3 +138,4 @@ process.on('SIGINT', async () => {
     await closeMongoDBConnection();
     process.exit(0);
 });
+
