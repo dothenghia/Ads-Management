@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 database_url = process.env.DATABASE_URL;
 database_name = process.env.DATABASE_NAME;
-indexing = database_url.indexOf('?');
-full_url = database_url.slice(0,indexing) + database_name + database_url.slice(indexing)
-// console.log(full_url)
+//indexing = database_url.indexOf('?');
+//full_url = database_url.slice(0,indexing) + database_name + database_url.slice(indexing)
+full_url = database_url + database_name
+console.log(full_url)
 const uri = full_url;
 const connectToMongoDB = async () => {
   try {
